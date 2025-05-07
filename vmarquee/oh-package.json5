@@ -1,9 +1,9 @@
 {
   "name": "@ohos/vmarquee",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "这是一款HarmonyNext无缝隙垂直向上滚动的插件",
   "main": "Index.ets",
-  "author": "",
+  "author": "闫瑞锋",
   "license": "Apache-2.0",
   "dependencies": {}
 }
