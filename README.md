@@ -1,7 +1,7 @@
 ## VMarqueeView
 ___
 #### 简介
-**VMarqueeView** 是一款HarmonyNext实现无缝隙向上垂直滚动的开源插件
+**VMarqueeView** 是一款HarmonyNext实现无缝隙垂直向上滚动的开源插件
 
 #### 安装步骤
 

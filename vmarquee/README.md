@@ -47,3 +47,4 @@ struct Index {
   }
 }
 ```
+#### 完整示例 https://github.com/yrjwcharm/VMarqueeView
