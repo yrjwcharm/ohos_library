@@ -1,5 +1,5 @@
-import { VMarqueeView } from '@ohos/vmarquee';
-import { IMarquee } from '@ohos/vmarquee/src/main/ets/interfaces/IMarquee';
+import { VMarqueeView } from '@ohos_lib/vmarquee';
+import { IMarquee } from '@ohos_lib/vmarquee/src/main/ets/interfaces/IMarquee';
 
 @Entry
 @ComponentV2
@@ -26,7 +26,6 @@ struct Index {
         itemHeight:30,
         marqueeW:'100%',
         itemClick:(item:IMarquee,index:number)=>{
-          console.log('解析',item.content);
         }
 
       })
