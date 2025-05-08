@@ -26,6 +26,7 @@ struct Index {
         itemHeight:30,
         marqueeW:'100%',
         itemClick:(item:IMarquee,index:number)=>{
+          console.log('解析',item.content);
         }
 
       })

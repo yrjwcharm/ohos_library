@@ -13,7 +13,8 @@ export struct VMarqueeView {
   @Param animationDuration:number=300 //滚动动画执行时长
   @Local offsetY: number = 0; // 控制滚动偏移量
   @Local doubleList: IMarquee[] = [];  // 双倍数据用于无缝隙滚动
-  @Event itemClick?:(item:IMarquee,index:number)=>void //点击每一行
+  @Event itemClick?:(item:IMarquee,index:number)=>void;//点击每一行
+  @BuilderParam builder?:(item: IMarquee, index: number) => void = this.customBuilder;
   @Monitor('originalList','interval','animationDuration')
   watchOriginalListChange(){
    this.updateDataSource();
@@ -40,7 +41,6 @@ export struct VMarqueeView {
       this.scrollNext();
     }, this.interval);
   }
-
   // 停止滚动
   stopScroll() {
     if (this.timerID !== -1) {
@@ -68,6 +68,18 @@ export struct VMarqueeView {
       this.scrollIndex = nextIndex;
     });
   }
+  @Builder
+  customBuilder(item:IMarquee,index:number){
+    Text(item?.content)
+      .height(this.itemHeight)
+      .lineHeight(this.itemHeight)
+      .fontSize(this.textStyle?.fontSize)
+      .fontColor(this.textStyle?.fontColor)
+      .textAlign(TextAlign.Center)
+      .onClick(() => {
+        this.itemClick?.(item, index % this.originalList.length); // 修正索引
+      })
+  }
   build() {
     Column() {
       // 滚动容器
@@ -75,16 +87,7 @@ export struct VMarqueeView {
         Column() {
           // 渲染双倍数据列表
           ForEach(this.doubleList, (item: IMarquee,index:number) => {
-              Text(item?.content)
-                .height(this.itemHeight)
-                .lineHeight(this.itemHeight)
-                .fontSize(this.textStyle?.fontSize)
-                .fontColor(this.textStyle?.fontColor)
-                .textAlign(TextAlign.Center)
-                .onClick(()=>{
-                  this.itemClick?.(item,index);
-                })
-                .textAlign(TextAlign.Center)
+            this.customBuilder(item,index);
           })
         }
         .margin({ top: -this.offsetY }) // 通过margin控制滚动
