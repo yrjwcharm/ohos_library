@@ -2,3 +2,7 @@
 #### 1.0.0（API12）
 ___
 * 新增VMarqueeView组件  支持文本内容无缝隙向上滚动
+
+#### 1.0.1（API12）
+___
+* 新增example示例DEMO 添加自定义Builder 插槽

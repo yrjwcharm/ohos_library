@@ -9,7 +9,7 @@ ___
 ohpm install @ohos_lib/vmarquee
 ```
 
-```extendtypescript
+```typescript
 import { VMarqueeView } from '@ohos_lib/vmarquee';
 import { IMarquee } from '@ohos_lib/vmarquee/src/main/ets/interfaces/IMarquee';
 

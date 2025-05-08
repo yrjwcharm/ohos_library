@@ -1,17 +1,5 @@
-## VMarqueeView
-___
-#### 简介
-**VMarqueeView** 是一款HarmonyNext实现无缝隙垂直向上滚动的开源插件
-
-#### 安装步骤
-
-```ohpm
-ohpm install @ohos_lib/vmarquee
-```
-
-```typescript
-import { VMarqueeView } from '@ohos/vmarquee';
-import { IMarquee } from '@ohos/vmarquee/src/main/ets/interfaces/IMarquee';
+import { VMarqueeView } from '@ohos_lib/vmarquee';
+import { IMarquee } from '@ohos_lib/vmarquee/src/main/ets/interfaces/IMarquee';
 
 @Entry
 @ComponentV2
@@ -28,30 +16,7 @@ struct Index {
     { id:8,content:'888888888888888888888888'},
     { id:9,content:'999999999999999999999999'},
   ];
-
-  build() {
-    Column() {
-      VMarqueeView({
-        originalList:this.data,
-        marqueeBgColor:Color.Red,
-        textStyle:{fontSize:20},
-        itemHeight:30,
-        marqueeW:'100%',
-        itemClick:(item:IMarquee,index:number)=>{
-        }
-
-      })
-    }
-    .height('100%')
-    .width('100%')
-  }
-}
-```
-
-#### 还可以自定义自己的builder
-
-```typescript
-@Builder
+  @Builder
   customBuilder(item:IMarquee,index:number){
     Row(){
       Image($r('app.media.startIcon')).width(24)
@@ -66,4 +31,21 @@ struct Index {
     })
     .width('100%')
   }
-```
+  build() {
+    Column() {
+      VMarqueeView({
+        originalList:this.data,
+        marqueeBgColor:Color.Red,
+        textStyle:{fontSize:20},
+        itemHeight:30,
+        marqueeW:'100%',
+        builder: this.customBuilder,
+        itemClick:(item:IMarquee,index:number)=>{
+        }
+
+      })
+    }
+    .height('100%')
+    .width('100%')
+  }
+}

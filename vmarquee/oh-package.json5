@@ -1,6 +1,6 @@
 {
   "name": "@ohos_lib/vmarquee",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "这是一款HarmonyNext无缝隙垂直向上滚动的插件",
   "main": "Index.ets",
   "keywords": ['marquee','scroll','carousel'],
