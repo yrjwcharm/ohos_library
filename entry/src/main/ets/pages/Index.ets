@@ -16,7 +16,13 @@ struct Index {
     { id:8,content:'888888888888888888888888'},
     { id:9,content:'999999999999999999999999'},
   ];
-
+  @Builder
+  customBuilder(item:IMarquee,index:number){
+    Row(){
+      Text(item.content)
+    }.height(30).backgroundColor(Color.Orange)
+    .width('100%')
+  }
   build() {
     Column() {
       VMarqueeView({
@@ -25,6 +31,7 @@ struct Index {
         textStyle:{fontSize:20},
         itemHeight:30,
         marqueeW:'100%',
+        builder: this.customBuilder,
         itemClick:(item:IMarquee,index:number)=>{
         }
 

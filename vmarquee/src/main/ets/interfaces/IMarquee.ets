@@ -1,6 +1,7 @@
 export interface IMarquee{
   id?:string|number,
-  content?:string
+  content?:string,
+  icon?:PixelMap | ResourceStr | DrawableDescriptor
 }
 export interface IMarqueeTextStyle{
   fontSize?:Length,
