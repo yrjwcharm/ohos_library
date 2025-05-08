@@ -47,3 +47,23 @@ struct Index {
   }
 }
 ```
+
+#### 还可以自定义自己的builder
+
+```typescript
+@Builder
+  customBuilder(item:IMarquee,index:number){
+    Row(){
+      Image($r('app.media.startIcon')).width(24)
+        .height(24)
+      Text(item.content)
+        .margin({
+          left:6
+        })
+    }.height(30).backgroundColor(Color.Orange)
+    .padding({
+      left:16
+    })
+    .width('100%')
+  }
+```
