@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "这是一款HarmonyNext无缝隙垂直向上滚动的插件",
   "main": "Index.ets",
+  "keywords": ['marquee','scroll','carousel'],
+  "repository": "https://github.com/yrjwcharm/VMarqueeView",
+  "homepage": "https://github.com/yrjwcharm/VMarqueeView#readme",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
   "dependencies": {}

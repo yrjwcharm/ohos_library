@@ -6,12 +6,12 @@ ___
 #### 安装步骤
 
 ```ohpm
-ohpm install @ohos/vmarquee
+ohpm install @ohos_lib/vmarquee
 ```
 
-```typescript
-import { VMarqueeView } from '@ohos/vmarquee';
-import { IMarquee } from '@ohos/vmarquee/src/main/ets/interfaces/IMarquee';
+```extendtypescript
+import { VMarqueeView } from '@ohos_lib/vmarquee';
+import { IMarquee } from '@ohos_lib/vmarquee/src/main/ets/interfaces/IMarquee';
 
 @Entry
 @ComponentV2
