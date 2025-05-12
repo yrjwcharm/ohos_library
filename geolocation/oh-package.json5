@@ -1,0 +1,12 @@
+{
+  "name": "@ohos_lib/geolocation",
+  "version": "1.0.0",
+  "description": "这是一款获取当前地理定位信息的开源插件",
+  "main": "Index.ets",
+  "keywords": ['Geolocation','location','地址定位','currentLocation'],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/geolocation",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/geolocation#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}

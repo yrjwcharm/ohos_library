@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "navigationbar_test",
+    "name": "geolocation_test",
     "type": "feature",
     "deviceTypes": [
       "default",

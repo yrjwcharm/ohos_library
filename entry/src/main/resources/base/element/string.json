@@ -11,6 +11,10 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "access_location",
+      "value": "访问位置"
     }
   ]
 }
