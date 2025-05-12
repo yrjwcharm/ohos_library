@@ -1,9 +1,10 @@
 import { geoLocationManager } from "@kit.LocationKit";
 import { BusinessError } from "@kit.BasicServicesKit";
 import { PermissionUtil } from "./utils/PermissionUtil";
+import { map, mapCommon, site } from '@kit.MapKit';
 
 export  class  Geolocation{
-  private static getCurrentLocationCallback = (successCallback: (location: geoLocationManager.Location) => void, failCallback: () => void) => {
+   private static getCurrentLocationCallback = (successCallback: (location: geoLocationManager.Location) => void, failCallback: () => void) => {
     let requestInfo: geoLocationManager.CurrentLocationRequest =
       { 'priority': geoLocationManager.LocationRequestPriority.FIRST_FIX, 'timeoutMs': 10000 };
     let locationChange = (err: BusinessError, location: geoLocationManager.Location): void => {
@@ -80,4 +81,28 @@ export  class  Geolocation{
       failCallback();
     })
   }
+  //通过用户传入自己的位置，可以返回poi周边地点列表。您可以通过提供关键字或指定要搜索的地点的类型来优化搜索结果。使用Promise异步回调。
+  static getNearbySitesList(params:site.NearbySearchParams): Promise<string> {
+    return new Promise(async(resolve: Function, reject: Function) => {
+      try {
+          let wgs84Position: mapCommon.LatLng = {
+            latitude: params?.location?.latitude,
+            longitude: params?.location?.longitude
+          };
+          //为了精确定位，需要把WGS84坐标系 转化GCJ02坐标系 否则定位不准
+          let gcj02Position: mapCommon.LatLng =
+            map.convertCoordinateSync(mapCommon.CoordinateType.WGS84, mapCommon.CoordinateType.GCJ02, wgs84Position);
+           params.location = gcj02Position;
+          if (canIUse('SystemCapability.Map.Core')) {
+            const result = await site.nearbySearch(getContext(),params);
+            resolve(JSON.stringify(result?.sites));
+          } else {
+            reject();
+          }
+      } catch (e) {
+        reject();
+      }
+    })
+  }
+
 }

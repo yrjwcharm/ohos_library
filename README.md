@@ -1,7 +1,7 @@
-## NavigationBar组件
+## Geolocation插件
 ___
 #### 简介
-**Geolocation** 这是一款获取当前地理定位信息的开源插件
+**Geolocation** 这是一款获取当前地理定位信息的开源插件，基于华为MapKit地图服务功能封装
 
 #### 安装步骤
 
@@ -39,7 +39,44 @@ ohpm install @ohos_lib/geolocation
     ]
 ```
 ```typescript
- Geolocation.getCurrentLocation().then(res=>{
-  // [{"latitude":40.043000893077036,"longitude":116.27772983844173,"locale":"zh","placeName":"北京市海淀区中电金信大厦","countryCode":"CN","countryName":"中国","administrativeArea":"北京市","subAdministrativeArea":"北京市","locality":"北京市","subLocality":"海淀区","roadName":"","subRoadName":"","premises":"","postalCode":"","phoneNumber":"","addressUrl":"","descriptions":["010","110108020"],"descriptionsSize":2}]
-})
+ import {Geolocation} from '@ohos_lib/geolocation'
+import { geoLocationManager } from '@kit.LocationKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+
+@Entry
+@ComponentV2
+struct Index {
+  @Local message: string = 'Hello World';
+  @Local addrInfo:geoLocationManager.Location|undefined = undefined;
+
+  build() {
+    Column() {
+      Button('获取当前位置信息').onClick(()=>{
+        Geolocation.getCurrentLocation().then(res=>{
+          this.addrInfo = JSON.parse(res)
+        }).catch((err:BusinessError)=>{
+
+        })
+      })
+      Button('获取周边地址列表').onClick(()=>{
+        Geolocation.getNearbySitesList({
+          query: '',
+          location:{
+            longitude:this.addrInfo?.longitude!,
+            latitude:this.addrInfo?.latitude!
+          } ,
+          radius: 500,
+          language: "zh_CN",
+          pageIndex: 1,
+          pageSize: 20
+        }).then(res=>{
+        }).catch((err:BusinessError)=>{
+
+        })
+      })
+    }
+    .height('100%')
+      .width('100%')
+  }
+}
 ```
