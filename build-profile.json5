@@ -7,11 +7,11 @@
         "material": {
           "certpath": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B276341D92416BB0897F5E0F27505638CE4911F4ADE6A919780F57EA3D93DF07A8DF6433BD6239C",
+          "keyPassword": "0000001B3049BEB89621D2EB0D58D3A45FD45AEC350E81A1B712AE98608F20B70DA135EA3576F6F9B88A4F",
           "profile": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.p12",
-          "storePassword": "0000001B76153D136531729FD001D8C8E5CB3E2C86BF17B053506BB11A6065B094EEECE74D931D1ECA2B7B"
+          "storePassword": "0000001B4059559D51757349436193F0256CC64C75C4DFAC5FE9AF6D940F2B35CEF51FA49F43151A28E5EB"
         }
       }
     ],
@@ -52,8 +52,8 @@
       ]
     },
     {
-      "name": "vmarquee",
-      "srcPath": "./vmarquee"
+      "name": "navigationbar",
+      "srcPath": "./navigationbar"
     }
   ]
 }

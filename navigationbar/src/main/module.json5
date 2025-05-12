@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "vmarquee",
+    "name": "navigationbar",
     "type": "har",
     "deviceTypes": [
       "default",
