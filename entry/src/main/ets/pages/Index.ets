@@ -99,6 +99,7 @@ struct Index {
         titleFontColor: '#FFFFFF',
         backButtonIconLeftMargin: 16,
         backButtonIcon: $r('app.media.back'),
+        backButtonIconColor:Color.White,
         backButtonIconSize: 18,
         titleFontSize: 18,
       })
