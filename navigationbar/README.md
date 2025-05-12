@@ -113,3 +113,4 @@ ohpm install @ohos_lib/navigation_bar
 .height('100%')
   .width('100%')
 ```
+![img.png](img.png)
