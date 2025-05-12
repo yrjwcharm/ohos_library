@@ -113,4 +113,4 @@ ohpm install @ohos_lib/navigation_bar
 .height('100%')
   .width('100%')
 ```
-![img.png](img.png)
+#### 更多详情案例请查看  https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/navigationbar
