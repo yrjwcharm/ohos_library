@@ -81,7 +81,7 @@ struct Index {
         ]
       })
       Blank().height(10)
-      Text('样式五：标题 + 返回，有状态栏')
+      Text('有状态栏')
         .fontColor(Color.Gray)
         .fontSize(16)
         .alignSelf(ItemAlign.Start)
@@ -94,7 +94,7 @@ struct Index {
         })
       OhosNavigationBar({
         isShowStatusBar: true,
-        bgColor: '#00BFFF',
+        bgColor: Color.Black,
         title: '标题居中',
         titleFontColor: '#FFFFFF',
         backButtonIconLeftMargin: 16,

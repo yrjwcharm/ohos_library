@@ -4,8 +4,8 @@
   "description": "这是一款丰富HarmonyNext的自定义导航插件",
   "main": "Index.ets",
   "keywords": ['navigation','navigationBar','nav','导航'],
-  "repository": "https://github.com/yrjwcharm/ohos_library",
-  "homepage": "https://github.com/yrjwcharm/VMarqueeView",
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/navigationbar",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/navigationbar#readme",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
   "dependencies": {}
