@@ -1,6 +1,6 @@
 {
   "name": "@ohos_lib/navigation_bar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "这是一款丰富HarmonyNext的自定义导航插件",
   "main": "Index.ets",
   "keywords": ['navigation','navigationBar','nav','导航'],
