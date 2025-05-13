@@ -38,7 +38,8 @@ ohpm install @ohos_lib/geolocation
       }
     ]
 ```
-```typescript
+<pre style="background:#f4f5f6">
+<code style="color:green">
  import {Geolocation} from '@ohos_lib/geolocation'
 import { geoLocationManager } from '@kit.LocationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
@@ -79,4 +80,9 @@ struct Index {
       .width('100%')
   }
 }
-```
+</code>
+</pre>
+###  获取周边sites列表-这个需要在华为应用后台开通地图服务-MapKit
+
+***文档在线地址：https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/map-config-agc***
+
