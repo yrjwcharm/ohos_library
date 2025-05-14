@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "clearcache_test",
+    "name": "filedownload_test",
     "type": "feature",
     "deviceTypes": [
       "default",

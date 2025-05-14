@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "clearcache",
+    "name": "filedownload",
     "type": "har",
     "deviceTypes": [
       "default",
