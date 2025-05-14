@@ -52,8 +52,8 @@
       ]
     },
     {
-      "name": "geolocation",
-      "srcPath": "./geolocation"
+      "name": "clearcache",
+      "srcPath": "./clearcache"
     }
   ]
 }

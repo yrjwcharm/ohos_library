@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "geolocation",
+    "name": "clearcache",
     "type": "har",
     "deviceTypes": [
       "default",

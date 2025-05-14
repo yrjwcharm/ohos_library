@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "geolocation_test",
+    "name": "clearcache_test",
     "type": "feature",
     "deviceTypes": [
       "default",

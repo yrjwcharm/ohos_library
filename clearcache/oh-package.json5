@@ -1,0 +1,12 @@
+{
+  "name": "@ohos_lib/clearcache",
+  "version": "1.0.0",
+  "description": "这是一款清除当前Harmony应用缓存的开源插件",
+  "main": "Index.ets",
+  "keywords": ['clearcache','清除App缓存','cache'],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/clearCache",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/clearCache#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}
