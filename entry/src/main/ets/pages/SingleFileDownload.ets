@@ -34,21 +34,23 @@ struct SingleFileDownload {
           .width(160)
         Blank()
         Button(this.getStatusText(this.data[0]?.status)).type(ButtonType.Normal).width(80) .onClick(()=>{
-          if(this.data[0]?.status===DownloadStatus.WAITING) {
+          if(this.data[0]?.status===DownloadStatus.WAITING) {//未下载 ---->点击下载
             DownloaderUtil.downloadFile(this.data[0],
-              (download:IFileDownloader) => {
-              //   let newData = this.data?.map((item) => {
-              //     if (item.downloadId === downloadId) {
-              //       item.downloadSize = downloadSize;
-              //       item.fileSize = fileSize;
-              //       item.filePath = filePath;
-              //       item.fileName = fileName;
-              //       item.status = status;
-              //     }
-              //     return item;
-              //   })
-              //   this.data = [...newData];
-              // })
+              (downloadInfo:IFileDownloader) => {
+                let newData = this.data?.map((item) => {
+                  if (item.downloadId === downloadInfo.downloadId) {
+                    item = downloadInfo;
+                  }
+                  return item;
+                })
+                this.data = [...newData];
+              })
+          }else if(this.data[0]?.status===DownloadStatus.RUNNING){//下载中---->点击会触发取消下载[删除下载]
+               //取消下载首先更改数据库状态为未下载，并清除文件系统已下载内容
+          }else if(this.data[0]?.status===DownloadStatus.FAILED){ //下载失败----> 重新下载
+
+          }else if(this.data[0]?.status===DownloadStatus.PAUSE){ //下载暂停----->代表要恢复下载
+            //恢复下载有两种情况 没有退出应用程序/ 退出应用程序两种
           }
         })
       }.width('100%')
