@@ -8,12 +8,12 @@ struct Index {
     Column() {
       Button('单个文件下载').onClick(()=>{
         router.pushUrl({
-          url:'/pages/SingleFileDownload'
+          url:'pages/SingleFileDownload'
         })
       })
       Button('批量排队下载').onClick(()=>{
         router.pushUrl({
-          url:'/pages/MatchQueueDownload'
+          url:'pages/MatchQueueDownload'
         })
       })
     }

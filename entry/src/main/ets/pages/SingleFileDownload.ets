@@ -4,7 +4,7 @@ struct SingleFileDownload {
   @State message: string = 'Hello World';
 
   build() {
-    Stack() {
+    Stack(){
 
     }
     .height('100%')
