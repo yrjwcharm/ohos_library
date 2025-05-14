@@ -22,14 +22,10 @@ export class DownloaderUtil {
     }
   }
 
-  //统一下载封装 缓存课程与学习资料   如果是其他下载通用走学习资料即可 moduleType传2
+  //统一下载封装  isBatchInsertQueue是否批量下载 -排队 非必穿
   static async downloadFile(data: IFileDownloader,
-    moduleType: number,
-    isBatchInsertQueue: boolean,
-    callback: (downloadSize: number, fileSize: number, status: number, downloadId: string, filePath?: string,fileName?: string,
-      ) => void) {
+    callback: (download:IFileDownloader) => void,isBatchInsertQueue: boolean=false) {
     const netIsAvailable = await connection.hasDefaultNet();
-    let maxSize: number = 0;
     if (netIsAvailable) {
         let url = decodeURIComponent(data.url as string)
         let downloadId = data.downloadId;
@@ -47,7 +43,9 @@ export class DownloaderUtil {
           overwrite: true,
           begins: data.begins ?? 0
         }
-        try {
+      console.log("2222")
+
+      try {
           let valuesBuket: ValuesBucket = {
             'userId': data.userId,
             'downloadId': downloadId, //必传
@@ -56,10 +54,8 @@ export class DownloaderUtil {
             'fileName': fileName,
             "begins": data.begins ?? 0
           }
-          let predicates: relationalStore.RdbPredicates | undefined = undefined;
-            valuesBuket.fileSize =data.fileSize??0
-            valuesBuket.maxSize = maxSize; //接口返回的该课节下最大文件字节数
-            predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
+           valuesBuket.fileSize =data.fileSize??0
+           let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
             predicates.equalTo('userId', data.userId)
             predicates.equalTo('downloadId', data.downloadId)
           if (isBatchInsertQueue) {
@@ -69,6 +65,8 @@ export class DownloaderUtil {
                     .insert('filedownloaderinfo', valuesBuket);
             }
           } else {
+            console.log("3333")
+
             let downloadTask = await request.agent.create(getContext(), downloadConfig);
             valuesBuket.taskId = downloadTask.tid;
             valuesBuket.status = DownloadStatus.RUNNING;

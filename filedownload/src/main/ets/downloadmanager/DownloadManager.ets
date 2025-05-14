@@ -7,6 +7,7 @@ import { DownloaderUtil } from '../utils/DownloaderUtil';
 import { FileUtil } from '../utils/FileUtil';
 import { fileIo, } from '@kit.CoreFileKit';
 import { connection } from '@kit.NetworkKit';
+import { IFileDownloader } from '../interface/IFileDownloader';
 
 export class DownloadManager {
   //暂停所有缓存课程
@@ -54,7 +55,7 @@ export class DownloadManager {
   public static async progressCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     downloadTask: request.agent.Task,
     predicates: relationalStore.RdbPredicates,
-    callback: (proceed: number, fileSize: number, status: number, downloadId: string,filePath?: string, fileName?: string) => void
+    callback: (download:IFileDownloader) => void
   ) {
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number);
@@ -69,8 +70,16 @@ export class DownloadManager {
             .insert('filedownloaderinfo', valuesBuket);
         }
       } finally {
-        callback(valuesBuket.downloadSize, valuesBuket.fileSize, valuesBuket.status as number,
-          valuesBuket.downloadId as string, valuesBuket.filePath as string, valuesBuket.fileName as string, )
+        callback({
+          userId: valuesBuket.userId as string,
+          url: valuesBuket.url as string,
+          downloadId: valuesBuket.downloadId as string,
+          downloadSize:valuesBuket.downloadSize,
+          fileSize: valuesBuket.fileSize,
+          status:valuesBuket.status as number,
+          filePath:valuesBuket.filePath as string,
+          fileName:valuesBuket.fileName as string
+        })
       }
     }
   }
@@ -78,8 +87,8 @@ export class DownloadManager {
   public static async completedCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     downloadTask: request.agent.Task,
     predicates: relationalStore.RdbPredicates,
-    callback: (proceed: number, fileSize: number, status: number, downloadId: string, filePath?: string,fileName?: string,
-      ) => void) {
+    callback: (download:IFileDownloader) => void
+  ) {
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
@@ -89,8 +98,16 @@ export class DownloadManager {
       promptAction.showToast({
         message: "下载完成"
       })
-      callback(valuesBuket.downloadSize, valuesBuket.fileSize, valuesBuket.status,
-        valuesBuket.downloadId as string, valuesBuket.filePath as string,valuesBuket.fileName as string)
+      callback({
+        userId: valuesBuket.userId as string,
+        url: valuesBuket.url as string,
+        downloadId: valuesBuket.downloadId as string,
+        downloadSize:valuesBuket.downloadSize,
+        fileSize: valuesBuket.fileSize,
+        status:valuesBuket.status as number,
+        filePath:valuesBuket.filePath as string,
+        fileName:valuesBuket.fileName as string
+      })
       FileUtil.deleteTmpFile(getContext(), valuesBuket.fileName as string, valuesBuket.downloadId as string);
       DownloaderUtil.deleteTask(downloadTask);
     }
@@ -99,7 +116,8 @@ export class DownloadManager {
   public static async pausedCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     downloadTask: request.agent.Task,
     predicates: relationalStore.RdbPredicates,
-    callback: (proceed: number, fileSize: number, status: number, downloadId: string,filePath?:string, fileName?: string,) => void,) {
+    callback: (download:IFileDownloader) => void
+  ) {
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
@@ -107,33 +125,46 @@ export class DownloadManager {
       valuesBuket.isBackgroundPause = 0;
       valuesBuket.exitFrequency = 1;
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
-      callback(valuesBuket.downloadSize, valuesBuket.fileSize, valuesBuket.status,
-        valuesBuket.downloadId as string,
-        valuesBuket.filePath as string, valuesBuket.fileName as string,)
-
+      callback({
+        userId: valuesBuket.userId as string,
+        url: valuesBuket.url as string,
+        downloadId: valuesBuket.downloadId as string,
+        downloadSize:valuesBuket.downloadSize,
+        fileSize: valuesBuket.fileSize,
+        status:valuesBuket.status as number,
+        filePath:valuesBuket.filePath as string,
+        fileName:valuesBuket.fileName as string
+      })
     }
   }
 
   public static async resumeCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     downloadTask: request.agent.Task,
     predicates: relationalStore.RdbPredicates,
-    callback: (proceed: number, fileSize: number, status: number, downloadId: string,
-      filePath?: string,fileName?: string) => void,) {
+    callback: (download:IFileDownloader) => void
+  ) {
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
       valuesBuket.status = DownloadStatus.RUNNING;
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
-      callback(valuesBuket.downloadSize, valuesBuket.fileSize, valuesBuket.status,
-        valuesBuket.downloadId as string,valuesBuket.filePath as string,valuesBuket.fileName as string, )
+      callback({
+        userId: valuesBuket.userId as string,
+        url: valuesBuket.url as string,
+        downloadId: valuesBuket.downloadId as string,
+        downloadSize:valuesBuket.downloadSize,
+        fileSize: valuesBuket.fileSize,
+        status:valuesBuket.status as number,
+        filePath:valuesBuket.filePath as string,
+        fileName:valuesBuket.fileName as string
+      })
     }
   }
 
   public static async failedCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     downloadTask: request.agent.Task,
     predicates: relationalStore.RdbPredicates,
-    callback: (proceed: number, fileSize: number, status: number, downloadId: string,
-      filePath?: string,fileName?:string) => void,
+    callback: (download:IFileDownloader) => void
   ) {
     valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
     let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
@@ -142,7 +173,15 @@ export class DownloadManager {
     valuesBuket.begins = 0;
     await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
     DownloaderUtil.deleteTask(downloadTask);
-    callback(valuesBuket.downloadSize, valuesBuket.fileSize, valuesBuket.status,
-      valuesBuket.downloadId as string, valuesBuket.filePath as string,valuesBuket.fileName as string,)
+    callback({
+      userId: valuesBuket.userId as string,
+      url: valuesBuket.url as string,
+      downloadId: valuesBuket.downloadId as string,
+      downloadSize:valuesBuket.downloadSize,
+      fileSize: valuesBuket.fileSize,
+      status:valuesBuket.status as number,
+      filePath:valuesBuket.filePath as string,
+      fileName:valuesBuket.fileName as string
+    })
   }
 }

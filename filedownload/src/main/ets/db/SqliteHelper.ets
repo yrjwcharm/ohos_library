@@ -56,12 +56,13 @@ export class SqliteHelper {
       + "downloadId TEXT, " //下载列表标识id 一般都是下载项的唯一id标识 不同于userId
       + "begins INTEGER DEFAULT 0," //默认文件从begins 0节点开始下载
       + "isBackgroundPause DEFAULT 1," //默认从后台进来的标识
-      + "exitFrequency DEFAULT 1," //后台退出连续次数标识
+      + "exitFrequency DEFAULT 1" //后台退出连续次数标识
       + ")";
     try {
       SqliteHelper.rdbStore = await relationalStore.getRdbStore(this.context, SqliteHelper.getStoreConfig())
       await SqliteHelper.rdbStore?.executeSql(SQL_CREATE_CACHE_COURSE_TABLE)
     } catch (e) {
+      console.log('数据库表创建失败!!!')
     }
   }
 
