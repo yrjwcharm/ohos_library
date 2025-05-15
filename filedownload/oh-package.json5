@@ -2,6 +2,7 @@
   "name": "@ohos_lib/filedownload",
   "version": "1.0.0",
   "description": "这是一款支持文件断点下载的开源插件，退出应用程序进程杀掉以后，可以在上次位置继续恢复下载等",
+  "keywords": ['breakpoint','断点续传','request.agent','request','download','okdownload'],
   "main": "Index.ets",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
