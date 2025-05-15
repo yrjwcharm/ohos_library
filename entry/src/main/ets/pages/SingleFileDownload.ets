@@ -8,9 +8,12 @@ import { router } from '@kit.ArkUI';
 struct SingleFileDownload {
   @Local data:IFileDownloader[] = [{
     userId: '644323434232343455',
-    url: 'https://gitee.com/yrjwcharm/video/raw/master/video_one.mp4',
+    url: 'http://dal-video.wenzaizhibo.com/66caa30ee146927904d06834d33546b1/6825c70d/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4',
     downloadId: '1',
   }]
+  // url:'http://dal-video.wenzaizhibo.com/efa6fb8de84820fe3eeb7d2db0ddbcc6/6825c788/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4',
+  // http://dal-video.wenzaizhibo.com/f8dc54e57d741dcf3187ce5510682664/6825c79d/00-x-upload/video/207061211_657d04a328b5b737c6e3d86f4e87fcf3_fIFy8txO.mp4
+  // http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
   getStatusText(status:number|undefined){
     switch (status){
       case DownloadStatus.COMPLETED:
