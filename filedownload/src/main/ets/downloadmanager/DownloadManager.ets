@@ -14,7 +14,7 @@ export class DownloadManager {
   public static async exitPauseAll() {
     const netIsAvailable = await connection.hasDefaultNet();
     let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
-    predicates.equalTo('status', 2).or().equalTo('status', 3).or().equalTo('status', 0)
+    predicates.equalTo('status', DownloadStatus.RUNNING).or().equalTo('status', DownloadStatus.WAITING).or().equalTo('status', DownloadStatus.PAUSE)
     let list = await SqliteHelper.getInstance(getContext()).queryData(predicates)
     let newPredicate: relationalStore.RdbPredicates | undefined = undefined;
     for (let i = 0; i < list.length; i++) {
