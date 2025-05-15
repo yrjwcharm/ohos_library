@@ -1,8 +1,8 @@
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
-import {DownloaderUtil, FileUtil, SqliteHelper} from '@ohos_lib/filedownload'
+import {DownloaderUtil, SqliteHelper} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
-import { router } from '@kit.ArkUI';
 import { request } from '@kit.BasicServicesKit';
+import { relationalStore } from '@kit.ArkData';
 
 @Entry
 @ComponentV2
@@ -11,13 +11,21 @@ struct SingleFileDownload {
   // url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
   // "url": "http://dal-video.wenzaizhibo.com/b9e99d64eb88639e5e324673521483ac/6825cd30/00-x-upload/video/209161637_025ef13fccffb5fab1fd357e691fb220_ot55SHt9.mp4"
   // "url": "http://dal-video.wenzaizhibo.com/08729e242e59be6ebb7cbb1e98919ad8/6825ccfd/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4"
-  // "url": "http://dal-video.wenzaizhibo.com/511ca03e86beb20f1a69a5a79f4a2887/6825ccbb/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4"
 
   @Local data:IFileDownloader[] = [{
     userId: '644323434232343455',
-    "url": "http://dal-video.wenzaizhibo.com/63b158f4636bdfb3847ed7d9c65c9f82/6825ccda/00-x-upload/video/209161636_2258f92f79476654a8d4a95ec3216e62_X8atyGfx.mp4",
+    url: 'http://dal-video.wenzaizhibo.com/511ca03e86beb20f1a69a5a79f4a2887/6825ccbb/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4',
     downloadId: '1',
   }]
+  async aboutToAppear() {
+    //从数据库读取获取上次的下载进度
+    let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    predicates.equalTo('userId',this.data[0]?.userId);
+    let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+    if(queryList.length>0){
+      this.data = queryList;
+    }
+  }
    getStatusText(status:number|undefined){
     switch (status){
       case DownloadStatus.COMPLETED:
@@ -60,8 +68,7 @@ struct SingleFileDownload {
               try {
                 const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
                 await task.pause();
-              }catch (e) {
-              }
+              }catch (e) {}
             } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
                this.downloadFile();
             } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
@@ -70,6 +77,12 @@ struct SingleFileDownload {
                 const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
                 await task.resume();
               }catch (e) {
+                //21900007 任务挂掉了/代表应用杀掉后重新进来的 ｜ https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-request#section21900007
+                // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
+                // 统一放到一个文件中，这部分库中已经实现。无需手动处理
+                if(e.code===21900007){
+                  this.downloadFile();
+                }
               }
             } else { //未下载 ---->点击下载
                 this.downloadFile();

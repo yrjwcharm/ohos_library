@@ -2,27 +2,24 @@ import relationalStore from '@ohos.data.relationalStore';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { IFileDownloader } from '../interface/IFileDownloader';
-import { DownloaderUtil } from '../../../../Index';
-import { DownloadStatus } from '../constants/DownloadStatus';
 
 export class SqliteHelper {
   private static instance: SqliteHelper
   private static rdbStore: relationalStore.RdbStore | undefined = undefined
   private context: Context
+  public  static  tableName:string;
 
   private constructor(context: Context) {
     this.context = context
   }
 
-  static getInstance(context: Context): SqliteHelper {
+  static getInstance(context: Context,tableName:string='filedownloadinfo'): SqliteHelper {
     if (!SqliteHelper.instance) {
       SqliteHelper.instance = new SqliteHelper(context);
-    } else if (SqliteHelper.instance.context !== context) {
-      throw new Error("SqliteHelper already initialized with a different context.");
+      SqliteHelper.tableName = tableName;
     }
     return SqliteHelper.instance;
   }
-
   public static getStoreConfig() {
     // let bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
     // const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
@@ -44,9 +41,8 @@ export class SqliteHelper {
    * */
   public async initRDB() {
     //debug便于查看  Release数据库进行加密处理
-    let fileDownloaderInfo = 'filedownloaderinfo';
     //创建缓存课程信息数据表
-    let SQL_CREATE_CACHE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + fileDownloaderInfo + " ("
+    let SQL_CREATE_CACHE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + SqliteHelper.tableName + " ("
       + "id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL , "
       + "userId TEXT NOT NULL ," //用户id
       + "taskId TEXT, " //当前下载任务id

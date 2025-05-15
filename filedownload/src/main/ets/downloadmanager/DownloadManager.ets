@@ -13,18 +13,16 @@ import { ENV } from '../utils/ENV';
 
 export class DownloadManager {
   //暂停所有下载任务
-  public static async exitPauseAll() {
+  public static async exitPauseAll(context:Context) {
     const netIsAvailable = await connection.hasDefaultNet();
-    let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
-    predicates.equalTo('status', DownloadStatus.RUNNING).or().equalTo('status', DownloadStatus.WAITING).or().equalTo('status', DownloadStatus.PAUSE)
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    predicates.equalTo('status', DownloadStatus.RUNNING)
     let list = await SqliteHelper.getInstance(getContext()).queryData(predicates)
-    let newPredicate: relationalStore.RdbPredicates | undefined = undefined;
     for (let i = 0; i < list.length; i++) {
       try {
-        newPredicate = new relationalStore.RdbPredicates('filedownloaderinfo');
-        newPredicate.equalTo('downloadId', list[i].downloadId)
-        newPredicate.equalTo('fileName', list[i].fileName);
-        await request.agent.remove(list[i].taskId);
+        let task =await request.agent.getTask(context,list[i].taskId);
+        console.info('taskId22222',task.tid);
+        await DownloaderUtil.deleteTask(task);
       } catch (e) {
         ENV.__DEV__&&hilog.error(0x0000, "暂停所有下载任务出现异常", "%{public}s", e.message);
       } finally {
@@ -42,13 +40,13 @@ export class DownloadManager {
         } else {
           exitFrequency = list[i]?.exitFrequency??1;
         }
+        predicates.and().equalTo('downloadId',list[i].downloadId);
         await SqliteHelper.getInstance(getContext()).update({
           'status': 0,
           'begins': buf.byteLength,
           isBackgroundPause: 1,
           exitFrequency,
-        }, newPredicate as relationalStore.RdbPredicates)
-
+        },predicates)
       }
     }
   }
@@ -69,7 +67,7 @@ export class DownloadManager {
           await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates);
         } else {
           await SqliteHelper.getInstance(getContext())
-            .insert('filedownloaderinfo', valuesBuket);
+            .insert(SqliteHelper.tableName, valuesBuket);
         }
         callback({
           userId: valuesBuket.userId as string,

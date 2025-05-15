@@ -9,16 +9,16 @@ import { IFileDownloader } from '../interface/IFileDownloader';
 
 
 export class DownloaderUtil {
-  static deleteTask = (downloadTask: request.agent.Task) => {
+  static deleteTask = async (downloadTask: request.agent.Task) => {
     try {
       downloadTask.off('progress');
       downloadTask.off('completed');
       downloadTask.off('failed');
       console.log('remove task', downloadTask.tid)
-      request.agent.remove(downloadTask.tid);
+      await request.agent.remove(downloadTask.tid);
 
     } catch (err) {
-      console.info(`deleteTask fail, err= ${JSON.stringify(err)}`);
+      console.error(`deleteTask fail, err= ${JSON.stringify(err)}`);
     }
   }
 
@@ -27,43 +27,42 @@ export class DownloaderUtil {
     callback: (download:IFileDownloader) => void,isBatchInsertQueue: boolean=false) {
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {
-        let url = decodeURIComponent(data.url as string)
+        let url = decodeURIComponent(data.url)
         let downloadId = data.downloadId;
         let fileName = url.substring(url.lastIndexOf('/')+1);
         let savePath =
           getContext().cacheDir + '/' + downloadId + '/' + fileName
         let downloadConfig: request.agent.Config = {
           action: request.agent.Action.DOWNLOAD,
-          url: url as string,
+          url: url,
           mode: request.agent.Mode.FOREGROUND,
           retry: true,
           network: request.agent.Network.ANY,
           saveas: savePath,
-          // priority: i,
           overwrite: true,
-          begins: data.begins ?? 0
+          begins: data.begins ?? 0,
         }
       try {
           let valuesBuket: ValuesBucket = {
             'userId': data.userId,
             'downloadId': downloadId, //必传
-            'url': url as string, //必传
+            'url': url, //必传
             'filePath': getContext().cacheDir + '/' + downloadId,
             'fileName': fileName,
             "begins": data.begins ?? 0
           }
            valuesBuket.fileSize = data .fileSize??0
-           let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
-            predicates.equalTo('userId', data.userId)
-            predicates.equalTo('downloadId', data.downloadId)
+           let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+            predicates.equalTo('userId', data.userId).and().equalTo('downloadId', data.downloadId)
           if (isBatchInsertQueue) {
             let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
             if (list.length === 0) {
                   await SqliteHelper.getInstance(getContext())
-                    .insert('filedownloaderinfo', valuesBuket);
+                    .insert(SqliteHelper.tableName, valuesBuket);
             }
           } else {
             let downloadTask = await request.agent.create(getContext(), downloadConfig);
+            console.info('taskId1111111',downloadTask.tid);
             valuesBuket.taskId = downloadTask.tid;
             valuesBuket.status = DownloadStatus.RUNNING;
             let progressCallback = (progress: request.agent.Progress) => {

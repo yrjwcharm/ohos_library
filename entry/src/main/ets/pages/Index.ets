@@ -1,9 +1,13 @@
-import { router } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
+import { DownloadManager } from '@ohos_lib/filedownload';
 
 @Entry
 @ComponentV2
 struct Index {
   @Local message: string = 'Hello World';
+   aboutToAppear() {
+     DownloadManager.exitPauseAll(getContext());
+  }
   build() {
     Stack() {
       Column() {
@@ -13,11 +17,14 @@ struct Index {
           })
         })
         Blank().height(32)
-        // Button('批量排队下载').onClick(() => {
-        //   router.pushUrl({
-        //     url: 'pages/MatchQueueDownload'
-        //   })
-        // })
+        Button('批量排队下载').onClick(() => {
+          // router.pushUrl({
+          //   url: 'pages/MatchQueueDownload'
+          // })
+          promptAction.showToast({
+            message:'目前暂不支持,请耐新等待，后续版本V2会补充上'
+          })
+        })
       }
     }
     .height('100%')
