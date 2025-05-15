@@ -96,7 +96,20 @@ struct SingleFileDownload {
         .margin({
           top: 32
         })
-      }.layoutWeight(1)
+      }
+      if(this.data[0].status===1){
+        //本地沙盒路径播放
+        Column(){
+          Video({
+            src:'file:///'+this.data[0]?.filePath+'/'+this.data[0]?.fileName
+          })
+            .height(300)
+            .width('100%')
+        }.width('100%')
+        .margin({
+          top:32
+        })
+      }
       // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
       //     router.pushUrl({
       //       url:'pages/DownloadManager'
