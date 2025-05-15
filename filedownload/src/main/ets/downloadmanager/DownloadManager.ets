@@ -9,9 +9,10 @@ import { fileIo, } from '@kit.CoreFileKit';
 import { connection } from '@kit.NetworkKit';
 import { IFileDownloader } from '../interface/IFileDownloader';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { ENV } from '../utils/ENV';
 
 export class DownloadManager {
-  //暂停所有缓存课程
+  //暂停所有下载任务
   public static async exitPauseAll() {
     const netIsAvailable = await connection.hasDefaultNet();
     let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
@@ -25,7 +26,7 @@ export class DownloadManager {
         newPredicate.equalTo('fileName', list[i].fileName);
         await request.agent.remove(list[i].taskId);
       } catch (e) {
-
+        ENV.__DEV__&&hilog.error(0x0000, "暂停所有下载任务出现异常", "%{public}s", e.message);
       } finally {
         let srcPath = getContext().cacheDir + "/" + list[i].downloadId;
         let dstPath = getContext().cacheDir + "/tmp/" + list[i].downloadId;
@@ -81,7 +82,7 @@ export class DownloadManager {
           fileName:valuesBuket.fileName as string
         })
       }catch (e) {
-        hilog.error(0x0000, "下载进度监听回调出现异常：", "%{public}s", e.message);
+        ENV.__DEV__&&hilog.error(0x0000, "下载进度监听回调出现异常：", "%{public}s", e.message);
       }
     }
   }
@@ -115,7 +116,7 @@ export class DownloadManager {
         DownloaderUtil.deleteTask(downloadTask);
       }
     }catch (e) {
-      hilog.error(0x0000, "完成下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&&hilog.error(0x0000, "完成下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -144,7 +145,7 @@ export class DownloadManager {
       })
     }
     }catch (e) {
-      hilog.error(0x0000, "暂停下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&&  hilog.error(0x0000, "暂停下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -171,7 +172,7 @@ export class DownloadManager {
       })
     }
     }catch (e) {
-      hilog.error(0x0000, "恢复下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&& hilog.error(0x0000, "恢复下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -183,7 +184,7 @@ export class DownloadManager {
     try {
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
       let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
-      valuesBuket.fileSize = list[0]?.fileSize ?? 0;
+      valuesBuket.fileSize = list[0].fileSize ?? 0;
       valuesBuket.status = DownloadStatus.FAILED;
       valuesBuket.begins = 0;
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
@@ -199,7 +200,8 @@ export class DownloadManager {
         fileName:valuesBuket.fileName as string
       })
     }catch (e) {
-      hilog.error(0x0000, "下载失败回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&& hilog.error(0x0000, "下载失败回调出现异常：", "%{public}s", e.message);
+
     }
   }
 }
