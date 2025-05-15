@@ -8,12 +8,13 @@ import { router } from '@kit.ArkUI';
 struct SingleFileDownload {
   @Local data:IFileDownloader[] = [{
     userId: '644323434232343455',
-    url: 'http://dal-video.wenzaizhibo.com/66caa30ee146927904d06834d33546b1/6825c70d/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4',
+    url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
     downloadId: '1',
   }]
-  // url:'http://dal-video.wenzaizhibo.com/efa6fb8de84820fe3eeb7d2db0ddbcc6/6825c788/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4',
-  // http://dal-video.wenzaizhibo.com/f8dc54e57d741dcf3187ce5510682664/6825c79d/00-x-upload/video/207061211_657d04a328b5b737c6e3d86f4e87fcf3_fIFy8txO.mp4
-  // http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
+  // "url": "http://dal-video.wenzaizhibo.com/b9e99d64eb88639e5e324673521483ac/6825cd30/00-x-upload/video/209161637_025ef13fccffb5fab1fd357e691fb220_ot55SHt9.mp4"
+  // "url": "http://dal-video.wenzaizhibo.com/08729e242e59be6ebb7cbb1e98919ad8/6825ccfd/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4"
+  // "url": "http://dal-video.wenzaizhibo.com/511ca03e86beb20f1a69a5a79f4a2887/6825ccbb/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4"
+  // "url": "http://dal-video.wenzaizhibo.com/63b158f4636bdfb3847ed7d9c65c9f82/6825ccda/00-x-upload/video/209161636_2258f92f79476654a8d4a95ec3216e62_X8atyGfx.mp4"
   getStatusText(status:number|undefined){
     switch (status){
       case DownloadStatus.COMPLETED:
@@ -39,8 +40,8 @@ struct SingleFileDownload {
             .width(160)
           Blank()
           Button(this.getStatusText(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(() => {
-            if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击会触发取消下载[删除下载]
-              //取消下载首先更改数据库状态为未下载，并清除文件系统已下载内容
+            if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
+              //暂停下载首先更改数据库状态为0，并调用Api触发暂停
             } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
 
             } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
