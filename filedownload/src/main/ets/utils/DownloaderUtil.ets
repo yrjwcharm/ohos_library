@@ -29,7 +29,7 @@ export class DownloaderUtil {
     if (netIsAvailable) {
         let url = decodeURIComponent(data.url as string)
         let downloadId = data.downloadId;
-        let fileName = url.substring(url.lastIndexOf('/'))+1;
+        let fileName = url.substring(url.lastIndexOf('/')+1);
         let savePath =
           getContext().cacheDir + '/' + downloadId + '/' + fileName
         let downloadConfig: request.agent.Config = {
@@ -43,8 +43,6 @@ export class DownloaderUtil {
           overwrite: true,
           begins: data.begins ?? 0
         }
-      console.log("2222")
-
       try {
           let valuesBuket: ValuesBucket = {
             'userId': data.userId,
@@ -54,7 +52,7 @@ export class DownloaderUtil {
             'fileName': fileName,
             "begins": data.begins ?? 0
           }
-           valuesBuket.fileSize =data.fileSize??0
+           valuesBuket.fileSize = data .fileSize??0
            let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
             predicates.equalTo('userId', data.userId)
             predicates.equalTo('downloadId', data.downloadId)
@@ -65,8 +63,6 @@ export class DownloaderUtil {
                     .insert('filedownloaderinfo', valuesBuket);
             }
           } else {
-            console.log("3333")
-
             let downloadTask = await request.agent.create(getContext(), downloadConfig);
             valuesBuket.taskId = downloadTask.tid;
             valuesBuket.status = DownloadStatus.RUNNING;

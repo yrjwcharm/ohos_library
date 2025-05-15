@@ -8,6 +8,7 @@ import { FileUtil } from '../utils/FileUtil';
 import { fileIo, } from '@kit.CoreFileKit';
 import { connection } from '@kit.NetworkKit';
 import { IFileDownloader } from '../interface/IFileDownloader';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 export class DownloadManager {
   //暂停所有缓存课程
@@ -69,7 +70,6 @@ export class DownloadManager {
           await SqliteHelper.getInstance(getContext())
             .insert('filedownloaderinfo', valuesBuket);
         }
-      } finally {
         callback({
           userId: valuesBuket.userId as string,
           url: valuesBuket.url as string,
@@ -80,6 +80,8 @@ export class DownloadManager {
           filePath:valuesBuket.filePath as string,
           fileName:valuesBuket.fileName as string
         })
+      }catch (e) {
+        hilog.error(0x0000, "下载进度监听回调出现异常：", "%{public}s", e.message);
       }
     }
   }
@@ -89,27 +91,31 @@ export class DownloadManager {
     predicates: relationalStore.RdbPredicates,
     callback: (download:IFileDownloader) => void
   ) {
-    if (progress.sizes[0] > -1) {
-      valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
-      valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
-      valuesBuket.status = DownloadStatus.COMPLETED;
-      valuesBuket.exitFrequency = 1;
-      await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
-      promptAction.showToast({
-        message: "下载完成"
-      })
-      callback({
-        userId: valuesBuket.userId as string,
-        url: valuesBuket.url as string,
-        downloadId: valuesBuket.downloadId as string,
-        downloadSize:valuesBuket.downloadSize,
-        fileSize: valuesBuket.fileSize,
-        status:valuesBuket.status as number,
-        filePath:valuesBuket.filePath as string,
-        fileName:valuesBuket.fileName as string
-      })
-      FileUtil.deleteTmpFile(getContext(), valuesBuket.fileName as string, valuesBuket.downloadId as string);
-      DownloaderUtil.deleteTask(downloadTask);
+    try {
+      if (progress.sizes[0] > -1) {
+        valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
+        valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
+        valuesBuket.status = DownloadStatus.COMPLETED;
+        valuesBuket.exitFrequency = 1;
+        await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
+        promptAction.showToast({
+          message: "下载完成"
+        })
+        callback({
+          userId: valuesBuket.userId as string,
+          url: valuesBuket.url as string,
+          downloadId: valuesBuket.downloadId as string,
+          downloadSize: valuesBuket.downloadSize,
+          fileSize: valuesBuket.fileSize,
+          status: valuesBuket.status as number,
+          filePath: valuesBuket.filePath as string,
+          fileName: valuesBuket.fileName as string
+        })
+        FileUtil.deleteTmpFile(getContext(), valuesBuket.fileName as string, valuesBuket.downloadId as string);
+        DownloaderUtil.deleteTask(downloadTask);
+      }
+    }catch (e) {
+      hilog.error(0x0000, "完成下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -118,6 +124,7 @@ export class DownloadManager {
     predicates: relationalStore.RdbPredicates,
     callback: (download:IFileDownloader) => void
   ) {
+    try{
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
@@ -129,12 +136,15 @@ export class DownloadManager {
         userId: valuesBuket.userId as string,
         url: valuesBuket.url as string,
         downloadId: valuesBuket.downloadId as string,
-        downloadSize:valuesBuket.downloadSize,
+        downloadSize: valuesBuket.downloadSize,
         fileSize: valuesBuket.fileSize,
-        status:valuesBuket.status as number,
-        filePath:valuesBuket.filePath as string,
-        fileName:valuesBuket.fileName as string
+        status: valuesBuket.status as number,
+        filePath: valuesBuket.filePath as string,
+        fileName: valuesBuket.fileName as string
       })
+    }
+    }catch (e) {
+      hilog.error(0x0000, "暂停下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -143,6 +153,7 @@ export class DownloadManager {
     predicates: relationalStore.RdbPredicates,
     callback: (download:IFileDownloader) => void
   ) {
+    try{
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
@@ -152,12 +163,15 @@ export class DownloadManager {
         userId: valuesBuket.userId as string,
         url: valuesBuket.url as string,
         downloadId: valuesBuket.downloadId as string,
-        downloadSize:valuesBuket.downloadSize,
+        downloadSize: valuesBuket.downloadSize,
         fileSize: valuesBuket.fileSize,
-        status:valuesBuket.status as number,
-        filePath:valuesBuket.filePath as string,
-        fileName:valuesBuket.fileName as string
+        status: valuesBuket.status as number,
+        filePath: valuesBuket.filePath as string,
+        fileName: valuesBuket.fileName as string
       })
+    }
+    }catch (e) {
+      hilog.error(0x0000, "恢复下载回调出现异常：", "%{public}s", e.message);
     }
   }
 
@@ -166,22 +180,26 @@ export class DownloadManager {
     predicates: relationalStore.RdbPredicates,
     callback: (download:IFileDownloader) => void
   ) {
-    valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
-    let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
-    valuesBuket.fileSize = list[0].fileSize??0;
-    valuesBuket.status = DownloadStatus.FAILED;
-    valuesBuket.begins = 0;
-    await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
-    DownloaderUtil.deleteTask(downloadTask);
-    callback({
-      userId: valuesBuket.userId as string,
-      url: valuesBuket.url as string,
-      downloadId: valuesBuket.downloadId as string,
-      downloadSize:valuesBuket.downloadSize,
-      fileSize: valuesBuket.fileSize,
-      status:valuesBuket.status as number,
-      filePath:valuesBuket.filePath as string,
-      fileName:valuesBuket.fileName as string
-    })
+    try {
+      valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
+      let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+      valuesBuket.fileSize = list[0]?.fileSize ?? 0;
+      valuesBuket.status = DownloadStatus.FAILED;
+      valuesBuket.begins = 0;
+      await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
+      DownloaderUtil.deleteTask(downloadTask);
+      callback({
+        userId: valuesBuket.userId as string,
+        url: valuesBuket.url as string,
+        downloadId: valuesBuket.downloadId as string,
+        downloadSize:valuesBuket.downloadSize as number,
+        fileSize: valuesBuket.fileSize as number,
+        status:valuesBuket.status as number,
+        filePath:valuesBuket.filePath as string,
+        fileName:valuesBuket.fileName as string
+      })
+    }catch (e) {
+      hilog.error(0x0000, "下载失败回调出现异常：", "%{public}s", e.message);
+    }
   }
 }

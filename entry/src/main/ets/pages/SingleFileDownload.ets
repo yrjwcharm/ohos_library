@@ -8,7 +8,7 @@ import { router } from '@kit.ArkUI';
 struct SingleFileDownload {
   @Local data:IFileDownloader[] = [{
     userId: '644323434232343455',
-    url: '',
+    url: 'https://gitee.com/yrjwcharm/video/raw/master/video_one.mp4',
     downloadId: '1',
   }]
   getStatusText(status:number|undefined){
