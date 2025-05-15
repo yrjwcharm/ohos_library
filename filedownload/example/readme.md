@@ -15,7 +15,7 @@ ohpm install @ohos_lib/filedownload
 ```
 #### 出现206 Partial Content 就代表着服务器支持断点续传与下载 ---如下
 
-```shell
+```sh
 yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
 HTTP/1.1 200 Connection established
 

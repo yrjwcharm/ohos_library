@@ -1,10 +1,12 @@
 {
   "name": "@ohos_lib/filedownload",
   "version": "1.0.0",
-  "description": "Please describe the basic information.",
+  "description": "这是一款支持文件断点下载的开源插件，退出应用程序进程杀掉以后，可以载上次位置继续恢复下载等",
   "main": "Index.ets",
-  "author": "",
+  "author": "闫瑞锋",
   "license": "Apache-2.0",
+  "repository": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload',
+  "homepage": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload#readme',
   "dependencies": {
   },
   "devDependencies": {},
