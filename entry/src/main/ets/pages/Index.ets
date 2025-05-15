@@ -1,5 +1,5 @@
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloadManager } from '@ohos_lib/file_download';
+import { DownloadManager } from '@ohos_lib/filedownload';
 
 @Entry
 @ComponentV2

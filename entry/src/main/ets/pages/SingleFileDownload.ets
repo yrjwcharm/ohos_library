@@ -1,6 +1,6 @@
-import { IFileDownloader } from '@ohos_lib/file_download/src/main/ets/interface/IFileDownloader';
-import {DownloaderUtil, SqliteHelper} from '@ohos_lib/file_download'
-import { DownloadStatus } from '@ohos_lib/file_download/src/main/ets/constants/DownloadStatus';
+import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
+import {DownloaderUtil, SqliteHelper} from '@ohos_lib/filedownload'
+import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { request } from '@kit.BasicServicesKit';
 import { relationalStore } from '@kit.ArkData';
 
