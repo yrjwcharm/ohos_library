@@ -6,7 +6,7 @@ import { DownloadManager } from '@ohos_lib/filedownload';
 struct Index {
   @Local message: string = 'Hello World';
    aboutToAppear() {
-     DownloadManager.exitPauseAll(getContext());
+     DownloadManager.pauseWithPersistBreakpoint(getContext());
   }
   build() {
     Stack() {

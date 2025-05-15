@@ -8,7 +8,43 @@ ___
 ```ohpm
 ohpm install @ohos_lib/filedownload
 ```
-#### 首先确定服务器是否支持断点下载，否则通过request.agent.create无法实现断点下载
+***1、添加权限在应用主模块entry/src/main/ets/module.json5下***
+```typescript
+"requestPermissions": [
+      {
+        "name" : "ohos.permission.INTERNET"
+      },
+      {
+        "name" : "ohos.permission.GET_NETWORK_INFO"
+      },
+    ]
+```
+***2、在应用主模块entry入口EntryAbility下面添加初始化操作***
+
+```typescript
+async  onWindowStageCreate(windowStage: window.WindowStage) {
+    // Main window is created, set main page for this ability
+    await SqliteHelper.getInstance(this.context).initRDB();
+    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    windowStage.loadContent('pages/Index', (err) => {
+      if (err.code) {
+        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+        return;
+      }
+      hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
+    });
+  }
+```
+***2、在应用主模块entry入口Index.ts AboutToAppear()生命周期里添加如下代码***
+
+```typescript
+    aboutToAppear() {
+    DownloadManager.pauseWithPersistBreakpoint(getContext());
+}
+```
+
+***3.首先确定服务器是否支持断点下载，否则通过request.agent.create无法实现断点下载***
 
 ```shell
  curl -I -H "Range: bytes=0-100" 下载路径

@@ -5,6 +5,7 @@ import { IFileDownloader } from '../interface/IFileDownloader';
 
 export class SqliteHelper {
   private static instance: SqliteHelper
+  private static dbName ='filedownloader.db';
   private static rdbStore: relationalStore.RdbStore | undefined = undefined
   private context: Context
   public  static  tableName:string;
@@ -13,10 +14,9 @@ export class SqliteHelper {
     this.context = context
   }
 
-  static getInstance(context: Context,tableName:string='filedownloadinfo'): SqliteHelper {
+  static getInstance(context: Context): SqliteHelper {
     if (!SqliteHelper.instance) {
       SqliteHelper.instance = new SqliteHelper(context);
-      SqliteHelper.tableName = tableName;
     }
     return SqliteHelper.instance;
   }
@@ -25,7 +25,7 @@ export class SqliteHelper {
     // const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
     // appProvisionType：表示签名证书类型
     const STORE_CONFIG: relationalStore.StoreConfig = {
-      name: 'filedownloader.db', // 数据库文件名
+      name:SqliteHelper.dbName, // 数据库文件名
       securityLevel: relationalStore.SecurityLevel.S1, // 数据库安全级别
       encrypt: false,
       // encrypt: bundleInfo.appInfo.appProvisionType === 'release', // 可选参数，指定数据库是否加密，默认不加密
@@ -39,8 +39,10 @@ export class SqliteHelper {
   /**
    * 数据库初始化
    * */
-  public async initRDB() {
+  public async initRDB(dbName:string='filedownloader.db',tableName='filedownloaderinfo') {
     //debug便于查看  Release数据库进行加密处理
+    SqliteHelper.dbName = dbName;
+    SqliteHelper.tableName = tableName;
     //创建缓存课程信息数据表
     let SQL_CREATE_CACHE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + SqliteHelper.tableName + " ("
       + "id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL , "
