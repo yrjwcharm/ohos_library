@@ -1,7 +1,7 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import { PreferencesUtil, SqliteHelper } from '@ohos_lib/filedownload';
+import {SqliteHelper } from '@ohos_lib/file_download';
 
 const DOMAIN = 0x0000;
 
