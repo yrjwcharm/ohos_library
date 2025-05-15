@@ -13,11 +13,11 @@ struct Index {
           })
         })
         Blank().height(32)
-        Button('批量排队下载').onClick(() => {
-          router.pushUrl({
-            url: 'pages/MatchQueueDownload'
-          })
-        })
+        // Button('批量排队下载').onClick(() => {
+        //   router.pushUrl({
+        //     url: 'pages/MatchQueueDownload'
+        //   })
+        // })
       }
     }
     .height('100%')

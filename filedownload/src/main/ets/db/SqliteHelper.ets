@@ -2,6 +2,9 @@ import relationalStore from '@ohos.data.relationalStore';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { IFileDownloader } from '../interface/IFileDownloader';
+import { DownloaderUtil } from '../../../../Index';
+import { DownloadStatus } from '../constants/DownloadStatus';
+
 export class SqliteHelper {
   private static instance: SqliteHelper
   private static rdbStore: relationalStore.RdbStore | undefined = undefined
@@ -107,13 +110,23 @@ export class SqliteHelper {
       })
     })
   }
-  public queryCountBySql(sql: string) {
+  public  queryCountBySql(sql: string) {
     let resultSet = SqliteHelper.rdbStore?.querySqlSync(sql);
     if (resultSet?.goToNextRow()) {
       return resultSet?.getValue(0) as number;
     }
     return 0;
   }
+  //更新数据库下载状态
+  private  updateDBDownloadStatus(downloadInfo:IFileDownloader){
+    let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
+    predicates.equalTo('userId', downloadInfo.userId)
+    predicates.equalTo('downloadId', downloadInfo.downloadId)
+    SqliteHelper.getInstance(this.context).update({
+      'status':downloadInfo.status!
+    },predicates);
+  }
+
   // 查询缓课程
   public queryData(predicates: relationalStore.RdbPredicates): Promise<IFileDownloader[]> {
     let list: IFileDownloader[] = [];
