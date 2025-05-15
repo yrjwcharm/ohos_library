@@ -184,7 +184,7 @@ export class DownloadManager {
     try {
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
       let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
-      valuesBuket.fileSize = list[0].fileSize ?? 0;
+      valuesBuket.fileSize = list[0]?.fileSize ?? 0;
       valuesBuket.status = DownloadStatus.FAILED;
       valuesBuket.begins = 0;
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
