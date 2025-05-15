@@ -5,7 +5,7 @@ import { IFileDownloader } from '../interface/IFileDownloader';
 
 export class SqliteHelper {
   private static instance: SqliteHelper
-  private static dbName ='filedownloader.db';
+  private static dbName:string;
   private static rdbStore: relationalStore.RdbStore | undefined = undefined
   private context: Context
   public  static  tableName:string;
