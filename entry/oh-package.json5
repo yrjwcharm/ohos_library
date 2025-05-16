@@ -6,7 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@ohos_lib/connection_kit": "file:../networkinfo"
+    "@ohos_lib/net_connection": "file:../connection"
   }
 }
 

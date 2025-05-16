@@ -1,8 +1,8 @@
 {
-  "name": "@ohos_lib/connection_kit",
-  "version": "1.0.1",
-  "description": '',
-  "keywords": ['connection',''],
+  "name": "@ohos_lib/net_connection",
+  "version": "1.0.0",
+  "description": '这是一款基于HarmonyNext网络连接管理模块API封装的开源插件',
+  "keywords": ['connection','available','net','wifi','蜂窝','数据流量'],
   "repository": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo',
   "homepage": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo#readme',
   "main": "Index.ets",
