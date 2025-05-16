@@ -22,7 +22,6 @@ export class DownloadManager {
     for (let i = 0; i < list.length; i++) {
       try {
         let task =await request.agent.getTask(context,list[i].taskId);
-        console.info('taskId22222',task.tid);
         await DownloaderUtil.deleteTask(task);
       } catch (e) {
         ENV.__DEV__&&hilog.error(0x0000, "暂停所有下载任务出现异常", "%{public}s", e.message);

@@ -1,7 +1,21 @@
 import { connection } from '@kit.NetworkKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { wifiManager } from '@kit.ConnectivityKit';
+import { NetworkManager } from './NetworkManager';
 
+/**
+ * 判断当前网络是否是Wi-Fi，否则是移动流量热点网络。
+ */
+export  function  isNetWiFi(): boolean {
+  return NetworkManager.getInstance().hasNetWiFi();
+}
+/**
+ * 获取当前的网络类型
+ * @returns {NetworkTypeString}
+ */
+export function  getCurrentNetwork(): string{
+  return NetworkManager.getInstance().getCurrentNetworkType()
+}
 /**
  * 网络相关工具类
  * 需要ohos.permission.GET_NETWORK_INFO权限。
@@ -11,8 +25,6 @@ export class GTNetworkUtil {
   private constructor() {}
 
   private static netConnection: connection.NetConnection;
-
-
   /**
    * 检查默认数据网络是否被激活
    */
