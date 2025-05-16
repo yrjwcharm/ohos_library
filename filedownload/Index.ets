@@ -6,4 +6,4 @@ export { FileUtil } from './src/main/ets/utils/FileUtil';
 
 export { DownloadManager } from './src/main/ets/downloadmanager/DownloadManager'
 
-export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil'
+export { GTNetworkUtil } from './src/main/ets/utils/GTNetworkUtil'
