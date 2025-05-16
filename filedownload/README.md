@@ -1,7 +1,9 @@
-## filedownlaod
-___
+### filedownlaod(API12)
+
 #### 简介
-**filedownload** 这是一款支持断点续传的开源插件
+**filedownload** 这是一款支持断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
+
+***版本更新 请查看更新日志***
 
 #### 安装步骤
 
@@ -83,25 +85,48 @@ EagleId: 679795a517472870384254041e
 #### 基本用法
 ```typescript
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
-import {DownloaderUtil, SqliteHelper} from '@ohos_lib/filedownload'
+import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
-import { request } from '@kit.BasicServicesKit';
+import {  request } from '@kit.BasicServicesKit';
 import { relationalStore } from '@kit.ArkData';
+import { promptAction } from '@kit.ArkUI';
 
 @Entry
 @ComponentV2
 struct SingleFileDownload {
-  //todo tips: 测试url
+  //todo tips: 测试url 若显示下载失败 看url是否可以正常访问与下载
+  // "url": "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4"
   // url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
   // "url": "http://dal-video.wenzaizhibo.com/b9e99d64eb88639e5e324673521483ac/6825cd30/00-x-upload/video/209161637_025ef13fccffb5fab1fd357e691fb220_ot55SHt9.mp4"
   // "url": "http://dal-video.wenzaizhibo.com/08729e242e59be6ebb7cbb1e98919ad8/6825ccfd/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4"
+  private networkCallback:NetworkCallback={
+    netAvailableCallback: (netHandle: ESObject) => {
+      promptAction.showToast({
+        message:'网络可用~'
+      })
+    },
+    //网络不可用
+    netLostCallback: (netHandle: ESObject) => {
+      promptAction.showToast({
+        message:'网络连接已断开，请检查~'
+      })
+      DownloadManager.pauseWithPersistBreakpoint(getContext()).then(_=>{
+        this.loadData();
+      })
 
+    }
+  }
   @Local data:IFileDownloader[] = [{
     userId: '644323434232343455',
-    url: 'http://dal-video.wenzaizhibo.com/511ca03e86beb20f1a69a5a79f4a2887/6825ccbb/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4',
+    url: "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
     downloadId: '1',
   }]
   async aboutToAppear() {
+    this.loadData();
+    //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
+    GTNetworkUtil.register(this.networkCallback)
+  }
+  async loadData(){
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId',this.data[0]?.userId);
@@ -180,7 +205,20 @@ struct SingleFileDownload {
           .margin({
             top: 32
           })
-      }.layoutWeight(1)
+      }
+      if(this.data[0].status===1){
+        //本地沙盒路径播放
+        Column(){
+          Video({
+            src:'file:///'+this.data[0]?.filePath+'/'+this.data[0]?.fileName
+          })
+            .height(300)
+            .width('100%')
+        }.width('100%')
+          .margin({
+            top:32
+          })
+      }
       // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
       //     router.pushUrl({
       //       url:'pages/DownloadManager'
