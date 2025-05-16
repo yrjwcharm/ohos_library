@@ -57,6 +57,7 @@ export class DownloadManager {
     predicates: relationalStore.RdbPredicates,
     callback: (download:IFileDownloader) => void
   ) {
+    console.log('进度更新监听...',progress.sizes[0],progress.processed)
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number);
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
