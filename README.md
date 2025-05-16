@@ -55,7 +55,7 @@ ohpm install @ohos_lib/net_connection
 
 #### 基本用法
 
-<pre style="background:black;color:#fff;">
+<pre style="background:green;color:#fff;">
 import { GTNetworkUtil, NetworkCallback } from '@ohos_lib/net_connection';
 import { promptAction } from '@kit.ArkUI';
 
