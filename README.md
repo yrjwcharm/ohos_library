@@ -90,10 +90,11 @@ import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/Do
 import {  request } from '@kit.BasicServicesKit';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction } from '@kit.ArkUI';
-
+let before = Date.now();
 @Entry
 @ComponentV2
 struct SingleFileDownload {
+
   //todo tips: 测试url 若显示下载失败 看url是否可以正常访问与下载
   // "url": "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4"
   // url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
@@ -123,8 +124,17 @@ struct SingleFileDownload {
   }]
   async aboutToAppear() {
     this.loadData();
+    this.intervalExecute();
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
+  }
+  intervalExecute=()=>{
+    const now = Date.now();
+    if (now - before >= 1000) {
+      before = now;
+      this.loadData();
+    }
+    setTimeout(this.intervalExecute, 1000);
   }
   async loadData(){
     //从数据库读取获取上次的下载进度
