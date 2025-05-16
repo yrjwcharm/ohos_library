@@ -53,4 +53,41 @@ ohpm install @ohos_lib/net_connection
     </tbody>
 </table>
 
+#### 基本用法
+
+<pre style="background:black;color:#fff;">
+import { GTNetworkUtil, NetworkCallback } from '@ohos_lib/net_connection';
+import { promptAction } from '@kit.ArkUI';
+
+@ComponentV2
+@Entry
+export struct  Index{
+  private networkCallback:NetworkCallback={
+    netAvailableCallback:(netHandle)=>{
+      promptAction.showToast({
+        message:'网络可用～'
+      })
+    },
+    netLostCallback:()=>{
+      promptAction.showToast({
+        message:'网络连接不可用～，请检查网络连接'
+      })
+    }
+  }
+  aboutToAppear(): void {
+    GTNetworkUtil.register(this.networkCallback)
+  }
+  aboutToDisappear(): void {
+    GTNetworkUtil.unregister();
+  }
+  build() {
+    Column(){
+
+
+    }.width('100%')
+      .height('100%')
+  }
+}
+</pre>
+
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo
