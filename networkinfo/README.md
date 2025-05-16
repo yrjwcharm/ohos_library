@@ -10,6 +10,41 @@ ___
 ```ohpm
 ohpm install @ohos_lib/filedownload
 ```
+#### api使用详解
+
+<table>
+    <tbody>
+        <tr style="background:red;color:#fff">
+         <td>方法</td>
+         <td>api描述</td>
+        </tr>
+         <tr>
+         <td>hasDefaultNet()</td>
+         <td>获取默认激活的数据网络</td>
+        </tr>
+        <tr>
+         <td>isNetWiFi()</td>
+         <td>判断是否是WIFI</td>
+        </tr>
+         <tr>
+         <td>isCellNetwork()</td>
+         <td>判断是否是蜂窝网络(数据网络</td>
+        </tr>
+        <tr>
+         <td>getCurrentNetworkType()</td>
+         <td>获取网络类型</td>
+        </tr>
+        <tr>
+         <td>getIpAddress()</td>
+         <td>获取当前设备的IP地址(设备连接Wi-Fi后)</td>
+        </tr>
+    </tbody>
+</table>
+
+```### 订阅网络各种状态，例如订阅
+
+```
+
 ***1、添加权限在应用主模块entry/src/main/ets/module.json5下***
 ```typescript
 

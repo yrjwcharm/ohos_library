@@ -4,19 +4,6 @@ import { wifiManager } from '@kit.ConnectivityKit';
 import { NetworkManager } from './NetworkManager';
 
 /**
- * 判断当前网络是否是Wi-Fi，否则是移动流量热点网络。
- */
-export  function  isNetWiFi(): boolean {
-  return NetworkManager.getInstance().hasNetWiFi();
-}
-/**
- * 获取当前的网络类型
- * @returns {NetworkTypeString}
- */
-export function  getCurrentNetwork(): string{
-  return NetworkManager.getInstance().getCurrentNetworkType()
-}
-/**
  * 网络相关工具类
  * 需要ohos.permission.GET_NETWORK_INFO权限。
  */
@@ -30,6 +17,28 @@ export class GTNetworkUtil {
    */
   static hasDefaultNet(): Promise<boolean> {
     return connection.hasDefaultNet();
+  }
+  /**
+   * 判断当前网络是否是Wi-Fi，否则是移动流量热点网络。
+   */
+  static   isNetWiFi(): boolean {
+    return NetworkManager.getInstance().hasNetWiFi();
+  }
+  /**
+   * 获取当前的网络类型（更具体）
+   * @returns {NetworkTypeString}
+   */
+  static   getCurrentNetworkType(): string{
+    return NetworkManager.getInstance().getCurrentNetworkType()
+  }
+  /**
+   * 获取网络类型
+   */
+    static async getNetBearType(): Promise<connection.NetBearType> {
+    let net = await connection.getDefaultNet();
+    let netCapabilities = await connection.getNetCapabilities(net);
+    let netBearType = netCapabilities.bearerTypes[0];
+    return netBearType;
   }
   // 判断是否是蜂窝网络--数据流量
   static async isCellNetwork(): Promise<boolean> {
@@ -59,19 +68,6 @@ export class GTNetworkUtil {
   static hasDefaultNetSync(): boolean {
     return connection.hasDefaultNetSync();
   }
-
-
-  /**
-   * 获取网络类型
-   */
-  static async getNetBearType(): Promise<connection.NetBearType> {
-    let net = await connection.getDefaultNet();
-    let netCapabilities = await connection.getNetCapabilities(net);
-    let netBearType = netCapabilities.bearerTypes[0];
-    return netBearType;
-  }
-
-
   /**
    * 获取当前设备的IP地址(设备连接Wi-Fi后)
    */
