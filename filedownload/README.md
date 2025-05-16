@@ -240,4 +240,12 @@ struct SingleFileDownload {
   }
 }
 ```
+ <video width="320" height="240" controls>
+        <source src="./demo.mp4" type="video/mp4">
+        您的浏览器不支持 video 标签。
+    </video>
+
+### 下载观看Demo演示效果
+[点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
+
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
