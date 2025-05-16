@@ -1,5 +1,5 @@
 ### @ohos_lib/net_connection(API12)
-___
+<hr/>
 #### 简介
 **net_connection** 这是一款基于HarmonyNext网络连接管理模块API封装的开源插件
 
@@ -89,5 +89,3 @@ export struct  Index{
   }
 }
 </pre>
-
-#### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo

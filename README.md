@@ -1,5 +1,5 @@
 ### @ohos_lib/net_connection(API12)
-___
+<hr/>
 #### 简介
 **net_connection** 这是一款基于HarmonyNext网络连接管理模块API封装的开源插件
 
