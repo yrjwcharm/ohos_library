@@ -243,5 +243,5 @@ struct SingleFileDownload {
 
  ####
 
-### 在线观看Demo演示效果
+### 下载观看Demo演示效果
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo.mp4)
