@@ -1,0 +1,15 @@
+{
+  "name": "networkinfo",
+  "version": "1.0.1",
+  "description": '',
+  "keywords": [''],
+  "repository": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo',
+  "homepage": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo#readme',
+  "main": "Index.ets",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "dynamicDependencies": {}
+}

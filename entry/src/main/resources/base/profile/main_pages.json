@@ -1,8 +1,5 @@
 {
   "src": [
-    "pages/Index",
-    "pages/SingleFileDownload",
-    "pages/MatchQueueDownload",
-    "pages/DownloadManager"
+    "pages/Index"
   ]
 }

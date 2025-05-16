@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "filedownload",
+    "name": "networkinfo",
     "type": "har",
     "deviceTypes": [
       "default",
