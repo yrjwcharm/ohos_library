@@ -241,4 +241,4 @@ struct SingleFileDownload {
 }
 ```
 
-[demo.mp4](./demo/demo.mp4)
+ <video src="./demo.mp4"></video>
