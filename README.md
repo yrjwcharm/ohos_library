@@ -14,7 +14,7 @@ ohpm install @ohos_lib/net_connection
 
 <table>
     <tbody>
-        <tr style="background:black;color:#fff">
+        <tr>
          <td>方法</td>
          <td>api描述</td>
         </tr>
@@ -22,7 +22,7 @@ ohpm install @ohos_lib/net_connection
          <td>hasDefaultNet()</td>
          <td>获取默认激活的数据网络</td>
         </tr>
-        <tr style="background:black;color:#fff">
+        <tr>
          <td>isNetWiFi()</td>
          <td>判断是否是WIFI</td>
         </tr>
@@ -30,7 +30,7 @@ ohpm install @ohos_lib/net_connection
          <td>isCellNetwork()</td>
          <td>判断是否是蜂窝网络(数据网络</td>
         </tr>
-        <tr style="background:black;color:#fff">
+        <tr>
          <td>getCurrentNetworkType()</td>
          <td>获取网络类型</td>
         </tr>
@@ -38,7 +38,7 @@ ohpm install @ohos_lib/net_connection
          <td>getIpAddress()</td>
          <td>获取当前设备的IP地址(设备连接Wi-Fi后)</td>
         </tr>
-         <tr style="background:black;color:#fff">
+         <tr >
          <td>register(networkCallback: NetworkCallback）</td>
          <td>注册网络连接监听</td>
         </tr>
@@ -55,7 +55,7 @@ ohpm install @ohos_lib/net_connection
 
 #### 基本用法
 
-<pre style="background:green;color:#fff;">
+```typescript
 import { GTNetworkUtil, NetworkCallback } from '@ohos_lib/net_connection';
 import { promptAction } from '@kit.ArkUI';
 
@@ -88,4 +88,4 @@ export struct  Index{
       .height('100%')
   }
 }
-</pre>
+```
