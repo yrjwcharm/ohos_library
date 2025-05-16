@@ -5,8 +5,11 @@ import { DownloadManager } from '@ohos_lib/filedownload';
 @ComponentV2
 struct Index {
   @Local message: string = 'Hello World';
-   aboutToAppear() {
-     DownloadManager.pauseWithPersistBreakpoint(getContext());
+   async aboutToAppear() {
+     try {
+       await DownloadManager.PersistDownloadStorage();
+     }catch (e) {
+     }
   }
   build() {
     Stack() {

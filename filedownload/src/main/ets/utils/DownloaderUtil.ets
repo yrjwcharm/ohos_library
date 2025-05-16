@@ -22,9 +22,8 @@ export class DownloaderUtil {
     }
   }
 
-  //统一下载封装  isBatchInsertQueue是否批量下载 -排队 非必穿
-  static async downloadFile(data: IFileDownloader,
-    callback: (download:IFileDownloader) => void,isBatchInsertQueue: boolean=false) {
+  //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿
+  static async downloadFile(data: IFileDownloader,isBatchInsertQueue?: boolean) {
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {
         let url = decodeURIComponent(data.url)
@@ -65,37 +64,35 @@ export class DownloaderUtil {
             }
           } else {
             let downloadTask = await request.agent.create(getContext(), downloadConfig);
-            console.info('taskId1111111',downloadTask.tid);
             valuesBuket.taskId = downloadTask.tid;
             valuesBuket.status = DownloadStatus.RUNNING;
             let progressCallback = (progress: request.agent.Progress) => {
               DownloadManager
-                .progressCallback(valuesBuket, progress, downloadTask,
+                .progressCallback(valuesBuket, progress,
                   predicates as relationalStore.RdbPredicates,
-                  callback);
+                  );
             }
             let completedCallback = (progress: request.agent.Progress) => {
               DownloadManager
                 .completedCallback(valuesBuket, progress, downloadTask,
-                  predicates as relationalStore.RdbPredicates,
-                  callback);
+                  predicates as relationalStore.RdbPredicates);
             };
             let pauseCallback = (progress: request.agent.Progress) => {
               DownloadManager
-                .pausedCallback(valuesBuket, progress, downloadTask,
-                  predicates as relationalStore.RdbPredicates, callback);
+                .pausedCallback(valuesBuket, progress,
+                  predicates as relationalStore.RdbPredicates);
 
             }
             let resumeCallback = (progress: request.agent.Progress) => {
               DownloadManager
-                .resumeCallback(valuesBuket, progress, downloadTask,
-                  predicates as relationalStore.RdbPredicates, callback);
+                .resumeCallback(valuesBuket, progress,
+                  predicates as relationalStore.RdbPredicates);
 
             }
             let failedCallback = (progress: request.agent.Progress) => {
               DownloadManager
-                .failedCallback(valuesBuket, progress, downloadTask,
-                  predicates as relationalStore.RdbPredicates, callback);
+                .failedCallback(valuesBuket, progress,
+                  predicates as relationalStore.RdbPredicates);
             }
             //四种状态
             downloadTask.on('progress', progressCallback)

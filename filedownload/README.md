@@ -41,8 +41,11 @@ async  onWindowStageCreate(windowStage: window.WindowStage) {
 ***2、在应用主模块entry入口Index.ts AboutToAppear()生命周期里添加如下代码***
 
 ```typescript
-    aboutToAppear() {
-    DownloadManager.pauseWithPersistBreakpoint(getContext());
+async aboutToAppear() {
+  try {
+    await DownloadManager.PersistDownloadStorage();
+  }catch (e) {
+  }
 }
 ```
 
@@ -53,7 +56,7 @@ async  onWindowStageCreate(windowStage: window.WindowStage) {
 ```
 #### 出现206 Partial Content 就代表着服务器支持断点续传与下载 ---如下
 
-```sh
+```typescript
 yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
 HTTP/1.1 200 Connection established
 
@@ -240,11 +243,6 @@ struct SingleFileDownload {
   }
 }
 ```
- <video width="320" height="240" controls>
-        <source src="https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4" type="video/mp4">
-        您的浏览器不支持 video 标签。
-    </video>
-
 ### 下载观看Demo演示效果
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
