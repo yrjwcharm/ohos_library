@@ -192,3 +192,4 @@ struct SingleFileDownload {
   }
 }
 ```
+#### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
