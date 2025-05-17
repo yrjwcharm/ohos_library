@@ -154,6 +154,9 @@ export class DownloadManager {
   public static  addListener(eventName:string,callback:(download:IFileDownloader)=>void){
     getContext().eventHub.on(eventName,callback);
   }
+  public static  removeListener(eventName:string,callback?:(download:IFileDownloader)=>void){
+    getContext().eventHub.off(eventName,callback);
+  }
   private static eventEmitter(valuesBuket:ValuesBucket){
     try {
       getContext().eventHub.emit(DownloadManager.eventName,{

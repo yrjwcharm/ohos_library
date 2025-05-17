@@ -62,6 +62,7 @@ struct SingleFileDownload {
   }
   aboutToDisappear(): void {
     GTNetworkUtil.unregister();
+    DownloadManager.removeListener(DownloadManager.eventName)
   }
    getStatus(status:number|undefined){
     switch (status){
