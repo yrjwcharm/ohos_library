@@ -15,9 +15,9 @@ export default class EntryAbility extends UIAbility {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
-  async  onWindowStageCreate(windowStage: window.WindowStage) {
+    onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
-    await SqliteHelper.getInstance(this.context).initRDB();
+      SqliteHelper.getInstance(this.context).initRDB();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err) => {

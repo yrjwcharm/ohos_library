@@ -21,6 +21,7 @@ export class SqliteHelper {
     return SqliteHelper.instance;
   }
   public static getStoreConfig() {
+    //debug便于查看  Release数据库进行加密处理
     // let bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION;
     // const bundleInfo = await bundleManager.getBundleInfoForSelf(bundleFlags);
     // appProvisionType：表示签名证书类型
@@ -39,32 +40,33 @@ export class SqliteHelper {
   /**
    * 数据库初始化
    * */
-  public async initRDB(dbName:string='filedownloader.db',tableName='filedownloaderinfo') {
-    //debug便于查看  Release数据库进行加密处理
-    SqliteHelper.dbName = dbName;
-    SqliteHelper.tableName = tableName;
-    //创建缓存课程信息数据表
-    let SQL_CREATE_CACHE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + SqliteHelper.tableName + " ("
-      + "id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL , "
-      + "userId TEXT NOT NULL ," //用户id
-      + "taskId TEXT, " //当前下载任务id
-      + "url TEXT, " //文件下载URL
-      + "filePath TEXT, " //文件沙盒路径
-      + "fileName TEXT, " //下载的文件名
-      + "fileSize INTEGER, " // 文件总大小
-      + "downloadSize INTEGER , " //文件已下载大小
-      + "status INTEGER DEFAULT 3, " //下载状态  待下载、下载中、已下载、已暂停、下载失败 默认待下载
-      + "downloadId TEXT, " //下载列表标识id 一般都是下载项的唯一id标识 不同于userId
-      + "begins INTEGER DEFAULT 0," //默认文件从begins 0节点开始下载
-      + "isBackgroundPause DEFAULT 1," //默认从后台进来的标识
-      + "exitFrequency DEFAULT 1" //后台退出连续次数标识
-      + ")";
-    try {
-      SqliteHelper.rdbStore = await relationalStore.getRdbStore(this.context, SqliteHelper.getStoreConfig())
-      await SqliteHelper.rdbStore?.executeSql(SQL_CREATE_CACHE_COURSE_TABLE)
-    } catch (e) {
-      console.log('数据库表创建失败!!!')
-    }
+  public initRDB(dbName:string='filedownloader.db',tableName='filedownloaderinfo') {
+    (async ()=>{
+      SqliteHelper.dbName = dbName;
+      SqliteHelper.tableName = tableName;
+      //创建缓存课程信息数据表
+      let SQL_CREATE_CACHE_COURSE_TABLE = "CREATE TABLE IF NOT EXISTS " + SqliteHelper.tableName + " ("
+        + "id INTEGER PRIMARY KEY  AUTOINCREMENT NOT NULL , "
+        + "userId TEXT NOT NULL ," //用户id
+        + "taskId TEXT, " //当前下载任务id
+        + "url TEXT, " //文件下载URL
+        + "filePath TEXT, " //文件沙盒路径
+        + "fileName TEXT, " //下载的文件名
+        + "fileSize INTEGER, " // 文件总大小
+        + "downloadSize INTEGER , " //文件已下载大小
+        + "status INTEGER DEFAULT 3, " //下载状态  待下载、下载中、已下载、已暂停、下载失败 默认待下载
+        + "downloadId TEXT, " //下载列表标识id 一般都是下载项的唯一id标识 不同于userId
+        + "begins INTEGER DEFAULT 0," //默认文件从begins 0节点开始下载
+        + "isBackgroundPause DEFAULT 1," //默认从后台进来的标识
+        + "exitFrequency DEFAULT 1" //后台退出连续次数标识
+        + ")";
+      try {
+        SqliteHelper.rdbStore = await relationalStore.getRdbStore(this.context, SqliteHelper.getStoreConfig())
+        await SqliteHelper.rdbStore?.executeSql(SQL_CREATE_CACHE_COURSE_TABLE)
+      } catch (e) {
+        console.log('数据库表创建失败!!!')
+      }
+    })
   }
 
   /**

@@ -15,7 +15,7 @@ export class DownloadManager {
   public  static readonly  eventName:string="GeneralDownloadListenerCallback"
   //退出应用程序后，由于task处于游离状态，此时使用request.agent.getTask()方法控制暂停与恢复是不会走响应回调的
   //所以App一般都是在应用退出前比如onDestroy做状态保留，但其实如果数据库包含异步操作的话，用async destroy()也不好使。比较可行的方法每次进来都处于暂停状态
-  public static async persistMergeFileStorage() {
+  public static async  persistMergeFileStorage():Promise<void> {
     const netIsAvailable = await connection.hasDefaultNet();
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('status', DownloadStatus.RUNNING)

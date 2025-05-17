@@ -21,7 +21,7 @@ ohpm install @ohos_lib/filedownload
       },
     ]
 ```
-***2、在应用主模块entry入口EntryAbility下面添加初始化数据库操作***
+***2、在应用主模块entry入口EntryAbility下面添加数据库初始化建表操作,因为创建表操作是异步的，这里最好通过await去执行，否则若立马进行数据库操作，可能出现表无法创建的情况***
 
 ```typescript
 async  onWindowStageCreate(windowStage: window.WindowStage) {
