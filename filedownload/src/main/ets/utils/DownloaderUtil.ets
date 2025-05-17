@@ -23,7 +23,7 @@ export class DownloaderUtil {
   }
 
   //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿
-  static async downloadFile(data: IFileDownloader,isBatchInsertQueue?: boolean) {
+  static async downloadFile(data: IFileDownloader, isBatchInsertQueue?: boolean) {
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {
         let url = decodeURIComponent(data.url)
