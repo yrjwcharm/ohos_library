@@ -7,7 +7,7 @@ struct Index {
   @Local message: string = 'Hello World';
    async aboutToAppear() {
      try {
-       await DownloadManager.PersistDownloadStorage();
+       await DownloadManager.persistMergeFileStorage();
      }catch (e) {
      }
   }

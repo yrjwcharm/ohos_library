@@ -1,4 +1,4 @@
-import { request } from '@kit.BasicServicesKit';
+import { BusinessError, request } from '@kit.BasicServicesKit';
 import { relationalStore, ValuesBucket } from '@kit.ArkData';
 import { SqliteHelper } from '../db/SqliteHelper';
 import { DownloadStatus } from '../constants/DownloadStatus';
@@ -12,10 +12,10 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ENV } from '../utils/ENV';
 
 export class DownloadManager {
-  public static eventName:string="DownloadManager_Event_Trigger"
+  public  static readonly eventName:string="GeneralDownloadListenerCallback"
   //退出应用程序后，由于task处于游离状态，此时使用request.agent.getTask()方法控制暂停与恢复是不会走响应回调的
   //所以App一般都是在应用退出前比如onDestroy做状态保留，但其实如果数据库包含异步操作的话，用async destroy()也不好使。比较可行的方法每次进来都处于暂停状态
-  public static async PersistDownloadStorage() {
+  public static async persistMergeFileStorage() {
     const netIsAvailable = await connection.hasDefaultNet();
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('status', DownloadStatus.RUNNING)
@@ -25,7 +25,7 @@ export class DownloadManager {
         let task =await request.agent.getTask(getContext(),list[i].taskId);
         await DownloaderUtil.deleteTask(task);
       } catch (e) {
-        ENV.__DEV__&&hilog.error(0x0000, "暂停所有下载任务出现异常", "%{public}s", e.message);
+        ENV.__DEV__&&hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
       } finally {
         let srcPath = getContext().cacheDir + "/" + list[i].downloadId;
         let dstPath = getContext().cacheDir + "/tmp/" + list[i].downloadId;
@@ -71,7 +71,7 @@ export class DownloadManager {
             .insert(SqliteHelper.tableName, valuesBuket);
         }
       }catch (e) {
-        ENV.__DEV__&&hilog.error(0x0000, "下载进度监听回调出现异常：", "%{public}s", e.message);
+        ENV.__DEV__&&console.error("下载进度监听回调出现异常：", e.message);
       }
     }
   }
@@ -95,7 +95,7 @@ export class DownloadManager {
         DownloaderUtil.deleteTask(downloadTask);
       }
     }catch (e) {
-      ENV.__DEV__&&hilog.error(0x0000, "完成下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&&console.error("完成下载回调出现异常：", e.message);
     }
   }
 
@@ -113,7 +113,7 @@ export class DownloadManager {
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
     }
     }catch (e) {
-      ENV.__DEV__&&  hilog.error(0x0000, "暂停下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&&  console.error("暂停下载回调出现异常：", e.message);
     }
   }
 
@@ -129,7 +129,7 @@ export class DownloadManager {
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
     }
     }catch (e) {
-      ENV.__DEV__&& hilog.error(0x0000, "恢复下载回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&& console.error("恢复下载回调出现异常：", e.message);
     }
   }
 
@@ -147,21 +147,25 @@ export class DownloadManager {
       let task =await request.agent.getTask(getContext(),valuesBuket.taskId as string);
       DownloaderUtil.deleteTask(task);
     }catch (e) {
-      ENV.__DEV__&& hilog.error(0x0000, "下载失败回调出现异常：", "%{public}s", e.message);
+      ENV.__DEV__&& console.error("下载失败回调出现异常：", e.message);
 
     }
   }
   private static eventEmitter(valuesBuket:ValuesBucket){
-    getContext().eventHub.emit(DownloadManager.eventName,{
-      userId: valuesBuket.userId as string,
-      url: valuesBuket.url as string,
-      downloadId: valuesBuket.downloadId as string,
-      taskId:valuesBuket.tid as string,
-      downloadSize:valuesBuket.downloadSize,
-      fileSize: valuesBuket.fileSize,
-      status:valuesBuket.status as number,
-      filePath:valuesBuket.filePath as string,
-      fileName:valuesBuket.fileName as string
-    })
+    try {
+      getContext().eventHub.emit(DownloadManager.eventName,{
+        userId: valuesBuket.userId as string,
+        url: valuesBuket.url as string,
+        downloadId: valuesBuket.downloadId as string,
+        taskId:valuesBuket.tid as string,
+        downloadSize:valuesBuket.downloadSize,
+        fileSize: valuesBuket.fileSize,
+        status:valuesBuket.status as number,
+        filePath:valuesBuket.filePath as string,
+        fileName:valuesBuket.fileName as string
+      })
+    } catch (e) {
+      ENV.__DEV__&& console.error("EventHub emit error：", e.message);
+    }
   }
 }
