@@ -53,14 +53,14 @@ export class DownloadManager {
   }
 
   //进度监听
-  public static async progressCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
+  public  static async progressCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     predicates: relationalStore.RdbPredicates,
   ) {
     console.log('进度更新监听...',progress.sizes[0],progress.processed)
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number);
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
-      DownloadManager.eventEmitter(valuesBuket);
+      DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
       //判断当前下载任务是否已经在数据库中
       let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
       try {
@@ -86,7 +86,7 @@ export class DownloadManager {
         valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
         valuesBuket.status = DownloadStatus.COMPLETED;
         valuesBuket.exitFrequency = 1;
-        DownloadManager.eventEmitter(valuesBuket);
+        DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
         await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
         promptAction.showToast({
           message: "下载完成"
@@ -109,7 +109,7 @@ export class DownloadManager {
       valuesBuket.status = DownloadStatus.PAUSE;
       valuesBuket.isBackgroundPause = 0;
       valuesBuket.exitFrequency = 1;
-      DownloadManager.eventEmitter(valuesBuket);
+      DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
     }
     }catch (e) {
@@ -125,7 +125,7 @@ export class DownloadManager {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number)
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number)
       valuesBuket.status = DownloadStatus.RUNNING;
-      DownloadManager.eventEmitter(valuesBuket);
+      DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
     }
     }catch (e) {
@@ -142,7 +142,7 @@ export class DownloadManager {
       valuesBuket.fileSize = list[0]?.fileSize ?? 0;
       valuesBuket.status = DownloadStatus.FAILED;
       valuesBuket.begins = 0;
-      DownloadManager.eventEmitter(valuesBuket);
+      DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
       await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates)
       let task =await request.agent.getTask(getContext(),valuesBuket.taskId as string);
       DownloaderUtil.deleteTask(task);
@@ -157,9 +157,9 @@ export class DownloadManager {
   public static  removeListener(eventName:string,callback?:(download:IFileDownloader)=>void){
     getContext().eventHub.off(eventName,callback);
   }
-  private static eventEmitter(valuesBuket:ValuesBucket){
+  public  static eventEmitter(eventName:string,valuesBuket:ValuesBucket){
     try {
-      getContext().eventHub.emit(DownloadManager.eventName,{
+      getContext().eventHub.emit(eventName,{
         userId: valuesBuket.userId as string,
         url: valuesBuket.url as string,
         downloadId: valuesBuket.downloadId as string,

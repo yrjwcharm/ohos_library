@@ -90,26 +90,11 @@ struct SingleFileDownload {
           Blank()
           Button(this.getStatus(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
             if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
-              //暂停下载 并调用Api触发暂停 更改数据库状态为0
-              try {
-                const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
-                await task.pause();
-              }catch (e) {}
+              await DownloaderUtil.pause(this.data[0]?.taskId!)
             } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
               DownloaderUtil.downloadFile(this.data[0]);
             } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
-              //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
-              try {
-                const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
-                await task.resume();
-              }catch (e) {
-                //21900007 任务挂掉了/代表应用杀掉后重新进来的 ｜ https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-request#section21900007
-                // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
-                // 统一放到一个文件中，这部分库中已经实现。无需手动处理
-                if(e.code===21900007){
-                  DownloaderUtil.downloadFile(this.data[0]);
-                }
-              }
+              await DownloaderUtil.resume(this.data[0]);
             } else { //未下载 ---->点击下载
               DownloaderUtil.downloadFile(this.data[0]);
             }

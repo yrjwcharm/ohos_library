@@ -1,6 +1,6 @@
 import { request } from '@kit.BasicServicesKit';
 import {DownloadManager } from '../downloadmanager/DownloadManager';
-import { relationalStore, ValuesBucket } from '@kit.ArkData';
+import { relationalStore, ValuesBucket, ValueType } from '@kit.ArkData';
 import { connection } from '@kit.NetworkKit';
 import { promptAction } from '@kit.ArkUI';
 import { SqliteHelper } from '../db/SqliteHelper';
@@ -21,7 +21,39 @@ export class DownloaderUtil {
       console.error(`deleteTask fail, err= ${JSON.stringify(err)}`);
     }
   }
-
+  static async pause(taskId:string):Promise<void>{
+    //暂停下载 调用Api触发暂停 更改数据库状态为0
+    try {
+      const task = await request.agent.getTask(getContext(),taskId);
+      await task.pause();
+    }catch (e) {
+      console.error(`deleteTask fail, err= ${JSON.stringify(e)}`);
+    }
+  }
+  static async resume(downloadInfo:IFileDownloader):Promise<void>{
+    //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
+    try {
+      const task = await request.agent.getTask(getContext(),downloadInfo.taskId);
+      await task.resume();
+    }catch (e) {
+      //21900007 任务挂掉了/代表应用杀掉后重新进来的 ｜ https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-request#section21900007
+      // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
+      // 统一放到一个文件中，这部分库中已经实现。无需手动处理
+      if(e.code===21900007){
+        DownloadManager.eventEmitter(DownloadManager.eventName,{
+          userId: downloadInfo.userId,
+          url: downloadInfo.url,
+          downloadId: downloadInfo.downloadId,
+          taskId:downloadInfo.taskId!,
+          downloadSize:downloadInfo.downloadSize!,
+          fileSize: downloadInfo.fileSize!,
+          status:downloadInfo.status as number,
+          filePath:downloadInfo.filePath as string,
+          fileName:downloadInfo.fileName as string
+        })
+      }
+    }
+  }
   //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿
   static async downloadFile(data: IFileDownloader, isBatchInsertQueue?: boolean) {
     const netIsAvailable = await connection.hasDefaultNet();
