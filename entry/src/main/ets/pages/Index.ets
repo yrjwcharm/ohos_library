@@ -1,5 +1,5 @@
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloadManager } from '@ohos_lib/filedownload';
+import { DownloaderUtil } from '@ohos_lib/filedownload';
 
 @Entry
 @ComponentV2
@@ -7,7 +7,7 @@ struct Index {
   @Local message: string = 'Hello World';
    async aboutToAppear() {
      try {
-       await DownloadManager.persistMergeFileStorage();
+       await DownloaderUtil.persistMergeFileStorage();
      }catch (e) {
      }
   }

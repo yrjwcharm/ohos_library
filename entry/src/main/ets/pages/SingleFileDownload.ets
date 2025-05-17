@@ -23,7 +23,7 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-       DownloadManager.persistMergeFileStorage().then(_=>{
+       DownloaderUtil.persistMergeFileStorage().then(_=>{
          this.loadData();
        })
 
