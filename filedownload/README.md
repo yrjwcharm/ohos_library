@@ -3,7 +3,7 @@ ___
 #### 简介
 **filedownload** 这是一款支持断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
-***版本更新 请查看更新日志***
+***版本更新---请查看更新日志!!!***
 
 #### 安装步骤
 
@@ -93,7 +93,6 @@ import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/Do
 import {  request } from '@kit.BasicServicesKit';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction } from '@kit.ArkUI';
-let before = Date.now();
 @Entry
 @ComponentV2
 struct SingleFileDownload {
@@ -110,11 +109,11 @@ struct SingleFileDownload {
       })
     },
     //网络不可用
-    netLostCallback: (netHandle: ESObject) => {
+    netLostCallback: (_: ESObject) => {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      DownloadManager.pauseWithPersistBreakpoint(getContext()).then(_=>{
+      DownloadManager.persistMergeFileStorage().then(_=>{
         this.loadData();
       })
 
@@ -127,17 +126,19 @@ struct SingleFileDownload {
   }]
   async aboutToAppear() {
     this.loadData();
-    this.intervalExecute();
+    //因为数据库查询操作（从硬盘读取）本身就是比较耗时的，更何况频繁查询数据呢，这里进行了优化，把所有的监听统一回调统一放置于事件监听中，
+    //事件监听基于发布订阅模式，我们直接从内存中读取，提升性能
+    getContext().eventHub.on(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
+      let newData =  this.data?.map((item)=>{
+        if(item.downloadId===downloadInfo.downloadId){
+          item = downloadInfo;
+        }
+        return item;
+      })
+      this.data =newData;
+    })
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
-  }
-  intervalExecute=()=>{
-    const now = Date.now();
-    if (now - before >= 1000) {
-      before = now;
-      this.loadData();
-    }
-    setTimeout(this.intervalExecute, 1000);
   }
   async loadData(){
     //从数据库读取获取上次的下载进度
@@ -148,7 +149,10 @@ struct SingleFileDownload {
       this.data = queryList;
     }
   }
-  getStatusText(status:number|undefined){
+  aboutToDisappear(): void {
+    GTNetworkUtil.unregister();
+  }
+  getStatus(status:number|undefined){
     switch (status){
       case DownloadStatus.COMPLETED:
         return '下载完成'
@@ -162,19 +166,7 @@ struct SingleFileDownload {
         return '下载'
     }
   }
-  //下载文件
-  downloadFile(){
-    DownloaderUtil.downloadFile(this.data[0],
-      (downloadInfo: IFileDownloader) => {
-        let newData = this.data?.map((item) => {
-          if (item.downloadId === downloadInfo.downloadId) {
-            item = downloadInfo;
-          }
-          return item;
-        })
-        this.data = [...newData];
-      })
-  }
+
   build() {
     Column() {
       Stack({alignContent:Alignment.TopStart}){
@@ -184,7 +176,7 @@ struct SingleFileDownload {
             .color(Color.Red)
             .width(160)
           Blank()
-          Button(this.getStatusText(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
+          Button(this.getStatus(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
             if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
               //暂停下载 并调用Api触发暂停 更改数据库状态为0
               try {
@@ -192,7 +184,7 @@ struct SingleFileDownload {
                 await task.pause();
               }catch (e) {}
             } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
-              this.downloadFile();
+              DownloaderUtil.downloadFile(this.data[0]);
             } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
               //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
               try {
@@ -203,11 +195,11 @@ struct SingleFileDownload {
                 // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
                 // 统一放到一个文件中，这部分库中已经实现。无需手动处理
                 if(e.code===21900007){
-                  this.downloadFile();
+                  DownloaderUtil.downloadFile(this.data[0]);
                 }
               }
             } else { //未下载 ---->点击下载
-              this.downloadFile();
+              DownloaderUtil.downloadFile(this.data[0]);
             }
           })
         }.width('100%')
