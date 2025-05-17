@@ -21,12 +21,12 @@ ohpm install @ohos_lib/filedownload
       },
     ]
 ```
-***2、在应用主模块entry入口EntryAbility下面添加初始化数据库操作***
+***2、在应用主模块entry入口EntryAbility onWindowStageCreate生命周期里下面添加初始化数据库操作***
 
 ```typescript
-async  onWindowStageCreate(windowStage: window.WindowStage) {
+onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
-    await SqliteHelper.getInstance(this.context).initRDB();
+    SqliteHelper.getInstance(this.context).initRDB();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err) => {

@@ -26,9 +26,7 @@ ohpm install @ohos_lib/filedownload
 ```typescript
 onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
-  (async ()=>{
-    await SqliteHelper.getInstance(this.context).initRDB();
-  })
+    SqliteHelper.getInstance(this.context).initRDB();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err) => {
