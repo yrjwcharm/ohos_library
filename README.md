@@ -90,7 +90,6 @@ EagleId: 679795a517472870384254041e
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
 import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
-import {  request } from '@kit.BasicServicesKit';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction } from '@kit.ArkUI';
 @Entry
@@ -128,7 +127,7 @@ struct SingleFileDownload {
     this.loadData();
     //因为数据库查询操作（从硬盘读取）本身就是比较耗时的，更何况频繁查询数据呢，这里进行了优化，把所有的监听统一回调统一放置于事件监听中，
     //事件监听基于发布订阅模式，我们直接从内存中读取，提升性能
-    getContext().eventHub.on(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
+    DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
       let newData =  this.data?.map((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
           item = downloadInfo;
@@ -151,6 +150,7 @@ struct SingleFileDownload {
   }
   aboutToDisappear(): void {
     GTNetworkUtil.unregister();
+    DownloadManager.removeListener(DownloadManager.eventName)
   }
   getStatus(status:number|undefined){
     switch (status){
@@ -178,26 +178,11 @@ struct SingleFileDownload {
           Blank()
           Button(this.getStatus(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
             if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
-              //暂停下载 并调用Api触发暂停 更改数据库状态为0
-              try {
-                const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
-                await task.pause();
-              }catch (e) {}
+              await DownloaderUtil.pause(this.data[0]?.taskId!)
             } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
               DownloaderUtil.downloadFile(this.data[0]);
             } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
-              //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
-              try {
-                const task = await request.agent.getTask(getContext(), this.data[0]?.taskId);
-                await task.resume();
-              }catch (e) {
-                //21900007 任务挂掉了/代表应用杀掉后重新进来的 ｜ https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-request#section21900007
-                // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
-                // 统一放到一个文件中，这部分库中已经实现。无需手动处理
-                if(e.code===21900007){
-                  DownloaderUtil.downloadFile(this.data[0]);
-                }
-              }
+              await DownloaderUtil.resume(this.data[0]);
             } else { //未下载 ---->点击下载
               DownloaderUtil.downloadFile(this.data[0]);
             }
