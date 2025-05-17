@@ -25,7 +25,7 @@ struct Index {
           //   url: 'pages/MatchQueueDownload'
           // })
           promptAction.showToast({
-            message:'目前暂不支持,请耐新等待，后续版本V2会补充上'
+            message:'目前暂不支持,请耐心等待，后续版本会补充上'
           })
         })
       }

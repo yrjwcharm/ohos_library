@@ -96,7 +96,7 @@ export class DownloaderUtil {
       }
     }
   }
-  //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿
+  //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿 //这里不太适合提供范型支持，建议提前转化数据结构使用
   static async downloadFile(data: IFileDownloader, isBatchInsertQueue?: boolean) {
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {

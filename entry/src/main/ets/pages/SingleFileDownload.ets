@@ -36,8 +36,6 @@ struct SingleFileDownload {
   }]
   async aboutToAppear() {
      this.loadData();
-     //因为数据库查询操作（从硬盘读取）本身就是比较耗时的，更何况频繁查询数据呢，这里进行了优化，把所有的监听统一回调统一放置于事件监听中，
-    //事件监听基于发布订阅模式，我们直接从内存中读取，提升性能
      DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
       let newData =  this.data?.map((item)=>{
          if(item.downloadId===downloadInfo.downloadId){
