@@ -43,7 +43,7 @@ async  onWindowStageCreate(windowStage: window.WindowStage) {
 ```typescript
 async aboutToAppear() {
   try {
-    await DownloadManager.PersistDownloadStorage();
+    await DownloadManager.persistMergeFileStorage();
   }catch (e) {
   }
 }
