@@ -24,21 +24,22 @@ ohpm install @ohos_lib/filedownload
 ***2、在应用主模块entry入口EntryAbility onWindowStageCreate生命周期里下面添加初始化数据库操作***
 
 ```typescript
-onWindowStageCreate(windowStage: window.WindowStage) {
-    // Main window is created, set main page for this ability
-    SqliteHelper.getInstance(this.context).initRDB();
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+ async  onWindowStageCreate(windowStage: window.WindowStage) {
+  // Main window is created, set main page for this ability
+  await SqliteHelper.getInstance(this.context).initRDB();
+  hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
-        return;
-      }
-      hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
-    });
-  }
+  windowStage.loadContent('pages/Index', (err) => {
+    if (err.code) {
+      hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+      return;
+    }
+    hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
+  });
+}
+
 ```
-***2、在应用主模块entry入口Index.ts AboutToAppear()生命周期里添加如下代码***
+***3、在应用主模块entry入口Index.ts AboutToAppear()生命周期里添加如下代码***
 
 ```typescript
 async aboutToAppear() {
@@ -49,7 +50,7 @@ async aboutToAppear() {
 }
 ```
 
-***3.首先确定服务器是否支持断点下载，否则通过request.agent.create无法实现断点下载***
+***4.首先确定服务器是否支持断点下载，否则通过request.agent.create无法实现断点下载***
 
 ```shell
  curl -I -H "Range: bytes=0-100" 下载路径
@@ -58,32 +59,8 @@ async aboutToAppear() {
 
 ```typescript
 yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
-HTTP/1.1 200 Connection established
 
 HTTP/1.1 206 Partial Content
-Server: Tengine
-Date: Thu, 15 May 2025 05:30:38 GMT
-Content-Type: video/mp4
-Content-Length: 101
-Connection: keep-alive
-x-oss-request-id: 68257BFE34D5B23030216070
-x-oss-cdn-auth: success
-Accept-Ranges: bytes
-ETag: "AE77BC38AE8B689A5A534E51B3153C8B"
-Last-Modified: Fri, 21 Oct 2022 11:20:36 GMT
-x-oss-object-type: Normal
-x-oss-hash-crc64ecma: 1310237839552952721
-x-oss-storage-class: Archive
-x-oss-server-time: 56
-Via: cache1.l2nu20-3[190,190,206-0,M], cache24.l2nu20-3[191,0], ens-cache9.cn7681[228,228,206-0,M], ens-cache17.cn7681[234,0]
-Ali-Swift-Global-Savetime: 1747287038
-X-Cache: MISS TCP_MISS dirn:-2:-2 mlen:524288
-X-Swift-SaveTime: Thu, 15 May 2025 05:30:38 GMT
-X-Swift-CacheTime: 31104000
-Content-Range: bytes 0-100/11115092
-Access-Control-Allow-Origin: *
-Timing-Allow-Origin: *
-EagleId: 679795a517472870384254041e
 ```
 #### 基本用法
 ```typescript
@@ -91,7 +68,7 @@ import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/I
 import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 @Entry
 @ComponentV2
 struct SingleFileDownload {
@@ -112,7 +89,7 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      DownloadManager.persistMergeFileStorage().then(_=>{
+      DownloaderUtil.persistMergeFileStorage().then(_=>{
         this.loadData();
       })
 
@@ -125,8 +102,6 @@ struct SingleFileDownload {
   }]
   async aboutToAppear() {
     this.loadData();
-    //因为数据库查询操作（从硬盘读取）本身就是比较耗时的，更何况频繁查询数据呢，这里进行了优化，把所有的监听统一回调统一放置于事件监听中，
-    //事件监听基于发布订阅模式，我们直接从内存中读取，提升性能
     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
       let newData =  this.data?.map((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
@@ -170,44 +145,47 @@ struct SingleFileDownload {
   build() {
     Column() {
       Stack({alignContent:Alignment.TopStart}){
-        Row() {
-          Progress({ value: this.data[0]?.downloadSize, total: this.data[0]?.fileSize, type: ProgressType.Linear })
-            .style({ strokeWidth: 10, enableSmoothEffect: true, })
-            .color(Color.Red)
-            .width(160)
-          Blank()
-          Button(this.getStatus(this.data[0]?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
-            if (this.data[0]?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
-              await DownloaderUtil.pause(this.data[0]?.taskId!)
-            } else if (this.data[0]?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
-              DownloaderUtil.downloadFile(this.data[0]);
-            } else if (this.data[0]?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
-              await DownloaderUtil.resume(this.data[0]);
-            } else { //未下载 ---->点击下载
-              DownloaderUtil.downloadFile(this.data[0]);
-            }
-          })
-        }.width('100%')
-          .padding({
-            left: 16,
-            right: 16
-          })
-          .margin({
-            top: 32
-          })
-      }
-      if(this.data[0].status===1){
-        //本地沙盒路径播放
-        Column(){
-          Video({
-            src:'file:///'+this.data[0]?.filePath+'/'+this.data[0]?.fileName
-          })
-            .height(300)
-            .width('100%')
-        }.width('100%')
-          .margin({
-            top:32
-          })
+        ForEach(this.data,(item:IFileDownloader)=>{
+          Row() {
+            Progress({ value: item?.downloadSize, total: item?.fileSize, type: ProgressType.Linear })
+              .style({ strokeWidth: 10, enableSmoothEffect: true, })
+              .color(Color.Red)
+              .width(160)
+            Blank()
+            Button(this.getStatus(item?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
+              if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
+                await DownloaderUtil.pause(item?.taskId!)
+              } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
+                DownloaderUtil.downloadFile(item);
+              } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
+                await DownloaderUtil.resume(item);
+              } else { //未下载 ---->点击下载
+                DownloaderUtil.downloadFile(item);
+              }
+            })
+          }.width('100%')
+            .height(44)
+            .backgroundColor(Color.Green)
+            .onClick(()=>{
+              if(item.status===1) {
+                router.pushUrl({
+                  url: 'pages/VideoPlayerPage',
+                  params:{url:'file:///'+item.filePath+'/'+item.fileName,}
+                })
+              }else{
+                promptAction.showToast({
+                  message:'尚未下载完成!!!'
+                })
+              }
+            })
+            .padding({
+              left: 16,
+              right: 16
+            })
+            .margin({
+              top: 32
+            })
+        })
       }
       // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
       //     router.pushUrl({

@@ -96,8 +96,8 @@ export class DownloaderUtil {
       }
     }
   }
-  //统一下载封装  isBatchInsertQueue是否批量下载-排队 非必穿 //这里不太适合提供范型支持，建议提前转化数据结构使用
-  static async downloadFile(data: IFileDownloader, isBatchInsertQueue?: boolean) {
+  //统一下载封装 //tips: 这里提供范型支持【没有用Model实体类，请注意，觉得用接口更容易描述】 强制约束类型为IFileDownloader，建议提前转化数据结构使用 isBatchInsertQueue此参数只针对全部下载[目前暂时用不到，后续会完善全部下载等功能]-进行排队。非必穿默认false
+  static async downloadFile<T extends  IFileDownloader>(data: T, isBatchInsertQueue?: boolean) {
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {
         let url = decodeURIComponent(data.url)

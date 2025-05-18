@@ -40,8 +40,7 @@ export class SqliteHelper {
   /**
    * 数据库初始化
    * */
-  public initRDB(dbName:string='filedownloader.db',tableName='filedownloaderinfo') {
-    (async ()=>{
+  public async initRDB(dbName:string='filedownloader.db',tableName='filedownloaderinfo') {
       SqliteHelper.dbName = dbName;
       SqliteHelper.tableName = tableName;
       //创建缓存课程信息数据表
@@ -66,7 +65,6 @@ export class SqliteHelper {
       } catch (e) {
         console.log('数据库表创建失败!!!')
       }
-    })
   }
 
   /**

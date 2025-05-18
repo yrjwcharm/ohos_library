@@ -3,6 +3,7 @@
     "pages/Index",
     "pages/SingleFileDownload",
     "pages/MatchQueueDownload",
-    "pages/DownloadManager"
+    "pages/DownloadManager",
+    "pages/VideoPlayerPage"
   ]
 }
