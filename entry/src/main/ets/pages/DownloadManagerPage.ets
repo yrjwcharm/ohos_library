@@ -21,11 +21,12 @@ struct DownloadManagerPage {
         message:'网络连接已断开，请检查~'
       })
       DownloaderUtil.persistMergeFileStorage().then(_=>{
-        //无网络也可查询数据库，只是觉得比较耗时同主页面调用this.loadData()方法
+        //无网络也可查询数据库，只是觉得比较耗时同主页面调用this.loadData()方法 这里直接更改内存
         this.data= this.data.map(item=>{
           item.status =DownloadStatus.PAUSE;
           return item;
         })
+        this.loadData();
       })
 
     }

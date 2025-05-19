@@ -20,7 +20,10 @@ struct SingleFileDownload {
         message:'网络连接已断开，请检查~'
       })
        DownloaderUtil.persistMergeFileStorage().then(_=>{
+         //数据库更新的没那么快，这里做个延迟，或者你可以直接更改内存数据
+         setTimeout(()=>{
            this.loadData();
+         },300)
        })
 
     }
