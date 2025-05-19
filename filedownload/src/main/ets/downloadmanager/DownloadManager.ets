@@ -129,8 +129,6 @@ export class DownloadManager {
         status:valuesBuket.status as number,
         filePath:valuesBuket.filePath as string,
         fileName:valuesBuket.fileName as string,
-        isBackgroundPause: valuesBuket.isBackgroundPause, //当前下载任务后台标识，初始化非必穿
-        exitFrequency: valuesBuket.isBackgroundPause, //下载过程中退出频次 初始化非必穿
       })
     } catch (e) {
       ENV.__DEV__&& console.error("EventHub emit error：", e.message);
