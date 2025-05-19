@@ -38,6 +38,22 @@ struct DownloadManagerPage {
     this.downloadingData = this.data.filter(item=>item.status!==1);
     this.downloadedData = this.data.filter(item=>item.status===1);
   }
+  formatFileSize(fileS: number=0): string {
+  const wrongSize = "0MB";
+  if (fileS === 0) {
+    return wrongSize;
+  } else if (fileS < 1024) {
+    return wrongSize;
+  } else if (fileS < 1048576) {
+    return wrongSize;
+  } else if (fileS < 1073741824) {
+    const sizeInMB = fileS / 1048576;
+    return `${sizeInMB.toFixed(1)}MB`;
+  } else {
+    const sizeInGB = fileS / 1073741824;
+    return `${sizeInGB.toFixed(1)}GB`;
+  }
+}
   build() {
     Column() {
       Tabs() {
@@ -49,19 +65,17 @@ struct DownloadManagerPage {
                 alignItems:ItemAlign.Center,
                 justifyContent:FlexAlign.SpaceBetween
               }) {
-                Column(){
+                Row(){
                   Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold)
                 }.layoutWeight(1)
-                Image($r('app.media.ic_download_completed')).width(24).height(24).onClick(()=>{
-                  router.pushUrl({
-                    url: 'pages/VideoPlayerPage',
-                    params:{url:'file:///'+item.filePath+'/'+item.fileName,}
-                  })
-                })
+                Image($r('app.media.ic_download_completed')).width(24).height(24)
               }.width('100%')
               .height(44)
-              .onClick(async ()=>{
-
+              .onClick(()=>{
+                router.pushUrl({
+                  url: 'pages/VideoPlayerPage',
+                  params:{url:'file:///'+item.filePath+'/'+item.fileName,}
+                })
               })
               .padding({
                 left: 16,
@@ -83,12 +97,20 @@ struct DownloadManagerPage {
                 justifyContent:FlexAlign.SpaceBetween
               }) {
                 Column(){
-                  Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold)
-                  Text(item.downloadSize+'/'+item.fileSize)
-                  Row(){
-                    Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
-                      .borderRadius(10)
-                  }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
+                  Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold).layoutWeight(1)
+                  Flex({alignItems:ItemAlign.Center}){
+                    Text(this.formatFileSize(item.downloadSize)+'/'+this.formatFileSize(item.fileSize)).fontColor('#2C2E40').fontSize(12)
+                    Row() {
+                      Row()
+                        .width(item.fileSize ?? 0 > 0 ? ((item?.downloadSize ?? 0) / (item?.fileSize ?? 0)) * 180 : 0)
+                        .height('100%')
+                        .backgroundColor(Color.Red)
+                        .borderRadius(10)
+                    }.width(180).height(10).backgroundColor('#F6F7FC').borderRadius(10)
+                    .margin({
+                      left: 12
+                    })
+                  }
                   .margin({
                     top:6
                   })
