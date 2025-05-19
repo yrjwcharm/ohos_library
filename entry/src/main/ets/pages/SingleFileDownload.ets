@@ -20,10 +20,7 @@ struct SingleFileDownload {
         message:'网络连接已断开，请检查~'
       })
        DownloaderUtil.persistMergeFileStorage().then(_=>{
-         //数据库更新的没那么快，这里做个延迟，或者你可以直接更改内存数据
-         // setTimeout(()=>{
-           this.loadData();
-         // },300)
+
        })
 
     }
@@ -31,6 +28,9 @@ struct SingleFileDownload {
   @Local data: IResponseData[] = [];
   async aboutToAppear() {
      this.loadData();
+    getContext().eventHub.on('reQuery',()=>{
+      this.loadData();
+    })
      DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
        //进度监听更新回调
        let newData =  this.data?.map((item)=>{
@@ -86,6 +86,7 @@ struct SingleFileDownload {
   aboutToDisappear(): void {
     GTNetworkUtil.unregister();
     DownloadManager.removeListener(DownloadManager.eventName)
+    getContext().eventHub.off('reQuery');
   }
    getStatus(status:number|undefined){
     switch (status){
@@ -169,7 +170,10 @@ struct SingleFileDownload {
          .height(44)
          .onClick(async ()=>{
            if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发取消下载【删除下载】
-
+             let number =  await DownloaderUtil.delete(item.userId,item.downloadId);
+             if(number>0){
+               this.loadData();
+             }
            } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
              DownloaderUtil.downloadFile(item);
            } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
@@ -199,7 +203,8 @@ struct SingleFileDownload {
           router.pushUrl({
             url:'pages/DownloadManagerPage',
             params:{
-              data:this.data
+              data:this.data,
+              userId:this.userId
             }
           })
       }).backgroundColor(Color.Red)

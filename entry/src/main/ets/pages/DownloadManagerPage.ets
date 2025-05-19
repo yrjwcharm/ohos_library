@@ -21,17 +21,26 @@ struct DownloadManagerPage {
         message:'网络连接已断开，请检查~'
       })
       DownloaderUtil.persistMergeFileStorage().then(_=>{
-        //无网络也可查询数据库，只是觉得比较耗时同主页面调用this.loadData()方法 这里直接更改内存
-        this.data= this.data.map(item=>{
-          item.status =DownloadStatus.PAUSE;
-          return item;
-        })
-        this.loadData();
       })
 
     }
   }
-
+  formatFileSize(fileS: number=0): string {
+  const wrongSize = "0MB";
+  if (fileS === 0) {
+    return wrongSize;
+  } else if (fileS < 1024) {
+    return wrongSize;
+  } else if (fileS < 1048576) {
+    return wrongSize;
+  } else if (fileS < 1073741824) {
+    const sizeInMB = fileS / 1048576;
+    return `${sizeInMB.toFixed(1)}MB`;
+  } else {
+    const sizeInGB = fileS / 1073741824;
+    return `${sizeInGB.toFixed(1)}GB`;
+  }
+}
   aboutToAppear(): void {
     let data = (router.getParams() as Record<string,Object>)['data'] as IResponseData[];
     this.data=data;
@@ -63,26 +72,6 @@ struct DownloadManagerPage {
     this.downloadingData = this.data.filter(item=>item.status!==1);
     this.downloadedData = this.data.filter(item=>item.status===1);
   }
-  aboutToDisappear(): void {
-    GTNetworkUtil.unregister();
-    DownloadManager.removeListener(DownloadManager.eventName)
-  }
-  formatFileSize(fileS: number=0): string {
-  const wrongSize = "0MB";
-  if (fileS === 0) {
-    return wrongSize;
-  } else if (fileS < 1024) {
-    return wrongSize;
-  } else if (fileS < 1048576) {
-    return wrongSize;
-  } else if (fileS < 1073741824) {
-    const sizeInMB = fileS / 1048576;
-    return `${sizeInMB.toFixed(1)}MB`;
-  } else {
-    const sizeInGB = fileS / 1073741824;
-    return `${sizeInGB.toFixed(1)}GB`;
-  }
-}
   build() {
     Column() {
       Tabs() {
@@ -119,7 +108,7 @@ struct DownloadManagerPage {
 
         TabContent() {
           Column(){
-            ForEach(this.downloadingData,(item:IResponseData)=>{
+            ForEach(this.downloadingData,(item:IResponseData,index:number)=>{
               Flex({
                 direction:FlexDirection.Row,
                 alignItems:ItemAlign.Center,
@@ -156,10 +145,12 @@ struct DownloadManagerPage {
 
                 }.layoutWeight(1)
                 .alignItems(HorizontalAlign.Start)
-                Image($r('app.media.delete')).width(24).height(24).onClick(()=>{
-                  promptAction.showToast({
-                    message:'请耐心等待!!!'
-                  })
+                Image($r('app.media.delete')).width(24).height(24).onClick(async ()=>{
+                  let number =  await DownloaderUtil.delete(item.userId,item.downloadId);
+                  if(number>0){
+                    this.downloadingData.splice(index,1);
+                    getContext().eventHub.emit('reQuery');
+                  }
                 })
               }.width('100%')
               .height(44)
