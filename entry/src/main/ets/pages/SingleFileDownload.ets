@@ -85,7 +85,7 @@ struct SingleFileDownload {
            alignItems:ItemAlign.Center,
            justifyContent:FlexAlign.SpaceBetween
          }) {
-           //必须给Foreach循环指定keyGenerator 否则Progress组件会不断闪烁
+           //给Foreach循环指定keyGenerator 否则Progress组件会出现闪烁情况
            Progress({ value: this.data[0]?.downloadSize, total: this.data[0]?.fileSize, type: ProgressType.Linear })
              .style({ strokeWidth: 10, enableSmoothEffect: true, })
              .color(Color.Red)
