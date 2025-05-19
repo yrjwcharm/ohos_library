@@ -1,7 +1,8 @@
 import { IResponseData } from '../interfaces/IResponseData';
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloadManager } from '@ohos_lib/filedownload';
+import { DownloaderUtil, DownloadManager } from '@ohos_lib/filedownload';
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
+import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 
 @Entry
 @ComponentV2
@@ -99,17 +100,27 @@ struct DownloadManagerPage {
                 Column(){
                   Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold).layoutWeight(1)
                   Flex({alignItems:ItemAlign.Center}){
-                    Text(this.formatFileSize(item.downloadSize)+'/'+this.formatFileSize(item.fileSize)).fontColor('#2C2E40').fontSize(12)
-                    Row() {
-                      Row()
-                        .width(item.fileSize ?? 0 > 0 ? ((item?.downloadSize ?? 0) / (item?.fileSize ?? 0)) * 180 : 0)
-                        .height('100%')
-                        .backgroundColor(Color.Red)
-                        .borderRadius(10)
-                    }.width(180).height(10).backgroundColor('#F6F7FC').borderRadius(10)
-                    .margin({
-                      left: 12
-                    })
+                    if(item.status===DownloadStatus.RUNNING) {
+                      Text(this.formatFileSize(item.downloadSize)+'/'+this.formatFileSize(item.fileSize)).fontColor('#2C2E40').fontSize(12)
+                      Row() {
+                        Row()
+                          .width(item.fileSize ?? 0 > 0 ? ((item?.downloadSize ?? 0) / (item?.fileSize ?? 0)) * 180 : 0)
+                          .height('100%')
+                          .backgroundColor(Color.Red)
+                          .borderRadius(10)
+                      }
+                      .width(180)
+                      .height(10)
+                      .backgroundColor('#F6F7FC')
+                      .borderRadius(10)
+                      .margin({
+                        left: 12
+                      })
+                    }else if(item.status===DownloadStatus.PAUSE){
+                      Text('已暂停').fontSize(12).fontColor('#9698A1')
+                    }else if(item.status===DownloadStatus.FAILED){
+                      Text('下载失败').fontSize(12).fontColor(Color.Red)
+                    }
                   }
                   .margin({
                     top:6
@@ -125,7 +136,13 @@ struct DownloadManagerPage {
               }.width('100%')
               .height(44)
               .onClick(async ()=>{
-
+                if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载
+                  await DownloaderUtil.pause(item.taskId!);
+                } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
+                  DownloaderUtil.downloadFile(item);
+                } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
+                  await DownloaderUtil.resume(item);
+                }
               })
               .padding({
                 left: 16,
