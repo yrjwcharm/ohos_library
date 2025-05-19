@@ -3,6 +3,8 @@ import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkU
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
+import { ENV } from '@ohos_lib/filedownload/src/main/ets/utils/ENV';
+
 @Entry
 @ComponentV2
 struct SingleFileDownload {
@@ -37,9 +39,10 @@ struct SingleFileDownload {
   async aboutToAppear() {
      this.loadData();
      DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
-      let newData =  this.data?.map((item)=>{
+       //进度监听更新回调
+       let newData =  this.data?.map((item)=>{
          if(item.downloadId===downloadInfo.downloadId){
-          item = downloadInfo;
+          item=downloadInfo;
          }
          return item;
        })
@@ -75,7 +78,49 @@ struct SingleFileDownload {
        return '下载'
     }
   }
-
+  @Builder imageAnimator(){
+    ImageAnimator()
+      .images([
+        {
+          src: $r('app.media.ic_downloading_1')
+        },
+        {
+          src: $r('app.media.ic_downloading_2')
+        },
+        {
+          src: $r('app.media.ic_downloading_3')
+        },
+        {
+          src: $r('app.media.ic_downloading_4')
+        },
+        {
+          src: $r('app.media.ic_downloading_5')
+        }
+      ])
+      .duration(1000)
+      .state(AnimationStatus.Running)
+      .reverse(false)
+      .fillMode(FillMode.None)
+      .iterations(-1)
+      .width(24)
+      .height(24)
+      .onStart(() => {
+        console.info('Start')
+      })
+      .onPause(() => {
+        console.info('Pause')
+      })
+      .onRepeat(() => {
+        console.info('Repeat')
+      })
+      .onCancel(() => {
+        console.info('Cancel')
+      })
+      .onFinish(() => {
+        console.info('Finish')
+        // this.state = AnimationStatus.Stopped
+      })
+  }
   build() {
     Column() {
       Stack({alignContent:Alignment.TopStart}){
@@ -89,31 +134,30 @@ struct SingleFileDownload {
              Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
                .borderRadius(10)
            }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
-           Button(this.getStatus(item?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
-             if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
-               await DownloaderUtil.pause(item?.taskId!)
-             } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
-               DownloaderUtil.downloadFile(item);
-             } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
-               await DownloaderUtil.resume(item);
-             } else { //未下载 ---->点击下载
-               DownloaderUtil.downloadFile(item);
-             }
-           }).margin({
-             left:10
-           })
+
+           if(item.status===DownloadStatus.COMPLETED){
+             Image($r('app.media.ic_download_completed')).width(24).height(24)
+           }else if(item.status===DownloadStatus.RUNNING) {
+              this.imageAnimator();
+           }else if(item.status===DownloadStatus.FAILED){
+             Image($r('app.media.ic_download_fail')).width(24).height(24)
+           }
          }.width('100%')
          .height(44)
-         .onClick(()=>{
-           if(item.status===1) {
-             router.pushUrl({
-               url: 'pages/VideoPlayerPage',
-               params:{url:'file:///'+item.filePath+'/'+item.fileName,}
-             })
-           }else{
-             promptAction.showToast({
-               message:'尚未下载完成!!!'
-             })
+         .onClick(async ()=>{
+           if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
+             await DownloaderUtil.pause(item?.taskId!)
+           } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
+             DownloaderUtil.downloadFile(item);
+           } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
+             await DownloaderUtil.resume(item);
+           } else if(item.status===DownloadStatus.COMPLETED) { //下载完成 ---->去播放
+               router.pushUrl({
+                 url: 'pages/VideoPlayerPage',
+                 params:{url:'file:///'+item.filePath+'/'+item.fileName,}
+               })
+           }else{ //未下载 -->去下载
+             DownloaderUtil.downloadFile(item);
            }
          })
          .padding({
@@ -123,7 +167,7 @@ struct SingleFileDownload {
          .margin({
            top: 32
          })
-       })
+       },(item:IFileDownloader,index)=>`${JSON.stringify(item)}`+index)
       }
       // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
       //     router.pushUrl({

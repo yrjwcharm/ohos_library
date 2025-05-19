@@ -14,7 +14,7 @@ export class DownloadManager {
   public  static async progressCallback(valuesBuket: ValuesBucket, progress: request.agent.Progress,
     predicates: relationalStore.RdbPredicates,
   ) {
-    console.log('进度更新监听...',progress.sizes[0],progress.processed)
+   ENV.__DEV__&& console.log('进度更新监听...',progress.sizes[0],progress.processed)
     if (progress.sizes[0] > -1) {
       valuesBuket.fileSize = progress.sizes[0] + (valuesBuket.begins as number);
       valuesBuket.downloadSize = progress.processed + (valuesBuket.begins as number);
