@@ -85,10 +85,14 @@ struct SingleFileDownload {
            alignItems:ItemAlign.Center,
            justifyContent:FlexAlign.SpaceBetween
          }) {
-             Row(){
-              Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
-                .borderRadius(10)
-             }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
+             // Row(){
+             //  Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
+             //    .borderRadius(10)
+             // }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
+           Progress({ value: this.data[0]?.downloadSize, total: this.data[0]?.fileSize, type: ProgressType.Linear })
+             .style({ strokeWidth: 10, enableSmoothEffect: true, })
+             .color(Color.Red)
+             .layoutWeight(1)
            Button(this.getStatus(item?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
              if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
                await DownloaderUtil.pause(item?.taskId!)
@@ -99,6 +103,8 @@ struct SingleFileDownload {
              } else { //未下载 ---->点击下载
                DownloaderUtil.downloadFile(item);
              }
+           }).margin({
+             left:10
            })
          }.width('100%')
          .height(44)
