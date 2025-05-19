@@ -85,11 +85,10 @@ struct SingleFileDownload {
            alignItems:ItemAlign.Center,
            justifyContent:FlexAlign.SpaceBetween
          }) {
-           //给Foreach循环指定keyGenerator 否则Progress组件会出现闪烁情况
-           Progress({ value: this.data[0]?.downloadSize, total: this.data[0]?.fileSize, type: ProgressType.Linear })
-             .style({ strokeWidth: 10, enableSmoothEffect: true, })
-             .color(Color.Red)
-             .layoutWeight(1)
+           Row(){
+             Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
+               .borderRadius(10)
+           }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
            Button(this.getStatus(item?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
              if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
                await DownloaderUtil.pause(item?.taskId!)
@@ -124,7 +123,7 @@ struct SingleFileDownload {
          .margin({
            top: 32
          })
-       },(item:IFileDownloader)=>item.downloadId)
+       })
       }
       // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
       //     router.pushUrl({
