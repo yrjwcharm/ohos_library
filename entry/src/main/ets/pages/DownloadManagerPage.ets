@@ -23,7 +23,7 @@ struct DownloadManagerPage {
       DownloaderUtil.persistMergeFileStorage().then(_=>{
         //无网络也可查询数据库，只是觉得比较耗时同主页面调用this.loadData()方法
         this.data= this.data.map(item=>{
-          item.status =0;
+          item.status =DownloadStatus.PAUSE;
           return item;
         })
       })

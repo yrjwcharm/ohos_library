@@ -20,7 +20,7 @@ struct SingleFileDownload {
         message:'网络连接已断开，请检查~'
       })
        DownloaderUtil.persistMergeFileStorage().then(_=>{
-         this.loadData();
+          this.loadData();
        })
 
     }
@@ -98,7 +98,7 @@ struct SingleFileDownload {
        return '下载'
     }
   }
-  @Builder imageAnimator(){
+  @Builder imageAnimator(item:IResponseData){
     ImageAnimator()
       .images([
         {
@@ -118,7 +118,7 @@ struct SingleFileDownload {
         }
       ])
       .duration(1000)
-      .state(AnimationStatus.Running)
+      .state(item.status===DownloadStatus.RUNNING?AnimationStatus.Running:AnimationStatus.Initial)
       .reverse(false)
       .fillMode(FillMode.None)
       .iterations(-1)
@@ -155,7 +155,7 @@ struct SingleFileDownload {
            if(item.status===DownloadStatus.COMPLETED){
              Image($r('app.media.ic_download_completed')).width(24).height(24)
            }else if(item.status===DownloadStatus.RUNNING) {
-              this.imageAnimator();
+              this.imageAnimator(item);
            }else if(item.status===DownloadStatus.FAILED){
              Image($r('app.media.ic_download_fail')).width(24).height(24)
            }else if(item.status===DownloadStatus.PAUSE){
