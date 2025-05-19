@@ -195,7 +195,7 @@ struct SingleFileDownload {
           router.pushUrl({
             url:'pages/DownloadManagerPage',
             params:{
-              data:this.data
+              loadData:this.loadData
             }
           })
       }).backgroundColor(Color.Red)

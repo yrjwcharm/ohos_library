@@ -1,6 +1,6 @@
 import { IResponseData } from '../interfaces/IResponseData';
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloaderUtil, DownloadManager } from '@ohos_lib/filedownload';
+import { DownloaderUtil, DownloadManager, GTNetworkUtil, NetworkCallback } from '@ohos_lib/filedownload';
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 
@@ -38,6 +38,9 @@ struct DownloadManagerPage {
   loadData(){
     this.downloadingData = this.data.filter(item=>item.status!==1);
     this.downloadedData = this.data.filter(item=>item.status===1);
+  }
+  aboutToDisappear(): void {
+    DownloadManager.removeListener(DownloadManager.eventName)
   }
   formatFileSize(fileS: number=0): string {
   const wrongSize = "0MB";
