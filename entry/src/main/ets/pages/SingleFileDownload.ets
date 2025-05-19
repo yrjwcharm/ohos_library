@@ -191,7 +191,7 @@ struct SingleFileDownload {
       }.layoutWeight(1)
       Button('查看下载').type(ButtonType.Capsule).onClick(()=>{
           router.pushUrl({
-            url:'pages/DownloadManager',
+            url:'pages/DownloadManagerPage',
             params:{
               data:this.data
             }

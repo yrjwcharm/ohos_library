@@ -1,5 +1,5 @@
 import { IResponseData } from '../interfaces/IResponseData';
-import { router } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 import { DownloadManager } from '@ohos_lib/filedownload';
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
 
@@ -71,7 +71,7 @@ struct DownloadManagerPage {
                 top: 32
               })
             })
-          }.width('100%').height('100%').backgroundColor(Color.Pink)
+          }.width('100%').height('100%')
         }.tabBar(SubTabBarStyle.of('已下载'))
 
         TabContent() {
@@ -93,7 +93,12 @@ struct DownloadManagerPage {
                   })
 
                 }.layoutWeight(1)
-                Button('删除下载').backgroundColor(Color.Red).fontColor(Color.White)
+                .alignItems(HorizontalAlign.Start)
+                Image($r('app.media.delete')).width(24).height(24).onClick(()=>{
+                  promptAction.showToast({
+                    message:'请耐心等待!!!'
+                  })
+                })
               }.width('100%')
               .height(44)
               .onClick(async ()=>{
@@ -107,12 +112,11 @@ struct DownloadManagerPage {
                 top: 32
               })
             })
-          }.width('100%').height('100%').backgroundColor(Color.Green)
+          }.width('100%').height('100%')
         }.tabBar(SubTabBarStyle.of('下载中'))
 
       }
-      .height('60%')
-      .backgroundColor(0xf1f3f5)
+      .height('100%')
       .barMode(BarMode.Fixed)
     }
     .height('100%')
