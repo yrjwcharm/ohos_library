@@ -20,7 +20,7 @@ struct DownloadManagerPage {
           item.taskId = downloadInfo.taskId;
           item.filePath = downloadInfo.filePath;
           item.fileName =downloadInfo.fileName;
-          item.downloadSize = downloadInfo.fileSize;
+          item.downloadSize = downloadInfo.downloadSize;
           item.fileSize = downloadInfo.fileSize;
           item.isBackgroundPause =downloadInfo.isBackgroundPause;
           item.exitFrequency = downloadInfo.exitFrequency;
@@ -84,6 +84,7 @@ struct DownloadManagerPage {
               }) {
                 Column(){
                   Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold)
+                  Text(item.downloadSize+'/'+item.fileSize)
                   Row(){
                     Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
                       .borderRadius(10)

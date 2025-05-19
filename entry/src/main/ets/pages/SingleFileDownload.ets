@@ -35,7 +35,7 @@ struct SingleFileDownload {
              item.taskId = downloadInfo.taskId;
              item.filePath = downloadInfo.filePath;
              item.fileName =downloadInfo.fileName;
-             item.downloadSize = downloadInfo.fileSize;
+             item.downloadSize = downloadInfo.downloadSize;
              item.fileSize = downloadInfo.fileSize;
              item.isBackgroundPause =downloadInfo.isBackgroundPause;
              item.exitFrequency = downloadInfo.exitFrequency;
@@ -65,7 +65,7 @@ struct SingleFileDownload {
           item.taskId = obj.taskId;
           item.filePath = obj.filePath;
           item.fileName =obj.fileName;
-          item.downloadSize = obj.fileSize;
+          item.downloadSize = obj.downloadSize;
           item.fileSize = obj.fileSize;
           item.isBackgroundPause =obj.isBackgroundPause;
           item.exitFrequency = obj.exitFrequency;
