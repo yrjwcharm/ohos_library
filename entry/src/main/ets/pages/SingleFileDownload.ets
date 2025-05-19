@@ -20,7 +20,7 @@ struct SingleFileDownload {
         message:'网络连接已断开，请检查~'
       })
        DownloaderUtil.persistMergeFileStorage().then(_=>{
-          this.loadData();
+           this.loadData();
        })
 
     }
@@ -151,6 +151,7 @@ struct SingleFileDownload {
          }) {
             Row(){
               Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold)
+              Text((item.status?item.status:0) +'');
             }.layoutWeight(1)
            if(item.status===DownloadStatus.COMPLETED){
              Image($r('app.media.ic_download_completed')).width(24).height(24)
