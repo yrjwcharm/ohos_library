@@ -64,137 +64,182 @@ HTTP/1.1 206 Partial Content
 ```
 #### 基本用法
 ```typescript
-import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
-import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
-import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
-import { relationalStore } from '@kit.ArkData';
-import { promptAction, router } from '@kit.ArkUI';
-@Entry
-@ComponentV2
-struct SingleFileDownload {
+import { request } from '@kit.BasicServicesKit';
+import {DownloadManager } from '../downloadmanager/DownloadManager';
+import { relationalStore, ValuesBucket, ValueType } from '@kit.ArkData';
+import { connection } from '@kit.NetworkKit';
+import { promptAction } from '@kit.ArkUI';
+import { SqliteHelper } from '../db/SqliteHelper';
+import { DownloadStatus } from '../constants/DownloadStatus';
+import { IFileDownloader } from '../interface/IFileDownloader';
+import { ENV } from './ENV';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { FileUtil } from './FileUtil';
+import { fileIo } from '@kit.CoreFileKit';
 
-  //todo tips: 测试url 若显示下载失败 看url是否可以正常访问与下载
-  // "url": "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4"
-  // url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
-  // "url": "http://dal-video.wenzaizhibo.com/b9e99d64eb88639e5e324673521483ac/6825cd30/00-x-upload/video/209161637_025ef13fccffb5fab1fd357e691fb220_ot55SHt9.mp4"
-  // "url": "http://dal-video.wenzaizhibo.com/08729e242e59be6ebb7cbb1e98919ad8/6825ccfd/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4"
-  private networkCallback:NetworkCallback={
-    netAvailableCallback: (netHandle: ESObject) => {
-      promptAction.showToast({
-        message:'网络可用~'
-      })
-    },
-    //网络不可用
-    netLostCallback: (_: ESObject) => {
-      promptAction.showToast({
-        message:'网络连接已断开，请检查~'
-      })
-      DownloaderUtil.persistMergeFileStorage().then(_=>{
-        this.loadData();
-      })
 
+export class DownloaderUtil {
+  static deleteTask = async (downloadTask: request.agent.Task) => {
+    try {
+      downloadTask.off('progress');
+      downloadTask.off('completed');
+      downloadTask.off('failed');
+      console.log('remove task', downloadTask.tid)
+      await request.agent.remove(downloadTask.tid);
+
+    } catch (err) {
+      console.error(`deleteTask fail, err= ${JSON.stringify(err)}`);
     }
   }
-  @Local data:IFileDownloader[] = [{
-    userId: '644323434232343455',
-    url: "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
-    downloadId: '1',
-  }]
-  async aboutToAppear() {
-    this.loadData();
-    DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
-      let newData =  this.data?.map((item)=>{
-        if(item.downloadId===downloadInfo.downloadId){
-          item = downloadInfo;
+  //退出应用程序后，由于task处于游离状态，此时使用request.agent.getTask()方法控制暂停与恢复是不会走响应回调的
+  //所以App一般都是在应用退出前比如onDestroy做状态保留，但其实如果数据库包含异步操作的话，用async destroy()也不好使。比较可行的方法每次进来都处于暂停状态
+  public static async  persistMergeFileStorage():Promise<void> {
+    const netIsAvailable = await connection.hasDefaultNet();
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    predicates.equalTo('status', DownloadStatus.RUNNING)
+    let list = await SqliteHelper.getInstance(getContext()).queryData(predicates)
+    for (let i = 0; i < list.length; i++) {
+      try {
+        let task =await request.agent.getTask(getContext(),list[i].taskId);
+        await DownloaderUtil.deleteTask(task);
+      } catch (e) {
+        ENV.__DEV__&&hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
+      } finally {
+        let srcPath = getContext().cacheDir + "/" + list[i].downloadId;
+        let dstPath = getContext().cacheDir + "/tmp/" + list[i].downloadId;
+        FileUtil.writeTmpBytes(srcPath, dstPath, list[i]?.fileName??'', list[i].exitFrequency, list[i].status)
+        let file = fileIo.openSync(dstPath + '/' + list[i].fileName,
+          fileIo.OpenMode.READ_WRITE);
+        let buf = new ArrayBuffer(fileIo.statSync(file.fd).size);
+        fileIo.readSync(file.fd, buf);
+        fileIo.closeSync(file);
+        let exitFrequency: number;
+        if (netIsAvailable) {
+          exitFrequency = list[i]?.exitFrequency??1 + 1;
+        } else {
+          exitFrequency = list[i]?.exitFrequency??1;
         }
-        return item;
-      })
-      this.data =newData;
-    })
-    //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
-    GTNetworkUtil.register(this.networkCallback)
-  }
-  async loadData(){
-    //从数据库读取获取上次的下载进度
-    let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
-    predicates.equalTo('userId',this.data[0]?.userId);
-    let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
-    if(queryList.length>0){
-      this.data = queryList;
-    }
-  }
-  aboutToDisappear(): void {
-    GTNetworkUtil.unregister();
-    DownloadManager.removeListener(DownloadManager.eventName)
-  }
-  getStatus(status:number|undefined){
-    switch (status){
-      case DownloadStatus.COMPLETED:
-        return '下载完成'
-      case DownloadStatus.PAUSE:
-        return '暂停'
-      case DownloadStatus.FAILED:
-        return '下载失败'
-      case DownloadStatus.RUNNING:
-        return '下载中'
-      default :
-        return '下载'
-    }
-  }
-
-  build() {
-    Column() {
-      Stack({alignContent:Alignment.TopStart}){
-        ForEach(this.data,(item:IFileDownloader)=>{
-          Row() {
-            Progress({ value: item?.downloadSize, total: item?.fileSize, type: ProgressType.Linear })
-              .style({ strokeWidth: 10, enableSmoothEffect: true, })
-              .color(Color.Red)
-              .width(160)
-            Blank()
-            Button(this.getStatus(item?.status)).type(ButtonType.Normal).width(80).onClick(async () => {
-              if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发暂停下载【暂停下载】
-                await DownloaderUtil.pause(item?.taskId!)
-              } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
-                DownloaderUtil.downloadFile(item);
-              } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
-                await DownloaderUtil.resume(item);
-              } else { //未下载 ---->点击下载
-                DownloaderUtil.downloadFile(item);
-              }
-            })
-          }.width('100%')
-            .height(44)
-            .backgroundColor(Color.Green)
-            .onClick(()=>{
-              if(item.status===1) {
-                router.pushUrl({
-                  url: 'pages/VideoPlayerPage',
-                  params:{url:'file:///'+item.filePath+'/'+item.fileName,}
-                })
-              }else{
-                promptAction.showToast({
-                  message:'尚未下载完成!!!'
-                })
-              }
-            })
-            .padding({
-              left: 16,
-              right: 16
-            })
-            .margin({
-              top: 32
-            })
-        })
+        predicates.and().equalTo('downloadId',list[i].downloadId);
+        await SqliteHelper.getInstance(getContext()).update({
+          'status': 0,
+          'begins': buf.byteLength,
+          isBackgroundPause: 1,
+          exitFrequency,
+        },predicates)
       }
-      // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
-      //     router.pushUrl({
-      //       url:'pages/DownloadManager'
-      //     })
-      // }).backgroundColor(Color.Red)
     }
-    .height('100%')
-      .width('100%')
+  }
+  static async pause(taskId:string):Promise<void>{
+    //暂停下载 调用Api触发暂停 更改数据库状态为0
+    try {
+      const task = await request.agent.getTask(getContext(),taskId);
+      await task.pause();
+    }catch (e) {
+      console.error(`deleteTask fail, err= ${JSON.stringify(e)}`);
+    }
+  }
+  static async resume(downloadInfo:IFileDownloader):Promise<void>{
+    //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
+    try {
+      const task = await request.agent.getTask(getContext(),downloadInfo.taskId);
+      await task.resume();
+    }catch (e) {
+      //21900007 任务挂掉了/代表应用杀掉后重新进来的 ｜ https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-request#section21900007
+      // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
+      // 统一放到一个文件中，这部分库中已经实现。无需手动处理
+      if(e.code===21900007){
+        DownloaderUtil.downloadFile(downloadInfo);
+      }
+    }
+  }
+  //统一下载封装 //tips: 这里提供范型支持【没有用Model实体类，请注意，觉得用接口更容易描述】 强制约束类型为IFileDownloader，建议提前转化数据结构使用 isBatchInsertQueue此参数只针对全部下载[目前暂时用不到，后续会完善全部下载等功能]-进行排队。非必穿默认false
+  static async downloadFile<T extends  IFileDownloader>(data: T, isBatchInsertQueue?: boolean) {
+    const netIsAvailable = await connection.hasDefaultNet();
+    if (netIsAvailable) {
+      let url = decodeURIComponent(data.url)
+      let downloadId = data.downloadId;
+      let fileName = url.substring(url.lastIndexOf('/')+1);
+      let savePath =
+        getContext().cacheDir + '/' + downloadId + '/' + fileName
+      let downloadConfig: request.agent.Config = {
+        action: request.agent.Action.DOWNLOAD,
+        url: url,
+        mode: request.agent.Mode.FOREGROUND,
+        retry: true,
+        metered: false,
+        roaming: true,
+        redirect: true,
+        network: request.agent.Network.ANY,
+        saveas: savePath,
+        overwrite: true,
+        begins: data.begins ?? 0,
+      }
+      try {
+        let valuesBuket: ValuesBucket = {
+          'userId': data.userId,
+          'downloadId': downloadId, //必传
+          'url': url, //必传
+          'filePath': getContext().cacheDir + '/' + downloadId,
+          'fileName': fileName,
+          "begins": data.begins ?? 0
+        }
+        valuesBuket.fileSize = data .fileSize??0
+        let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+        predicates.equalTo('userId', data.userId).and().equalTo('downloadId', data.downloadId)
+        if (isBatchInsertQueue) {
+          let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+          if (list.length === 0) {
+            await SqliteHelper.getInstance(getContext())
+              .insert(SqliteHelper.tableName, valuesBuket);
+          }
+        } else {
+          let downloadTask = await request.agent.create(getContext(), downloadConfig);
+          valuesBuket.taskId = downloadTask.tid;
+          valuesBuket.status = DownloadStatus.RUNNING;
+          let progressCallback = (progress: request.agent.Progress) => {
+            DownloadManager
+              .progressCallback(valuesBuket, progress,
+                predicates as relationalStore.RdbPredicates,
+              );
+          }
+          let completedCallback = (progress: request.agent.Progress) => {
+            DownloadManager
+              .completedCallback(valuesBuket, progress, downloadTask,
+                predicates as relationalStore.RdbPredicates);
+          };
+          let pauseCallback = (progress: request.agent.Progress) => {
+            DownloadManager
+              .pausedCallback(valuesBuket, progress,
+                predicates as relationalStore.RdbPredicates);
+
+          }
+          let resumeCallback = (progress: request.agent.Progress) => {
+            DownloadManager
+              .resumeCallback(valuesBuket, progress,
+                predicates as relationalStore.RdbPredicates);
+
+          }
+          let failedCallback = (progress: request.agent.Progress) => {
+            DownloadManager
+              .failedCallback(valuesBuket, progress,
+                predicates as relationalStore.RdbPredicates);
+          }
+          //四种状态
+          downloadTask.on('progress', progressCallback)
+          downloadTask.on('completed', completedCallback);
+          downloadTask.on('pause', pauseCallback);
+          downloadTask.on('resume', resumeCallback);
+          downloadTask.on('failed', failedCallback)
+          await downloadTask.start();
+        }
+      } catch (err) {
+        console.error(`task  err, err  = ${JSON.stringify(err)}`);
+      }
+    } else {
+      promptAction.showToast({
+        message: '网络不给力～'
+      })
+    }
   }
 }
 ```
