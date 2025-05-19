@@ -158,12 +158,14 @@ struct SingleFileDownload {
               this.imageAnimator();
            }else if(item.status===DownloadStatus.FAILED){
              Image($r('app.media.ic_download_fail')).width(24).height(24)
+           }else if(item.status===DownloadStatus.PAUSE){
+             Image($r('app.media.ic_download_start')).width(24).height(24)
            }
          }.width('100%')
          .height(44)
          .onClick(async ()=>{
            if (item?.status === DownloadStatus.RUNNING) { //下载中---->点击触发取消下载【删除下载】
-             
+
            } else if (item?.status === DownloadStatus.FAILED) { //下载失败----> 重新下载
              DownloaderUtil.downloadFile(item);
            } else if (item?.status === DownloadStatus.PAUSE) { //下载暂停----->代表要恢复下载
