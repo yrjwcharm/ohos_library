@@ -3,24 +3,18 @@ import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkU
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
-import { ENV } from '@ohos_lib/filedownload/src/main/ets/utils/ENV';
+import { IResponseData } from '../interfaces/IResponseData';
 
 @Entry
 @ComponentV2
 struct SingleFileDownload {
-
-  //todo tips: 测试url 若显示下载失败 看url是否可以正常访问与下载
-  // "url": "http://dal-video.wenzaizhibo.com/6fcfd45370d7692cc61c181385794da5/6826ef69/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4"
-  // url:'http://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4',
-  // "url": "http://dal-video.wenzaizhibo.com/b9e99d64eb88639e5e324673521483ac/6825cd30/00-x-upload/video/209161637_025ef13fccffb5fab1fd357e691fb220_ot55SHt9.mp4"
-  // "url": "http://dal-video.wenzaizhibo.com/08729e242e59be6ebb7cbb1e98919ad8/6825ccfd/00-x-upload/video/209161638_f7fbdb7733e6043fc21f6108b3051a60_TbZKvyV4.mp4"
+  @Local userId:string ='722134343434343434';//登录用户信息id 这里写四Mock
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
         message:'网络可用~'
       })
     },
-    //网络不可用
     netLostCallback: (_: ESObject) => {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
@@ -31,18 +25,23 @@ struct SingleFileDownload {
 
     }
   }
-  @Local data:IFileDownloader[] = [{
-    userId: '644323434232343455',
-    "url": "http://dal-video.wenzaizhibo.com/0976c2dca41f0cd6cb48a78215c780d3/682add4c/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
-    downloadId: '1',
-  }]
+  @Local data: IResponseData[] = [];
   async aboutToAppear() {
      this.loadData();
      DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
        //进度监听更新回调
        let newData =  this.data?.map((item)=>{
          if(item.downloadId===downloadInfo.downloadId){
-          item=downloadInfo;
+             item.taskId = downloadInfo.taskId;
+             item.filePath = downloadInfo.filePath;
+             item.fileName =downloadInfo.fileName;
+             item.downloadSize = downloadInfo.fileSize;
+             item.fileSize = downloadInfo.fileSize;
+             item.isBackgroundPause =downloadInfo.isBackgroundPause;
+             item.exitFrequency = downloadInfo.exitFrequency;
+             item.status = downloadInfo.status;
+             item.begins = downloadInfo.begins;
+             return item;
          }
          return item;
        })
@@ -52,12 +51,33 @@ struct SingleFileDownload {
     GTNetworkUtil.register(this.networkCallback)
   }
   async loadData(){
+    // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
+    //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
+    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293', className:'第一章 第一讲：At the Airport在机场',url:'http://dal-video.wenzaizhibo.com/6f29fd4c0637ce3907eeb9982b842fab/682b3913/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4',userId:this.userId}]
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
-    predicates.equalTo('userId',this.data[0]?.userId);
+    predicates.equalTo('userId',this.userId);
     let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
     if(queryList.length>0){
-      this.data = queryList;
+      let newData = result.map((item:IResponseData)=>{
+        let obj =queryList.find(el=>el.downloadId===item.downloadId);
+        if(obj) {
+          item.taskId = obj.taskId;
+          item.filePath = obj.filePath;
+          item.fileName =obj.fileName;
+          item.downloadSize = obj.fileSize;
+          item.fileSize = obj.fileSize;
+          item.isBackgroundPause =obj.isBackgroundPause;
+          item.exitFrequency = obj.exitFrequency;
+          item.status = obj.status;
+          item.begins = obj.begins;
+          return item;
+        }
+        return item;
+      })
+      this.data= newData;
+    }else{
+      this.data = result;
     }
   }
   aboutToDisappear(): void {
@@ -118,23 +138,20 @@ struct SingleFileDownload {
       })
       .onFinish(() => {
         console.info('Finish')
-        // this.state = AnimationStatus.Stopped
       })
   }
   build() {
     Column() {
       Stack({alignContent:Alignment.TopStart}){
-       ForEach(this.data,(item:IFileDownloader)=>{
+       ForEach(this.data,(item:IResponseData)=>{
          Flex({
            direction:FlexDirection.Row,
            alignItems:ItemAlign.Center,
            justifyContent:FlexAlign.SpaceBetween
          }) {
-           Row(){
-             Row().width(item.fileSize??0>0?((item?.downloadSize??0)/(item?.fileSize??0))*200:0).height('100%').backgroundColor(Color.Red)
-               .borderRadius(10)
-           }.width(200).height(10).backgroundColor('#F6F7FC').borderRadius(10)
-
+            Row(){
+              Text(item?.className).fontSize(16).fontWeight(FontWeight.Bold)
+            }.layoutWeight(1)
            if(item.status===DownloadStatus.COMPLETED){
              Image($r('app.media.ic_download_completed')).width(24).height(24)
            }else if(item.status===DownloadStatus.RUNNING) {
@@ -157,6 +174,9 @@ struct SingleFileDownload {
                  params:{url:'file:///'+item.filePath+'/'+item.fileName,}
                })
            }else{ //未下载 -->去下载
+             promptAction.showToast({
+               message:'开始下载',
+             })
              DownloaderUtil.downloadFile(item);
            }
          })
@@ -167,13 +187,16 @@ struct SingleFileDownload {
          .margin({
            top: 32
          })
-       },(item:IFileDownloader,index)=>`${JSON.stringify(item)}`+index)
-      }
-      // Button('查看下载').type(ButtonType.Normal).onClick(()=>{
-      //     router.pushUrl({
-      //       url:'pages/DownloadManager'
-      //     })
-      // }).backgroundColor(Color.Red)
+       })
+      }.layoutWeight(1)
+      Button('查看下载').type(ButtonType.Capsule).onClick(()=>{
+          router.pushUrl({
+            url:'pages/DownloadManager',
+            params:{
+              data:this.data
+            }
+          })
+      }).backgroundColor(Color.Red)
     }
     .height('100%')
     .width('100%')
