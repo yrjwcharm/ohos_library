@@ -82,17 +82,7 @@ export class DownloaderUtil {
       // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
       // 统一放到一个文件中，这部分库中已经实现。无需手动处理
       if(e.code===21900007){
-        DownloadManager.eventEmitter(DownloadManager.eventName,{
-          userId: downloadInfo.userId,
-          url: downloadInfo.url,
-          downloadId: downloadInfo.downloadId,
-          taskId:downloadInfo.taskId!,
-          downloadSize:downloadInfo.downloadSize!,
-          fileSize: downloadInfo.fileSize!,
-          status:downloadInfo.status as number,
-          filePath:downloadInfo.filePath as string,
-          fileName:downloadInfo.fileName as string
-        })
+        DownloaderUtil.downloadFile(downloadInfo);
       }
     }
   }

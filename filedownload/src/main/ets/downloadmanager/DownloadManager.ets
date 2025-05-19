@@ -123,7 +123,7 @@ export class DownloadManager {
         userId: valuesBuket.userId as string,
         url: valuesBuket.url as string,
         downloadId: valuesBuket.downloadId as string,
-        taskId:valuesBuket.tid as string,
+        taskId:valuesBuket.taskId as string,
         downloadSize:valuesBuket.downloadSize,
         fileSize: valuesBuket.fileSize,
         status:valuesBuket.status as number,
