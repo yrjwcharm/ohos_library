@@ -10,6 +10,27 @@ struct DownloadManagerPage {
   @Local data:IResponseData[]=[];
   @Local downloadingData:IResponseData[]=[];//下载中（下载失败、暂停等）
   @Local downloadedData:IResponseData[]=[];//已下载
+  private networkCallback:NetworkCallback={
+    netAvailableCallback: (netHandle: ESObject) => {
+      promptAction.showToast({
+        message:'网络可用~'
+      })
+    },
+    netLostCallback: (_: ESObject) => {
+      promptAction.showToast({
+        message:'网络连接已断开，请检查~'
+      })
+      DownloaderUtil.persistMergeFileStorage().then(_=>{
+        //无网络也可查询数据库，只是觉得比较耗时同主页面调用this.loadData()方法
+        this.data= this.data.map(item=>{
+          item.status =0;
+          return item;
+        })
+      })
+
+    }
+  }
+
   aboutToAppear(): void {
     let data = (router.getParams() as Record<string,Object>)['data'] as IResponseData[];
     this.data=data;
@@ -34,12 +55,15 @@ struct DownloadManagerPage {
       this.data =newData;
       this.loadData();
     })
+    //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
+    GTNetworkUtil.register(this.networkCallback)
   }
   loadData(){
     this.downloadingData = this.data.filter(item=>item.status!==1);
     this.downloadedData = this.data.filter(item=>item.status===1);
   }
   aboutToDisappear(): void {
+    GTNetworkUtil.unregister();
     DownloadManager.removeListener(DownloadManager.eventName)
   }
   formatFileSize(fileS: number=0): string {
