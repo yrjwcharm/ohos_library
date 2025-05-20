@@ -193,7 +193,7 @@ export class DownloaderUtil {
           await downloadTask.start();
         }
       } catch (err) {
-        console.error(`task  err, err  = ${JSON.stringify(err)}`);
+        console.error(`异常信息——task  err, err  = ${JSON.stringify(err)}`);
       }
     } else {
       promptAction.showToast({
