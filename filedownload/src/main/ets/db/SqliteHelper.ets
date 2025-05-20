@@ -53,7 +53,7 @@ export class SqliteHelper {
         + "fileName TEXT, " //下载的文件名
         + "fileSize INTEGER, " // 文件总大小
         + "downloadSize INTEGER , " //文件已下载大小
-        + "status INTEGER DEFAULT 3, " //下载状态  待下载、下载中、已下载、已暂停、下载失败 默认待下载
+        + "status INTEGER -2, " //下载状态  3待下载、2下载中、1已下载、0已暂停、-1下载失败
         + "downloadId TEXT, " //下载列表标识id 一般都是下载项的唯一id标识 不同于userId
         + "begins INTEGER DEFAULT 0," //默认文件从begins 0节点开始下载
         + "isBackgroundPause DEFAULT 1," //默认从后台进来的标识

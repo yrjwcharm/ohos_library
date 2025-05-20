@@ -85,10 +85,6 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      DownloaderUtil.persistMergeFileStorage().then(_=>{
-
-      })
-
     }
   }
   @Local data: IResponseData[] = [];
@@ -98,6 +94,7 @@ struct SingleFileDownload {
       this.loadData();
     })
     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
+      console.log('更新回调',downloadInfo.downloadSize)
       //进度监听更新回调
       let newData =  this.data?.map((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
@@ -122,7 +119,7 @@ struct SingleFileDownload {
   async loadData(){
     // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
     //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
-    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293', className:'第一章 第一讲：At the Airport在机场',url:'http://dal-video.wenzaizhibo.com/6f29fd4c0637ce3907eeb9982b842fab/682b3913/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4',userId:this.userId}]
+    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293', className:'第一章 第一讲：At the Airport在机场',url: 'http://test-dal-video.wenzaizhibo.com/14329cce70aab43d901815fb69032101/682c414e/00-upload/video-test/1046576_c873b32c322da8f81a360159fbaddbc3_ec7A1Pwg.mp4',userId:this.userId}]
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId',this.userId);
