@@ -280,3 +280,6 @@ struct SingleFileDownload {
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
+
+
+#### *** todo tips:目前若中途无网络情况下，恢复网络无法继续下载，后续版本会支持，请耐心等待***
