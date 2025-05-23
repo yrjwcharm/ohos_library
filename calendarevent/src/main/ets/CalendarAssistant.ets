@@ -113,8 +113,8 @@ export  class CalendarAssistant{
       })
     })
   }
-  //给账户创建自己的日程 安排
-  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar, isJump?:boolean):Promise<number>=>{
+  //给账户创建自己的日程
+  public static addScheduleToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar, isJump?:boolean):Promise<number>=>{
     return new Promise((resolve)=>{
         CalendarAssistant.requestCalendarPermission((userGrant)=>{
           if(userGrant) {
@@ -156,8 +156,8 @@ export  class CalendarAssistant{
         })
     })
   }
-  //从账户删除日程（事件）是个数组，单个事件，[id]
-  public static  deleteScheduleEventFromAccount(eventIds:number[],calendar:calendarManager.Calendar):Promise<boolean>{
+  //从账户删除日程（事件）是个数组，单个元素
+  public static  deleteScheduleFromAccount(eventIds:number[],calendar:calendarManager.Calendar):Promise<boolean>{
      return new Promise((resolve)=>{
        CalendarAssistant.requestCalendarPermission((userGrant)=>{
          if(userGrant){
@@ -175,5 +175,74 @@ export  class CalendarAssistant{
          }
        })
      })
+  }
+  //查询当前日历账户下的所有日程。由于涉及数据隐私安全，进行了权限管控的应用无法获取其他创建的日程信息。
+  public  static queryAllScheduleFromAccount(calendar:calendarManager.Calendar):Promise<calendarManager.Event[]>{
+    return new Promise((resolve)=>{
+      CalendarAssistant.requestCalendarPermission((userGrant)=>{
+        if(userGrant) {
+          if (canIUse('SystemCapability.Applications.CalendarData')) {
+            //时间是毫秒数
+            calendar.getEvents().then((data: calendarManager.Event[]) => {
+              resolve(data);
+            }).catch((_: BusinessError) => {
+              resolve([]);
+            });
+          }
+        }
+      })
+    })
+  }
+  //根据日程id--从当前账户查询日程
+  public  static queryScheduleFromAccountById(eventIds:number[],calendar:calendarManager.Calendar):Promise<calendarManager.Event[]>{
+     return new Promise((resolve)=>{
+       CalendarAssistant.requestCalendarPermission((userGrant)=>{
+         if(userGrant) {
+           if (canIUse('SystemCapability.Applications.CalendarData')) {
+             const filterId = calendarManager.EventFilter.filterById(eventIds);
+             calendar.getEvents(filterId).then((data: calendarManager.Event[]) => {
+               resolve(data);
+             }).catch((err: BusinessError) => {
+                resolve([]);
+             });
+           }
+         }
+       })
+     })
+  }
+  //根据标题--从当前账户查询日程
+  public  static queryScheduleFromAccountByTitle(title:string,calendar:calendarManager.Calendar):Promise<calendarManager.Event[]>{
+    return new Promise((resolve)=>{
+      CalendarAssistant.requestCalendarPermission((userGrant)=>{
+        if(userGrant) {
+          if (canIUse('SystemCapability.Applications.CalendarData')) {
+            const filterId = calendarManager.EventFilter.filterByTitle(title);
+            calendar.getEvents(filterId).then((data: calendarManager.Event[]) => {
+              resolve(data);
+            }).catch((err: BusinessError) => {
+              resolve([]);
+            });
+          }
+        }
+      })
+    })
+  }
+  //根据开始时间和结束时间--从当前账户查询日程
+  public  static queryScheduleFromAccountByTime(startTime:number, endTime:number, calendar:calendarManager.Calendar):Promise<calendarManager.Event[]>{
+    return new Promise((resolve)=>{
+      CalendarAssistant.requestCalendarPermission((userGrant)=>{
+        if(userGrant) {
+          if (canIUse('SystemCapability.Applications.CalendarData')) {
+            //时间是毫秒数
+            const filterId = calendarManager.EventFilter.filterByTime(startTime,endTime);
+            calendar.getEvents(filterId).then((data: calendarManager.Event[]) => {
+              resolve(data);
+            }).catch((_: BusinessError) => {
+              resolve([]);
+            });
+          }
+        }
+      })
+    })
   }
 }

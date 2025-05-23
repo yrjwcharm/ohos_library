@@ -39,7 +39,7 @@ struct Index {
             }
           })
         Button('查询系统默认日历账户').onClick(async()=>{
-          const calendar = await CalendarAssistant.queryCalendarAccount(undefined);
+          const calendar = await CalendarAssistant.queryCalendarAccount();
           if(calendar){
             promptAction.showToast({
               message:'查询系统默认日历账户成功!!!!'
@@ -80,7 +80,7 @@ struct Index {
             }
           };
           if(this.calendar) {
-            const eventId = await CalendarAssistant.addScheduleEventToAccount(event, this.calendar);
+            const eventId = await CalendarAssistant.addScheduleToAccount(event, this.calendar);
             if (eventId > 0) {
               this.eventId = eventId;
               promptAction.showToast({
@@ -91,12 +91,20 @@ struct Index {
         })
         Button('从账户删除日程').onClick(async ()=>{
           if(this.calendar) {
-            const bool = await CalendarAssistant.deleteScheduleEventFromAccount([this.eventId], this.calendar);
+            const bool = await CalendarAssistant.deleteScheduleFromAccount([this.eventId], this.calendar);
             if (bool) {
               promptAction.showToast({
                 message: '日程删除成功！！！'
               })
             }
+          }
+        })
+        Button('查询指定账户下所有日程').onClick(async ()=>{
+          if(this.calendar) {
+            const events = await CalendarAssistant.queryAllScheduleFromAccount(this.calendar);
+              promptAction.showToast({
+                message: '查询成功！！！'+JSON.stringify(events)
+              })
           }
         })
       }
