@@ -9,6 +9,7 @@ import { ILesson } from '../interfaces/ILesson';
 struct Index {
   private  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
   private calendar:calendarManager.Calendar|undefined = undefined;
+  private eventId:number=0;
   private schedulePlan :ILesson[] =[{
     "remindMinuteOffset": 2,
     "className": "初一大班公开课新-2",
@@ -78,11 +79,24 @@ struct Index {
               description: '一键服务'
             }
           };
-          const eventIds =   await CalendarAssistant.addScheduleEventToAccount(event,this.calendar!);
-          if(eventIds.length>0){
-            promptAction.showToast({
-              message:'日程创建成功！！！'
-            })
+          if(this.calendar) {
+            const eventId = await CalendarAssistant.addScheduleEventToAccount(event, this.calendar);
+            if (eventId > 0) {
+              this.eventId = eventId;
+              promptAction.showToast({
+                message: '日程创建成功！！！'
+              })
+            }
+          }
+        })
+        Button('从账户删除日程').onClick(async ()=>{
+          if(this.calendar) {
+            const bool = await CalendarAssistant.deleteScheduleEventFromAccount([this.eventId], this.calendar);
+            if (bool) {
+              promptAction.showToast({
+                message: '日程删除成功！！！'
+              })
+            }
           }
         })
       }

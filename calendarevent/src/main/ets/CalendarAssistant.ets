@@ -114,7 +114,7 @@ export  class CalendarAssistant{
     })
   }
   //给账户创建自己的日程 安排
-  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar, isJump?:boolean):Promise<number[]>=>{
+  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar, isJump?:boolean):Promise<number>=>{
     return new Promise((resolve)=>{
         CalendarAssistant.requestCalendarPermission((userGrant)=>{
           if(userGrant) {
@@ -133,19 +133,19 @@ export  class CalendarAssistant{
               }
               calendar.getEvents(eventFilter!).then((events: calendarManager.Event[]) => {
                 if (events.length > 0) {
-                  resolve(events.map(el => el.id!));
+                  resolve(events[0]?.id!);
                 } else {
                   if (isJump) {
                     calendarMgr?.editEvent(event).then((data: number): void => {
-                      resolve([data]);
+                      resolve(data);
                     }).catch((_: BusinessError) => {
-                      resolve([]);
+                      resolve(-1);
                     });
                   } else {
                     calendar.addEvent(event).then((data: number) => {
-                      resolve([data]);
+                      resolve(data);
                     }).catch((_: BusinessError) => {
-                      resolve([]);
+                      resolve(-1);
                     });
                   }
                 }
@@ -155,5 +155,25 @@ export  class CalendarAssistant{
           }
         })
     })
+  }
+  //从账户删除日程（事件）是个数组，单个事件，[id]
+  public static  deleteScheduleEventFromAccount(eventIds:number[],calendar:calendarManager.Calendar):Promise<boolean>{
+     return new Promise((resolve)=>{
+       CalendarAssistant.requestCalendarPermission((userGrant)=>{
+         if(userGrant){
+           if (canIUse('SystemCapability.Applications.CalendarData')) {
+             calendar.deleteEvents(eventIds).then(() => {
+               resolve(true);
+             }).catch((err: BusinessError) => {
+                resolve(false);
+             });
+           }
+         }else{
+           promptAction.showToast({
+             message:'日历读写权限没有开启～'
+           })
+         }
+       })
+     })
   }
 }
