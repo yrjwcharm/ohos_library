@@ -13,8 +13,8 @@
       "value": "label"
     },
     {
-      "name": "access_location",
-      "value": "访问位置"
+      "name": "calendar_remind",
+      "value": "课程提醒"
     }
   ]
 }

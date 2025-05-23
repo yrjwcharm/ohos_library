@@ -56,18 +56,18 @@
         "name" : "ohos.permission.GET_NETWORK_INFO"
       },
       {
-        "name": "ohos.permission.APPROXIMATELY_LOCATION",
-        "reason": "$string:access_location",
+        "name": "ohos.permission.WRITE_CALENDAR",
+        "reason": "$string:calendar_remind",
         "usedScene": {
           "abilities": [
             "EntryAbility"
           ],
-          "when": "always"
+          "when": "inuse"
         }
       },
       {
-        "name": "ohos.permission.LOCATION",
-        "reason": "$string:access_location",
+        "name": "ohos.permission.READ_CALENDAR",
+        "reason": "$string:calendar_remind",
         "usedScene": {
           "abilities": [
             "EntryAbility"

@@ -1,8 +1,6 @@
 import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import {SqliteHelper } from '@ohos_lib/filedownload';
-
 const DOMAIN = 0x0000;
 
 export default class EntryAbility extends UIAbility {
@@ -17,7 +15,6 @@ export default class EntryAbility extends UIAbility {
 
     async  onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
-      await SqliteHelper.getInstance(this.context).initRDB();
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     windowStage.loadContent('pages/Index', (err) => {
