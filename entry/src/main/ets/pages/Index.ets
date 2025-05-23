@@ -30,7 +30,6 @@ struct Index {
         Button('查询系统默认日历账户').onClick(async()=>{
           const calendar = await CalendarAssistant.queryCalendarAccount(undefined);
           if(calendar){
-            console.log('解析++++',JSON.stringify(calendar,null,2))
             promptAction.showToast({
               message:'查询系统默认日历账户成功!!!!'
             })
