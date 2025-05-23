@@ -11,7 +11,7 @@ export  class CalendarAssistant{
     enableReminder:true,
     color:Color.Red,
   }):Promise<calendarManager.Calendar|undefined>{
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve)=>{
       CalendarAssistant.requestCalendarPermission((userGrant)=>{
         if(userGrant){
          let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
@@ -105,6 +105,39 @@ export  class CalendarAssistant{
           })
         }
       })
+    })
+  }
+  //给账户创建自己的日程 安排
+  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar,isJump?:boolean):Promise<number[]|undefined>=>{
+    return new Promise((resolve)=>{
+        CalendarAssistant.requestCalendarPermission((userGrant)=>{
+          if(userGrant){
+            let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+            let calendarMgr = calendarManager.getCalendarManager(abilityContext);
+            // 根据日程id查询
+            const filterTime = calendarManager.EventFilter.filterByTime(event.startTime, event.endTime);
+            calendar.getEvents(filterTime).then((events: calendarManager.Event[]) => {
+              if (events.length > 0) {
+                   resolve(events.map(el=>el.id!));
+              } else {
+                if (isJump) {
+                  calendarMgr?.editEvent(event).then((data: number): void => {
+                    resolve([data]);
+                  }).catch((_: BusinessError) => {
+                    resolve(undefined);
+                  });
+                } else {
+                  calendar.addEvent(event).then((data: number) => {
+                    resolve([data]);
+                  }).catch((err: BusinessError) => {
+                    resolve(undefined);
+                  });
+                }
+              }
+            }).catch((_: BusinessError) => {
+            });
+          }
+        })
     })
   }
 }
