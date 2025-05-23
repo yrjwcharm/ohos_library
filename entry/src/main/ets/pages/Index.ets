@@ -78,8 +78,8 @@ struct Index {
               description: '一键服务'
             }
           };
-          const eventId =   await CalendarAssistant.addScheduleEventToAccount(event,this.calendar!);
-          if(eventId>0){
+          const eventIds =   await CalendarAssistant.addScheduleEventToAccount(event,this.calendar!);
+          if(eventIds.length>0){
             promptAction.showToast({
               message:'日程创建成功！！！'
             })

@@ -41,13 +41,15 @@ export  class CalendarAssistant{
     return new Promise((resolve)=>{
        CalendarAssistant.requestCalendarPermission((userGrant)=>{
          if(userGrant){
-           let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
-           let calendarMgr = calendarManager.getCalendarManager(abilityContext);
-           calendarMgr?.deleteCalendar(calendar).then(() => {
-             resolve(true);
-           }).catch((err: BusinessError) => {
-             resolve(false);
-           });
+           if(canIUse('SystemCapability.Applications.CalendarData')) {
+             let abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+             let calendarMgr = calendarManager.getCalendarManager(abilityContext);
+             calendarMgr?.deleteCalendar(calendar).then(() => {
+               resolve(true);
+             }).catch((err: BusinessError) => {
+               resolve(false);
+             });
+           }
          }else{
              promptAction.showToast({
                message:'日历读写权限没有开启～'
@@ -62,14 +64,16 @@ export  class CalendarAssistant{
     return new Promise((resolve)=>{
       CalendarAssistant.requestCalendarPermission((userGrant)=>{
         if(userGrant){
-          let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
-          let calendarMgr = calendarManager.getCalendarManager(abilityContext);
+          if(canIUse('SystemCapability.Applications.CalendarData')) {
+            let abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+            let calendarMgr = calendarManager.getCalendarManager(abilityContext);
             calendarMgr?.getCalendar(calendarAccount).then((data: calendarManager.Calendar) => {
               resolve(data);
             }).catch((err: BusinessError) => {
-              ENV.__DEV__ && console.error('查询日历账户异常信息----',err.code,err.message);
+              ENV.__DEV__ && console.error('查询日历账户异常信息----', err.code, err.message);
               resolve(undefined)
             });
+          }
         } else{
             promptAction.showToast({
               message:'日历读写权限没有开启～'
@@ -92,13 +96,15 @@ export  class CalendarAssistant{
     return new Promise((resolve)=>{
       CalendarAssistant.requestCalendarPermission((userGrant)=>{
         if(userGrant){
-          let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
-          let calendarMgr = calendarManager.getCalendarManager(abilityContext);
-          calendarMgr?.getAllCalendars().then((data: calendarManager.Calendar[]) => {
-            resolve(data);
-          }).catch((_: BusinessError) => {
-            resolve([]);
-          });
+          if(canIUse('SystemCapability.Applications.CalendarData')) {
+            let abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+            let calendarMgr = calendarManager.getCalendarManager(abilityContext);
+            calendarMgr?.getAllCalendars().then((data: calendarManager.Calendar[]) => {
+              resolve(data);
+            }).catch((_: BusinessError) => {
+              resolve([]);
+            });
+          }
         }else{
           promptAction.showToast({
             message:'日历读写权限没有开启～'
@@ -108,34 +114,44 @@ export  class CalendarAssistant{
     })
   }
   //给账户创建自己的日程 安排
-  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar,isJump?:boolean):Promise<number[]|undefined>=>{
+  public static addScheduleEventToAccount=(event:calendarManager.Event,calendar:calendarManager.Calendar, isJump?:boolean):Promise<number[]>=>{
     return new Promise((resolve)=>{
         CalendarAssistant.requestCalendarPermission((userGrant)=>{
-          if(userGrant){
-            let  abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
-            let calendarMgr = calendarManager.getCalendarManager(abilityContext);
-            // 根据日程id查询
-            const filterTime = calendarManager.EventFilter.filterByTime(event.startTime, event.endTime);
-            calendar.getEvents(filterTime).then((events: calendarManager.Event[]) => {
-              if (events.length > 0) {
-                   resolve(events.map(el=>el.id!));
-              } else {
-                if (isJump) {
-                  calendarMgr?.editEvent(event).then((data: number): void => {
-                    resolve([data]);
-                  }).catch((_: BusinessError) => {
-                    resolve(undefined);
-                  });
-                } else {
-                  calendar.addEvent(event).then((data: number) => {
-                    resolve([data]);
-                  }).catch((err: BusinessError) => {
-                    resolve(undefined);
-                  });
-                }
+          if(userGrant) {
+            if (canIUse('SystemCapability.Applications.CalendarData')) {
+              let abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+              let calendarMgr = calendarManager.getCalendarManager(abilityContext);
+              // 根据日程id查询
+              let eventFilter:calendarManager.EventFilter;
+              if(event.title){
+                eventFilter= calendarManager.EventFilter.filterByTitle(event.title);
+              }else if(event.startTime&&event.endTime){
+                eventFilter= calendarManager.EventFilter.filterByTime(event.startTime,event.endTime);
+              }else {
+                // tips:⚠️ 这里是日程id 可不是日历账户id「calendarAccount的id」,不要把日历账户的id赋值给日程id
+                eventFilter= calendarManager.EventFilter.filterById([event.id]);
               }
-            }).catch((_: BusinessError) => {
-            });
+              calendar.getEvents(eventFilter!).then((events: calendarManager.Event[]) => {
+                if (events.length > 0) {
+                  resolve(events.map(el => el.id!));
+                } else {
+                  if (isJump) {
+                    calendarMgr?.editEvent(event).then((data: number): void => {
+                      resolve([data]);
+                    }).catch((_: BusinessError) => {
+                      resolve([]);
+                    });
+                  } else {
+                    calendar.addEvent(event).then((data: number) => {
+                      resolve([data]);
+                    }).catch((_: BusinessError) => {
+                      resolve([]);
+                    });
+                  }
+                }
+              }).catch((_: BusinessError) => {
+              });
+            }
           }
         })
     })
