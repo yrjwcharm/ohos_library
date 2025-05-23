@@ -1,33 +1,32 @@
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloaderUtil } from '@ohos_lib/filedownload';
+import { common } from '@kit.AbilityKit';
+import { CalendarAssistant } from '@ohos_lib/calendar_event';
+import calendarManager from '@ohos.calendarManager';
 
 @Entry
 @ComponentV2
 struct Index {
   @Local message: string = 'Hello World';
    async aboutToAppear() {
-     try {
-       await DownloaderUtil.persistMergeFileStorage();
-     }catch (e) {
-     }
+
   }
   build() {
     Stack() {
       Column() {
-        Button('单个文件下载').onClick(() => {
-          router.pushUrl({
-            url: 'pages/SingleFileDownload'
+          Button('创建日历账户').onClick(async()=>{
+            let abilityContext: common.UIAbilityContext = getContext() as common.UIAbilityContext
+            const calendarAccountName = abilityContext.abilityInfo.bundleName;
+            const calendar = await CalendarAssistant.createCalendarAccount({
+              name: calendarAccountName,//使用应用包名
+              type: calendarManager.CalendarType.LOCAL,
+              displayName:'课程提醒'
+            },{enableReminder:true,color:Color.Red})
+            if(calendar){
+              promptAction.showToast({
+                message:'日历账户创建成功!!!!'
+              })
+            }
           })
-        })
-        Blank().height(32)
-        Button('批量排队下载').onClick(() => {
-          // router.pushUrl({
-          //   url: 'pages/MatchQueueDownload'
-          // })
-          promptAction.showToast({
-            message:'目前暂不支持,请耐心等待，后续版本会补充上'
-          })
-        })
       }
     }
     .height('100%')

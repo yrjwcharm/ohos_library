@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "filedownload",
+    "name": "calendarevent",
     "type": "har",
     "deviceTypes": [
       "default",

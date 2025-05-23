@@ -1,9 +1,5 @@
 {
   "src": [
-    "pages/Index",
-    "pages/SingleFileDownload",
-    "pages/MatchQueueDownload",
-    "pages/DownloadManagerPage",
-    "pages/VideoPlayerPage"
+    "pages/Index"
   ]
 }

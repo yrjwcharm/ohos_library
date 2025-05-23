@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "filedownload_test",
+    "name": "calendarevent_test",
     "type": "feature",
     "deviceTypes": [
       "default",

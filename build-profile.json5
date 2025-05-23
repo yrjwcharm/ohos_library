@@ -52,8 +52,8 @@
       ]
     },
     {
-      "name": "filedownload",
-      "srcPath": "./filedownload"
+      "name": "calendarevent",
+      "srcPath": "./calendarevent"
     }
   ]
 }
