@@ -85,11 +85,11 @@ export class SqliteHelper {
   * 删除数据
   * */
   public delete(predicates: relationalStore.RdbPredicates): Promise<number> {
-    return new Promise((resolve, reject) => {
-      SqliteHelper.rdbStore?.delete(predicates).then(number => {
+    return new Promise((resolve,) => {
+      SqliteHelper.rdbStore?.delete(predicates).then(_ => {
         resolve(1);
       }).catch((e: BusinessError) => {
-        reject(e);
+        resolve(0);
       })
     })
   }
@@ -100,11 +100,11 @@ export class SqliteHelper {
 
   public update(data: ValuesBucket, predicates: relationalStore.RdbPredicates): Promise<number> {
     return new Promise((resolve, reject) => {
-      SqliteHelper.rdbStore?.update(data, predicates).then(number => {
+      SqliteHelper.rdbStore?.update(data, predicates).then(_ => {
         console.log('更新成功了！！！');
-        resolve(number);
-      }).catch((err: BusinessError) => {
-        reject(err);
+        resolve(1);
+      }).catch((_: BusinessError) => {
+        resolve(0);
       })
     })
   }
@@ -128,7 +128,7 @@ export class SqliteHelper {
   // 查询缓课程
   public queryData(predicates: relationalStore.RdbPredicates): Promise<IFileDownloader[]> {
     let list: IFileDownloader[] = [];
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       SqliteHelper.rdbStore?.query(predicates,
         ['userId','taskId', 'url', 'filePath', 'fileName', 'downloadSize',
           'fileSize', 'status', 'downloadId', 'begins', 'isBackgroundPause', 'exitFrequency'
@@ -167,8 +167,7 @@ export class SqliteHelper {
         resultSet?.close()
         // 释放数据集的内存
       }).catch((e: BusinessError) => {
-        console.log('出现异常' ,e.message)
-        reject(e);
+        resolve([]);
       })
     })
   }

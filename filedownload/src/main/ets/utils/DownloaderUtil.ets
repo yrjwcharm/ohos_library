@@ -28,40 +28,44 @@ export class DownloaderUtil {
 
   //退出应用程序后，由于task处于游离状态，此时使用request.agent.getTask()方法控制暂停与恢复是不会走响应回调的
   //所以App一般都是在应用退出前比如onDestroy做状态保留，但其实如果数据库包含异步操作的话，用async destroy()也不好使。比较可行的方法每次进来都处于暂停状态
-  public static async persistMergeFileStorage(): Promise<void> {
-    const netIsAvailable = await connection.hasDefaultNet();
+  public static async persistMergeFileStorage(): Promise<boolean> {
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('status', DownloadStatus.RUNNING)
     let list = await SqliteHelper.getInstance(getContext()).queryData(predicates)
-    for (let i = 0; i < list.length; i++) {
-      try {
-        let task = await request.agent.getTask(getContext(), list[i].taskId);
-        await DownloaderUtil.deleteTask(task);
-      } catch (e) {
-        ENV.__DEV__ && hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
-      } finally {
-        let srcPath = getContext().cacheDir + "/" + list[i].downloadId;
-        let dstPath = getContext().cacheDir + "/tmp/" + list[i].downloadId;
-        FileUtil.writeTmpBytes(srcPath, dstPath, list[i]?.fileName ?? '', list[i].exitFrequency, list[i].status)
-        let file = fileIo.openSync(dstPath + '/' + list[i].fileName,
-          fileIo.OpenMode.READ_WRITE);
-        let buf = new ArrayBuffer(fileIo.statSync(file.fd).size);
-        fileIo.readSync(file.fd, buf);
-        fileIo.closeSync(file);
-        let exitFrequency: number;
-        if (netIsAvailable) {
-          exitFrequency = list[i]?.exitFrequency ?? 1 + 1;
-        } else {
-          exitFrequency = list[i]?.exitFrequency ?? 1;
-        }
-        predicates.and().equalTo('downloadId', list[i].downloadId);
-        await SqliteHelper.getInstance(getContext()).update({
-          'status': 0,
-          'begins': buf.byteLength,
-          isBackgroundPause: 1,
-          exitFrequency,
-        }, predicates)
+    let promiseArr =list.map(item=>DownloaderUtil.persistBreakPoint(item))
+    const numbers = await Promise.all(promiseArr);
+    return numbers.every(item=>item===1);
+  }
+  private static  async persistBreakPoint(item:IFileDownloader):Promise<number>{
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    const netIsAvailable = await connection.hasDefaultNet();
+    try {
+      let task = await request.agent.getTask(getContext(), item.taskId);
+      await DownloaderUtil.deleteTask(task);
+    } catch (e) {
+      ENV.__DEV__ && hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
+    } finally {
+      let srcPath = getContext().cacheDir + "/" + item.downloadId;
+      let dstPath = getContext().cacheDir + "/tmp/" + item.downloadId;
+      FileUtil.writeTmpBytes(srcPath, dstPath, item?.fileName ?? '', item.exitFrequency,item.status)
+      let file = fileIo.openSync(dstPath + '/' + item.fileName,
+        fileIo.OpenMode.READ_WRITE);
+      let buf = new ArrayBuffer(fileIo.statSync(file.fd).size);
+      fileIo.readSync(file.fd, buf);
+      fileIo.closeSync(file);
+      let exitFrequency: number;
+      if (netIsAvailable) {
+        exitFrequency = item?.exitFrequency ?? 1 + 1;
+      } else {
+        exitFrequency = item?.exitFrequency ?? 1;
       }
+      predicates.and().equalTo('downloadId', item.downloadId);
+      return await SqliteHelper.getInstance(getContext()).update({
+        'status': 0,
+        'begins': buf.byteLength,
+        isBackgroundPause: 1,
+        exitFrequency,
+      }, predicates)
     }
   }
 

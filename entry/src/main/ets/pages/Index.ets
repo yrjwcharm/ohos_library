@@ -7,7 +7,8 @@ struct Index {
   @Local message: string = 'Hello World';
    async aboutToAppear() {
      try {
-       await DownloaderUtil.persistMergeFileStorage();
+      let bool =  await DownloaderUtil.persistMergeFileStorage();
+      console.log('解析+++++',bool);
      }catch (e) {
      }
   }

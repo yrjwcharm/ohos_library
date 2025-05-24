@@ -19,6 +19,11 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
+      DownloaderUtil.persistMergeFileStorage().then(bool=>{
+          if(bool){
+            this.loadData();
+          }
+      })
     }
   }
   @Local data: IResponseData[] = [];

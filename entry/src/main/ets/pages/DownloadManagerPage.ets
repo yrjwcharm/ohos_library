@@ -20,8 +20,9 @@ struct DownloadManagerPage {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      DownloaderUtil.persistMergeFileStorage().then((res)=>{
-        this.loadData();
+      //这里最好可以加个延迟，因为数据库状态更新可能没有那么快
+      DownloaderUtil.persistMergeFileStorage().then(_=>{
+
       })
     }
   }
