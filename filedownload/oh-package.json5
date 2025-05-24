@@ -8,6 +8,16 @@
   "main": "Index.ets",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
+  "metadata": {
+    "sourceRoots": [
+      "./src/main"
+    ],
+    "debug": true,
+    "useNormalizedOHMUrl": false
+  },
+  "compatibleSdkVersion": 12,
+  "compatibleSdkType": "HarmonyOS",
+  "obfuscated": false,
   "dependencies": {
   },
   "devDependencies": {},
