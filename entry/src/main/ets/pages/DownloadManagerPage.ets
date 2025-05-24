@@ -26,6 +26,8 @@ struct DownloadManagerPage {
           item.status = DownloadStatus.PAUSE;
           return item;
         })
+        this .loadData();
+        getContext().eventHub.emit('reQuery');
       })
     }
   }
