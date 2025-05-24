@@ -42,11 +42,9 @@ ohpm install @ohos_lib/filedownload
 ***3、在应用主模块entry入口Index.ts AboutToAppear()生命周期里添加如下代码***
 
 ```typescript
-async aboutToAppear() {
-  try {
-    await DownloaderUtil.persistMergeFileStorage();
-  }catch (e) {
-  }
+ try {
+  await DownloaderUtil.persistActiveDownloads();
+}catch (e) {
 }
 ```
 
