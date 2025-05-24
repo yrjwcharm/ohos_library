@@ -2,7 +2,7 @@
   "name": "@ohos_lib/calendar_event",
   "version": "1.0.0",
   "description": "这是一款基于HarmonyNext CalendarKit（日历服务）api进行二次封装的开源插件、用于简化三方应用同步系统-日程管理【提醒】等操作",
-  "keywords": ['日程管理','calendarAccount','calendarManager','同步系统日历','calendar_event','日历服务'],
+  "keywords": ['日程管理','calendarAccount','calendarManager','同步系统日历','calendarEvent','日历服务'],
   "repository": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/CalendarEvent',
   "homepage": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/CalendarEvent#readme',
   "main": "Index.ets",
