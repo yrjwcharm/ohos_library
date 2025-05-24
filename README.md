@@ -281,5 +281,4 @@ struct SingleFileDownload {
 
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
 
-### demo运行问题已经修复
 #### *** todo tips:目前若中途无网络情况下，恢复网络无法继续下载，后续版本会支持，请耐心等待***
