@@ -20,9 +20,12 @@ struct DownloadManagerPage {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      //这里最好可以加个延迟，因为数据库状态更新可能没有那么快
-      DownloaderUtil.persistMergeFileStorage().then(_=>{
-
+      //无网络情况下，恢复网络后继续保持在上次位置下载 -- 这里就不查询数据库，因为数据库是比较耗时的操作，可以直接更改内存状态
+      DownloaderUtil.persistActiveDownloads().then(()=>{
+        this.data = this.data.map(item=>{
+          item.status = DownloadStatus.PAUSE;
+          return item;
+        })
       })
     }
   }

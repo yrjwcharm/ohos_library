@@ -19,10 +19,9 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      DownloaderUtil.persistMergeFileStorage().then(bool=>{
-          if(bool){
+      //无网络情况下，恢复网络后继续保持在上次位置下载
+      DownloaderUtil.persistActiveDownloads().then(()=>{
             this.loadData();
-          }
       })
     }
   }
