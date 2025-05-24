@@ -3,7 +3,7 @@ ___
 #### 简介
 **filedownload** 这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
-***版本更新---请查看更新日志!!!***
+***版本更新---请查看更新日志!!!*** 修复已知bug,demo已经更新
 
 #### 安装步骤
 
@@ -85,6 +85,10 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
+      //无网络情况下，恢复网络后继续保持在上次位置下载
+      DownloaderUtil.persistActiveDownloads().then(()=>{
+        this.loadData();
+      })
     }
   }
   @Local data: IResponseData[] = [];
@@ -119,7 +123,9 @@ struct SingleFileDownload {
   async loadData(){
     // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
     //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
-    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293', className:'第一章 第一讲：At the Airport在机场',url: 'http://test-dal-video.wenzaizhibo.com/14329cce70aab43d901815fb69032101/682c414e/00-upload/video-test/1046576_c873b32c322da8f81a360159fbaddbc3_ec7A1Pwg.mp4',userId:this.userId}]
+    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
+      className:'第一章 第一讲：At the Airport在机场',
+      url: "http://dal-video.wenzaizhibo.com/421331271ba87ad69d49a9414c183550/683180f9/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",userId:this.userId}]
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId',this.userId);
@@ -280,5 +286,3 @@ struct SingleFileDownload {
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
-
-#### *** todo tips:目前若中途无网络情况下，恢复网络无法继续下载，后续版本会支持，请耐心等待***
