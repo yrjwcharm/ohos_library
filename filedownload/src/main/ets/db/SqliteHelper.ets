@@ -53,7 +53,7 @@ export class SqliteHelper {
         + "fileName TEXT, " //下载的文件名
         + "fileSize INTEGER, " // 文件总大小
         + "downloadSize INTEGER , " //文件已下载大小
-        + "status INTEGER -2, " //下载状态  3待下载、2下载中、1已下载、0已暂停、-1下载失败
+        + "status INTEGER DEFAULT -2, " //下载状态  3待下载、2下载中、1已下载、0已暂停、-1下载失败
         + "downloadId TEXT, " //下载列表标识id 一般都是下载项的唯一id标识 不同于userId
         + "begins INTEGER DEFAULT 0," //默认文件从begins 0节点开始下载
         + "isBackgroundPause DEFAULT 1," //默认从后台进来的标识
@@ -146,6 +146,7 @@ export class SqliteHelper {
           const begins = resultSet.getLong(resultSet.getColumnIndex('begins'))
           const isBackgroundPause = resultSet.getLong(resultSet.getColumnIndex('isBackgroundPause'))
           const exitFrequency = resultSet.getLong(resultSet.getColumnIndex('exitFrequency'))
+
           let fileDownloaderInfo: IFileDownloader = {
             userId,
             taskId,
@@ -166,6 +167,7 @@ export class SqliteHelper {
         resultSet?.close()
         // 释放数据集的内存
       }).catch((e: BusinessError) => {
+        console.log('出现异常' ,e.message)
         reject(e);
       })
     })

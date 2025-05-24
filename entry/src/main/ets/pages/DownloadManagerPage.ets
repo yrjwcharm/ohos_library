@@ -20,6 +20,9 @@ struct DownloadManagerPage {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
+      DownloaderUtil.persistMergeFileStorage().then((res)=>{
+        this.loadData();
+      })
     }
   }
   formatFileSize(fileS: number=0): string {
@@ -67,7 +70,7 @@ struct DownloadManagerPage {
   }
   loadData(){
     //这里item.status为undefined代表数据库没有记录，就不用显示课程名称
-    this.downloadingData = this.data.filter(item=>item.status&&item.status!==1);
+    this.downloadingData = this.data.filter(item=>![undefined,1].includes(item.status));
     this.downloadedData = this.data.filter(item=>item.status===1);
   }
   build() {
