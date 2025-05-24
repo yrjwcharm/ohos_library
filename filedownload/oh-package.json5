@@ -8,9 +8,7 @@
   "main": "Index.ets",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
-//  "artifactType": "obfuscation",
   "metadata": {
-    "byteCodeHar": true,
     "sourceRoots": [
       "./src/main"
     ],
