@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "vmarquee",
+    "name": "ohosutils",
     "type": "har",
     "deviceTypes": [
       "default",
