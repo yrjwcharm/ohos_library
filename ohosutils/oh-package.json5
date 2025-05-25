@@ -1,9 +1,10 @@
 {
   "name": "@ohos_lib/utils_helper",
-  "version": "1.0.2",
+  "version": "1.0.6",
   "description": "这是一提升HarmonyNext开发效率的易用工具助手开源插件",
   "main": "Index.ets",
-  "keywords": ['工具类','正则'],
+  "keywords": ['AppUtil','RegUtil','Base64Util','KV','PrefUtil','IdCardUtil','LogUtil','querystring','want','DeviceUtil'],
+  "tags": ["工具类函数"],
   "repository": "https://github.com/yrjwcharm/ohos_utils",
   "homepage": "https://github.com/yrjwcharm/ohos_utils#readme",
   "author": "闫瑞锋",
