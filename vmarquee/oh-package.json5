@@ -8,5 +8,6 @@
   "homepage": "https://github.com/yrjwcharm/VMarqueeView#readme",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
+  "obfuscated": false,
   "dependencies": {}
 }
