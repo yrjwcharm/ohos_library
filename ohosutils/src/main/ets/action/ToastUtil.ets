@@ -1,0 +1,122 @@
+
+
+import promptAction from '@ohos.promptAction';
+import { ToastConfig } from '../entity/ToastConfig';
+import { ToastOptions } from '../entity/ToastOptions';
+
+
+/**
+ * TODO 土司工具类
+ * author: yanruifeng
+ * since: 2025/05/25
+ */
+export class ToastUtil {
+
+  private static defaultConfig: ToastConfig = new ToastConfig(); //默认样式
+
+
+  /**
+   * 设置默认统一样式
+   * @param configs
+   */
+  static setDefaultConfig(configs: (config: ToastConfig) => void): void {
+    configs(ToastUtil.defaultConfig);
+  }
+
+
+  /**
+   * 弹出土司,默认时长为2s,距离底部默认为80vp
+   * @param message 提示消息
+   * @param options (显示时长、距离屏幕底部的位置、是否显示在应用之上)
+   */
+  static showToast(message: string | Resource, options: ToastOptions = new ToastOptions()) {
+    if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 0);
+      promptAction.showToast({
+        message: message,
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
+      })
+    }
+  }
+
+
+  /**
+   * 弹出土司,时长为:1.5s,距离底部默认为80vp
+   * @param message 提示消息
+   * @param options (距离屏幕底部的位置、是否显示在应用之上)
+   */
+  static showShort(message: string | Resource, options: ToastOptions = new ToastOptions()) {
+    if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 1);
+      promptAction.showToast({
+        message: message,
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
+      })
+    }
+  }
+
+
+  /**
+   * 弹出土司,时长为:10s,距离底部默认为80vp
+   * @param message 提示消息
+   * @param options (距离屏幕底部的位置、是否显示在应用之上)
+   */
+  static showLong(message: string | Resource, options: ToastOptions = new ToastOptions()) {
+    if ((typeof message === 'string' && message.length > 0) || message) {
+      options = ToastUtil.initToastDefault(options, 2);
+      promptAction.showToast({
+        message: message,
+        duration: options.duration,
+        showMode: options.showMode,
+        alignment: options.alignment,
+        bottom: options.bottom,
+        offset: options.offset,
+        textColor: options.textColor,
+        backgroundColor: options.backgroundColor,
+        backgroundBlurStyle: options.backgroundBlurStyle,
+        shadow: options.shadow
+      })
+    }
+  }
+
+
+  /**
+   * 初始化DialogOptions参数
+   */
+  private static initToastDefault(options: ToastOptions, type: number): ToastOptions {
+    if (type == 1) {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_short;
+    } else if (type == 2) {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration_long;
+    } else {
+      options.duration = options.duration ?? ToastUtil.defaultConfig.duration;
+    }
+    options.showMode = options.showMode ?? ToastUtil.defaultConfig.showMode;
+    options.alignment = options.alignment ?? ToastUtil.defaultConfig.alignment;
+    options.bottom = options.bottom ?? ToastUtil.defaultConfig.bottom;
+    options.offset = options.offset ?? ToastUtil.defaultConfig.offset;
+    options.textColor = options.textColor ?? ToastUtil.defaultConfig.textColor;
+    options.backgroundColor = options.backgroundColor ?? ToastUtil.defaultConfig.backgroundColor;
+    options.backgroundBlurStyle = options.backgroundBlurStyle ?? ToastUtil.defaultConfig.backgroundBlurStyle;
+    options.shadow = options.shadow ?? ToastUtil.defaultConfig.shadow;
+    return options;
+  }
+
+
+}
