@@ -284,7 +284,7 @@ struct SingleFileDownload {
 #### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
 #### 鸿蒙技术交流QQ群：2719910383
 
-### 希望您可以动一动小手点点小⭐⭐
+### 开源不易，希望您可以动一动小手点点小⭐⭐
 
 #### 👴希望大家如有好的需求踊跃提交,如有问题请前往github提交issue，空闲时间会扩充与修复优化
 ## 🌏开源协议
