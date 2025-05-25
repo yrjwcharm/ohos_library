@@ -1,6 +1,7 @@
 ### @ohos_lib/net_connection(API12)
-___
+
 #### 简介
+
 **net_connection** 这是一款基于HarmonyNext网络连接管理模块API封装的开源插件
 
 ***版本更新 请查看更新日志***
@@ -23,7 +24,7 @@ ohpm install @ohos_lib/net_connection
          <td>获取默认激活的数据网络</td>
         </tr>
         <tr style="background:black;color:#fff">
-         <td>isNetWiFi()</td>
+         <td>isWiFi()</td>
          <td>判断是否是WIFI</td>
         </tr>
          <tr>
@@ -48,7 +49,7 @@ ohpm install @ohos_lib/net_connection
         </tr>
         <tr style="background:black;color:#fff">
         <td>NetworkCallback类</td>
-        <td>订阅网络回调监听类<a hre="https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-net-connection#onnetavailable">详情用法查看</a></td>
+        <td>订阅网络回调监听类</td>
         </tr>
     </tbody>
 </table>
@@ -89,5 +90,3 @@ export struct  Index{
   }
 }
 </pre>
-
-#### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/networkinfo
