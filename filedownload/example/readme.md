@@ -1,5 +1,4 @@
 ### filedownlaod(API12)
-___
 ## 📚简介
 **filedownload** 这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
@@ -282,8 +281,11 @@ struct SingleFileDownload {
 ### 下载观看Demo演示效果
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
-#### 更多详情效果案例展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
+#### 更多详情案例及效果展示：https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
 #### 鸿蒙技术交流QQ群：2719910383
 
+### 开源不易，希望您可以动一动小手点点小⭐⭐
+
+#### 👴希望大家如有好的需求踊跃提交,如有问题请前往github提交issue，空闲时间会扩充与修复优化
 ## 🌏开源协议
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
