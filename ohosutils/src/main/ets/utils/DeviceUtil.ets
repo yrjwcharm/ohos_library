@@ -4,7 +4,7 @@ import { LogUtil } from './LogUtil';
 import { resourceManager } from '@kit.LocalizationKit';
 import { StrUtil } from './StrUtil';
 import { AssetUtil } from './AssetUtil';
-import { PreferencesUtil } from './PreferencesUtil';
+import { PreferencesUtil } from './PrefUtil';
 import { RandomUtil } from './RandomUtil';
 import deviceInfo from '@ohos.deviceInfo';
 import { ResUtil } from './ResUtil';
