@@ -28,7 +28,7 @@ export class StrUtil {
    * @returns
    */
   static isNotNull(str: string | undefined | null): boolean {
-    return false === StrUtil.isNull(str);
+    return !StrUtil.isNull(str);
   }
 
 
@@ -38,7 +38,7 @@ export class StrUtil {
    * @return 是否为空
    */
   static isEmpty(str: string | undefined | null): boolean {
-    return str === undefined || str === null || str.length === 0;
+    return str === undefined || str === null || str.trim().length === 0;
   }
 
   /**
@@ -47,7 +47,7 @@ export class StrUtil {
    * @returns
    */
   static isNotEmpty(str: string | undefined | null): boolean {
-    return false === StrUtil.isEmpty(str);
+    return !StrUtil.isEmpty(str);
   }
 
 
