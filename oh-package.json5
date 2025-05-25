@@ -2,8 +2,7 @@
   "modelVersion": "5.0.4",
   "description": "Please describe the basic information.",
   "dependencies": {
-    "@webabcd/harmony-utils": "^1.0.1",
-    "@pura/harmony-utils": "^1.3.2"
+
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.21",
