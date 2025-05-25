@@ -1,4 +1,3 @@
-
 import { window } from '@kit.ArkUI';
 import { AppUtil } from './AppUtil';
 import { LogUtil } from './LogUtil';

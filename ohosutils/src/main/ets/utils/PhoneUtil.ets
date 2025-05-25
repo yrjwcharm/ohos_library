@@ -1,6 +1,5 @@
-
 import { OutDTO } from '../base/OutDTO';
-import { RegexConst as Const } from '../constants/RegexConst'
+import { RegexConst as Const } from '../constants/RegexConst';
 
 export class PhoneUtil {
   /**

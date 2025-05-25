@@ -1,4 +1,3 @@
-
 import util from '@ohos.util';
 
 /**

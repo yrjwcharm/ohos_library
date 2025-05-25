@@ -1,4 +1,3 @@
-
 import { distributedKVStore } from '@kit.ArkData';
 import { bundleManager, common } from '@kit.AbilityKit';
 import { AuthUtil } from '../auth/AuthUtil';
@@ -7,7 +6,6 @@ import { AuthUtil } from '../auth/AuthUtil';
  * @Author csx
  * @DateTime 2024/8/6 11:08:24
  * @TODO KvUtil 数据持久化工具类
- * @Use 详细使用方法以及文档详见ohpm官网,地址https://ohpm.openharmony.cn/#/cn/detail/@yunkss%2Feftool
  */
 export class KvUtil {
   /**

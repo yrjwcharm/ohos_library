@@ -1,4 +1,3 @@
-
 import { RandomUtil } from './RandomUtil';
 import { userAuth } from '@kit.UserAuthenticationKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';

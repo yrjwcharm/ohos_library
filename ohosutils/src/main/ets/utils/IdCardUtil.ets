@@ -1,4 +1,3 @@
-
 import { OutDTO } from '../base/OutDTO'
 import { RegexConst } from '../constants/RegexConst'
 import { RegUtil } from './RegUtil'

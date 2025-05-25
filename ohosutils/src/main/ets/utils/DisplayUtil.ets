@@ -1,5 +1,3 @@
-
-
 import { display } from '@kit.ArkUI';
 import { Callback } from '@kit.BasicServicesKit';
 

@@ -4,7 +4,6 @@ import { LogUtil } from './LogUtil';
 import { resourceManager } from '@kit.LocalizationKit';
 import { StrUtil } from './StrUtil';
 import { AssetUtil } from './AssetUtil';
-import { PreferencesUtil } from './PrefUtil';
 import { RandomUtil } from './RandomUtil';
 import deviceInfo from '@ohos.deviceInfo';
 import { ResUtil } from './ResUtil';
@@ -12,6 +11,7 @@ import { identifier } from '@kit.AdsKit';
 import { DEVICE_ID_KEY } from '../entity/constraint';
 import { AAID } from '@kit.PushKit';
 import { batteryInfo, power } from '@kit.BasicServicesKit';
+import { PrefUtil } from './PrefUtil';
 
 
 /**
@@ -36,7 +36,7 @@ export class DeviceUtil {
       if (AssetUtil.canIUse()) {
         deviceId = StrUtil.toStr(AssetUtil.getSync(DEVICE_ID_KEY));
       } else {
-        deviceId = StrUtil.toStr(PreferencesUtil.getStringSync(DEVICE_ID_KEY));
+        deviceId = StrUtil.toStr(PrefUtil.getStringSync(DEVICE_ID_KEY));
         LogUtil.error(`当前设备不支持,关键资产存储服务`);
       }
       if (StrUtil.isEmpty(deviceId)) {
@@ -52,7 +52,7 @@ export class DeviceUtil {
           //将deviceId保存到关键资产（在应用卸载时保留）
           AssetUtil.addSync(DEVICE_ID_KEY, deviceId);
         } else {
-          PreferencesUtil.putSync(DEVICE_ID_KEY, deviceId);
+          PrefUtil.putSync(DEVICE_ID_KEY, deviceId);
           LogUtil.error(`当前设备不支持,关键资产存储服务`);
         }
       }
@@ -69,7 +69,7 @@ export class DeviceUtil {
     if (AssetUtil.canIUse()) {
       AssetUtil.removeSync(DEVICE_ID_KEY);
     } else {
-      PreferencesUtil.deleteSync(DEVICE_ID_KEY);
+      PrefUtil.deleteSync(DEVICE_ID_KEY);
     }
   }
 

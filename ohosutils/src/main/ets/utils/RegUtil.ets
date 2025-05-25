@@ -5,8 +5,8 @@
  * @DateTime 2023/12/29 21:56
  * @TODO ReUtil 正则工具类
  */
-import { RegexConst as Const } from '../constants/RegexConst'
-import { OutDTO } from '../base/OutDTO'
+import { RegexConst as Const } from '../constants/RegexConst';
+import { OutDTO } from '../base/OutDTO';
 
 export class RegUtil {
   /**

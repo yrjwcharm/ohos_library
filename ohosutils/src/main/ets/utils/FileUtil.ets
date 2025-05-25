@@ -1,4 +1,3 @@
-
 import fileUri from '@ohos.file.fileuri';
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
 import { StrUtil } from './StrUtil';

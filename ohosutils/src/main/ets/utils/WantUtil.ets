@@ -1,8 +1,7 @@
-
 import { AppUtil } from './AppUtil';
 import { Want, wantConstant } from '@kit.AbilityKit';
-import {FileUtil} from './FileUtil'
-import {PreviewUtil} from './PreviewUtil'
+import { FileUtil } from './FileUtil';
+import { PreviewUtil } from './PreviewUtil';
 
 /**
  * TODO Want工具类

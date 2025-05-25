@@ -1,5 +1,3 @@
-
-
 import { util } from '@kit.ArkTS';
 
 /**
