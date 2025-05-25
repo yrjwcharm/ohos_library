@@ -10,7 +10,7 @@ import { StrUtil } from './StrUtil';
  * TODO 手机的生物认证（指纹、人脸、密码）工具类
  * 需要权限 ohos.permission.ACCESS_BIOMETRIC
  *
- * author: 桃花镇童长老ᥫ᭡
+ * author: yanruifeng
  * since: 2024/05/01
  */
 export class AuthUtil {
