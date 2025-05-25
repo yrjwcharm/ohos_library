@@ -21,9 +21,38 @@ export class GTNetworkUtil {
   /**
    * 判断当前网络是否是Wi-Fi，否则是移动流量热点网络。
    */
-  static   isNetWiFi(): boolean {
+  private static   isNetWiFi(): boolean {
     return NetworkManager.getInstance().hasNetWiFi();
   }
+  /**
+   * 获取所有处于连接状态的网络列表
+   */
+  static getAllNets(): connection.NetHandle[] {
+    let list = connection.getAllNetsSync();
+    return list;
+  }
+
+  /**
+   * 获取App绑定的网络信息
+   */
+  static getAppNet(): connection.NetHandle {
+    return connection.getAppNetSync();
+  }
+
+
+  /**
+   * 判断当前网络是否是WiFi
+   */
+  static isWiFi(): boolean {
+    let net = connection.getDefaultNetSync();
+    let netCapabilities = connection.getNetCapabilitiesSync(net);
+    let bearerTypes = netCapabilities.bearerTypes;
+    if (bearerTypes) {
+      return bearerTypes.indexOf(connection.NetBearType.BEARER_WIFI) >= 0
+    }
+    return false;
+  }
+
   /**
    * 获取当前的网络类型（更具体）
    * @returns {NetworkTypeString}
