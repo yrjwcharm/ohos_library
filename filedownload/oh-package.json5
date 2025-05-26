@@ -17,9 +17,5 @@
   },
   "compatibleSdkVersion": 12,
   "compatibleSdkType": "HarmonyOS",
-  "obfuscated": false,
-  "dependencies": {
-  },
-  "devDependencies": {},
-  "dynamicDependencies": {}
+  "obfuscated": false
 }
