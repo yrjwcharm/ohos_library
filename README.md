@@ -279,7 +279,7 @@ struct SingleFileDownload {
 }
 ```
 #### 运行Demo演示效果
-* demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git***
+* demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git
 * 切换分支 git checkout feature/ohos/fileDownload***
 
 #### 下载观看Demo演示效果
