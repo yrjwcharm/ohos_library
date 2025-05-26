@@ -281,7 +281,7 @@ struct SingleFileDownload {
 ### 下载观看Demo演示效果
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
-#### 鸿蒙技术交流QQ群：2719910383
+#### 鸿蒙技术交流QQ群：783867484
 
 ### 开源不易，希望您可以动一动小手点点小⭐⭐
 
