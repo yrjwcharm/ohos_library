@@ -31,8 +31,8 @@ export class FileUtil {
 
   //下载完成后删除临时文件
   public static deleteTmpFile(context: Context, fileName: string, downloadId: string) {
-    let srcPath = context.cacheDir + "/" + downloadId + '/' + fileName;
-    let dstPath = context.cacheDir + "/tmp/" + downloadId
+    let srcPath = context.filesDir + "/" + downloadId + '/' + fileName;
+    let dstPath = context.filesDir + "/tmp/" + downloadId
     try {
       if (fileIo.accessSync(dstPath)) {
         FileUtil.readFileBytes(srcPath, dstPath + '/' + fileName);
@@ -40,8 +40,8 @@ export class FileUtil {
         fileIo.unlinkSync(dstPath + '/' + fileName)
         if (FileUtil.getDirectorySize(dstPath) === 0) {
           fileIo.rmdirSync(dstPath)
-          if (FileUtil.getDirectorySize(context.cacheDir + "/tmp/") === 0) {
-            fileIo.rmdirSync(context.cacheDir + '/tmp/')
+          if (FileUtil.getDirectorySize(context.filesDir + "/tmp/") === 0) {
+            fileIo.rmdirSync(context.filesDir + '/tmp/')
           }
         }
       }

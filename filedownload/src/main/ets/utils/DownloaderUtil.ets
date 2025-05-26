@@ -45,8 +45,8 @@ export class DownloaderUtil {
     } catch (e) {
       ENV.__DEV__ && hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
     } finally {
-      let srcPath = getContext().cacheDir + "/" + item.downloadId;
-      let dstPath = getContext().cacheDir + "/tmp/" + item.downloadId;
+      let srcPath = getContext().filesDir + "/" + item.downloadId;
+      let dstPath = getContext().filesDir + "/tmp/" + item.downloadId;
       FileUtil.writeTmpBytes(srcPath, dstPath, item?.fileName ?? '', item.exitFrequency,item.status)
       let file = fileIo.openSync(dstPath + '/' + item.fileName,
         fileIo.OpenMode.READ_WRITE);
@@ -119,8 +119,8 @@ export class DownloaderUtil {
        let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
        if (list.length > 0) {
          fileIo.accessSync(list[0].filePath) && fileIo.rmdirSync(list[0].filePath)
-         if (fileIo.accessSync(getContext().cacheDir + '/tmp/' + list[0].downloadId)) {
-           fileIo.rmdirSync(getContext().cacheDir + '/tmp/' + list[0].downloadId)
+         if (fileIo.accessSync(getContext().filesDir + '/tmp/' + list[0].downloadId)) {
+           fileIo.rmdirSync(getContext().filesDir+'/tmp/');
          }
          const task = await request.agent.getTask(getContext(), list[0].taskId);
          list[0].status !== 1 && DownloaderUtil.deleteTask(task);
@@ -140,7 +140,7 @@ export class DownloaderUtil {
       let downloadId = data.downloadId;
       let fileName = url.substring(url.lastIndexOf('/') + 1);
       let savePath =
-        getContext().cacheDir + '/' + downloadId + '/' + fileName
+        getContext().filesDir + '/' + downloadId + '/' + fileName
       let downloadConfig: request.agent.Config = {
         action: request.agent.Action.DOWNLOAD,
         url: url,
@@ -159,7 +159,7 @@ export class DownloaderUtil {
           'userId': data.userId,
           'downloadId': downloadId, //必传
           'url': url, //必传
-          'filePath': getContext().cacheDir + '/' + downloadId,
+          'filePath': getContext().filesDir + '/' + downloadId,
           'fileName': fileName,
           "begins": data.begins ?? 0
         }
