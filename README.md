@@ -278,6 +278,10 @@ struct SingleFileDownload {
   }
 }
 ```
+
+#### demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git
+#### 切换分支 git checkout feature/ohos/fileDownload
+
 ### 下载观看Demo演示效果
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
@@ -288,3 +292,6 @@ struct SingleFileDownload {
 #### 👴希望大家如有好的需求踊跃提交,如有问题请前往github提交issue，空闲时间会扩充与修复优化
 ## 🌏开源协议
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
+
+
+
