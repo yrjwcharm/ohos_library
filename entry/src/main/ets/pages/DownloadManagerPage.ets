@@ -20,15 +20,8 @@ struct DownloadManagerPage {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      //无网络情况下，恢复网络后继续保持在上次位置下载 -- 这里就不建议查询数据库[当然也可以查询]，因为数据库是比较耗时的操作，可以直接更改内存状态
-      DownloaderUtil.persistActiveDownloads().then(()=>{
-        this.data = this.data.map(item=>{
-          item.status = DownloadStatus.PAUSE;
-          return item;
-        })
-        this .loadData();
-        getContext().eventHub.emit('reQuery');
-      })
+      //无网络情况下，恢复网络后继续保持在上次位置下载只需要调用如下代码即可  此代码新版本V1.1.3 已经内置处理逻辑、无需手动处理
+      DownloaderUtil.persistActiveDownloads()
     }
   }
   formatFileSize(fileS: number=0): string {

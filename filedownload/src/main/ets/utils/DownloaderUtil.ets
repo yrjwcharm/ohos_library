@@ -60,15 +60,31 @@ export class DownloaderUtil {
         exitFrequency = item?.exitFrequency ?? 1;
       }
       predicates.and().equalTo('downloadId', item.downloadId);
+      DownloaderUtil.sendEventEmitter(item,buf.byteLength,exitFrequency);
       return await SqliteHelper.getInstance(getContext()).update({
-        'status': 0,
+        'status': DownloadStatus.PAUSE,
         'begins': buf.byteLength,
         isBackgroundPause: 1,
         exitFrequency,
       }, predicates)
     }
   }
-
+  private static sendEventEmitter(item:IFileDownloader,begins:number, exitFrequency:number){
+    DownloadManager.eventEmitter(DownloadManager.eventName,{
+      userId: item.userId,
+      url: item.url,
+      downloadId:item.downloadId,
+      taskId:item.taskId as string,
+      downloadSize:item.downloadSize as number,
+      fileSize: item.fileSize as number,
+      status:DownloadStatus.PAUSE,
+      filePath:item.filePath as string,
+      fileName:item.fileName as string,
+      begins,
+      isBackgroundPause: 1,
+      exitFrequency,
+    })
+  }
   static async pause(taskId: string): Promise<void> {
     //暂停下载 调用Api触发暂停 更改数据库状态为0
     try {

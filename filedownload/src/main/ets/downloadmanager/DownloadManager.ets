@@ -124,11 +124,14 @@ export class DownloadManager {
         url: valuesBuket.url as string,
         downloadId: valuesBuket.downloadId as string,
         taskId:valuesBuket.taskId as string,
-        downloadSize:valuesBuket.downloadSize,
-        fileSize: valuesBuket.fileSize,
+        downloadSize:valuesBuket.downloadSize as number,
+        fileSize: valuesBuket.fileSize as number,
         status:valuesBuket.status as number,
         filePath:valuesBuket.filePath as string,
         fileName:valuesBuket.fileName as string,
+        begins:valuesBuket.begins ??0,
+        isBackgroundPause:valuesBuket.isBackgroundPause??1,
+        exitFrequency :valuesBuket.exitFrequency??1
       })
     } catch (e) {
       ENV.__DEV__&& console.error("EventHub emit error：", e.message);
