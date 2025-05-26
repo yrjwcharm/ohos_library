@@ -81,10 +81,9 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      //无网络情况下，恢复网络后继续保持在上次位置下载
-      DownloaderUtil.persistActiveDownloads().then(()=>{
-        this.loadData();
-      })
+      //无网络情况下，恢复网络后继续保持在上次位置下载 --只需要调用如下一行代码即可  此代码新版本V1.1.3 已经内置逻辑处理、无需手动处理,
+      // 本质逻辑内部还是发送了一个监听，统一在DownloadManager.addListener监听处理
+      DownloaderUtil.persistActiveDownloads()
     }
   }
   @Local data: IResponseData[] = [];
@@ -121,7 +120,9 @@ struct SingleFileDownload {
     //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
     let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
       className:'第一章 第一讲：At the Airport在机场',
-      url: "http://dal-video.wenzaizhibo.com/421331271ba87ad69d49a9414c183550/683180f9/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",userId:this.userId}]
+      "url": "http://dal-video.wenzaizhibo.com/b427721e9a8e246a7356edf282c10511/68348801/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
+      userId:this.userId
+    }]
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId',this.userId);
@@ -287,7 +288,6 @@ struct SingleFileDownload {
 
 #### 下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_2.mp4)
-
 
 #### 鸿蒙技术交流QQ群：783867484
 
