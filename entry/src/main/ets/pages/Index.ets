@@ -1,4 +1,3 @@
-import { destructure } from "@ohos_lib/destructure"
 
 @Entry
 @Component
