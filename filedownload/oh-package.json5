@@ -1,6 +1,6 @@
 {
   "name": "@ohos_lib/filedownload",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等",
   "keywords": ['breakpoint','断点续传','agent','request','download'],
   "repository": 'https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload',
@@ -8,7 +8,6 @@
   "main": "Index.ets",
   "author": "闫瑞锋",
   "license": "Apache-2.0",
-  "artifactType": "original",
   "metadata": {
     "sourceRoots": [
       "./src/main"
