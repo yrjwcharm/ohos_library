@@ -2,13 +2,6 @@
   "modelVersion": "5.0.4",
   "description": "Please describe the basic information.",
   "dependencies": {
-    "@ohos_lib/vmarquee": "^1.0.2",
-    "@ohos_lib/clearcache": "^1.0.0",
-    "@ohos_lib/geolocation": "^1.0.1",
-    "@ohos_lib/utils_helper": "^1.0.0",
-    "@ohos_lib/net_connection": "^1.0.1",
-    "@ohos_lib/calendar_event": "^1.0.0",
-    "@ohos_lib/navigation_bar": "^1.0.1"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.21",
