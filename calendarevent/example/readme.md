@@ -32,8 +32,6 @@ ohpm install @ohos_lib/calendar_event
 }
 ],
 ```
-
-```
 #### 基本用法
 
 ```typescript

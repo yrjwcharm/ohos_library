@@ -3,14 +3,7 @@ ___
 #### 简介
 **calendar_event** 这是一款基于HarmonyNext CalendarKit（日历服务）api进行二次封装的开源插件、用于简化三方应用同步系统-日程管理【提醒】等操作
 
-***1、已经内置日历权限授权，无需手动实现***
-___
-***2、Api已经内置创建账户、创建日程之前的条件查询判断【是否已经有该日历账户、是否已经有该日程安排】，无需手动实现***
-
-___
-
-
-***版本更新---请查看更新日志!!!***
+***版本更新---请重点查看更新日志!!!***
 
 #### 安装步骤
 
@@ -284,3 +277,5 @@ export  class CalendarAssistant{
   }
 }
 ```
+
+#### 更多详情案例及演示效果请查看 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/CalendarEvent
