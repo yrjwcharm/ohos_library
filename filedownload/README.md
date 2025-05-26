@@ -2,7 +2,7 @@
 ### 📚简介
 **filedownload** 这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
-***版本更新---请查看更新日志!!!*** 修复已知BUG
+***版本更新---请查看更新日志!!!*** 修复已知bug,demo已经更新
 
 ### 📚下载安装
 
@@ -282,8 +282,11 @@ struct SingleFileDownload {
 * demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git
 * 切换分支 git checkout feature/ohos/fileDownload
 
-#### 下载观看Demo演示效果
+#### 下载观看Demo演示效果--退出应用程序后恢复下载
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
+
+#### 下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载
+[点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_2.mp4)
 
 #### 更多详细用法请查看 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
 
