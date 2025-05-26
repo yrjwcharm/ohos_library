@@ -282,7 +282,7 @@ struct SingleFileDownload {
 * demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git
 * 切换分支 git checkout feature/ohos/fileDownload
 
-#### 下载观看Demo演示效果--退出应用程序后恢复下载
+#### 下载观看Demo演示效果--退出应用程序杀掉进程后恢复下载
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
 
 #### 下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载
