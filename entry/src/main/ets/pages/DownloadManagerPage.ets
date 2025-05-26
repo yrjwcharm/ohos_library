@@ -157,6 +157,10 @@ struct DownloadManagerPage {
                   if(number>0){
                     this.downloadingData.splice(index,1);
                     getContext().eventHub.emit('reQuery');
+                  }else{
+                    promptAction.showToast({
+                      message:'删除失败了!!!'
+                    })
                   }
                 })
               }.width('100%')

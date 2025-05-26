@@ -106,9 +106,9 @@ export class DownloaderUtil {
          if (fileIo.accessSync(getContext().cacheDir + '/tmp/' + list[0].downloadId)) {
            fileIo.rmdirSync(getContext().cacheDir + '/tmp/' + list[0].downloadId)
          }
+         const task = await request.agent.getTask(getContext(), list[0].taskId);
+         list[0].status !== 1 && DownloaderUtil.deleteTask(task);
        }
-       const task = await request.agent.getTask(getContext(), list[0].taskId);
-       list[0].status !== 1 && DownloaderUtil.deleteTask(task);
        let number = await SqliteHelper.getInstance(getContext()).delete(predicates);
        resolve(number);
      } catch (e) {
