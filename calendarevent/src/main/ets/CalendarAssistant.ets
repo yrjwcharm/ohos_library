@@ -123,11 +123,11 @@ export  class CalendarAssistant{
               let calendarMgr = calendarManager.getCalendarManager(abilityContext);
               // 根据日程id查询
               let eventFilter:calendarManager.EventFilter;
-              if(event.title){
-                eventFilter= calendarManager.EventFilter.filterByTitle(event.title);
-              }else if(event.startTime&&event.endTime){
+             if(event.startTime&&event.endTime){
                 eventFilter= calendarManager.EventFilter.filterByTime(event.startTime,event.endTime);
-              }else {
+              }else if (event.title){
+                eventFilter= calendarManager.EventFilter.filterByTitle(event.title);
+              } else {
                 // tips:⚠️ 这里是日程id 可不是日历账户id「calendarAccount的id」,不要把日历账户的id赋值给日程id
                 eventFilter= calendarManager.EventFilter.filterById([event.id]);
               }
