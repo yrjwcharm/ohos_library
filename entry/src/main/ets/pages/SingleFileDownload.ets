@@ -19,7 +19,7 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      //无网络情况下，恢复网络后继续保持在上次位置下载 --只需要调用如下代码即可  此代码新版本V1.1.3 已经内置逻辑处理、无需手动处理
+      //无网络情况下，恢复网络后继续保持在上次位置下载 --只需要调用如下一行代码即可  此代码新版本V1.1.3 已经内置逻辑处理、无需手动处理
       DownloaderUtil.persistActiveDownloads()
     }
   }
