@@ -6,6 +6,8 @@ ___
 日志工具LogUtil、字符串StrUtil、UrlHelper查询url参数、跳转系统设置WantUtil等
 工具类」`***
 
+### ***版本更新：请重点查看更新日志！！！***
+
 #### 下载安装
 
 `ohpm install @ohos_lib/utils_helper`
