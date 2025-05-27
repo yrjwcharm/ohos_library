@@ -60,17 +60,17 @@ HTTP/1.1 206 Partial Content
 ```
 
 ## filedownload相关 API
-| 方法                                                                                          | 介绍                          |
-|:--------------------------------------------------------------------------------------------|:----------------------------|
-| persistActiveDownloads                                                                      | 断点下载的主要方法                   |
-| static async pause(taskId: string):Promise<void>                                            | 下载暂停方法                      |
-| static async resume(downloadInfo: IFileDownloader):Promise<void>                            | 下载恢复方法                      |
-| static async delete(userId: string, downloadId: string):Promise<number>                     | 删除「取消下载」方法                  |
-| static async downloadFile<T extends IFileDownloader>(data: T, isBatchInsertQueue?: boolean) | 通用下载方法                      |
-| GTNetworkUtil                                                                               | 网络相关工具类                     |
-| FileUtil                                                                                    | 文件操作相关工具类                   |
-| SqliteHelper                                                                                | 数据库操作助手、增删改查                |
-| static  addListener(eventName:string,callback:(download:IFileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」 |
+| 方法                                                                                          | 介绍                                     |
+|:--------------------------------------------------------------------------------------------|:---------------------------------------|
+| persistActiveDownloads()                                                                    | 断点下载的主要方法【内置更改数据库状态，把断点前后字节数统一合并成一个文件】 |
+| static async pause(taskId: string):Promise<void>                                            | 下载暂停方法【内置更改数据库状态】                      |
+| static async resume(downloadInfo: IFileDownloader):Promise<void>                            | 下载恢复方法 【内置更改数据库状态】                     |
+| static async delete(userId: string, downloadId: string):Promise<number>                     | 删除「取消下载」方法【删除数据库表记录，删除文件系统下载文件、】       |
+| static async downloadFile<T extends IFileDownloader>(data: T, isBatchInsertQueue?: boolean) | 通用下载方法                                 |
+| GTNetworkUtil                                                                               | 网络相关工具类 【监听有网、无网状态】                    |
+| FileUtil                                                                                    | 文件操作相关工具类 沙盒文件存储、删除等操作                 |
+| SqliteHelper                                                                                | 数据库操作类、增删改查                            |
+| static  addListener(eventName:string,callback:(download:IFileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」            |
 
 
 
