@@ -1,24 +1,24 @@
 
 ## UtilsHelper
 ___
-#### 简介
-**utils_helper** 这是一款致力于提升HarmonyNext开发效率的开源插件，包含了诸多常用工具类
+### 📚简介
+utils_helper** 这是一款致力于提升HarmonyNext开发效率的开源插件，包含了诸多常用工具类
 ***如：  `「设备信息、base64Util、应用沙盒文件FileUtil、GlobalContext全局内存、phoneUtil手机号正则、IdCardUtil身份证正则、键值型数据库KvUtil
-日志工具LogUtil、字符串StrUtil、UrlHelper查询url参数、跳转系统设置WantUtil等
-工具类」`***
+日志工具LogUtil、字符串StrUtil、UrlHelper查询url参数、跳转系统设置WantUtil等等」`***
 
-#### 下载安装
+### 📚下载安装
 
 `ohpm install @ohos_lib/utils_helper`
 
-####  初始化使用
+### 初始化使用
+
 ```typescript
 onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
 AppUtil.init(this.context);
 }
 ```
 
-### 📂API
+### 📚 API介绍
 
 | API工具类      | 工具类描述                        |
 |:------------|:-----------------------------|
@@ -42,6 +42,7 @@ AppUtil.init(this.context);
 
 #### 其他详情用法及效果展示 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/ohos_utils
 
+---
 ###  🌏开源协议
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
 
