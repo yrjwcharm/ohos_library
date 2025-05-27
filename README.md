@@ -58,6 +58,22 @@ yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenza
 
 HTTP/1.1 206 Partial Content
 ```
+
+## filedownload相关 API
+| 方法                                                                                          | 介绍                          |
+|:--------------------------------------------------------------------------------------------|:----------------------------|
+| persistActiveDownloads                                                                      | 断点下载的主要方法                   |
+| static async pause(taskId: string):Promise<void>                                            | 下载暂停方法                      |
+| static async resume(downloadInfo: IFileDownloader):Promise<void>                            | 下载恢复方法                      |
+| static async delete(userId: string, downloadId: string):Promise<number>                     | 删除「取消下载」方法                  |
+| static async downloadFile<T extends IFileDownloader>(data: T, isBatchInsertQueue?: boolean) | 通用下载方法                      |
+| GTNetworkUtil                                                                               | 网络相关工具类                     |
+| FileUtil                                                                                    | 文件操作相关工具类                   |
+| SqliteHelper                                                                                | 数据库操作助手、增删改查                |
+| DownloadManager                                                                             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」 |
+
+
+
 #### 基本用法
 ```typescript
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
