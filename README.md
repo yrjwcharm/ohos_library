@@ -43,6 +43,7 @@ AppUtil.init(this.context);
 
 #### 其他详情用法及效果展示 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/ohos_utils
 
+---
 ###  🌏开源协议
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
 
