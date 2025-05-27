@@ -58,7 +58,6 @@ yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenza
 
 HTTP/1.1 206 Partial Content
 ```
-
 ## filedownload相关 API
 | 方法                                                                                          | 介绍                          |
 |:--------------------------------------------------------------------------------------------|:----------------------------|
@@ -70,7 +69,8 @@ HTTP/1.1 206 Partial Content
 | GTNetworkUtil                                                                               | 网络相关工具类                     |
 | FileUtil                                                                                    | 文件操作相关工具类                   |
 | SqliteHelper                                                                                | 数据库操作助手、增删改查                |
-| DownloadManager                                                                             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」 |
+| static  addListener(eventName:string,callback:(download:IFileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」 |
+
 
 
 
