@@ -58,7 +58,7 @@ struct SingleFileDownload {
     //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
     let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
       className:'第一章 第一讲：At the Airport在机场',
-      "url": "http://dal-video.wenzaizhibo.com/b427721e9a8e246a7356edf282c10511/68348801/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
+      "url": "http://dal-video.wenzaizhibo.com/a341455e48a5afdf7099a366b9706024/6835f3a9/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
        userId:this.userId
     }]
     //从数据库读取获取上次的下载进度
