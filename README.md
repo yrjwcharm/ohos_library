@@ -1,12 +1,10 @@
-## filedownlaod(API12)
-
-## 📚简介
-
+### filedownlaod(API12)
+### 📚简介
 **filedownload** 这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
 ***版本更新---请查看更新日志!!!*** 修复已知bug,demo已经更新
 
-## 📚下载安装
+### 📚下载安装
 
 `ohpm install @ohos_lib/filedownload`
 
@@ -88,7 +86,7 @@ struct SingleFileDownload {
       promptAction.showToast({
         message:'网络连接已断开，请检查~'
       })
-      //无网络情况下，恢复网络后继续保持在上次位置下载 --只需要调用如下一行代码即可  此代码新版本V1.1.3 已经内置逻辑处理、无需手动处理,
+      //无网络情况下，恢复网络后继续保持在上次位置下载 --只需要调用如下一行代码即可
       // 本质逻辑内部还是发送了一个监听，统一在DownloadManager.addListener监听处理
       DownloaderUtil.persistActiveDownloads()
     }
@@ -122,13 +120,14 @@ struct SingleFileDownload {
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
   }
+  //TODO tips: 下载失败，首先检查url是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
     // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
-    //转换数据结构 IFileDownloader至少包含三个字段userId ,downloadId,url userId登录用户的userId
+    //转换数据结构response时接口类型必须要继承 extends IFileDownloader IFileDownloader接口类型初始化至少包含三个字段userId ,downloadId,url userId登录用户的userId
+    //因此extends IFileDownloader过的IResponseData接口类型 对应转换后的数据如下所示
     let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
       className:'第一章 第一讲：At the Airport在机场',
-      "url": "http://dal-video.wenzaizhibo.com/b427721e9a8e246a7356edf282c10511/68348801/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
-      userId:this.userId
+      "url": "http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",       userId:this.userId
     }]
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
