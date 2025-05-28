@@ -213,13 +213,7 @@ struct MultiFileDownload {
       }.layoutWeight(1)
       Flex({alignItems:ItemAlign.Center,justifyContent:FlexAlign.SpaceBetween}) {
         Button('全部下载').type(ButtonType.Capsule).onClick(async () => {
-          DownloaderUtil.matchInsert(this.data).then(res=>{
-            if(res>0){
-              if(!this.data.find(item=>item.status===DownloadStatus.RUNNING)){
-
-              }
-            }
-          })
+          DownloaderUtil.matchInsert(this.data);
         }).backgroundColor(Color.Red)
         Button('查看下载').type(ButtonType.Capsule).onClick(() => {
           // promptAction.showToast({
