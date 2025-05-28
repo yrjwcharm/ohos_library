@@ -1,12 +1,11 @@
 ## filedownlaod(API12)
 
-### 📚简介
+## 📚简介
 **filedownload** 这是一款支持大文件断点下载的开源插件，退出应用程序进程杀掉以后或无网络情况下恢复网络后，可以在上次位置继续恢复下载等
 
 ***版本更新---请查看更新日志!!!*** 修复已知bug,demo已经更新
 
-### 📚下载安装
-
+## 📚下载安装
 `ohpm install @ohos_lib/filedownload`
 
 ***1、添加权限在应用主模块entry/src/main/ets/module.json5下***
