@@ -19,21 +19,13 @@
       },
     ]
 ```
-***2、在应用主模块entry入口EntryAbility onWindowStageCreate生命周期里下面添加初始化数据库操作***
+***2、在应用主模块entry入口EntryAbility onCreate生命周期里下面添加初始化数据库操作***
 
 ```typescript
- async  onWindowStageCreate(windowStage: window.WindowStage) {
-  // Main window is created, set main page for this ability
-  await SqliteHelper.getInstance(this.context).initRDB();
-  hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
-  windowStage.loadContent('pages/Index', (err) => {
-    if (err.code) {
-      hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
-      return;
-    }
-    hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
-  });
+ onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+  this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+  hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
+  SqliteHelper.getInstance(this.context).initRDB();
 }
 
 ```
@@ -70,7 +62,6 @@ HTTP/1.1 206 Partial Content
 | FileUtil                                                                                    | 文件操作相关工具类 「沙盒文件存储、删除等操作」               |
 | SqliteHelper                                                                                | 数据库操作类、「增删改查」                          |
 | static  addListener(eventName:string,callback:(download:IFileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」            |
-
 
 #### 基本用法
 ```typescript
