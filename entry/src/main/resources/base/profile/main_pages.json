@@ -3,6 +3,8 @@
     "pages/Index",
     "pages/single/DownloadManagerPage",
     "pages/single/SingleFileDownload",
+    "pages/multi_queue/MultiFileDownload",
+    "pages/multi_queue/MultiDownloadManagerPage",
     "pages/VideoPlayerPage"
   ]
 }

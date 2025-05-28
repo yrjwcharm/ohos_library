@@ -12,6 +12,7 @@ import { FileUtil } from './FileUtil';
 import { fileIo } from '@kit.CoreFileKit';
 
 let beforeSeconds=new Date().getTime();
+let previousSeconds = new Date().getTime();
 export class DownloaderUtil {
   static deleteTask = async (downloadTask: request.agent.Task) => {
     try {
@@ -226,5 +227,54 @@ export class DownloaderUtil {
         message: '网络不给力～'
       })
     }
+  }
+  //批量插入数据
+  static  matchInsert<T extends  IFileDownloader>(data:T[]):Promise<number>{
+    return new Promise(async (resolve)=>{
+      try {
+        //基于双重保险
+        const currentSeconds = new Date().getTime();
+        if (currentSeconds - previousSeconds < 2500) {
+          ENV.__DEV__&&console.log('已经在下了...请勿频繁操作');
+          return
+        }
+        previousSeconds = currentSeconds
+        let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+        predicates.equalTo('userId', data[0].userId)
+          .and()
+          .notEqualTo('status', DownloadStatus.COMPLETED)
+          .and()
+          .notEqualTo('status', DownloadStatus.RUNNING)
+        let filterList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+        let promiseArr = filterList.map((item): Promise<number> => DownloaderUtil.batchDelete(item));
+        await Promise.all(promiseArr);
+        let allDownload =
+          data.filter(item => ![DownloadStatus.COMPLETED, DownloadStatus.RUNNING].includes(item.status ??
+          DownloadStatus.WAITING));
+        let list = allDownload.map(item => {
+          return {
+            userId: item.userId,
+            url: item.url,
+            status: DownloadStatus.WAITING,
+            downloadId: item.downloadId
+          } as ValuesBucket;
+        })
+        for(let i =0;i<list.length;i++) {
+          DownloadManager.eventEmitter(DownloadManager.eventName, list[i]);
+        }
+        SqliteHelper.getInstance(getContext()).batchInsert(SqliteHelper.tableName, list).then(() => {
+          resolve(1);
+        }).catch(() => {
+          resolve(0);
+        })
+      }catch (e) {
+        resolve(0);
+      }
+    })
+  }
+  private static  async  batchDelete(item:IFileDownloader){
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    predicates.equalTo('downloadId',item.downloadId);
+   return  await  SqliteHelper.getInstance(getContext()).delete(predicates);
   }
 }

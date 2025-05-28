@@ -120,15 +120,15 @@ export class DownloadManager {
   public  static eventEmitter(eventName:string,valuesBuket:ValuesBucket){
     try {
       getContext().eventHub.emit(eventName,{
-        userId: valuesBuket.userId as string,
-        url: valuesBuket.url as string,
-        downloadId: valuesBuket.downloadId as string,
-        taskId:valuesBuket.taskId as string,
-        downloadSize:valuesBuket.downloadSize as number,
-        fileSize: valuesBuket.fileSize as number,
-        status:valuesBuket.status as number,
-        filePath:valuesBuket.filePath as string,
-        fileName:valuesBuket.fileName as string,
+        userId: valuesBuket.userId,
+        url: valuesBuket.url,
+        downloadId: valuesBuket.downloadId,
+        taskId:valuesBuket.taskId,
+        downloadSize:valuesBuket.downloadSize??0,
+        fileSize: valuesBuket.fileSize??0,
+        status:valuesBuket.status,
+        filePath:valuesBuket.filePath??'',
+        fileName:valuesBuket.fileName ??'',
         begins:valuesBuket.begins ??0,
         isBackgroundPause:valuesBuket.isBackgroundPause??1,
         exitFrequency :valuesBuket.exitFrequency??1

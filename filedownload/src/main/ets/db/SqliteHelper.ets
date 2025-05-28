@@ -80,6 +80,19 @@ export class SqliteHelper {
       })
     })
   }
+  /**
+   * 插入数据
+   * */
+  public batchInsert(tabName: string, data: Array<ValuesBucket>): Promise<number> {
+    return new Promise(async (resolve, reject) => {
+      SqliteHelper.rdbStore ?.batchInsert(tabName,data).then(number => {
+        resolve(number);
+        console.log('插入成功！！！！');
+      }).catch((err: BusinessError) => {
+        reject(err)
+      })
+    })
+  }
 
   /*
   * 删除数据
