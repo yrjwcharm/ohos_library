@@ -1,0 +1,21 @@
+{
+  "name": "@ohos_lib/crypto",
+  "version": "1.0.2",
+  "description": "这是一款HarmonyNext加解密的开源插件",
+  "main": "Index.ets",
+  "keywords": ['AES','crypto','','DES','ECDSA','MD5','RSA','SHA','SM2','SM3'],
+  "tags": [
+    "加密",
+    "解密",
+    "Crypto",
+    "RSA",
+    "DES",
+    "MD5"
+  ],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/crypto",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/crypto#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "obfuscated": false,
+  "dependencies": {}
+}
