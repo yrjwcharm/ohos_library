@@ -4,3 +4,6 @@
 /build
 /.cxx
 /.test
+
+/MatchQueueDownload.ets
+/MultiDownloadManagerPage.ets

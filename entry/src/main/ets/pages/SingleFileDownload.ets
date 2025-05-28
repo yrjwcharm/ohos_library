@@ -8,7 +8,7 @@ import { IResponseData } from '../interfaces/IResponseData';
 @Entry
 @ComponentV2
 struct SingleFileDownload {
-  @Local userId:string ='722134343434343434';//登录用户信息id 这里写四Mock
+  @Local userId:string ='722134343434343434';//登录用户信息id 这里写死Mock
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
