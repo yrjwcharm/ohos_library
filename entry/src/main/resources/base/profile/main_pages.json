@@ -1,9 +1,10 @@
 {
   "src": [
     "pages/Index",
-    "pages/SingleFileDownload",
-    "pages/MatchQueueDownload",
-    "pages/DownloadManagerPage",
+    "pages/single/DownloadManagerPage",
+    "pages/single/SingleFileDownload",
+    "pages/multi_queue/MatchQueueDownload",
+    "pages/multi_queue/MultiDownloadManagerPage",
     "pages/VideoPlayerPage"
   ]
 }

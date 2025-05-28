@@ -16,7 +16,7 @@ struct Index {
       Column() {
         Button('单个文件下载').onClick(() => {
           router.pushUrl({
-            url: 'pages/SingleFileDownload'
+            url: 'pages/single/SingleFileDownload'
           })
         })
         Blank().height(32)

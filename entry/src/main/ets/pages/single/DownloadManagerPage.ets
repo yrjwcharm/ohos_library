@@ -1,4 +1,4 @@
-import { IResponseData } from '../interfaces/IResponseData';
+import { IResponseData } from '../../interfaces/IResponseData';
 import { promptAction, router } from '@kit.ArkUI';
 import { DownloaderUtil, DownloadManager, GTNetworkUtil, NetworkCallback } from '@ohos_lib/filedownload';
 import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';

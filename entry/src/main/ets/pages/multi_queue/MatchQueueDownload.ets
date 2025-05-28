@@ -3,7 +3,7 @@ import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkU
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
-import { IResponseData } from '../interfaces/IResponseData';
+import { IResponseData } from '../../interfaces/IResponseData';
 
 @Entry
 @ComponentV2

@@ -5,5 +5,4 @@
 /.cxx
 /.test
 
-/MatchQueueDownload.ets
-/MultiDownloadManagerPage.ets
+/multi_queue
