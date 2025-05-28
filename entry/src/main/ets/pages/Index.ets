@@ -21,8 +21,11 @@ struct Index {
         Blank().height(32)
         Button('批量排队下载').onClick(() => {
           promptAction.showToast({
-            message:'目前暂不支持,请耐心等待，后续版本会补充上'
+            message:'目前只实现基础功能,请耐心等待，后续版本会补充上'
           })
+          // router.pushUrl({
+          //   url:'pages/multi_queue/MultiFileDownload'
+          // })
         })
       }
     }
