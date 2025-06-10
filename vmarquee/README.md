@@ -1,7 +1,7 @@
 ## VMarqueeView
 ___
 #### 简介
-**VMarqueeView** 是一款HarmonyNext实现无缝隙向上垂直滚动的开源插件
+**VMarqueeView** 这是一款HarmonyNext实现无缝隙向上垂直滚动的开源插件
 
 #### 安装步骤
 
@@ -66,9 +66,9 @@ struct Index {
   }
 ```
 
-**一般情况下从网络获取数据可能字段并没有使用IMarquee接口定义，我们可以这么处理 **
+**一般情况下从网络获取数据可能字段并没有使用IMarquee接口定义，我们可以这么处理**
 
-```typescript
+```javascript
 
   aboutToAppear(): void {
      //假设 responseData 数据从网络获取 结构为 result 可以这么处理
