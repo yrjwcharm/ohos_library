@@ -1,10 +1,11 @@
-import { IMarquee, IMarqueeTextStyle } from "../interfaces/IMarquee";
+import { IMarqueeTextStyle } from "../interfaces/IMarqueeTextStyle";
+import { Marquee } from "../model/Marquee";
 
 @ComponentV2
 export struct VMarqueeView {
   private timerID: number = -1; // 定时器ID
   private scrollIndex: number = 0; // 当前滚动索引
-  @Param @Require originalList: IMarquee[]; //原始数据源
+  @Param @Require originalList: Marquee[]; //原始数据源
   @Param marqueeW:Length = '100%';//Marquee组件宽度
   @Param itemHeight: number = 30; // 每项高度
   @Param marqueeBgColor:ResourceColor=Color.Transparent //VMarquee背景颜色
@@ -12,9 +13,9 @@ export struct VMarqueeView {
   @Param interval:number =2000;//每隔多少毫秒开始滚动
   @Param animationDuration:number=300 //滚动动画执行时长
   @Local offsetY: number = 0; // 控制滚动偏移量
-  @Local doubleList: IMarquee[] = [];  // 双倍数据用于无缝隙滚动
-  @Event itemClick?:(item:IMarquee,index:number)=>void;//点击每一行
-  @BuilderParam builder?: (item: IMarquee, index: number) => void = this.customBuilder;
+  @Local doubleList: Marquee[] = [];  // 双倍数据用于无缝隙滚动
+  @Event itemClick?:(item:Marquee,index:number)=>void;//点击每一行
+  @BuilderParam builder?: (item: Marquee, index: number) => void = this.customBuilder;
 
   @Monitor('originalList','interval','animationDuration')
   watchOriginalListChange(){
@@ -70,7 +71,7 @@ export struct VMarqueeView {
     });
   }
   @Builder
-  customBuilder(item:IMarquee,index:number){
+  customBuilder(item:Marquee,index:number){
     Text(item?.content)
       .height(this.itemHeight)
       .lineHeight(this.itemHeight)
@@ -79,7 +80,7 @@ export struct VMarqueeView {
       .textAlign(TextAlign.Center)
       .onClick(() => {
         this.itemClick?.(item, index % this.originalList.length); // 修正索引
-      })
+      }).alignSelf(ItemAlign.Start)
   }
   build() {
     Column() {
@@ -87,7 +88,7 @@ export struct VMarqueeView {
       Stack({ alignContent: Alignment.TopStart }) {
         Column() {
           // 渲染双倍数据列表
-          ForEach(this.doubleList, (item: IMarquee,index:number) => {
+          ForEach(this.doubleList, (item: Marquee,index:number) => {
             this.builder?.(item,index);
           })
         }
