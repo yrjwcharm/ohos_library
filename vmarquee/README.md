@@ -46,26 +46,7 @@ struct Index {
   }
 }
 ```
-#### 进阶用法-自定义组件结构
-
-```typescript
-@Builder
-  customBuilder(item:IMarquee,index:number){
-    Row(){
-      Image($r('app.media.startIcon')).width(24)
-        .height(24)
-      Text(item.content)
-        .margin({
-          left:6
-        })
-    }.height(30).backgroundColor(Color.Orange)
-    .padding({
-      left:16
-    })
-    .width('100%')
-  }
-```
-### 自定义组件Slot 插槽 整体代码
+### 进阶用法 自定义组件Slot插槽
 
 ```javascript
 import { Marquee, VMarqueeView } from '@ohos_lib/vmarquee';
@@ -123,7 +104,5 @@ struct Index {
   }
 }
 ```
-
-
 
 #### 完整示例 https://github.com/yrjwcharm/VMarqueeView
