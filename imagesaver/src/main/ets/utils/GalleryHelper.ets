@@ -136,7 +136,7 @@ export class GalleryHelper {
     }
   }
 
-  private base64ToPixelMap = async (base64: string) => {
+  public  base64ToPixelMap = async (base64: string) => {
     const str = base64.replace(/^data:image\/\w+;base64,/i, '');
     let helper = new util.Base64Helper();
     let buffer: ArrayBuffer = helper.decodeSync(str, util.Type.MIME).buffer as ArrayBuffer;
@@ -180,4 +180,5 @@ export class GalleryHelper {
       failCallback?.(err);
     }
   }
+
 }
