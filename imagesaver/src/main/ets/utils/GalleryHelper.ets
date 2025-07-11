@@ -3,6 +3,7 @@ import { BusinessError } from "@kit.BasicServicesKit";
 import { image } from "@kit.ImageKit";
 import { fileIo, fileUri } from "@kit.CoreFileKit";
 import { photoAccessHelper } from "@kit.MediaLibraryKit";
+import { util } from "@kit.ArkTS";
 
 export class GalleryHelper{
   private static  instance:GalleryHelper
@@ -16,7 +17,7 @@ export class GalleryHelper{
   constructor(context:Context) {
     this.context = context;
   }
-  saveNetImageToAlbum(url: string,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
+  saveNetImageToGallery(url: string,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
     let httpRequest = http.createHttp();
     httpRequest.request(url, {
       expectDataType: http.HttpDataType.ARRAY_BUFFER,
@@ -31,7 +32,8 @@ export class GalleryHelper{
         }
         if (data.result instanceof ArrayBuffer) {
           let imageBuffer = data.result as ArrayBuffer;
-           GalleryHelper.instance?.saveImgBufferToAssets(imageBuffer,successCallback)
+           // GalleryHelper.instance?.saveImgBufferToAssets(imageBuffer,successCallback)
+          GalleryHelper.instance?.saveImgBufferToGallery(imageBuffer,successCallback)
         }
       })
   }
@@ -51,7 +53,7 @@ export class GalleryHelper{
     return imageBuffer;
   }
   //保存 图片ArrayBuffer二进制流 或者 应用沙盒图片到相册
-  async  saveImgBufferToAssets(imageBuffer: ArrayBuffer,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
+  async  saveImgBufferToGallery(imageBuffer: ArrayBuffer,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
       // 先将buffer存到沙盒
      const  filePath = `${this.context?.filesDir}/pic_assets.jpg`
       let tempFile = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE)
@@ -100,9 +102,9 @@ export class GalleryHelper{
    * 保存到相册PixelMap到相册
    *
    */
-  savePixelMapToAlbum(pixmap: image.PixelMap,quality=100,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
+  savePixelMapToGallery(pixmap: image.PixelMap,quality=100,successCallback:(isSuccess:boolean)=>void,failCallback?:(err:BusinessError)=>void) {
      GalleryHelper.instance?.packingPixelMap2Jpg(pixmap, quality).then(buffer => {
-       GalleryHelper.instance?.saveImgBufferToAssets(buffer,successCallback,failCallback);
+       GalleryHelper.instance?.saveImgBufferToGallery(buffer,successCallback,failCallback);
     }).catch((err: BusinessError) => {
       failCallback?.(err);
     })
@@ -112,5 +114,24 @@ export class GalleryHelper{
     const file = fileIo.openSync(uri, fileIo.OpenMode.READ_ONLY);
     const imageSource = image.createImageSource(file.fd);
     return await imageSource.createPixelMap({});
+  }
+  //图片base64形式保存到系统相册
+  async saveImgBase64ToGallery(base64:string,successCallback:(isSuccess:boolean)=>void,failCallback:(err:BusinessError)=>void){
+    try {
+      const pixelMap = await GalleryHelper.instance?.base64ToPixelMap(base64);
+      GalleryHelper.instance.savePixelMapToGallery(pixelMap, 100, successCallback, failCallback);
+    }catch (err) {
+      failCallback?.(err);
+    }
+  }
+  private base64ToPixelMap = async (base64:string)=>{
+    const  str = base64.replace(/^data:image\/\w+;base64,/i, '');
+    let helper = new util.Base64Helper();
+    let buffer: ArrayBuffer = helper.decodeSync(str, util.Type.MIME).buffer as ArrayBuffer;
+    let imageSource = image.createImageSource(buffer);
+    let opts: image.DecodingOptions = { editable: true };
+    let  pixelMap = await imageSource.createPixelMap(opts);
+    console.log('base64ToPixelMap',pixelMap)
+    return pixelMap
   }
 }

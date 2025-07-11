@@ -1,6 +1,7 @@
 import { GalleryHelper } from '@ohos_lib/image-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
+import { getBase64 } from '../base64'
 
 @Entry
 @ComponentV2
@@ -10,7 +11,7 @@ struct Index {
     Column() {
 
         Button('保存网络图片到系统相册').onClick(()=>{
-            GalleryHelper.getInstance(getContext(this)).saveNetImageToAlbum(this.netUrl,()=>{
+            GalleryHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
               promptAction.showToast({
                 message:'保存成功'
               })
@@ -26,7 +27,7 @@ struct Index {
             console.log("error: " + JSON.stringify(error))
             return;
           }
-          GalleryHelper.getInstance(getContext(this)).savePixelMapToAlbum(pixmap,85,()=>{
+          GalleryHelper.getInstance(getContext()).savePixelMapToGallery(pixmap,85,()=>{
             promptAction.showToast({
               message:'保存成功'
             })
@@ -34,6 +35,21 @@ struct Index {
 
           })
         }, { scale: 2, waitUntilRenderFinished: true })
+      }).margin({
+        top:20
+      })
+
+      Button('保存base64图片字符串到系统相册').onClick(()=>{
+        const base64Str = getBase64();
+        GalleryHelper.getInstance(getContext()).saveImgBase64ToGallery(base64Str,()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },()=>{
+
+        })
+      }).margin({
+        top:20
       })
     }
     .height('100%')
