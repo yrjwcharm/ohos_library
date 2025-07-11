@@ -52,8 +52,8 @@
       ]
     },
     {
-      "name": "vmarquee",
-      "srcPath": "./vmarquee"
+      "name": "imagesaver",
+      "srcPath": "./imagesaver"
     }
   ]
 }

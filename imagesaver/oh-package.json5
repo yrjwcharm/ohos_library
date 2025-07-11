@@ -1,7 +1,7 @@
 {
-  "name": "@ohos_lib/vmarquee",
-  "version": "1.0.3",
-  "description": "这是一款HarmonyNext无缝隙垂直向上滚动的插件",
+  "name": "@ohos_lib/image-saver",
+  "version": "1.0.0",
+  "description": "这是一款使用HarmonyNext-ArkTS方便快速保存图片到系统相册的开源插件",
   "main": "Index.ets",
   "keywords": ['marquee','scroll','carousel','跑马灯'],
   "repository": "https://github.com/yrjwcharm/ohos_library/tree/main",
