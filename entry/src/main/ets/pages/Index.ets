@@ -51,6 +51,32 @@ struct Index {
       }).margin({
         top:20
       })
+      // 需要申请-使用受限权限
+      Button('保存沙盒 图片到系统相册').onClick(()=>{
+        //确保沙箱有真实路径图片
+        const filePath = getContext().filesDir+`/pic_assets.jpg`;
+        GalleryHelper.getInstance(getContext()).saveSandBoxImageToGallery(filePath,()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },(err)=>{
+          console.log('异常信息-----',err.message);
+        })
+      }).margin({
+        top:20
+      })
+      // 需要申请-使用受限权限
+      Button('保存本地资源中的图片到系统相册').onClick(()=>{
+        GalleryHelper.getInstance(getContext()).saveLocalImageToGallery($r('app.media.layered_image'),()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },(err)=>{
+          console.log('解析-----',err.message);
+        })
+      }).margin({
+        top:20
+      })
     }
     .height('100%')
     .width('100%')
