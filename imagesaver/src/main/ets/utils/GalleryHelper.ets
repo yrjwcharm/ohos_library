@@ -4,7 +4,7 @@ import { image } from "@kit.ImageKit";
 import { fileIo, fileUri } from "@kit.CoreFileKit";
 import { photoAccessHelper } from "@kit.MediaLibraryKit";
 import { util } from "@kit.ArkTS";
-
+//保存到系统相册 普遍三种方式 1、SaveButton控件、 2、ACL权限申请、3、媒体文件管理服务模块/https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/js-apis-photoaccesshelper-V5#showassetscreationdialog12
 export class GalleryHelper {
   private static instance: GalleryHelper
   private context: Context;
