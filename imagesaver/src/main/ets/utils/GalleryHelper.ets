@@ -248,15 +248,16 @@ export class GalleryHelper {
   async saveLocalImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
-      const filePath = await this.saveRawFileToSandBox(fileName);
+      await this.saveRawFileToSandBox(fileName);
+      const filePath =this.context?.filesDir +'/'+fileName;
       this.saveSandBoxImageToGallery(filePath,successCallback,failCallback);
     }catch (err) {
       failCallback?.(err);
     }
   }
   //将资源文件夹Resource/rawFile下的文件存放到沙箱目录下
-  saveRawFileToSandBox(fileName:string):Promise<string>{
-    return new Promise((resolve,reject)=>{
+  saveRawFileToSandBox(fileName:string):Promise<boolean>{
+    return new Promise((resolve)=>{
       try {
         let val: Uint8Array = this.context?.resourceManager.getRawFileContentSync(fileName);
         let pathDir: string =  this.context?.filesDir; // /data/storage/el2/base/haps/entry/files
@@ -266,11 +267,11 @@ export class GalleryHelper {
         let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
         let writeLen = fileIo.writeSync(file.fd, val.buffer as ArrayBuffer);
         fileIo.closeSync(file);
-        resolve(filePath);
+        resolve(true);
       } catch (error) {
         let code = (error as BusinessError).code;
         let message = (error as BusinessError).message;
-        reject(error);
+        resolve(false);
       }
     })
   }

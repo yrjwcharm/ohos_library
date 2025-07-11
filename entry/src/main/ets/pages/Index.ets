@@ -19,8 +19,7 @@ struct Index {
             })
         }).id('SnapshotId')
 
-
-      Button('保存PixelMap图片格式到系统相册').onClick(()=>{
+      Button('保存图片PixelMap到系统相册').onClick(()=>{
         componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
           if (error) {
             console.log("error: " + JSON.stringify(error))
@@ -38,7 +37,7 @@ struct Index {
         top:20
       })
 
-      Button('保存base64图片字符串到系统相册').onClick(()=>{
+      Button('保存图片base64到系统相册').onClick(()=>{
         const base64Str = getBase64();
         GalleryHelper.getInstance(getContext()).saveImgBase64ToGallery(base64Str,()=>{
           promptAction.showToast({
@@ -50,7 +49,7 @@ struct Index {
       }).margin({
         top:20
       })
-      Button('保存沙盒 图片到系统相册').onClick(()=>{
+      Button('保存应用沙箱图片到系统相册').onClick(()=>{
         //确保沙箱有真实路径图片
         const filePath = getContext().filesDir+`/pic_assets.jpg`;
         GalleryHelper.getInstance(getContext()).saveSandBoxImageToGallery(filePath,()=>{
@@ -58,18 +57,27 @@ struct Index {
             message:'保存成功'
           })
         },(err)=>{
-          console.log('异常信息-----',err.message);
+          console.log('异常信息----',err.message);
         })
       }).margin({
         top:20
       })
-      Button('保存本地资源Resource/RawFile中的图片到系统相册').onClick(()=>{
+      Button('保存本地Resource/RawFile中的图片到系统相册').onClick(()=>{
         GalleryHelper.getInstance(getContext()).saveLocalImageToGallery('startIcon.png',()=>{
           promptAction.showToast({
             message:'保存成功'
           })
         },(err)=>{
-          console.log('解析-----',err.message);
+          console.log('异常信息----',err.message);
+        })
+      }).margin({
+        top:20
+      })
+      Button('保存本地Resource/RawFile中的文件到应用沙盒').onClick(()=>{
+        GalleryHelper.getInstance(getContext()).saveRawFileToSandBox('startIcon.png').then(isSuccess=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
         })
       }).margin({
         top:20
