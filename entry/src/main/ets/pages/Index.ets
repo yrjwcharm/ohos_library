@@ -9,7 +9,6 @@ struct Index {
   @Local netUrl :string= 'https://i.gsxcdn.com/3053295419_6crg62os.png'
   build() {
     Column() {
-
         Button('保存网络图片到系统相册').onClick(()=>{
             GalleryHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
               promptAction.showToast({
@@ -51,7 +50,6 @@ struct Index {
       }).margin({
         top:20
       })
-      // 需要申请使用-受限权限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/declare-permissions-in-acl
       Button('保存沙盒 图片到系统相册').onClick(()=>{
         //确保沙箱有真实路径图片
         const filePath = getContext().filesDir+`/pic_assets.jpg`;
@@ -65,9 +63,8 @@ struct Index {
       }).margin({
         top:20
       })
-      // 需要申请使用-受限权限 https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/declare-permissions-in-acl
-      Button('保存本地资源中的图片到系统相册').onClick(()=>{
-        GalleryHelper.getInstance(getContext()).saveLocalImageToGallery($r('app.media.layered_image'),()=>{
+      Button('保存本地资源Resource/RawFile中的图片到系统相册').onClick(()=>{
+        GalleryHelper.getInstance(getContext()).saveLocalImageToGallery('startIcon.png',()=>{
           promptAction.showToast({
             message:'保存成功'
           })

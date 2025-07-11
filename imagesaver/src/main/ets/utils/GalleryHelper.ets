@@ -20,7 +20,7 @@ export class GalleryHelper {
   constructor(context: Context) {
     this.context = context;
   }
-
+  //保存网络图片到相册
   saveNetImageToGallery(url: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     let httpRequest = http.createHttp();
@@ -274,7 +274,6 @@ export class GalleryHelper {
       }
     })
   }
-
   //保存本地 resource/media中的资源到系统相册 createAsset  需要申请使用受限权限
   private async saveLocalImageToGalleryACL(resoure: Resource, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
