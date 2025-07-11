@@ -1,7 +1,7 @@
 {
   "name": "@ohos_lib/image-saver",
   "version": "1.0.0",
-  "description": "这是一款使用HarmonyNext-ArkTS方便快速保存图片到系统相册的开源插件",
+  "description": "此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能，支持将图片一键保存至系统相册和应用内部存储",
   "main": "Index.ets",
   "keywords": ['marquee','scroll','carousel','跑马灯'],
   "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/image-saver",

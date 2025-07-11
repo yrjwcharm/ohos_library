@@ -63,7 +63,18 @@ struct Index {
         top:20
       })
       Button('保存本地Resource/RawFile中的图片到系统相册').onClick(()=>{
-        GalleryHelper.getInstance(getContext()).saveLocalImageToGallery('startIcon.png',()=>{
+        GalleryHelper.getInstance(getContext()).saveLocalRawImageToGallery('startIcon.png',()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },(err)=>{
+          console.log('异常信息----',err.message);
+        })
+      }).margin({
+        top:20
+      })
+      Button('保存本地Resource/Media中的图片到系统相册').onClick(()=>{
+        GalleryHelper.getInstance(getContext()).saveLocalRawImageToGallery('startIcon.png',()=>{
           promptAction.showToast({
             message:'保存成功'
           })
