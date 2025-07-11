@@ -35,15 +35,11 @@ export class GalleryHelper{
   private  async packingPixelMap2Jpg(pixelMap: PixelMap, quality = 100): Promise<ArrayBuffer> {
     // 创建ImagePacker实例
     const imagePackerApi = image.createImagePacker();
-    // 设置打包参数
-    // format：图片打包格式，只支持 jpg 和 webp
-    // quality：JPEG 编码输出图片质量
-    // bufferSize：图片大小，默认 10M
     const packOpts: image.PackingOption = { format: "image/jpeg", quality };
     let imageBuffer: ArrayBuffer = new ArrayBuffer(1);
     try {
       // 图片压缩或重新打包
-      imageBuffer = await imagePackerApi.packing(pixelMap, packOpts);
+      imageBuffer = await imagePackerApi.packToData(pixelMap, packOpts);
     } catch (err) {
       console.error(`Invoke packingPixelMap2Jpg failed, err: ${JSON.stringify(err)}`);
     }
@@ -79,6 +75,7 @@ export class GalleryHelper{
         {
           fileNameExtension: 'jpg',
           photoType: photoAccessHelper.PhotoType.IMAGE,
+          subtype: photoAccessHelper.PhotoSubtype.DEFAULT, // 可选
         }
       ];
       let desFileUris: Array<string> = await phAccessHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
@@ -109,5 +106,11 @@ export class GalleryHelper{
     }).catch((err: BusinessError) => {
       failCallback?.(err);
     })
+  }
+  //文件选择的图片路径
+  async transitionImage2PixelMap(uri: string): Promise<image.PixelMap> {
+    const file = fileIo.openSync(uri, fileIo.OpenMode.READ_ONLY);
+    const imageSource = image.createImageSource(file.fd);
+    return await imageSource.createPixelMap({});
   }
 }
