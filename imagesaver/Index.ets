@@ -1,3 +1,1 @@
-export { VMarqueeView } from './src/main/ets/components/MainPage';
-
-export { Marquee } from './src/main/ets/model/Marquee'
+export { GalleryHelper } from './src/main/ets/utils/GalleryHelper'

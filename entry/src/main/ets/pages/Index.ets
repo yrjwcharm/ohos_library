@@ -1,51 +1,39 @@
-import { Marquee, VMarqueeView } from '@ohos_lib/vmarquee';
-interface  IResultData{
-  classNumber:string,
-  title:string
-}
+import { GalleryHelper } from '@ohos_lib/image-saver'
+import { componentSnapshot, promptAction } from '@kit.ArkUI'
+import { image } from '@kit.ImageKit'
+
 @Entry
 @ComponentV2
 struct Index {
-  @Local message: string = 'Hello World';
-  @Local data:Marquee[] = [];
-  aboutToAppear(): void {
-    //假设 responseData 数据从网络获取 结构为 result 可以这么处理
-    let result:IResultData[] = [{classNumber:'111',title:'标题121111234343434343434'},{classNumber:'222',title:'标题2222234343'},{classNumber:'333',title:'标题2222223'}];
-     this.data = result.map((item)=>{
-       const marquee =new Marquee();
-       marquee.id = item.classNumber;
-       marquee.content = item.title;
-       marquee.icon = $r('app.media.startIcon')
-       return marquee;
-     })
-  }
-  @Builder
-  customBuilder(item:Marquee,index:number){
-    Row(){
-      Image($r('app.media.startIcon')).width(24)
-        .height(24)
-      Text(item.content)
-        .margin({
-          left:6
-        })
-    }.height(30).backgroundColor(Color.Orange)
-    .padding({
-      left:16
-    })
-    .width('100%')
-  }
+  @Local netUrl :string= 'https://i.gsxcdn.com/3053295419_6crg62os.png'
   build() {
     Column() {
-      VMarqueeView({
-        originalList:this.data,
-        marqueeBgColor:Color.Red,
-        textStyle:{fontSize:20},
-        itemHeight:30,
-        marqueeW:'100%',
-        builder: this.customBuilder,
-        itemClick:(item:Marquee,index:number)=>{
-        }
 
+        Button('保存网络图片到系统相册').onClick(()=>{
+            GalleryHelper.getInstance(getContext(this)).saveNetImageToAlbum(this.netUrl,()=>{
+              promptAction.showToast({
+                message:'保存成功'
+              })
+            },(error)=>{
+               console.log('异常信息',error.message,error.code);
+            })
+        }).id('SnapshotId')
+
+
+      Button('保存PixelMap图片格式到系统相册').onClick(()=>{
+        componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
+          if (error) {
+            console.log("error: " + JSON.stringify(error))
+            return;
+          }
+          GalleryHelper.getInstance(getContext(this)).savePixelMapToAlbum(pixmap,85,()=>{
+            promptAction.showToast({
+              message:'保存成功'
+            })
+          },(error)=>{
+
+          })
+        }, { scale: 2, waitUntilRenderFinished: true })
       })
     }
     .height('100%')
