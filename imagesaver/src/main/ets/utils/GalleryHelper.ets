@@ -119,7 +119,7 @@ export class GalleryHelper {
   }
 
   //文件选择的图片路径
-  async transitionImage2PixelMap(uri: string): Promise<image.PixelMap> {
+  async transferImage2PixelMap(uri: string): Promise<image.PixelMap> {
     const file = fileIo.openSync(uri, fileIo.OpenMode.READ_ONLY);
     const imageSource = image.createImageSource(file.fd);
     return await imageSource.createPixelMap({});
