@@ -244,8 +244,8 @@ export class GalleryHelper {
     })
   }
 
-  //保存本地resource/rawFile中的资源到系统相册
-  async saveLocalImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
+  //保存本地resource/rawFile中的图片资源到系统相册
+  async saveLocalRawImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
       await this.saveRawFileToSandBox(fileName);
@@ -254,6 +254,33 @@ export class GalleryHelper {
     }catch (err) {
       failCallback?.(err);
     }
+  }
+  //保存本地resource/Media中的图片资源到系统相册
+  async saveLocalResImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
+    failCallback?: (err: BusinessError) => void) {
+    try {
+      await this.saveRawFileToSandBox(fileName);
+      const filePath =this.context?.filesDir +'/'+fileName;
+      this.saveLocalResImageToGallery(filePath,successCallback,failCallback);
+    }catch (err) {
+      failCallback?.(err);
+    }
+  }
+  async  saveMediaFileToSandBox(resName: string):Promise<boolean>{
+    return new Promise(async (resolve)=>{
+      try{
+        let pathDir: string =  this.context?.filesDir; // /data/storage/el2/base/haps/entry/files
+        let filePath: string = pathDir + '/'+resName;
+        let file = await fileIo.open(filePath, fileIo.OpenMode.READ_WRITE);
+        let buffer = this.context?.resourceManager.getMediaByNameSync(resName);
+        // Write the read ArrayBuffer to the new media file.
+        let writeLen = await fileIo.write(file.fd, buffer.buffer);
+        await fileIo.close(file);
+        resolve(true)
+      }catch (e) {
+        resolve(false);
+      }
+    })
   }
   //将资源文件夹Resource/rawFile下的文件存放到沙箱目录下
   saveRawFileToSandBox(fileName:string):Promise<boolean>{
