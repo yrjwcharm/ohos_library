@@ -1,33 +1,36 @@
-## ImageSaver
+## FileSaver(Api12及以上)
 ___
 #### 简介
-**ImageSaver** 这是一款使用HarmonyNext保存图片到相册的开源插件
+#### `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能，
+
+* ***1.支持将图片一键保存至系统相册和应用内部存储***
+* ***2.支持保存文件各种形式至应用沙盒***
 
 #### 安装步骤
 
-```ohpm
-ohpm install @ohos_lib/image-saver
-```
+`
+ohpm install @ohos_lib/file-saver
+`
 
-| Api方法                        | 描述                                 |
-|------------------------------|------------------------------------|
-| saveNetImageToGallery        | 保存网络图片到系统相册                        |
-| saveImgBufferToGallery       | 保存图片二进制ArrayBuffer到系统相册            |
-| savePixelMapToGallery        | 保存PixelMap图片形式到系统相册                |
-| saveImgBase64ToGallery       | 保存Base64图片形式到系统相册                  | 
-| saveSandBoxImageToGallery    | 保存图片的沙箱路径到系统相册                     |
-| saveLocalRawImageToGallery   | 保存本地resource/rawFile中的图片资源到系统相册    |
-| saveLocalResImageToGallery   | 保存本地resource/Media中的图片资源到系统相册      |
-| transferImage2PixelMap       | 拉起选择图片选择后/拍照的图片路径uri-转化为PixelMap   |
-| base64ToPixelMap             | 图片base64字符串转PixelMap               |
-| packingPixelMapToArrayBuffer | 图片PixelMap转化ArrayBuffer            |
-| downloadFileToSandBox        | 下载网络资源(图片等文件)保存应用沙盒                |
-| savePixelMapToSandBox        | 保存PixelMap到应用沙盒                    |
-| saveArrayBufferToSandBox     | 保存ArrayBuffer到应用沙盒                 |
-| saveRawFileToSandBox         | 将资源文件夹Resource/rawFile下的文件存放到沙箱目录下 |
-| saveMediaFileToSandBox       | 将资源文件夹Resource/Media下的文件存放到沙箱目录下   |
-| fileToArrayBuffer            | 沙箱文件转ArrayBuffer                   |
-| readLocalFileWithStream      | 沙箱文件转ArrayBuffer(文件较大时使用更好)        |
+| Api方法                        | 描述                                    |
+|------------------------------|---------------------------------------|
+| saveNetImageToGallery        | 保存网络图片到系统相册                           |
+| saveImgBufferToGallery       | 保存图片二进制ArrayBuffer到系统相册               |
+| savePixelMapToGallery        | 保存PixelMap图片形式到系统相册                   |
+| saveImgBase64ToGallery       | 保存Base64图片形式到系统相册                     | 
+| saveSandBoxImageToGallery    | 保存图片的沙箱路径到系统相册                        |
+| saveLocalRawImageToGallery   | 保存本地resource/rawFile中的图片资源到系统相册       |
+| saveLocalResImageToGallery   | 保存本地resource/Media中的图片资源到系统相册         |
+| transferImage2PixelMap       | 拉起选择图片选择后/拍照的图片路径uri-转化为PixelMap      |
+| base64ToPixelMap             | 图片base64字符串转PixelMap                  |
+| packingPixelMapToArrayBuffer | 图片PixelMap转化ArrayBuffer（传入quality可压缩） |
+| downloadFileToSandBox        | 下载网络资源(图片等文件)保存应用沙盒                   |
+| savePixelMapToSandBox        | 保存PixelMap到应用沙盒                       |
+| saveArrayBufferToSandBox     | 保存ArrayBuffer到应用沙盒                    |
+| saveRawFileToSandBox         | 将资源文件夹Resource/rawFile下的文件存放到沙箱目录下    |
+| saveMediaFileToSandBox       | 将资源文件夹Resource/Media下的文件存放到沙箱目录下      |
+| fileToArrayBuffer            | 沙箱文件转ArrayBuffer                      |
+| readLocalFileWithStream      | 沙箱文件转ArrayBuffer(文件较大时使用更好)           |
 
 
 #### 基本用法
@@ -210,4 +213,4 @@ struct Index {
 ```
 
 
-#### 完整示例 https://github.com/yrjwcharm/feature/ohos/image-saver
+#### 完整示例 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/file-saver
