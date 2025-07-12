@@ -161,11 +161,7 @@ export class FileSaverHelper {
       failCallback?.(err)
     })
   }
-  /**
-   *  buffer放在沙箱路径中（缓存目录）
-   * @param buffer
-   * @returns 获取图片沙箱路径
-   */
+  //保存ArrayBuffer到应用沙盒
   saveArrayBufferToSandBox(buffer: ArrayBuffer): Promise<IResponse> { // 传入buffer，获取图片沙箱路径  this.pixmapUri
     return new Promise((resolve,reject)=>{
       //保存到沙箱中并存储拍摄的文件路径集--用来打开指定的图片
@@ -179,9 +175,7 @@ export class FileSaverHelper {
           filePath
         })
       } catch (err) {
-        resolve({
-          success:false,
-        })
+        reject(err)
       }
     })
   }
@@ -235,7 +229,7 @@ export class FileSaverHelper {
   async saveSandBoxImageToGallery(filePath: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
-      const buffer = await this.fileToArrayBuffer(filePath);
+      const buffer = await this.readLocalFileWithStream(filePath);
       this.saveImgBufferToGallery(buffer, successCallback, failCallback);
     } catch (err) {
       failCallback?.(err);
@@ -332,6 +326,7 @@ export class FileSaverHelper {
       failCallback?.(err);
     }
   }
+  //将资源文件夹Resource/Media下的文件存放到沙箱目录下
   saveMediaFileToSandBox(resName: string):Promise<IResponse>{
     return new Promise(async (resolve,reject)=>{
       try{
