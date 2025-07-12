@@ -21,7 +21,7 @@ ohpm install @ohos_lib/file-saver
 | saveSandBoxImageToGallery    | 保存图片的沙箱路径到系统相册                        |
 | saveLocalRawImageToGallery   | 保存本地resource/rawFile中的图片资源到系统相册       |
 | saveLocalResImageToGallery   | 保存本地resource/Media中的图片资源到系统相册         |
-| transferImage2PixelMap       | 拉起选择图片选择后/拍照的图片路径uri-转化为PixelMap      |
+| transferImage2PixelMap       | 拉起图片选择器选择或拍照后的图片uri路径-转化为PixelMap     |
 | base64ToPixelMap             | 图片base64字符串转PixelMap                  |
 | packingPixelMapToArrayBuffer | 图片PixelMap转化ArrayBuffer（传入quality可压缩） |
 | downloadFileToSandBox        | 下载网络资源(图片等文件)保存应用沙盒                   |
