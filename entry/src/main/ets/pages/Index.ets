@@ -1,7 +1,8 @@
 import { FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
-import { getBase64 } from '../base64'
+import { getBase64 } from '../utils/base64'
+import { getArrayBuffer } from '../utils/arraybuffer'
 
 @Entry
 @ComponentV2
@@ -36,7 +37,18 @@ struct Index {
       }).margin({
         top:20
       })
+      Button('保存ArrayBuffer到系统相册').onClick(()=>{
 
+        getArrayBuffer(this.netUrl,(buffer)=>{
+          FileSaverHelper.getInstance(getContext()).saveImgBufferToGallery(buffer,(isSuccess)=>{
+            promptAction.showToast({
+              message:'保存成功'
+            })
+          })
+        })
+      }).margin({
+        top:20
+      })
       Button('保存图片base64到系统相册').onClick(()=>{
         const base64Str = getBase64();
         FileSaverHelper.getInstance(getContext()).saveImgBase64ToGallery(base64Str,()=>{
@@ -85,20 +97,22 @@ struct Index {
         top:20
       })
       Button('保存本地Resource/RawFile中的文件到应用沙盒').onClick(()=>{
-        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('foreground.png').then(isSuccess=>{
-          promptAction.showToast({
-            message:'保存成功'
-          })
+        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('foreground.png').then(result=>{
+          if(result.success){
+            //本地保存的沙盒文件路径
+            const filePath = result.filePath;
+          }
         })
       }).margin({
         top:20
       })
 
       Button('保存本地Resource/Media中的文件到应用沙盒').onClick(()=>{
-        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('startIcon.png').then(isSuccess=>{
-          promptAction.showToast({
-            message:'保存成功'
-          })
+        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('startIcon.png').then(result=>{
+          if(result.success){
+            //本地保存的沙盒文件路径
+            const filePath = result.filePath;
+          }
         })
       }).margin({
         top:20
@@ -114,13 +128,42 @@ struct Index {
       }).margin({
         top:20
       })
+      Button('保存PixelMap到应用沙盒').onClick(()=>{
+        componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
+          if (error) {
+            console.log("error: " + JSON.stringify(error))
+            return;
+          }
+          FileSaverHelper.getInstance(getContext()).savePixelMapToSandBox(pixmap,85,(result)=>{
+            if(result.success){
+              //本地保存的沙盒文件路径
+              const filePath = result.filePath;
+            }
+          },(error)=>{
 
+          })
+        }, { scale: 2, waitUntilRenderFinished: true })
+      }).margin({
+        top:20
+      })
       Button('沙箱文件转ArrayBuffer').onClick(()=>{
         //确保沙箱路径真实有效
         const filePath = getContext().filesDir+`/pic_assets.jpg`;
         //文件较大时建议使用 FileSaverHelper.getInstance(getContext()).readLocalFileWithStream(filePath)
         FileSaverHelper.getInstance(getContext()).fileToArrayBuffer(filePath).then(buffer=>{
 
+        })
+      }).margin({
+        top:20
+      })
+      Button('保存ArrayBuffer到应用沙盒').onClick(()=>{
+        getArrayBuffer(this.netUrl,(buffer)=>{
+          FileSaverHelper.getInstance(getContext()).saveArrayBufferToSandBox(buffer).then(result=>{
+            if(result.success){
+              //本地保存的沙盒文件路径
+              const filePath = result.filePath;
+            }
+          })
         })
       }).margin({
         top:20

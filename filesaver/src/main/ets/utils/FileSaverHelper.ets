@@ -6,7 +6,7 @@ import { photoAccessHelper } from "@kit.MediaLibraryKit";
 import { buffer, util } from "@kit.ArkTS";
 interface IResponse{
   success:boolean,
-  filePath:string
+  filePath?:string,
 }
 //保存到系统相册 普遍三种方式 1、SaveButton控件、 2、ACL权限申请、3、媒体文件管理服务模块/https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/js-apis-photoaccesshelper-V5#showassetscreationdialog12
 export class FileSaverHelper {
@@ -179,7 +179,9 @@ export class FileSaverHelper {
           filePath
         })
       } catch (err) {
-        reject(err)
+        resolve({
+          success:false,
+        })
       }
     })
   }
@@ -330,8 +332,8 @@ export class FileSaverHelper {
       failCallback?.(err);
     }
   }
-  saveMediaFileToSandBox(resName: string):Promise<boolean>{
-    return new Promise(async (resolve)=>{
+  saveMediaFileToSandBox(resName: string):Promise<IResponse>{
+    return new Promise(async (resolve,reject)=>{
       try{
         let pathDir: string =  this.context?.filesDir; // /data/storage/el2/base/haps/entry/files
         let filePath: string = pathDir + '/'+resName;
@@ -340,15 +342,18 @@ export class FileSaverHelper {
         // Write the read ArrayBuffer to the new media file.
         let writeLen = await fileIo.write(file.fd, buffer.buffer);
         await fileIo.close(file);
-        resolve(true)
-      }catch (e) {
-        resolve(false);
+        resolve({
+          success:true,
+          filePath
+        })
+      }catch (err) {
+        reject(err);
       }
     })
   }
   //将资源文件夹Resource/rawFile下的文件存放到沙箱目录下
-  saveRawFileToSandBox(fileName:string):Promise<boolean>{
-    return new Promise((resolve)=>{
+  saveRawFileToSandBox(fileName:string):Promise<IResponse>{
+    return new Promise((resolve,reject)=>{
       try {
         let val: Uint8Array = this.context?.resourceManager.getRawFileContentSync(fileName);
         let pathDir: string =  this.context?.filesDir;
@@ -358,11 +363,14 @@ export class FileSaverHelper {
         let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
         let writeLen = fileIo.writeSync(file.fd, val.buffer as ArrayBuffer);
         fileIo.closeSync(file);
-        resolve(true);
+        resolve({
+          success:true,
+          filePath
+        });
       } catch (error) {
         let code = (error as BusinessError).code;
         let message = (error as BusinessError).message;
-        resolve(false);
+        reject(error);
       }
     })
   }

@@ -1,1 +1,1 @@
-export { FileSaverHelper } from './src/main/ets/utils/GalleryHelper'
+export { FileSaverHelper } from './src/main/ets/utils/FileSaverHelper'
