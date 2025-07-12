@@ -52,8 +52,8 @@
       ]
     },
     {
-      "name": "imagesaver",
-      "srcPath": "./imagesaver"
+      "name": "filesaver",
+      "srcPath": "./filesaver"
     }
   ]
 }

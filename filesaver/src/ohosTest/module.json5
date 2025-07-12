@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "imagesaver_test",
+    "name": "filesaver_test",
     "type": "feature",
     "deviceTypes": [
       "default",

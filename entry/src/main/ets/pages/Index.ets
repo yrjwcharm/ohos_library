@@ -1,4 +1,4 @@
-import { GalleryHelper } from '@ohos_lib/image-saver'
+import { FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
 import { getBase64 } from '../base64'
@@ -10,7 +10,7 @@ struct Index {
   build() {
     Column() {
         Button('保存网络图片到系统相册').onClick(()=>{
-            GalleryHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
+          FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
               promptAction.showToast({
                 message:'保存成功'
               })
@@ -25,7 +25,7 @@ struct Index {
             console.log("error: " + JSON.stringify(error))
             return;
           }
-          GalleryHelper.getInstance(getContext()).savePixelMapToGallery(pixmap,85,()=>{
+          FileSaverHelper.getInstance(getContext()).savePixelMapToGallery(pixmap,85,()=>{
             promptAction.showToast({
               message:'保存成功'
             })
@@ -39,7 +39,7 @@ struct Index {
 
       Button('保存图片base64到系统相册').onClick(()=>{
         const base64Str = getBase64();
-        GalleryHelper.getInstance(getContext()).saveImgBase64ToGallery(base64Str,()=>{
+        FileSaverHelper.getInstance(getContext()).saveImgBase64ToGallery(base64Str,()=>{
           promptAction.showToast({
             message:'保存成功'
           })
@@ -52,7 +52,7 @@ struct Index {
       Button('保存应用沙箱图片到系统相册').onClick(()=>{
         //确保沙箱有真实路径图片
         const filePath = getContext().filesDir+`/pic_assets.jpg`;
-        GalleryHelper.getInstance(getContext()).saveSandBoxImageToGallery(filePath,()=>{
+        FileSaverHelper.getInstance(getContext()).saveSandBoxImageToGallery(filePath,()=>{
           promptAction.showToast({
             message:'保存成功'
           })
@@ -63,7 +63,7 @@ struct Index {
         top:20
       })
       Button('保存本地Resource/RawFile中的图片到系统相册').onClick(()=>{
-        GalleryHelper.getInstance(getContext()).saveLocalRawImageToGallery('startIcon.png',()=>{
+        FileSaverHelper.getInstance(getContext()).saveLocalRawImageToGallery(this.netUrl,()=>{
           promptAction.showToast({
             message:'保存成功'
           })
@@ -74,7 +74,7 @@ struct Index {
         top:20
       })
       Button('保存本地Resource/Media中的图片到系统相册').onClick(()=>{
-        GalleryHelper.getInstance(getContext()).saveLocalRawImageToGallery('startIcon.png',()=>{
+        FileSaverHelper.getInstance(getContext()).saveLocalRawImageToGallery('startIcon.png',()=>{
           promptAction.showToast({
             message:'保存成功'
           })
@@ -85,10 +85,42 @@ struct Index {
         top:20
       })
       Button('保存本地Resource/RawFile中的文件到应用沙盒').onClick(()=>{
-        GalleryHelper.getInstance(getContext()).saveRawFileToSandBox('startIcon.png').then(isSuccess=>{
+        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('foreground.png').then(isSuccess=>{
           promptAction.showToast({
             message:'保存成功'
           })
+        })
+      }).margin({
+        top:20
+      })
+
+      Button('保存本地Resource/Media中的文件到应用沙盒').onClick(()=>{
+        FileSaverHelper.getInstance(getContext()).saveRawFileToSandBox('startIcon.png').then(isSuccess=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        })
+      }).margin({
+        top:20
+      })
+
+      Button('下载图片等文件保存至应用沙盒').onClick(()=>{
+        FileSaverHelper.getInstance(getContext()).downloadFileToSandBox('startIcon.png', (result) => {
+          if(result.success){
+            //本地保存的沙盒文件路径
+            const filePath = result.filePath;
+          }
+        })
+      }).margin({
+        top:20
+      })
+
+      Button('沙箱文件转ArrayBuffer').onClick(()=>{
+        //确保沙箱路径真实有效
+        const filePath = getContext().filesDir+`/pic_assets.jpg`;
+        //文件较大时建议使用 FileSaverHelper.getInstance(getContext()).readLocalFileWithStream(filePath)
+        FileSaverHelper.getInstance(getContext()).fileToArrayBuffer(filePath).then(buffer=>{
+
         })
       }).margin({
         top:20

@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "imagesaver",
+    "name": "filesaver",
     "type": "har",
     "deviceTypes": [
       "default",
