@@ -1,6 +1,4 @@
-### FileSaver(Api12及以上)
-
----
+## FileSaver(Api12及以上)
 
 #### 简介 `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
 
@@ -34,7 +32,7 @@ ohpm install @ohos_lib/file-saver
 | fileToArrayBuffer            | 沙箱文件转ArrayBuffer                      |
 | readLocalFileWithStream      | 沙箱文件转ArrayBuffer(文件较大时使用更好)           |
 
-##  CompressorUtil类 采用华为官方二分法查找
+##  CompressorUtil类 采用华为官方二分法质量压缩
 
 | Api方法                                                                                                                 | 描述                                                                                                          |
 |-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
@@ -236,6 +234,5 @@ struct Index {
   }
 }
 ```
-
 
 #### 完整示例 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/file-saver
