@@ -43,7 +43,7 @@ ohpm install @ohos_lib/file-saver
 
 #### 基本用法
 ```typescript
-import { FileSaverHelper } from '@ohos_lib/file-saver'
+import { CompressorUtil, FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
 import { getBase64 } from '../utils/base64'
@@ -55,15 +55,15 @@ struct Index {
   @Local netUrl :string= 'https://i.gsxcdn.com/3053295419_6crg62os.png'
   build() {
     Column() {
-        Button('保存网络图片到系统相册').onClick(()=>{
-          FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
-              promptAction.showToast({
-                message:'保存成功'
-              })
-            },(error)=>{
-               console.log('异常信息',error.message,error.code);
-            })
-        }).id('SnapshotId')
+      Button('保存网络图片到系统相册').onClick(()=>{
+        FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },(error)=>{
+          console.log('异常信息',error.message,error.code);
+        })
+      }).id('SnapshotId')
 
       Button('保存图片PixelMap到系统相册').onClick(()=>{
         componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
@@ -213,9 +213,26 @@ struct Index {
       }).margin({
         top:20
       })
+
+      Button('缩图片到指定大小-返回ArrayBuffer').onClick(()=>{
+        componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
+          if (error) {
+            console.log("error: " + JSON.stringify(error))
+            return;
+          }
+          CompressorUtil.compressedImage(pixmap,64).then(res=>{
+            //压缩后的图片存储位置及字节
+            const imageUri = res.imageUri;
+            const imageBuffer  = res.imageBuffer;
+            const byteLength = res.imageByteLength;
+          })
+        }, { scale: 2, waitUntilRenderFinished: true })
+      }).margin({
+        top:20
+      })
     }
     .height('100%')
-    .width('100%')
+      .width('100%')
   }
 }
 ```

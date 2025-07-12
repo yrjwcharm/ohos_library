@@ -1,4 +1,4 @@
-import { FileSaverHelper } from '@ohos_lib/file-saver'
+import { CompressorUtil, FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
 import { getBase64 } from '../utils/base64'
@@ -165,6 +165,23 @@ struct Index {
             }
           })
         })
+      }).margin({
+        top:20
+      })
+
+      Button('缩图片到指定大小-返回ArrayBuffer').onClick(()=>{
+        componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
+          if (error) {
+            console.log("error: " + JSON.stringify(error))
+            return;
+          }
+          CompressorUtil.compressedImage(pixmap,64).then(res=>{
+            //压缩后的图片存储位置及字节
+            const imageUri = res.imageUri;
+            const imageBuffer  = res.imageBuffer;
+            const byteLength = res.imageByteLength;
+          })
+        }, { scale: 2, waitUntilRenderFinished: true })
       }).margin({
         top:20
       })

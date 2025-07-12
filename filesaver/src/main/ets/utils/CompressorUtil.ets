@@ -1,7 +1,4 @@
 import { image } from '@kit.ImageKit';
-import { resourceManager } from '@kit.LocalizationKit';
-import { fileUri } from '@kit.CoreFileKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { fileIo} from '@kit.CoreFileKit';
 
 class CompressedImageInfo {
@@ -12,13 +9,14 @@ class CompressedImageInfo {
 
 
 export class CompressorUtil{
+
   /**
    * 图片压缩，保存
    * @param sourcePixelMap：原始待压缩图片的PixelMap对象
    * @param maxCompressedImageSize：指定图片的压缩目标大小，单位kb
    * @returns compressedImageInfo：返回最终压缩后的图片信息
    */
-  async compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number): Promise<CompressedImageInfo> {
+  static async   compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number): Promise<CompressedImageInfo> {
   // Create an ImagePacker object for image encoding
   const imagePackerApi = image.createImagePacker();
   const IMAGE_QUALITY = 80;
@@ -34,7 +32,7 @@ export class CompressorUtil{
   // and finally find the compressed image data with the closest scaling factor to the specified image compression target size.
   if (maxCompressedImageByte > compressedImageData.byteLength) {
     // Using packToData binary compression to obtain image file streams
-    compressedImageData = await this.packingImage(compressedImageData, sourcePixelMap, IMAGE_QUALITY, maxCompressedImageByte);
+    compressedImageData = await CompressorUtil.packingImage(compressedImageData, sourcePixelMap, IMAGE_QUALITY, maxCompressedImageByte);
   } else {
     // Use scale to scale the image first, use a while loop to decrease the scale by 0.4 times each time, then use packToData (with the image quality parameter quality set to 80) to obtain the compressed image size,
     // and finally find the compressed image data with the closest scaling factor to the specified image compression target size
@@ -48,7 +46,7 @@ export class CompressorUtil{
         // it is recommended to increase the scaling factor reduceScale each time to reduce loops and improve scale compression performance.
         imageScale = imageScale - REDUCE_SCALE;
         await sourcePixelMap.scale(imageScale, imageScale);
-        compressedImageData = await this.packToData(sourcePixelMap, IMAGE_QUALITY);
+        compressedImageData = await CompressorUtil.packToData(sourcePixelMap, IMAGE_QUALITY);
       } else {
         // When the imageScale scaling is less than or equal to 0, it is meaningless and the compression ends. We do not consider the case where the image scaling factor is less than reduceScale here.
         break;
@@ -56,18 +54,17 @@ export class CompressorUtil{
     }
   }
   // Save the image and return the compressed image information.
-  const compressedImageInfo: CompressedImageInfo = await this.saveImage(compressedImageData);
+  const compressedImageInfo: CompressedImageInfo = await CompressorUtil.saveImage(compressedImageData);
   return compressedImageInfo;
 }
 
-
-/**
+  /**
  * Packing compression
  * @param sourcePixelMap：PixelMap of the original image to be compressed
  * @param imageQuality：Image quality parameters
  * @returns data：Return compressed image data
  */
-async  packToData(sourcePixelMap: image.PixelMap, imageQuality: number): Promise<ArrayBuffer> {
+private static async  packToData(sourcePixelMap: image.PixelMap, imageQuality: number): Promise<ArrayBuffer> {
   const imagePackerApi = image.createImagePacker();
   const packOpts: image.PackingOption = { format: "image/jpeg", quality: imageQuality };
   const data: ArrayBuffer = await imagePackerApi.packToData(sourcePixelMap, packOpts);
@@ -83,7 +80,7 @@ async  packToData(sourcePixelMap: image.PixelMap, imageQuality: number): Promise
  * @param maxCompressedImageByte：Compress the byte length of the target image
  * @returns compressedImageData：Return the compressed image data after binary packToData
  */
-async  packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.PixelMap, imageQuality: number, maxCompressedImageByte: number): Promise<ArrayBuffer> {
+private static async   packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.PixelMap, imageQuality: number, maxCompressedImageByte: number): Promise<ArrayBuffer> {
   // The range of image quality parameters is 80-100. Here, an array for packToData binary image quality parameters is created with 5 as the minimum binary unit.
   const packingArray: number[] = [];
   const DICHOTOMY_ACCURACY = 5;
@@ -99,7 +96,7 @@ async  packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.Pixe
     const mid = Math.floor((left + right) / 2);
     imageQuality = packingArray[mid];
     // 根据传入的图片质量参数进行packing压缩，返回压缩后的图片文件流数据。
-    compressedImageData = await this.packToData(sourcePixelMap, imageQuality);
+    compressedImageData = await CompressorUtil.packToData(sourcePixelMap, imageQuality);
     // Perform packToData compression based on the input image quality parameters and return the compressed image file stream data.
     if (compressedImageData.byteLength <= maxCompressedImageByte) {
       left = mid + 1;
@@ -107,12 +104,12 @@ async  packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.Pixe
         break;
       }
       // Obtain the compressed image file stream data with the next binary image quality parameter (mid+1)
-      compressedImageData = await this.packToData(sourcePixelMap, packingArray[mid + 1]);
+      compressedImageData = await CompressorUtil.packToData(sourcePixelMap, packingArray[mid + 1]);
       // Determine whether the size of the image compressed with the next image quality parameter (mid+1) is greater than the specified compression target size of the image.
       // If it is greater than, it indicates that the current image quality parameter (mid) compresses the image size closest to the compression target size of the specified image.
       // Pass in the current image quality parameter mid to obtain the final compressed data of the target image.
       if (compressedImageData.byteLength > maxCompressedImageByte) {
-        compressedImageData = await this.packToData(sourcePixelMap, packingArray[mid]);
+        compressedImageData = await CompressorUtil.packToData(sourcePixelMap, packingArray[mid]);
         break;
       }
     } else {
@@ -130,7 +127,7 @@ async  packingImage(compressedImageData: ArrayBuffer, sourcePixelMap: image.Pixe
  * @param compressedImageData：Compressed image data
  * @returns compressedImageInfo：Return compressed image information
  */
-async  saveImage(compressedImageData: ArrayBuffer): Promise<CompressedImageInfo> {
+private static async  saveImage(compressedImageData: ArrayBuffer): Promise<CompressedImageInfo> {
   const context: Context = getContext();
   // Define the compressed image URI to be saved. AfterCompression.jpeg represents the compressed image.
   const compressedImageUri: string = context.filesDir + '/' + 'afterCompression.jpeg';

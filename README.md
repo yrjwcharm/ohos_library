@@ -1,17 +1,19 @@
-## FileSaver(Api12及以上)
-___
-#### 简介
-#### `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
+### FileSaver(Api12及以上)
 
-* ***1.支持将图片一键保存至系统相册和应用内部存储***
-* ***2.支持保存文件各种形式至应用沙盒***
+---
+
+#### 简介 `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
+
+* **1.支持将图片一键保存至系统相册和应用内部存储**
+* **2.支持保存文件各种形式至应用沙盒**
+* **3.支持压缩图片到指定大小以下-用于微信分享等**
 
 #### 安装步骤
 
 `
 ohpm install @ohos_lib/file-saver
 `
-
+##  FileSaverHelper类
 | Api方法                        | 描述                                    |
 |------------------------------|---------------------------------------|
 | saveNetImageToGallery        | 保存网络图片到系统相册                           |
@@ -32,10 +34,16 @@ ohpm install @ohos_lib/file-saver
 | fileToArrayBuffer            | 沙箱文件转ArrayBuffer                      |
 | readLocalFileWithStream      | 沙箱文件转ArrayBuffer(文件较大时使用更好)           |
 
+##  CompressorUtil类 采用华为官方二分法查找
+
+| Api方法                                                                                                                 | 描述                                                                                                          |
+|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| async compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number): Promise<CompressedImageInfo>   | sourcePixelMap：原始待压缩图片的PixelMap对象 maxCompressedImageSize：指定图片的压缩目标大小，单位kb  compressedImageInfo：返回最终压缩后的图片信息 |
+
 
 #### 基本用法
 ```typescript
-import { FileSaverHelper } from '@ohos_lib/file-saver'
+import { CompressorUtil, FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
 import { image } from '@kit.ImageKit'
 import { getBase64 } from '../utils/base64'
@@ -47,15 +55,15 @@ struct Index {
   @Local netUrl :string= 'https://i.gsxcdn.com/3053295419_6crg62os.png'
   build() {
     Column() {
-        Button('保存网络图片到系统相册').onClick(()=>{
-          FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
-              promptAction.showToast({
-                message:'保存成功'
-              })
-            },(error)=>{
-               console.log('异常信息',error.message,error.code);
-            })
-        }).id('SnapshotId')
+      Button('保存网络图片到系统相册').onClick(()=>{
+        FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl,()=>{
+          promptAction.showToast({
+            message:'保存成功'
+          })
+        },(error)=>{
+          console.log('异常信息',error.message,error.code);
+        })
+      }).id('SnapshotId')
 
       Button('保存图片PixelMap到系统相册').onClick(()=>{
         componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
@@ -205,9 +213,26 @@ struct Index {
       }).margin({
         top:20
       })
+
+      Button('缩图片到指定大小-返回ArrayBuffer').onClick(()=>{
+        componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
+          if (error) {
+            console.log("error: " + JSON.stringify(error))
+            return;
+          }
+          CompressorUtil.compressedImage(pixmap,64).then(res=>{
+            //压缩后的图片存储位置及字节
+            const imageUri = res.imageUri;
+            const imageBuffer  = res.imageBuffer;
+            const byteLength = res.imageByteLength;
+          })
+        }, { scale: 2, waitUntilRenderFinished: true })
+      }).margin({
+        top:20
+      })
     }
     .height('100%')
-    .width('100%')
+      .width('100%')
   }
 }
 ```
