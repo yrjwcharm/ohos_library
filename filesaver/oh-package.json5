@@ -1,10 +1,10 @@
 {
   "name": "@ohos_lib/file-saver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能，支持将图片一键保存至系统相册和应用内部存储",
   "main": "Index.ets",
-  "keywords": ['文件保存','图片保存到系统相册','图片保存至应用沙盒','文件保存至应用沙盒','下载文件保存到应用沙盒','downloadFile','packingPixelMap','base64ToPixelMap','沙箱文件转ArrayBuffer','压缩'],
-  "tags":['文件保存','图片保存到系统相册','图片保存至应用沙盒','文件保存至应用沙盒','下载文件保存到应用沙盒','downloadFile','packingPixelMap','base64ToPixelMap','沙箱文件转ArrayBuffer','压缩'],
+  "keywords": ['compressor','图片保存到系统相册','图片保存至应用沙盒','文件保存至应用沙盒','下载文件保存到应用沙盒','downloadFile','packingPixelMap','base64ToPixelMap','沙箱文件转ArrayBuffer','图片压缩'],
+  "tags":['compressor','图片保存到系统相册','图片保存至应用沙盒','文件保存至应用沙盒','下载文件保存到应用沙盒','downloadFile','packingPixelMap','base64ToPixelMap','沙箱文件转ArrayBuffer','图片压缩'],
   "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/file-saver",
   "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/file-saver#readme",
   "author": "闫瑞锋",

@@ -1,17 +1,19 @@
-## FileSaver(Api12及以上)
-___
-#### 简介
-#### `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
+### FileSaver(Api12及以上)
 
-* ***1.支持将图片一键保存至系统相册和应用内部存储***
-* ***2.支持保存文件各种形式至应用沙盒***
+---
+
+#### 简介 `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
+
+* **1.支持将图片一键保存至系统相册和应用内部存储**
+* **2.支持保存文件各种形式至应用沙盒**
+* **3.支持压缩图片到指定大小以下-用于微信分享等**
 
 #### 安装步骤
 
 `
 ohpm install @ohos_lib/file-saver
 `
-
+##  FileSaverHelper类
 | Api方法                        | 描述                                    |
 |------------------------------|---------------------------------------|
 | saveNetImageToGallery        | 保存网络图片到系统相册                           |
@@ -31,6 +33,12 @@ ohpm install @ohos_lib/file-saver
 | saveMediaFileToSandBox       | 将资源文件夹Resource/Media下的文件存放到沙箱目录下      |
 | fileToArrayBuffer            | 沙箱文件转ArrayBuffer                      |
 | readLocalFileWithStream      | 沙箱文件转ArrayBuffer(文件较大时使用更好)           |
+
+##  CompressorUtil类 采用华为官方二分法查找
+
+| Api方法                                                                                                                 | 描述                                                                                                          |
+|-----------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| async compressedImage(sourcePixelMap: image.PixelMap, maxCompressedImageSize: number): Promise<CompressedImageInfo>   | sourcePixelMap：原始待压缩图片的PixelMap对象 maxCompressedImageSize：指定图片的压缩目标大小，单位kb  compressedImageInfo：返回最终压缩后的图片信息 |
 
 
 #### 基本用法
