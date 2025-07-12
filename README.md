@@ -1,7 +1,7 @@
 ## FileSaver(Api12及以上)
 ___
 #### 简介
-#### `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能，
+#### `FileSaver` 此开源库为基于 HarmonyOS ArkTS 的应用提供便捷功能
 
 * ***1.支持将图片一键保存至系统相册和应用内部存储***
 * ***2.支持保存文件各种形式至应用沙盒***
