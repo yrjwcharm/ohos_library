@@ -274,3 +274,6 @@ struct Index {
   }
 }
 ```
+
+> FileSaver是一个为HarmonyOS ArkTS应用设计的开源库，提供便捷的文件保存功能。主要特性包括：支持将图片保存至系统相册和应用沙盒存储，支持多种图片格式转换（网络图片、PixelMap、ArrayBuffer、Base64等），并提供文件压缩功能（采用华为官方二分法质量压缩）。使用前需安装ohpm包并配置网络权限。该库通过FileSaverHelper和CompressorUtil两个类提供丰富的API方法，涵盖图片保存、格式转换、文件下载和压缩等功能，适用于需要本地文件管理的应用场景。
+
