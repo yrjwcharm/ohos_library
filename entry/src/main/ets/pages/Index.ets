@@ -130,7 +130,7 @@ struct Index {
            })
 
            Button('下载图片等文件保存至应用沙盒').onClick(() => {
-             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox('startIcon.png', (result) => {
+             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox(this.netUrl, (result) => {
                if (result.success) {
                  //本地保存的沙盒文件路径
                  const filePath = result.filePath;
@@ -165,11 +165,11 @@ struct Index {
            })
            Button('沙箱文件转ArrayBuffer').onClick(() => {
              //确保沙箱路径真实有效
-             const filePath = getContext().filesDir + `/pic_assets.jpg`;
+             const filePath = getContext().filesDir + `/1752460544695_IMG.jpg`;
              //文件较大时建议使用 FileSaverHelper.getInstance(getContext()).readLocalFileWithStream(filePath)
              FileSaverHelper.getInstance(getContext()).fileToArrayBuffer(filePath).then(buffer => {
                promptAction.showToast({
-                 message: '保存成功'
+                 message: '转换成功'+buffer.byteLength
                })
              })
            }).margin({
@@ -191,7 +191,7 @@ struct Index {
              top: 20
            })
 
-           Button('缩图片到指定大小-返回ArrayBuffer').onClick(() => {
+           Button('压缩图片到指定大小-返回ArrayBuffer').onClick(() => {
              componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
                if (error) {
                  console.log("error: " + JSON.stringify(error))
@@ -202,6 +202,9 @@ struct Index {
                  const imageUri = res.imageUri;
                  const imageBuffer = res.imageBuffer;
                  const byteLength = res.imageByteLength;
+                 promptAction.showToast({
+                   message: '压缩成功'+imageUri
+                 })
                })
              }, { scale: 2, waitUntilRenderFinished: true })
            }).margin({
