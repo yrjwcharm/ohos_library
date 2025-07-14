@@ -1,8 +1,3 @@
-### fork ohos/imageknife库 旨在解决图片等高不等宽情况下 ，图片所在空间宽度占满屏幕的问题
-
-## copy一份ImageKnifeComponent.ets文件到项目工程目录中，修改ImageKnifeCompoent.ets 如下
-
-```diff
 import common from '@ohos.app.ability.common';
 import { emitter } from '@kit.BasicServicesKit';
 import { taskpool } from '@kit.ArkTS';
@@ -17,22 +12,22 @@ import {
 } from '@ohos/imageknife';
 import { DefaultEngineKey } from '@ohos/imageknife/src/main/ets/key/DefaultEngineKey';
 
-+enum ImageKnifeRequestState {
-+ PROGRESS,
-+ COMPLETE,
-+ ERROR,
-+ DESTROY
-+}
+enum ImageKnifeRequestState {
+  PROGRESS,
+  COMPLETE,
+  ERROR,
+  DESTROY
+}
 
 @Component
 export struct ImageKnifeComponent {
   @Watch('watchImageKnifeOption') @ObjectLink imageKnifeOption: ImageKnifeOption;
   @State pixelMap: PixelMap | string | Resource | ImageContent | undefined = ImageContent.EMPTY
   @State syncLoad: boolean = false
--  // @State adaptiveWidth: Length = '100%'
+  // @State adaptiveWidth: Length = '100%'
   @State adaptiveHeight: Length | undefined = '100%'
   @State objectFit: ImageFit = ImageFit.Contain
-+  @Watch('watchImageKnifeOption') @State currentHeight: number = 0
+  @Watch('watchImageKnifeOption') @State currentHeight: number = 0
   private componentId: number = 0
   private request: ImageKnifeRequest | undefined
   private lastWidth: number = 0
@@ -95,8 +90,7 @@ export struct ImageKnifeComponent {
   build() {
     Image(this.pixelMap)
       .colorFilter(this.imageKnifeOption.drawingColorFilter)
-      .objectFit(this.objectFit)
--      //.width(this.adaptiveWidth)
+      .objectFit(this.objectFit)// .width(this.adaptiveWidth)
       .height(this.adaptiveHeight)
       .border(this.imageKnifeOption.border)
       .syncLoad(this.syncLoad)
@@ -104,7 +98,7 @@ export struct ImageKnifeComponent {
       .onComplete(this.imageKnifeOption.onComplete)
       .onSizeChange((oldValue: SizeOptions, newValue: SizeOptions) => {
         this.currentWidth = newValue.width as number
-+        this.currentHeight = newValue.height as number
+        this.currentHeight = newValue.height as number
         this.lastWidth = oldValue.width as number
         this.lastHeight = oldValue.height as number
         if (this.currentWidth <= 0 || (this.objectFit !== ImageFit.Auto && this.currentHeight <= 0)) {
@@ -139,10 +133,10 @@ export struct ImageKnifeComponent {
       ' placeholderSrc = ' + this.imageKnifeOption.placeholderSrc +
       ' errorholderSrc = ' + this.imageKnifeOption.errorholderSrc +
       ' componentId = ' + this.componentId)
-+    if (this.currentHeight > 0) {
-+      ImageKnife.getInstance().execute(this.getRequest(
-+        this.currentWidth, this.currentHeight, this.componentId))
-+    }
+    if (this.currentHeight > 0) {
+      ImageKnife.getInstance().execute(this.getRequest(
+        this.currentWidth, this.currentHeight, this.componentId))
+    }
   }
 
   getCurrentContext(): common.UIAbilityContext {
@@ -209,6 +203,4 @@ export struct ImageKnifeComponent {
     }
   }
 }
-```
 
-### 然后在组件中引入这个ImageKnifeComponent使用就可以了
