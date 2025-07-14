@@ -165,7 +165,7 @@ export class FileSaverHelper {
   saveArrayBufferToSandBox(buffer: ArrayBuffer): Promise<IResponse> { // 传入buffer，获取图片沙箱路径  this.pixmapUri
     return new Promise((resolve,reject)=>{
       //保存到沙箱中并存储拍摄的文件路径集--用来打开指定的图片
-      const filePath = this.context?.filesDir + '/' + `${Date.now()}_${Math.random()}_IMG.jpg`
+      const filePath = this.context?.filesDir + '/' + `${Date.now()}_IMG.jpg`
       let tempFile = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE)
       try {
         fileIo.writeSync(tempFile.fd, buffer)
