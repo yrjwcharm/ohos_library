@@ -8,9 +8,22 @@
 
 #### 安装步骤
 
-`
-ohpm install @ohos_lib/file-saver
-`
+`ohpm install @ohos_lib/file-saver`
+
+#### add 权限 entry->module.json5
+
+```json
+ "requestPermissions": [
+      {
+        "name":"ohos.permission.INTERNET"
+      },
+      {
+        "name":"ohos.permission.GET_NETWORK_INFO"
+      }
+    ]
+  }
+```
+
 ##  FileSaverHelper类
 | Api方法                        | 描述                                    |
 |------------------------------|---------------------------------------|
