@@ -40,7 +40,7 @@ export class FileSaverHelper {
   }
 
   //下载网络资源(图片等文件)到应用沙盒
-  async downloadFileToSandBox(url: string, progressCallback: (progress: number) => void,
+  async downloadFileToSandBox(url: string, progressCallback?: (progress: number) => void,
     failCallback?: (err: BusinessError) => void):Promise<IResponse> {
     try {
       const  buffer  = await this.downloadFile(url, progressCallback);
