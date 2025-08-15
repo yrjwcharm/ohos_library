@@ -32,7 +32,6 @@ export class FileSaverHelper {
     try {
       const buffer  = await this.downloadFile(url, progressCallback);
       await this.saveImgBufferToGallery(buffer);
-      progressCallback?.(100);
       return  true;
     } catch (err) {
       failCallback?.(err);
@@ -54,7 +53,6 @@ export class FileSaverHelper {
       } finally {
         fileIo.closeSync(file.fd);
       }
-      progressCallback?.(100);
       return { success: true, filePath };
     } catch (err) {
       failCallback?.(err);
@@ -85,6 +83,7 @@ export class FileSaverHelper {
       httpRequest.on('dataReceive', (chunk) => chunks.push(chunk));
 
       httpRequest.on('dataEnd', () => {
+        progressCallback?.(100);
         const totalLength = chunks.reduce((len, chunk) => len + chunk.byteLength, 0);
         const mergedBuffer = new Uint8Array(totalLength);
         let offset = 0;

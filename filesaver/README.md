@@ -54,6 +54,7 @@
 
 
 #### 基本用法
+
 ```javascript
 import { CompressorUtil, FileSaverHelper } from '@ohos_lib/file-saver'
 import { componentSnapshot, promptAction } from '@kit.ArkUI'
