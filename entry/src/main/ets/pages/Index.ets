@@ -130,7 +130,9 @@ struct Index {
            })
 
            Button('下载图片等文件保存至应用沙盒').onClick(() => {
-             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox(this.netUrl, (result) => {
+             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox(this.netUrl,(progress:number)=>{
+               console.log('下载进度....'+progress)
+             }).then(result=>{
                if (result.success) {
                  //本地保存的沙盒文件路径
                  const filePath = result.filePath;
