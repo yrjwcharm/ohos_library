@@ -51,7 +51,6 @@ export class FileSaverHelper {
       return { success: true, filePath };
     } catch (err) {
       failCallback?.(err);
-      throw err;
     }
   }
 
@@ -71,7 +70,8 @@ export class FileSaverHelper {
 
       const desFileUris = await phAccessHelper.showAssetsCreationDialog(srcFileUris, photoCreationConfigs);
       if (desFileUris.length === 0) {
-        throw { code: -2, message: '保存失败', name: "" };
+        failCallback?. ({ code: -2, message: '保存失败', name: "" });
+        return;
       }
 
       const file = fileIo.openSync(desFileUris[0], fileIo.OpenMode.READ_WRITE);
