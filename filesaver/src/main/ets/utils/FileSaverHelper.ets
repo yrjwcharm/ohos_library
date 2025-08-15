@@ -4,14 +4,17 @@ import { image } from "@kit.ImageKit";
 import { fileIo, fileUri } from "@kit.CoreFileKit";
 import { photoAccessHelper } from "@kit.MediaLibraryKit";
 import { buffer, util } from "@kit.ArkTS";
-interface IResponse{
-  success:boolean,
-  filePath?:string,
+
+interface IResponse {
+  success: boolean,
+  filePath?: string,
 }
+
 //保存到系统相册 普遍三种方式 1、SaveButton控件、 2、ACL权限申请、3、媒体文件管理服务模块/https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/js-apis-photoaccesshelper-V5#showassetscreationdialog12
 export class FileSaverHelper {
   private static instance: FileSaverHelper
   private context: Context;
+
   static getInstance(context: Context) {
     if (!FileSaverHelper.instance) {
       FileSaverHelper.instance = new FileSaverHelper(context);
@@ -22,65 +25,101 @@ export class FileSaverHelper {
   constructor(context: Context) {
     this.context = context;
   }
+
   //保存网络图片到相册
-  saveNetImageToGallery(url: string, successCallback: (isSuccess: boolean) => void,
+  saveNetImageToGallery(url: string,progressCallback?:(progress:number)=>void,
     failCallback?: (err: BusinessError) => void) {
     let httpRequest = http.createHttp();
-    httpRequest.request(url, {
+    const chunks: ArrayBuffer[] = []; // 存储所有数据块
+    httpRequest.requestInStream(url, {
       expectDataType: http.HttpDataType.ARRAY_BUFFER,
-      method: http.RequestMethod.GET,
+      method: http.RequestMethod.GET, // 可选，默认为http.RequestMethod.GET。
       connectTimeout: 60000,
       readTimeout: 60000
-    },
-      (err: BusinessError, data: http.HttpResponse) => {
-        if (err) {
-          failCallback?.(err);
-          return
-        }
-        if (data.result instanceof ArrayBuffer) {
-          let imageBuffer = data.result as ArrayBuffer;
-          // GalleryHelper.instance?.saveImgBufferToAssets(imageBuffer,successCallback)
-          FileSaverHelper.instance?.saveImgBufferToGallery(imageBuffer, successCallback)
-        }
-      })
+    }, (err: BusinessError, data: number) => {
+      if (!err) {
+        failCallback(err);
+      }
+    })
+    httpRequest.on('dataReceiveProgress', (data) => {
+      const progress = data.receiveSize * 100 / data.totalSize;
+      if (progress < 100) {
+        progressCallback?.(progress);
+      }
+    })
+    httpRequest.on('dataReceive', (buffer) => {
+      chunks.push(buffer);
+    })
+    httpRequest.on('dataEnd', () => {
+      // 合并所有ArrayBuffer
+      const totalLength = chunks.reduce((len, chunk) => len + chunk.byteLength, 0);
+      const mergedBuffer = new Uint8Array(totalLength);
+      let offset = 0;
+      chunks.forEach(chunk => {
+        mergedBuffer.set(new Uint8Array(chunk), offset);
+        offset += chunk.byteLength;
+      });
+      FileSaverHelper.instance?.saveImgBufferToGallery(mergedBuffer.buffer);
+      progressCallback?.(100);
+    })
   }
+
   //下载网络资源(图片等文件)到应用沙盒
-  downloadFileToSandBox(url:string,successCallback:(response:IResponse)=>void,failCallback?:(err:BusinessError)=>void){
+  downloadFileToSandBox(url: string, progressCallback: (progress: number) => void,
+    successCallback: (response: IResponse) => void,
+    failCallback?: (err: BusinessError) => void) {
     let httpRequest = http.createHttp();
-    httpRequest.request(url, {
+    const chunks: ArrayBuffer[] = []; // 存储所有数据块
+    httpRequest.requestInStream(url, {
       expectDataType: http.HttpDataType.ARRAY_BUFFER,
-      method: http.RequestMethod.GET,
+      method: http.RequestMethod.GET, // 可选，默认为http.RequestMethod.GET。
       connectTimeout: 60000,
       readTimeout: 60000
-    },
-      (err: BusinessError, data: http.HttpResponse) => {
-        if (err) {
-          failCallback?.(err);
-          return
-        }
-        const fileName = url.substring(url.lastIndexOf('/')+1);
-        if (data.result instanceof ArrayBuffer) {
-          let imageBuffer = data.result as ArrayBuffer;
-          const filePath = `${this.context?.filesDir}/`+fileName
-          let tempFile = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE)
-          try {
-            fileIo.writeSync(tempFile.fd, imageBuffer)
-            fileIo.close(tempFile.fd)
-            successCallback?.({
-              success:true,
-              filePath
-            })
-          } catch (err) {
-            failCallback?.({
-              code: -1,
-              message: 'buffer写入沙盒文件失败',
-              name: ""
-            })
-            return
-          }
-        }
-      })
+    }, (err: BusinessError, data: number) => {
+      if (!err) {
+        failCallback(err);
+      }
+    })
+    httpRequest.on('dataReceiveProgress', (data) => {
+      const progress = data.receiveSize * 100 / data.totalSize;
+      if (progress < 100) {
+        progressCallback?.(progress);
+      }
+    })
+    httpRequest.on('dataReceive', (buffer) => {
+      chunks.push(buffer);
+    })
+    httpRequest.on('dataEnd', () => {
+      // 合并所有ArrayBuffer
+      const totalLength = chunks.reduce((len, chunk) => len + chunk.byteLength, 0);
+      const mergedBuffer = new Uint8Array(totalLength);
+      let offset = 0;
+      chunks.forEach(chunk => {
+        mergedBuffer.set(new Uint8Array(chunk), offset);
+        offset += chunk.byteLength;
+      });
+      const fileName = url.substring(url.lastIndexOf('/') + 1);
+      const filePath = `${this.context?.filesDir}/` + fileName
+      let tempFile = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE)
+      try {
+        fileIo.writeSync(tempFile.fd, mergedBuffer.buffer)
+        fileIo.close(tempFile.fd)
+        successCallback?.({
+          success: true,
+          filePath
+        })
+        progressCallback?.(100);
+      } catch (err) {
+        failCallback?.({
+          code: -1,
+          message: 'buffer写入沙盒文件失败',
+          name: ""
+        })
+        return
+      }
+    })
   }
+
   // 打包 PixelMap 为 jpg 格式
   async packingPixelMapToArrayBuffer(pixelMap: PixelMap, quality = 100): Promise<ArrayBuffer> {
     // 创建ImagePacker实例
@@ -97,7 +136,7 @@ export class FileSaverHelper {
   }
 
   //保存 图片ArrayBuffer二进制流 到系统相册
-  async saveImgBufferToGallery(imageBuffer: ArrayBuffer, successCallback: (isSuccess: boolean) => void,
+  async saveImgBufferToGallery(imageBuffer: ArrayBuffer, successCallback?: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
       // 先将buffer存到沙盒
@@ -145,25 +184,27 @@ export class FileSaverHelper {
       failCallback?.(err);
     })
   }
+
   /**
    * 保存PixelMap到应用沙盒
    *
    */
   savePixelMapToSandBox(pixmap: image.PixelMap, quality = 100, successCallback: (response: IResponse) => void,
     failCallback?: (err: BusinessError) => void) {
-    this.packingPixelMapToArrayBuffer(pixmap).then(buffer=>{
-      this.saveArrayBufferToSandBox(buffer).then(result=>{
+    this.packingPixelMapToArrayBuffer(pixmap).then(buffer => {
+      this.saveArrayBufferToSandBox(buffer).then(result => {
         successCallback?.(result);
-      }).catch((err:BusinessError)=>{
+      }).catch((err: BusinessError) => {
         failCallback?.(err);
       })
-    }).catch((err:BusinessError)=>{
+    }).catch((err: BusinessError) => {
       failCallback?.(err)
     })
   }
+
   //保存ArrayBuffer到应用沙盒
   saveArrayBufferToSandBox(buffer: ArrayBuffer): Promise<IResponse> { // 传入buffer，获取图片沙箱路径  this.pixmapUri
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
       //保存到沙箱中并存储拍摄的文件路径集--用来打开指定的图片
       const filePath = this.context?.filesDir + '/' + `${Date.now()}_IMG.jpg`
       let tempFile = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE)
@@ -171,7 +212,7 @@ export class FileSaverHelper {
         fileIo.writeSync(tempFile.fd, buffer)
         fileIo.close(tempFile.fd)
         resolve({
-          success:true,
+          success: true,
           filePath
         })
       } catch (err) {
@@ -179,6 +220,7 @@ export class FileSaverHelper {
       }
     })
   }
+
   //拉起选择图片选择后的图片路径-转化为PixelMap
   async transferImage2PixelMap(uri: string): Promise<image.PixelMap> {
     const file = fileIo.openSync(uri, fileIo.OpenMode.READ_ONLY);
@@ -258,9 +300,10 @@ export class FileSaverHelper {
 
     })
   }
+
   //沙盒文件转ArrayBuffer -文件比较大使用
-   readLocalFileWithStream(filePath: string):Promise<ArrayBuffer> {
-    return new Promise(async(resolve,reject)=>{
+  readLocalFileWithStream(filePath: string): Promise<ArrayBuffer> {
+    return new Promise(async (resolve, reject) => {
       try {
         // 存储每次读取的结果
         let buffers: buffer.Buffer[] = [];
@@ -305,61 +348,64 @@ export class FileSaverHelper {
   }
 
   //保存本地resource/rawFile中的图片资源到系统相册
-   async saveLocalRawImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
+  async saveLocalRawImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
       await this.saveRawFileToSandBox(fileName);
-      const filePath =this.context?.filesDir +'/'+fileName;
-      this.saveSandBoxImageToGallery(filePath,successCallback,failCallback);
-    }catch (err) {
+      const filePath = this.context?.filesDir + '/' + fileName;
+      this.saveSandBoxImageToGallery(filePath, successCallback, failCallback);
+    } catch (err) {
       failCallback?.(err);
     }
   }
+
   //保存本地resource/Media中的图片资源到系统相册
   async saveLocalResImageToGallery(fileName: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
       await this.saveRawFileToSandBox(fileName);
-      const filePath =this.context?.filesDir +'/'+fileName;
-      this.saveLocalResImageToGallery(filePath,successCallback,failCallback);
-    }catch (err) {
+      const filePath = this.context?.filesDir + '/' + fileName;
+      this.saveLocalResImageToGallery(filePath, successCallback, failCallback);
+    } catch (err) {
       failCallback?.(err);
     }
   }
+
   //将资源文件夹Resource/Media下的文件存放到沙箱目录下
-  saveMediaFileToSandBox(resName: string):Promise<IResponse>{
-    return new Promise(async (resolve,reject)=>{
-      try{
-        let pathDir: string =  this.context?.filesDir; // /data/storage/el2/base/haps/entry/files
-        let filePath: string = pathDir + '/'+resName;
+  saveMediaFileToSandBox(resName: string): Promise<IResponse> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let pathDir: string = this.context?.filesDir; // /data/storage/el2/base/haps/entry/files
+        let filePath: string = pathDir + '/' + resName;
         let file = await fileIo.open(filePath, fileIo.OpenMode.READ_WRITE);
         let buffer = this.context?.resourceManager.getMediaByNameSync(resName);
         // Write the read ArrayBuffer to the new media file.
         let writeLen = await fileIo.write(file.fd, buffer.buffer);
         await fileIo.close(file);
         resolve({
-          success:true,
+          success: true,
           filePath
         })
-      }catch (err) {
+      } catch (err) {
         reject(err);
       }
     })
   }
+
   //将资源文件夹Resource/rawFile下的文件存放到沙箱目录下
-  saveRawFileToSandBox(fileName:string):Promise<IResponse>{
-    return new Promise((resolve,reject)=>{
+  saveRawFileToSandBox(fileName: string): Promise<IResponse> {
+    return new Promise((resolve, reject) => {
       try {
         let val: Uint8Array = this.context?.resourceManager.getRawFileContentSync(fileName);
-        let pathDir: string =  this.context?.filesDir;
+        let pathDir: string = this.context?.filesDir;
         // 待拷贝文件沙箱路径
-        let filePath: string = pathDir + '/'+fileName;
+        let filePath: string = pathDir + '/' + fileName;
         // 若文件不存在，则创建文件。
         let file = fileIo.openSync(filePath, fileIo.OpenMode.READ_WRITE | fileIo.OpenMode.CREATE);
         let writeLen = fileIo.writeSync(file.fd, val.buffer as ArrayBuffer);
         fileIo.closeSync(file);
         resolve({
-          success:true,
+          success: true,
           filePath
         });
       } catch (error) {
@@ -369,6 +415,7 @@ export class FileSaverHelper {
       }
     })
   }
+
   //保存本地 resource/media中的资源到系统相册 createAsset  需要申请使用受限权限
   private async saveLocalImageToGalleryACL(resoure: Resource, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
