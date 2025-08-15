@@ -30,7 +30,7 @@ export class FileSaverHelper {
   async saveNetImageToGallery(url: string,progressCallback?:(progress:number)=>void,
     failCallback?: (err: BusinessError) => void):Promise<boolean> {
     try {
-      const { buffer } = await this.downloadFile(url, progressCallback);
+      const buffer  = await this.downloadFile(url, progressCallback);
       await this.saveImgBufferToGallery(buffer);
       progressCallback?.(100);
       return  true;
@@ -44,7 +44,7 @@ export class FileSaverHelper {
   async downloadFileToSandBox(url: string, progressCallback: (progress: number) => void,
     failCallback?: (err: BusinessError) => void):Promise<IResponse> {
     try {
-      const { buffer } = await this.downloadFile(url, progressCallback);
+      const  buffer  = await this.downloadFile(url, progressCallback);
       const fileName = url.substring(url.lastIndexOf('/') + 1);
       const filePath = `${this.context.filesDir}/${fileName}`;
 
@@ -61,7 +61,7 @@ export class FileSaverHelper {
       return {success:false,filePath:undefined}
     }
   }
-  public  async downloadFile(url: string, progressCallback?: (progress: number) => void): Promise<{ buffer: ArrayBuffer }> {
+  public  async downloadFile(url: string, progressCallback?: (progress: number) => void): Promise<ArrayBuffer> {
     return new Promise((resolve, reject) => {
       const httpRequest = http.createHttp();
       const chunks: ArrayBuffer[] = [];
@@ -94,7 +94,7 @@ export class FileSaverHelper {
           offset += chunk.byteLength;
         });
 
-        resolve({ buffer: mergedBuffer.buffer });
+        resolve(mergedBuffer.buffer);
       });
     });
   }
@@ -276,7 +276,6 @@ export class FileSaverHelper {
         }
         fileIo.closeSync(file);
       });
-
     })
   }
 

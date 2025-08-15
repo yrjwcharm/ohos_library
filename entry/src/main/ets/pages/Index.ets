@@ -177,6 +177,8 @@ struct Index {
                promptAction.showToast({
                  message: '转换成功'+buffer.byteLength
                })
+             }).catch((err:BusinessError)=>{
+               console.log('异常信息',err.code,err.message)
              })
            }).margin({
              top: 20
