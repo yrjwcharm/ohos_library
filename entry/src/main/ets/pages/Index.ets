@@ -14,15 +14,34 @@ struct Index {
        Scroll() {
          Column() {
            Button('保存网络图片到系统相册').onClick(() => {
-             FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl, () => {
-               promptAction.showToast({
-                 message: '保存成功'
-               })
+             FileSaverHelper.getInstance(getContext()).saveNetImageToGallery(this.netUrl, (progress:number) => {
+                console.log('下载进度....'+progress)
              }, (error) => {
                console.log('异常信息', error.message, error.code);
+             }).then((isSuccess)=>{
+               if(isSuccess) {
+                 promptAction.showToast({
+                   message: '保存成功'
+                 })
+               }
              })
            }).id('SnapshotId')
 
+           Button('下载图片等文件保存至应用沙盒').onClick(() => {
+             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox(this.netUrl,(progress:number)=>{
+               console.log('下载进度....'+progress)
+             }).then(result=>{
+               if (result.success) {
+                 //本地保存的沙盒文件路径
+                 const filePath = result.filePath;
+                 promptAction.showToast({
+                   message: '保存成功'+filePath
+                 })
+               }
+             })
+           }).margin({
+             top: 20
+           })
            Button('保存图片PixelMap到系统相册').onClick(() => {
              componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
                if (error) {
@@ -129,21 +148,6 @@ struct Index {
              top: 20
            })
 
-           Button('下载图片等文件保存至应用沙盒').onClick(() => {
-             FileSaverHelper.getInstance(getContext()).downloadFileToSandBox(this.netUrl,(progress:number)=>{
-               console.log('下载进度....'+progress)
-             }).then(result=>{
-               if (result.success) {
-                 //本地保存的沙盒文件路径
-                 const filePath = result.filePath;
-                 promptAction.showToast({
-                   message: '保存成功'+filePath
-                 })
-               }
-             })
-           }).margin({
-             top: 20
-           })
            Button('保存PixelMap到应用沙盒').onClick(() => {
              componentSnapshot.get("SnapshotId", async (error: Error, pixmap: image.PixelMap) => {
                if (error) {
