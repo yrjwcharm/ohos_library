@@ -1,9 +1,9 @@
-import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
+import { FileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
 import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
-import { IResponseData } from '../../interfaces/IResponseData';
+import { ResponseData } from '../../model/ResponseData';
 
 @Entry
 @ComponentV2
@@ -24,13 +24,13 @@ struct SingleFileDownload {
       DownloaderUtil.persistActiveDownloads()
     }
   }
-  @Local data: IResponseData[] = [];
+  @Local data: ResponseData[] = [];
   async aboutToAppear() {
      this.loadData();
     getContext().eventHub.on('reQuery',()=>{
       this.loadData();
     })
-     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
+     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
        console.log('更新回调',downloadInfo.downloadSize)
        //进度监听更新回调
        let newData =  this.data?.map((item)=>{
@@ -56,9 +56,9 @@ struct SingleFileDownload {
   //TODO tips: 下载失败，首先检查url是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
     // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
-    //转换数据结构response时接口类型必须要继承 extends IFileDownloader IFileDownloader接口类型初始化至少包含三个字段userId ,downloadId,url userId登录用户的userId
-    //因此extends IFileDownloader过的IResponseData接口类型 对应转换后的数据如下所示
-    let result:IResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
+    //转换数据结构response时接口类型必须要继承 extends FileDownloader FileDownloader接口类型初始化至少包含三个字段userId ,downloadId,url userId登录用户的userId
+    //因此extends FileDownloader过的ResponseData接口类型 对应转换后的数据如下所示
+    let result:ResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
       className:'第一章 第一讲：At the Airport在机场',
       "url": "http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",       userId:this.userId
     }]
@@ -67,7 +67,7 @@ struct SingleFileDownload {
     predicates.equalTo('userId',this.userId);
     let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
     if(queryList.length>0){
-      let newData = result.map((item:IResponseData)=>{
+      let newData = result.map((item:ResponseData)=>{
         let obj =queryList.find(el=>el.downloadId===item.downloadId);
         if(obj) {
           item.taskId = obj.taskId;
@@ -107,7 +107,7 @@ struct SingleFileDownload {
        return '下载'
     }
   }
-  @Builder imageAnimator(item:IResponseData){
+  @Builder imageAnimator(item:ResponseData){
     ImageAnimator()
       .images([
         {
@@ -152,7 +152,7 @@ struct SingleFileDownload {
   build() {
     Column() {
       Stack({alignContent:Alignment.TopStart}){
-       ForEach(this.data,(item:IResponseData)=>{
+       ForEach(this.data,(item:ResponseData)=>{
          Flex({
            direction:FlexDirection.Row,
            alignItems:ItemAlign.Center,

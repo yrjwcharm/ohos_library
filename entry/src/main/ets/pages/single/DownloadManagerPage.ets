@@ -1,15 +1,15 @@
-import { IResponseData } from '../../interfaces/IResponseData';
+import { ResponseData } from '../../model/ResponseData';
 import { promptAction, router } from '@kit.ArkUI';
 import { DownloaderUtil, DownloadManager, GTNetworkUtil, NetworkCallback } from '@ohos_lib/filedownload';
-import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
+import { FileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 
 @Entry
 @ComponentV2
 struct DownloadManagerPage {
-  @Local data:IResponseData[]=[];
-  @Local downloadingData:IResponseData[]=[];//下载中（下载失败、暂停等）
-  @Local downloadedData:IResponseData[]=[];//已下载
+  @Local data:ResponseData[]=[];
+  @Local downloadingData:ResponseData[]=[];//下载中（下载失败、暂停等）
+  @Local downloadedData:ResponseData[]=[];//已下载
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
@@ -42,10 +42,10 @@ struct DownloadManagerPage {
   }
 }
   aboutToAppear(): void {
-    let data = (router.getParams() as Record<string,Object>)['data'] as IResponseData[];
+    let data = (router.getParams() as Record<string,Object>)['data'] as ResponseData[];
     this.data=data;
     this.loadData();
-    DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:IFileDownloader)=>{
+    DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
       //进度监听更新回调
       let newData =  this.data?.map((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
@@ -78,7 +78,7 @@ struct DownloadManagerPage {
       Tabs() {
         TabContent() {
           Column(){
-            ForEach(this.downloadedData,(item:IResponseData)=>{
+            ForEach(this.downloadedData,(item:ResponseData)=>{
               Flex({
                 direction:FlexDirection.Row,
                 alignItems:ItemAlign.Center,
@@ -109,7 +109,7 @@ struct DownloadManagerPage {
 
         TabContent() {
           Column(){
-            ForEach(this.downloadingData,(item:IResponseData,index:number)=>{
+            ForEach(this.downloadingData,(item:ResponseData,index:number)=>{
               Flex({
                 direction:FlexDirection.Row,
                 alignItems:ItemAlign.Center,
