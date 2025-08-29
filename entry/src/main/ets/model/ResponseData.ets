@@ -6,3 +6,9 @@ export class  ResponseData extends  FileDownloader{
   public className:string=''
   public fileUrl:string=''
 }
+//1.1.6及之前版本 使用接口定义形式
+// export interface IResponseData extends IFileDownloader{
+//   classNumber:string;
+//   className:string;
+//   url:string;
+// }
