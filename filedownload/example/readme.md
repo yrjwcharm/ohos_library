@@ -64,10 +64,11 @@ HTTP/1.1 206 Partial Content
 | static  addListener(eventName:string,callback:(download:FileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」            |
 
 #### 基本用法
-从1.1.7版本开始，interface声明改为了实体类，主要是应对列表需要局部刷新的支持。依旧采用V2状态管理@ObservedV2 和@Trace实现。
-文档地址：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
-1.1.6版本及以下，采用interface声明。不区分v1与v2 ,皆可使用，建议使用旧版本1.1.6时锁定版本。
-文档地址：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
+- **从1.1.7版本开始，interface声明改为了实体类，主要是应对列表需要局部刷新的支持。依旧采用V2状态管理@ObservedV2 和@Trace实现。
+  文档地址**：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
+---
+- **1.1.6版本及以下，采用interface声明。不区分v1与v2 ,皆可使用，建议使用旧版本1.1.6时锁定版本。**
+  文档地址：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
 
 
 #### 运行Demo演示效果
@@ -80,8 +81,6 @@ HTTP/1.1 206 Partial Content
 #### 下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载
 [点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_2.mp4)
 
-#### 更多详细用法请查看 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
-
 #### 鸿蒙技术交流QQ群：783867484
 
 #### 开源不易，希望您可以动一动小手点点小⭐⭐
@@ -91,3 +90,17 @@ HTTP/1.1 206 Partial Content
 ### 🌏开源协议
 
 本项目基于 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) ，在拷贝和借鉴代码时，请大家务必注明出处。
+
+
+####  `后续会支持大文件批量排队[队列]下载`
+###  tips:`后续会支持大文件批量排队[队列]下载`
+
+>在移动端应用开发中，多文件并行下载的场景较为少见（即便采用线程池技术实现并行下载，通常也会将并发数限制在2-3个文件）。这是因为当多个大文件同时下载时，可能引发以下问题：
+
+* **1.系统资源竞争**：大量线程同时运行会抢占CPU、内存和网络连接资源
+
+* **2.线程调度延迟**：资源过载可能导致线程调度出现延迟
+
+* **3.主线程阻塞**：上述问题会间接影响UI主线程，造成界面卡顿现象
+
+  因此，主流方案更倾向于采用队列机制实现批量下载，而非无限制的并行下载。
