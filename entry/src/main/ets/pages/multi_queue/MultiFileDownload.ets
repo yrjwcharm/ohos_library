@@ -51,7 +51,7 @@ struct MultiFileDownload {
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
   }
-  //TODO tips: 下载失败，首先检查url是否可以正常访问，或者浏览器是否可以正常在线下载
+  //TODO tips: 下载失败，首先检查fileUrl是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
     // TODO 假设从网络获取JSON数据的格式为: "[{\"classNumber\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\"}]"
     //通过网络请求后返回的实际上是Json对象 - 要实现列表局部刷新-必先实例化

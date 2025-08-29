@@ -50,11 +50,11 @@ struct SingleFileDownload {
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
   }
-  //TODO tips: 下载失败，首先检查url是否可以正常访问，或者浏览器是否可以正常在线下载
+  //TODO tips: 下载失败，首先检查fileUrl是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
      // TODO 假设从网络获取JSON数据的格式为: "[{\"classNumber\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\"}]"
      //通过网络请求后返回的实际上是Json对象 - 要实现列表局部刷新-必先实例化
-     let jsonArr =  [{"classNumber":"76432121445578293","className":"第一章 第一讲：At the Airport在机场",fileUrl:'http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4'}];
+     let jsonArr =  [{"classNumber":"76432121445578293","className":"第一章 第一讲：At the Airport在机场",fileUrl:"http://dal-video.wenzaizhibo.com/ff5ba32d9239ba38487b70edf72f095c/68b1a884/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4"}];
     //转换数据结构response实体类时必须要继承extends FileDownloader实体类，初始化至少包含三个必要字段userId ,downloadId,url userId登录用户的userId
     //因此extends FileDownloader过的ResponseData接口类型 对应转换后的数据如下所示
      let  result:ResponseData[] = jsonArr.map(item=>{

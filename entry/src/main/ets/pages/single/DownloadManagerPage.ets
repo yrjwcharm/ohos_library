@@ -47,7 +47,7 @@ struct DownloadManagerPage {
     this.loadData();
     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
       //进度监听更新回调
-      let newData =  this.data?.map((item)=>{
+      this.data?.forEach((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
           item.taskId = downloadInfo.taskId;
           item.filePath = downloadInfo.filePath;
@@ -58,11 +58,8 @@ struct DownloadManagerPage {
           item.exitFrequency = downloadInfo.exitFrequency;
           item.status = downloadInfo.status;
           item.begins = downloadInfo.begins;
-          return item;
         }
-        return item;
       })
-      this.data =newData;
       this.loadData();
     })
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
