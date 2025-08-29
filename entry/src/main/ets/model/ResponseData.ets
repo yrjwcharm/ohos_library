@@ -2,7 +2,7 @@ import { FileDownloader } from "@ohos_lib/filedownload/src/main/ets/model/FileDo
 
 //网络接口
 export class  ResponseData extends  FileDownloader{
-  classNumber:string=''
-  className:string=''
-  url:string=''
+  public classNumber:string=''
+  public className:string=''
+  public fileUrl:string=''
 }

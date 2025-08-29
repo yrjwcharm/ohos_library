@@ -2,6 +2,7 @@
   "modelVersion": "5.0.4",
   "description": "Please describe the basic information.",
   "dependencies": {
+    "class-transformer": "^0.5.1"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.21",

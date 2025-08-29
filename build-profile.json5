@@ -7,11 +7,11 @@
         "material": {
           "certpath": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B3049BEB89621D2EB0D58D3A45FD45AEC350E81A1B712AE98608F20B70DA135EA3576F6F9B88A4F",
+          "keyPassword": "0000001BEE83D08FAAF9C6B0792D60CF89C6CEBD42D3998876E8ABDADC5EA138CA3034FDD598DF68C264D0",
           "profile": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/yanruifeng/.ohos/config/default_MyApplication_F9JSXJ_KteCdxqvAcmfdgPxXaPClCZnKbjxNJMtl8N4=.p12",
-          "storePassword": "0000001B4059559D51757349436193F0256CC64C75C4DFAC5FE9AF6D940F2B35CEF51FA49F43151A28E5EB"
+          "storePassword": "0000001BF8A204A261CCC41C0BDCD489380F9045F4B67157038A835C9FA0AC95458F7C62652D740601EBAF"
         }
       }
     ],

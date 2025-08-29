@@ -4,11 +4,11 @@ import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/Do
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
 import { ResponseData } from '../../model/ResponseData';
-
+import {plainToInstance} from 'class-transformer'
 @Entry
 @ComponentV2
 struct SingleFileDownload {
-  @Local userId:string ='722134343434343434';//登录用户信息id 这里写死Mock
+  @Local userId:string ='722134343434343434';//登录用户信息id 这里目前mock一个UserId
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
@@ -55,13 +55,18 @@ struct SingleFileDownload {
   }
   //TODO tips: 下载失败，首先检查url是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
-    // TODO 假设从网络获取数据数据结构为: response=[{classNumber:'76432121445578293',className:'第一章 第一讲：At the Airport在机场'}]
-    //转换数据结构response时接口类型必须要继承 extends FileDownloader FileDownloader接口类型初始化至少包含三个字段userId ,downloadId,url userId登录用户的userId
+     // TODO 假设从网络获取JSON数据的格式为: "[{\"classNumber\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\"}]"
+     //通过网络请求后返回的实际上是Json对象 - 要实现列表局部刷新-必先实例化
+     let jsonArr =  [{"classNumber":"76432121445578293","className":"第一章 第一讲：At the Airport在机场",fileUrl:'http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4'}];
+    //转换数据结构response实体类时必须要继承extends FileDownloader实体类，初始化至少包含三个必要字段userId ,downloadId,url userId登录用户的userId
     //因此extends FileDownloader过的ResponseData接口类型 对应转换后的数据如下所示
-    let result:ResponseData[] =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
-      className:'第一章 第一讲：At the Airport在机场',
-      "url": "http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",       userId:this.userId
-    }]
+     let  result:ResponseData[] = jsonArr.map(item=>{
+       const response = plainToInstance(ResponseData,item);
+       response.downloadId= '76432121445578293';
+       response.userId = this.userId;
+       response.url = item.fileUrl;
+       return response;
+     })
     //从数据库读取获取上次的下载进度
     let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId',this.userId);
