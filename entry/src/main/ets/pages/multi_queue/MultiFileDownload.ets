@@ -53,51 +53,46 @@ struct MultiFileDownload {
   }
   //TODO tips: 下载失败，首先检查fileUrl是否可以正常访问，或者浏览器是否可以正常在线下载
   async loadData(){
-    // TODO 假设从网络获取JSON数据的格式为: "[{\"classNumber\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\"}]"
-    //通过网络请求后返回的实际上是Json对象 - 要实现列表局部刷新-必先实例化
-    let jsonArr =[{classNumber:'76432121445578293',downloadId:'76432121445578293',
-        className:'第一章 第一讲：At the Airport在机场',userId:this.userId,
-        fileUrl: "http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4",
-      },{classNumber:'76432121445578294',downloadId:'76432121445578294',
-        className:'第二章 第一讲：Going Shopping购物',userId:this.userId,
-        fileUrl: "http://dal-video.wenzaizhibo.com/c865eaa63cca01ec5b46a2cfdbafb509/683701ea/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4"
-      },{classNumber:'76432121445578295',downloadId:'76432121445578295',
-        className:'第三章 第一讲：At a Restaurant点餐', userId:this.userId,
-        fileUrl: "http://dal-video.wenzaizhibo.com/f51e97a22529388785d7be76285abaf1/68370205/00-x-upload/video/209161636_2258f92f79476654a8d4a95ec3216e62_X8atyGfx.mp4"
-      }]
-    //转换数据结构response实体类时必须要继承extends FileDownloader实体类，初始化至少包含三个必要字段userId ,downloadId,url userId登录用户的userId
-    //因此extends FileDownloader过的ResponseData接口类型 对应转换后的数据如下所示
-    let  result:ResponseData[] = jsonArr.map(item=>{
-      const response = plainToInstance(ResponseData,item);
-      response.downloadId= item.classNumber;
-      response.userId = this.userId;
-      response.url = item.fileUrl;
-      return response;
-    })
-    //从数据库读取获取上次的下载进度
-    let predicates =new relationalStore.RdbPredicates(SqliteHelper.tableName);
-    predicates.equalTo('userId',this.userId);
-    let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
-    if(queryList.length>0){
-      let newData = result.map((item:ResponseData)=>{
-        let obj =queryList.find(el=>el.downloadId===item.downloadId);
-        if(obj) {
-          item.taskId = obj.taskId;
-          item.filePath = obj.filePath;
-          item.fileName =obj.fileName;
-          item.downloadSize = obj.downloadSize;
-          item.fileSize = obj.fileSize;
-          item.isBackgroundPause =obj.isBackgroundPause;
-          item.exitFrequency = obj.exitFrequency;
-          item.status = obj.status;
-          item.begins = obj.begins;
-          return item;
-        }
-        return item;
+    try {
+      // TODO 假设从网络获取JSON数据的格式为: "[{\"classNumber\":\"76432121445578293\",\"downloadId\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4\"},{\"classNumber\":\"76432121445578294\",\"downloadId\":\"76432121445578294\",\"className\":\"第二章 第一讲：Going Shopping购物\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/c865eaa63cca01ec5b46a2cfdbafb509/683701ea/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4\"},{\"classNumber\":\"76432121445578295\",\"downloadId\":\"76432121445578295\",\"className\":\"第三章 第一讲：At a Restaurant点餐\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/f51e97a22529388785d7be76285abaf1/68370205/00-x-upload/video/209161636_2258f92f79476654a8d4a95ec3216e62_X8atyGfx.mp4\"}]"
+      //通过网络请求后返回的实际上是Json对象 - 要实现列表局部刷新-必先实例化
+      let jsonArr:ResponseData[] =
+        JSON.parse("[{\"classNumber\":\"76432121445578293\",\"downloadId\":\"76432121445578293\",\"className\":\"第一章 第一讲：At the Airport在机场\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/13c7d34a1181dddad67cfbe387977842/6836c525/00-x-upload/video/209245033_3aaf16a38aff214594fffec92839d37e_n8kGbGC8.mp4\"},{\"classNumber\":\"76432121445578294\",\"downloadId\":\"76432121445578294\",\"className\":\"第二章 第一讲：Going Shopping购物\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/c865eaa63cca01ec5b46a2cfdbafb509/683701ea/00-x-upload/video/209161635_9e555849ed13cb67213190d27b2914c4_0JmviEcs.mp4\"},{\"classNumber\":\"76432121445578295\",\"downloadId\":\"76432121445578295\",\"className\":\"第三章 第一讲：At a Restaurant点餐\",\"userId\":\"YOUR_USER_ID\",\"fileUrl\":\"http://dal-video.wenzaizhibo.com/f51e97a22529388785d7be76285abaf1/68370205/00-x-upload/video/209161636_2258f92f79476654a8d4a95ec3216e62_X8atyGfx.mp4\"}]")
+      //转换数据结构response实体类时必须要继承extends FileDownloader实体类，初始化至少包含三个必要字段userId ,downloadId,url userId登录用户的userId
+      //因此extends FileDownloader过的ResponseData接口类型 对应转换后的数据如下所示
+      let result: ResponseData[] = jsonArr.map(item => {
+        const response = plainToInstance(ResponseData, item);
+        response.downloadId = item.classNumber;
+        response.userId = this.userId;
+        response.url = item.fileUrl;
+        return response;
       })
-      this.data= newData;
-    }else{
-      this.data = result;
+      //从数据库读取获取上次的下载进度
+      let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+      predicates.equalTo('userId', this.userId);
+      let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+      if (queryList.length > 0) {
+        let newData = result.map((item: ResponseData) => {
+          let obj = queryList.find(el => el.downloadId === item.downloadId);
+          if (obj) {
+            item.taskId = obj.taskId;
+            item.filePath = obj.filePath;
+            item.fileName = obj.fileName;
+            item.downloadSize = obj.downloadSize;
+            item.fileSize = obj.fileSize;
+            item.isBackgroundPause = obj.isBackgroundPause;
+            item.exitFrequency = obj.exitFrequency;
+            item.status = obj.status;
+            item.begins = obj.begins;
+            return item;
+          }
+          return item;
+        })
+        this.data = newData;
+      } else {
+        this.data = result;
+      }
+    }catch (e) {
     }
   }
   aboutToDisappear(): void {
