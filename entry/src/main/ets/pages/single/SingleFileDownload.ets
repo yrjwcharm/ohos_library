@@ -1,4 +1,4 @@
-import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/interface/IFileDownloader';
+import { IFileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
 import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
 import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
 import { relationalStore } from '@kit.ArkData';

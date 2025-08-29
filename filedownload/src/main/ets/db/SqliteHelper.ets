@@ -1,7 +1,7 @@
 import relationalStore from '@ohos.data.relationalStore';
 import { ValuesBucket } from '@ohos.data.ValuesBucket';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { IFileDownloader } from '../interface/IFileDownloader';
+import { FileDownloader } from '../model/FileDownloader';
 
 export class SqliteHelper {
   private static instance: SqliteHelper
@@ -129,7 +129,7 @@ export class SqliteHelper {
     return 0;
   }
   //更新数据库下载状态
-  private  updateDBDownloadStatus(downloadInfo:IFileDownloader){
+  private  updateDBDownloadStatus(downloadInfo:FileDownloader){
     let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
     predicates.equalTo('userId', downloadInfo.userId)
     predicates.equalTo('downloadId', downloadInfo.downloadId)
@@ -139,8 +139,8 @@ export class SqliteHelper {
   }
 
   // 查询缓课程
-  public queryData(predicates: relationalStore.RdbPredicates): Promise<IFileDownloader[]> {
-    let list: IFileDownloader[] = [];
+  public queryData(predicates: relationalStore.RdbPredicates): Promise<FileDownloader[]> {
+    let list: FileDownloader[] = [];
     return new Promise(async (resolve) => {
       SqliteHelper.rdbStore?.query(predicates,
         ['userId','taskId', 'url', 'filePath', 'fileName', 'downloadSize',
@@ -159,22 +159,20 @@ export class SqliteHelper {
           const begins = resultSet.getLong(resultSet.getColumnIndex('begins'))
           const isBackgroundPause = resultSet.getLong(resultSet.getColumnIndex('isBackgroundPause'))
           const exitFrequency = resultSet.getLong(resultSet.getColumnIndex('exitFrequency'))
-
-          let fileDownloaderInfo: IFileDownloader = {
-            userId,
-            taskId,
-            url,
-            filePath,
-            fileName,
-            fileSize,
-            downloadSize,
-            status,
-            downloadId,
-            begins,
-            isBackgroundPause,
-            exitFrequency
-          };
-          list.push(fileDownloaderInfo);
+          const  fileDownloadInfo =new FileDownloader();
+          fileDownloadInfo.url = url;
+          fileDownloadInfo.taskId = taskId??'';
+          fileDownloadInfo.userId = userId??'';
+          fileDownloadInfo.filePath = filePath??'';
+          fileDownloadInfo.fileName = fileName??'';
+          fileDownloadInfo.downloadSize =downloadSize??0;
+          fileDownloadInfo.fileSize = fileSize??0;
+          fileDownloadInfo.status = status??-2;
+          fileDownloadInfo.downloadId =downloadId??'';
+          fileDownloadInfo.begins=begins??0;
+          fileDownloadInfo.isBackgroundPause= isBackgroundPause??1;
+          fileDownloadInfo.exitFrequency = exitFrequency??1
+          list.push(fileDownloadInfo);
         }
         resolve(list);
         resultSet?.close()

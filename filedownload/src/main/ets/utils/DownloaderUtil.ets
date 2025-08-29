@@ -1,15 +1,15 @@
-import { BusinessError, request } from '@kit.BasicServicesKit';
+import { request } from '@kit.BasicServicesKit';
 import { DownloadManager } from '../downloadmanager/DownloadManager';
 import { relationalStore, ValuesBucket, ValueType } from '@kit.ArkData';
 import { connection } from '@kit.NetworkKit';
 import { promptAction } from '@kit.ArkUI';
 import { SqliteHelper } from '../db/SqliteHelper';
 import { DownloadStatus } from '../constants/DownloadStatus';
-import { IFileDownloader } from '../interface/IFileDownloader';
 import { ENV } from './ENV';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FileUtil } from './FileUtil';
 import { fileIo } from '@kit.CoreFileKit';
+import { FileDownloader } from '../model/FileDownloader';
 
 let beforeSeconds=new Date().getTime();
 let previousSeconds = new Date().getTime();
@@ -37,7 +37,7 @@ export class DownloaderUtil {
     const numbers = await Promise.all(promiseArr);
     return numbers.every(item=>item===1);
   }
-  private static  async pauseDownloadWithBreakpoint(item:IFileDownloader):Promise<number>{
+  private static  async pauseDownloadWithBreakpoint(item:FileDownloader):Promise<number>{
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     const netIsAvailable = await connection.hasDefaultNet();
     try {
@@ -70,7 +70,7 @@ export class DownloaderUtil {
       }, predicates)
     }
   }
-  private static sendEventEmitter(item:IFileDownloader,begins:number, exitFrequency:number){
+  private static sendEventEmitter(item:FileDownloader,begins:number, exitFrequency:number){
     DownloadManager.eventEmitter(DownloadManager.eventName,{
       userId: item.userId,
       url: item.url,
@@ -96,7 +96,7 @@ export class DownloaderUtil {
     }
   }
 
-  static async resume(downloadInfo: IFileDownloader): Promise<void> {
+  static async resume(downloadInfo: FileDownloader): Promise<void> {
     //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
     try {
       const task = await request.agent.getTask(getContext(), downloadInfo.taskId);
@@ -133,8 +133,8 @@ export class DownloaderUtil {
      }
    })
   }
-  //统一下载封装 //tips: 这里提供范型支持【没有用Model实体类，请注意，觉得用接口更容易描述】 强制约束类型为IFileDownloader，建议提前转化数据结构使用 isBatchInsertQueue此参数只针对全部下载[目前暂时用不到，后续会完善全部下载等功能]-进行排队。非必穿默认false
-  static async downloadFile<T extends IFileDownloader>(data: T, isBatchInsertQueue?: boolean) {
+  //统一下载封装 //tips: 这里提供范型支持【没有用Model实体类，请注意，觉得用接口更容易描述】 强制约束类型为FileDownloader，建议提前转化数据结构使用 isBatchInsertQueue此参数只针对全部下载[目前暂时用不到，后续会完善全部下载等功能]-进行排队。非必穿默认false
+  static async downloadFile<T extends FileDownloader>(data: T, isBatchInsertQueue?: boolean) {
     const currentSeconds = new Date().getTime();
     if (currentSeconds - beforeSeconds < 2500) {
       ENV.__DEV__&&console.log('已经在下了...请勿频繁操作');
@@ -229,7 +229,7 @@ export class DownloaderUtil {
     }
   }
   //批量插入数据
-  static  matchInsert<T extends  IFileDownloader>(data:T[]):Promise<number>{
+  static  matchInsert<T extends  FileDownloader>(data:T[]):Promise<number>{
     return new Promise(async (resolve)=>{
       try {
         //基于双重保险
@@ -272,7 +272,7 @@ export class DownloaderUtil {
       }
     })
   }
-  private static  async  batchDelete(item:IFileDownloader){
+  private static  async  batchDelete(item:FileDownloader){
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('downloadId',item.downloadId);
    return  await  SqliteHelper.getInstance(getContext()).delete(predicates);
