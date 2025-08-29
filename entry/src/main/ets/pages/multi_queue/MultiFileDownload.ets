@@ -32,9 +32,9 @@ struct MultiFileDownload {
       this.loadData();
     })
     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
-      console.log('更新回调',downloadInfo.downloadId)
-      //进度监听更新回调
-      let newData =  this.data?.map((item)=>{
+      console.log('更新回调',downloadInfo.downloadSize)
+      //进度监听更新回调 ,无需改变数组应用，直接更改新item 必要属性值，实现局部刷新
+      this.data?.forEach((item)=>{
         if(item.downloadId===downloadInfo.downloadId){
           item.taskId = downloadInfo.taskId;
           item.filePath = downloadInfo.filePath;
@@ -45,11 +45,8 @@ struct MultiFileDownload {
           item.exitFrequency = downloadInfo.exitFrequency;
           item.status = downloadInfo.status;
           item.begins = downloadInfo.begins;
-          return item;
         }
-        return item;
       })
-      this.data =newData;
     })
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
