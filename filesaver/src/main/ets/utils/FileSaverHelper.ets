@@ -231,6 +231,7 @@ export class FileSaverHelper {
   //图片的沙箱路径-保存到系统相册
   //受限开放的权限通常是不允许三方应用申请的。如果有特殊场景需要使用，请提供相关申请材料到应用市场（AppGallery Connect，简称为AGC）申请相应权限证书。
   // 此方法三方应用不允许使用-<https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/declare-permissions-in-acl>
+  //需要申请使用受限权限 ，使用该方法后，上架应用市场非特殊情况不被允许
   private async saveSandBoxImageToGalleryACL(fileUri: string, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {
@@ -393,7 +394,7 @@ export class FileSaverHelper {
     })
   }
 
-  //保存本地 resource/media中的资源到系统相册 createAsset  需要申请使用受限权限
+  //保存本地 resource/media中的资源到系统相册 createAsset  需要申请使用受限权限 ，使用该方法后，上架应用市场非特殊情况不被允许
   private async saveLocalImageToGalleryACL(resoure: Resource, successCallback: (isSuccess: boolean) => void,
     failCallback?: (err: BusinessError) => void) {
     try {

@@ -6,9 +6,10 @@
     {
       "name": "release",
       "arkOptions": {
+        "byteCodeHar": false,
         "obfuscation": {
           "ruleOptions": {
-            "enable": true,
+            "enable": false,
             "files": [
               "./obfuscation-rules.txt"
             ]
