@@ -1,7 +1,7 @@
 ## lottie
 ___
 #### 简介
-**lottie**封装 lottie 为 @Component 组件，方便使用 。
+**lottie**简化@ohos/lottie动画库组件库的开发使用，增加复用性支持
 
 #### 安装步骤
 
