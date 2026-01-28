@@ -1,0 +1,15 @@
+{
+  "name": "@ohos_lib/lottie",
+  "version": "1.0.0",
+  "description": "封装 lottie 为 @Component 组件，方便使用 。",
+  "main": "Index.ets",
+  "keywords": ['marquee','scroll','carousel','跑马灯'],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/lottie",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/lottie#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "obfuscated": false,
+  "dependencies": {
+    "@ohos/lottie": "^2.0.11"
+  }
+}

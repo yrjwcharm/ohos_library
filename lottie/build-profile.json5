@@ -6,7 +6,7 @@
     {
       "name": "release",
       "arkOptions": {
-        "byteCodeHar": true,
+        "byteCodeHar": false,
         "obfuscation": {
           "ruleOptions": {
             "enable": true,

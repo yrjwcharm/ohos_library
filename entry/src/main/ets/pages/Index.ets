@@ -1,54 +1,38 @@
-import { Marquee, VMarqueeView } from '@ohos_lib/vmarquee';
-interface  IResultData{
-  classNumber:string,
-  title:string
-}
+import { getRawFileJsonStringSync, LottieComponentV2 } from "@ohos_lib/lottie";
+
 @Entry
 @ComponentV2
-struct Index {
-  @Local message: string = 'Hello World';
-  @Local data:Marquee[] = [];
-  aboutToAppear(): void {
-    //假设 responseData 数据从网络获取 结构为 result 可以这么处理
-    let result:IResultData[] = [{classNumber:'111',title:'标题121111234343434343434'},{classNumber:'222',title:'标题2222234343'},{classNumber:'333',title:'标题2222223'}];
-     this.data = result.map((item)=>{
-       const marquee =new Marquee();
-       marquee.id = item.classNumber;
-       marquee.content = item.title;
-       marquee.icon = $r('app.media.startIcon')
-       return marquee;
-     })
-  }
-  @Builder
-  customBuilder(item:Marquee,index:number){
-    Row(){
-      Image($r('app.media.startIcon')).width(24)
-        .height(24)
-      Text(item.content)
-        .margin({
-          left:6
-        })
-    }.height(30).backgroundColor(Color.Orange)
-    .padding({
-      left:16
-    })
-    .width('100%')
-  }
-  build() {
-    Column() {
-      VMarqueeView({
-        originalList:this.data,
-        marqueeBgColor:Color.Red,
-        textStyle:{fontSize:20},
-        itemHeight:30,
-        marqueeW:'100%',
-        builder: this.customBuilder,
-        itemClick:(item:Marquee,index:number)=>{
-        }
-
-      })
+export struct Index{
+  @Local isLoading:boolean = true
+   aboutToAppear(): void {
+    this.fetchNetRequestData()
+   }
+  async fetchNetRequestData(){
+    try {
+      //进行网络请求
+    }catch (e) {
+    }finally {
+      this.isLoading = false;
     }
-    .height('100%')
-    .width('100%')
   }
+    build() {
+      Column() {
+        LottieComponentV2({
+          animationId: 'sv_refresh_animated_id',
+          animateName: 'sv_refresh_animate_name',
+          Cw: 90,//lottie动画宽度
+          Ch: 30,//lottie动画高度
+          initialSegment: [28, Infinity], //动画分割 代表从动画那一逐帧开始播放
+          loop: true,
+          autoplay: false,
+          animationData: JSON.parse(getRawFileJsonStringSync('loading_header.json')),
+          onFinish: () => {
+            //动画加载完成回调
+          },
+          onError:()=>{
+            //动画加载失败回调
+          }
+        });
+      }
+    }
 }

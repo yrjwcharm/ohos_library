@@ -1,5 +1,5 @@
 ## lottie
---
+___
 #### 简介
 **lottie**封装 lottie 为 @Component 组件，方便使用 。
 
