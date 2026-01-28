@@ -1,4 +1,4 @@
-import lottie, { AnimationItem, AnimationSegment } from '@ohos/lottie'
+import lottie, { AnimationConfigWithData, AnimationConfigWithPath, AnimationItem, AnimationSegment } from '@ohos/lottie'
 
 @Component
 export struct LottieComponentV1 {
@@ -20,17 +20,22 @@ export struct LottieComponentV1 {
   private animateItem: AnimationItem | null = null;
 
   loadAnimation() {
-    this.animateItem = lottie.loadAnimation({
+    let params:AnimationConfigWithPath | AnimationConfigWithData=  {
       container: this.canvasRenderingContext,
       renderer: 'canvas', // canvas 渲染模式
       loop: this.loop,
-      initialSegment: this.initialSegment,
       autoplay: this.autoplay,
       name: this.animateName,
       contentMode: this.contentMode,
-      animationData: this.animationData,
-    })
+      animationData: this.animationData
+    }
+    !this.loop && (params.initialSegment = this.initialSegment)
+    this.animateItem = lottie.loadAnimation(params)
     // 因为动画是异步加载，所以对animateItem的操作需要放在动画加载完成回调里操作
+    this.animateItem?.addEventListener('DOMLoaded', (args: Object): void => {
+      // this.animateItem.changeColor([225, 25, 100, 1]);
+      this.animateItem?.play();
+    });
     this.animateItem?.addEventListener('complete', () => {
       this.onFinish?.();
     })

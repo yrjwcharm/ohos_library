@@ -1,4 +1,4 @@
-import { getRawFileJsonStringSync, LottieComponentV2 } from "@ohos_lib/lottie";
+import { getRawFileJsonStringSync, LottieComponentV1, LottieComponentV2 } from "@ohos_lib/lottie";
 
 @Entry
 @ComponentV2
@@ -16,14 +16,14 @@ export struct Index{
     }
   }
     build() {
-      Column() {
+      Stack() {
         LottieComponentV2({
           animationId: 'sv_refresh_animated_id',
           animateName: 'sv_refresh_animate_name',
           Cw: 90,//lottie动画宽度
           Ch: 30,//lottie动画高度
-          initialSegment: [28, Infinity], //动画分割 代表从动画那一逐帧开始播放
-          loop: true,
+          initialSegment: [28, Infinity], //动画片段分割 指定从动画那一逐帧开始播放
+          loop: false, //一旦指定initialSegment ,loop为true是不生效的 @ohos/lottie原库作者问题
           autoplay: false,
           animationData: JSON.parse(getRawFileJsonStringSync('loading_header.json')),
           onFinish: () => {
@@ -31,8 +31,11 @@ export struct Index{
           },
           onError:()=>{
             //动画加载失败回调
+
           }
         });
-      }
+      }.width('100%')
+      .height('100%')
+      .backgroundColor(Color.Black)
     }
 }
