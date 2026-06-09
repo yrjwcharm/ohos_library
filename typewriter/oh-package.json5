@@ -1,0 +1,13 @@
+{
+  "name": "@ohos_lib/typewriter",
+  "version": "1.0.0",
+  "description": "这是一款 ArkTS（HarmonyOS）打字机效果文本组件开源插件",
+  "main": "Index.ets",
+  "keywords": ['打字机效果','SSE流式文本滚动','Fluid','typeWriter'],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/typewriter",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/typewriter#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "obfuscated": false,
+  "dependencies": {}
+}

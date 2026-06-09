@@ -1,9 +1,21 @@
-// 在页面/组件中导入
-import { TypewriterTextView, TypewriterTextController } from '@ohos_lib/typewriter'
+## @ohos_lib/typewriter
+___
+#### 简介
+**typewriter** 这是一款JSON序列化、反序列化防止后端返回Long类型导致精度缺失的开源插件
+
+#### 安装步骤
+
+```ohpm
+ohpm install @ohos_lib/typewriter
+```
+#### 基本用法
+```typescript
+ // 在页面/组件中导入
+import { TypewriterTextView, TypewriterTextController } from './TypewriterTextView'
 
 @Entry
 @Component
-export struct Index {
+struct IndexPage {
   // 创建控制器（可选）
   private typewriterController = new TypewriterTextController()
 
@@ -64,3 +76,4 @@ export struct Index {
     .padding(20)
   }
 }
+```

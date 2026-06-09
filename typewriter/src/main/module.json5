@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "vmarquee",
+    "name": "typewriter",
     "type": "har",
     "deviceTypes": [
       "default",
