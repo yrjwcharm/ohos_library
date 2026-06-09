@@ -1,0 +1,13 @@
+{
+  "name": "@ohos_lib/json5",
+  "version": "1.0.1",
+  "description": "这是一款JSON序列化、反序列化防止后端返回Long类型导致精度缺失的开源插件",
+  "main": "Index.ets",
+  "keywords": ['json5','','序列化','反序列化','精度丢失','bigint'],
+  "repository": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/json5",
+  "homepage": "https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/json5#readme",
+  "author": "闫瑞锋",
+  "license": "Apache-2.0",
+  "obfuscated": false,
+  "dependencies": {}
+}

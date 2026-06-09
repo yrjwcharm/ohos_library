@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "vmarquee",
+    "name": "json5",
     "type": "har",
     "deviceTypes": [
       "default",
