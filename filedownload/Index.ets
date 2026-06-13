@@ -7,3 +7,7 @@ export { FileUtil } from './src/main/ets/utils/FileUtil';
 export { DownloadManager } from './src/main/ets/downloadmanager/DownloadManager'
 
 export { GTNetworkUtil,NetworkCallback } from './src/main/ets/utils/GTNetworkUtil'
+
+export { FileDownloader } from './src/main/ets/model/FileDownloader'
+
+export { DownloadStatus } from './src/main/ets/constants/DownloadStatus'

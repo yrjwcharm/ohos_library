@@ -5,10 +5,10 @@ import { FileDownloader } from '../model/FileDownloader';
 
 export class SqliteHelper {
   private static instance: SqliteHelper
-  private static dbName:string;
+  private static dbName:string = 'filedownloader.db';
   private static rdbStore: relationalStore.RdbStore | undefined = undefined
   private context: Context
-  public  static  tableName:string;
+  public  static  tableName:string = 'filedownloaderinfo';
 
   private constructor(context: Context) {
     this.context = context
@@ -62,8 +62,8 @@ export class SqliteHelper {
       try {
         SqliteHelper.rdbStore = await relationalStore.getRdbStore(this.context, SqliteHelper.getStoreConfig())
         await SqliteHelper.rdbStore?.executeSql(SQL_CREATE_CACHE_COURSE_TABLE)
-      } catch (e) {
-        console.log('数据库表创建失败!!!')
+    } catch (e) {
+        console.error('数据库表创建失败!!!', JSON.stringify(e))
       }
   }
 
@@ -72,9 +72,12 @@ export class SqliteHelper {
    * */
   public insert(tabName: string, data: ValuesBucket): Promise<number> {
     return new Promise(async (resolve, reject) => {
-      SqliteHelper.rdbStore ?.insert(tabName, data).then(number => {
+      if (!SqliteHelper.rdbStore) {
+        reject(new Error('RdbStore is not initialized'));
+        return;
+      }
+      SqliteHelper.rdbStore.insert(tabName, data).then(number => {
         resolve(number);
-        console.log('插入成功！！！！');
       }).catch((err: BusinessError) => {
         reject(err)
       })
@@ -85,9 +88,12 @@ export class SqliteHelper {
    * */
   public batchInsert(tabName: string, data: Array<ValuesBucket>): Promise<number> {
     return new Promise(async (resolve, reject) => {
-      SqliteHelper.rdbStore ?.batchInsert(tabName,data).then(number => {
+      if (!SqliteHelper.rdbStore) {
+        reject(new Error('RdbStore is not initialized'));
+        return;
+      }
+      SqliteHelper.rdbStore.batchInsert(tabName,data).then(number => {
         resolve(number);
-        console.log('插入成功！！！！');
       }).catch((err: BusinessError) => {
         reject(err)
       })
@@ -99,6 +105,10 @@ export class SqliteHelper {
   * */
   public delete(predicates: relationalStore.RdbPredicates): Promise<number> {
     return new Promise((resolve,) => {
+      if (!SqliteHelper.rdbStore) {
+        resolve(0);
+        return;
+      }
       SqliteHelper.rdbStore?.delete(predicates).then(_ => {
         resolve(1);
       }).catch((e: BusinessError) => {
@@ -113,24 +123,34 @@ export class SqliteHelper {
 
   public update(data: ValuesBucket, predicates: relationalStore.RdbPredicates): Promise<number> {
     return new Promise((resolve, reject) => {
-      SqliteHelper.rdbStore?.update(data, predicates).then(_ => {
-        console.log('更新成功了！！！');
-        resolve(1);
+      if (!SqliteHelper.rdbStore) {
+        resolve(0);
+        return;
+      }
+      SqliteHelper.rdbStore?.update(data, predicates).then(number => {
+        resolve(number);
       }).catch((_: BusinessError) => {
         resolve(0);
       })
     })
   }
   public  queryCountBySql(sql: string) {
+    if (!SqliteHelper.rdbStore) {
+      return 0;
+    }
     let resultSet = SqliteHelper.rdbStore?.querySqlSync(sql);
-    if (resultSet?.goToNextRow()) {
-      return resultSet?.getValue(0) as number;
+    try {
+      if (resultSet?.goToNextRow()) {
+        return resultSet?.getValue(0) as number;
+      }
+    } finally {
+      resultSet?.close();
     }
     return 0;
   }
   //更新数据库下载状态
   private  updateDBDownloadStatus(downloadInfo:FileDownloader){
-    let predicates = new relationalStore.RdbPredicates('filedownloaderinfo');
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     predicates.equalTo('userId', downloadInfo.userId)
     predicates.equalTo('downloadId', downloadInfo.downloadId)
     SqliteHelper.getInstance(this.context).update({
@@ -142,6 +162,10 @@ export class SqliteHelper {
   public queryData(predicates: relationalStore.RdbPredicates): Promise<FileDownloader[]> {
     let list: FileDownloader[] = [];
     return new Promise(async (resolve) => {
+      if (!SqliteHelper.rdbStore) {
+        resolve([]);
+        return;
+      }
       SqliteHelper.rdbStore?.query(predicates,
         ['userId','taskId', 'url', 'filePath', 'fileName', 'downloadSize',
           'fileSize', 'status', 'downloadId', 'begins', 'isBackgroundPause', 'exitFrequency'
@@ -153,7 +177,7 @@ export class SqliteHelper {
           const filePath = resultSet.getString(resultSet.getColumnIndex('filePath'));
           const fileName = resultSet.getString(resultSet.getColumnIndex('fileName'));
           const fileSize = resultSet.getLong(resultSet.getColumnIndex('fileSize'));
-          const downloadSize = resultSet.getLong(resultSet.getColumnIndex('downLoadSize'));
+          const downloadSize = resultSet.getLong(resultSet.getColumnIndex('downloadSize'));
           const status = resultSet.getLong(resultSet.getColumnIndex('status'))
           const downloadId = resultSet.getString(resultSet.getColumnIndex('downloadId'))
           const begins = resultSet.getLong(resultSet.getColumnIndex('begins'))

@@ -9,21 +9,26 @@ export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
-    SqliteHelper.getInstance(this.context).initRDB();
   }
 
   onDestroy(): void {
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
+    DownloaderUtil.persistActiveDownloads();
   }
 
    onWindowStageCreate(windowStage: window.WindowStage) {
     // Main window is created, set main page for this ability
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
-        return;
-      }
+    SqliteHelper.getInstance(this.context).initRDB().then(async () => {
+      await DownloaderUtil.persistActiveDownloads();
+      windowStage.loadContent('pages/Index', (err) => {
+        if (err.code) {
+          hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+          return;
+        }
+      });
+    }).catch((err: Error) => {
+      hilog.error(DOMAIN, 'testTag', 'Failed to init download db. Cause: %{public}s', JSON.stringify(err));
     });
   }
 

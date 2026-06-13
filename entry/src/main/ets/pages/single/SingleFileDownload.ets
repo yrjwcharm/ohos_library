@@ -1,6 +1,12 @@
-import { FileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
-import {DownloaderUtil,DownloadManager, NetworkCallback, SqliteHelper,GTNetworkUtil} from '@ohos_lib/filedownload'
-import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
+import {
+  DownloaderUtil,
+  DownloadManager,
+  NetworkCallback,
+  SqliteHelper,
+  GTNetworkUtil,
+  FileDownloader,
+  DownloadStatus
+} from '@ohos_lib/filedownload'
 import { relationalStore } from '@kit.ArkData';
 import { promptAction, router } from '@kit.ArkUI';
 import { ResponseData } from '../../model/ResponseData';
@@ -9,11 +15,32 @@ import {plainToInstance} from 'class-transformer'
 @ComponentV2
 struct SingleFileDownload {
   @Local userId:string ='722134343434343434';//登录用户信息id 这里目前mock一个UserId
+  private reQueryListener = () => {
+    this.loadData();
+  }
+  private downloadListener = (downloadInfo: FileDownloader) => {
+    console.log('更新回调',downloadInfo.downloadSize)
+    //进度监听更新回调 ,无需改变数组应用，直接更改新item 必要属性值，实现局部刷新
+    this.data?.forEach((item)=>{
+      if(item.downloadId===downloadInfo.downloadId){
+        item.taskId = downloadInfo.taskId;
+        item.filePath = downloadInfo.filePath;
+        item.fileName =downloadInfo.fileName;
+        item.downloadSize = downloadInfo.downloadSize;
+        item.fileSize = downloadInfo.fileSize;
+        item.isBackgroundPause =downloadInfo.isBackgroundPause;
+        item.exitFrequency = downloadInfo.exitFrequency;
+        item.status = downloadInfo.status;
+        item.begins = downloadInfo.begins;
+      }
+    })
+  }
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
         message:'网络可用~'
       })
+      DownloaderUtil.resumeBackgroundPausedDownloads(this.userId);
     },
     netLostCallback: (_: ESObject) => {
       promptAction.showToast({
@@ -26,27 +53,9 @@ struct SingleFileDownload {
   }
   @Local data: ResponseData[] = [];
   async aboutToAppear() {
-     this.loadData();
-    getContext().eventHub.on('reQuery',()=>{
-      this.loadData();
-    })
-     DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
-       console.log('更新回调',downloadInfo.downloadSize)
-       //进度监听更新回调 ,无需改变数组应用，直接更改新item 必要属性值，实现局部刷新
-      this.data?.forEach((item)=>{
-         if(item.downloadId===downloadInfo.downloadId){
-             item.taskId = downloadInfo.taskId;
-             item.filePath = downloadInfo.filePath;
-             item.fileName =downloadInfo.fileName;
-             item.downloadSize = downloadInfo.downloadSize;
-             item.fileSize = downloadInfo.fileSize;
-             item.isBackgroundPause =downloadInfo.isBackgroundPause;
-             item.exitFrequency = downloadInfo.exitFrequency;
-             item.status = downloadInfo.status;
-             item.begins = downloadInfo.begins;
-         }
-       })
-     })
+     await this.loadData();
+    getContext().eventHub.on('reQuery',this.reQueryListener)
+     DownloadManager.addListener(DownloadManager.eventName,this.downloadListener)
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
   }
@@ -96,8 +105,8 @@ struct SingleFileDownload {
   }
   aboutToDisappear(): void {
     GTNetworkUtil.unregister();
-    DownloadManager.removeListener(DownloadManager.eventName)
-    getContext().eventHub.off('reQuery');
+    DownloadManager.removeListener(DownloadManager.eventName,this.downloadListener)
+    getContext().eventHub.off('reQuery',this.reQueryListener);
   }
    getStatus(status:number|undefined){
     switch (status){
@@ -139,6 +148,7 @@ struct SingleFileDownload {
       .iterations(-1)
       .width(24)
       .height(24)
+      .monitorInvisibleArea(true)
       .onStart(() => {
         console.info('Start')
       })
@@ -207,7 +217,7 @@ struct SingleFileDownload {
          .margin({
            top: 32
          })
-       })
+       }, (item: ResponseData) => item.downloadId)
       }.layoutWeight(1)
       Button('查看下载').type(ButtonType.Capsule).onClick(()=>{
           router.pushUrl({

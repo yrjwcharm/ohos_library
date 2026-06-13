@@ -1,6 +1,6 @@
 import { request } from '@kit.BasicServicesKit';
 import { DownloadManager } from '../downloadmanager/DownloadManager';
-import { relationalStore, ValuesBucket, ValueType } from '@kit.ArkData';
+import { relationalStore, ValuesBucket } from '@kit.ArkData';
 import { connection } from '@kit.NetworkKit';
 import { promptAction } from '@kit.ArkUI';
 import { SqliteHelper } from '../db/SqliteHelper';
@@ -8,16 +8,63 @@ import { DownloadStatus } from '../constants/DownloadStatus';
 import { ENV } from './ENV';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { FileUtil } from './FileUtil';
-import { fileIo } from '@kit.CoreFileKit';
 import { FileDownloader } from '../model/FileDownloader';
 
-let beforeSeconds=new Date().getTime();
-let previousSeconds = new Date().getTime();
+let previousSeconds = 0;
 export class DownloaderUtil {
+  private static latestOperateAt: Map<string, number> = new Map();
+
+  private static canOperate(downloadId: string): boolean {
+    const currentSeconds = Date.now();
+    const previous = DownloaderUtil.latestOperateAt.get(downloadId) ?? 0;
+    if (currentSeconds - previous < 800) {
+      ENV.__DEV__ && console.log('已经在下了...请勿频繁操作');
+      return false;
+    }
+    DownloaderUtil.latestOperateAt.set(downloadId, currentSeconds);
+    return true;
+  }
+
+  private static getDownloadUrl(url: string): string {
+    try {
+      return decodeURIComponent(url);
+    } catch (e) {
+      return url;
+    }
+  }
+
+  private static getFileName(url: string, downloadId: string): string {
+    let fileName = url.substring(url.lastIndexOf('/') + 1);
+    const queryIndex = fileName.indexOf('?');
+    if (queryIndex > -1) {
+      fileName = fileName.substring(0, queryIndex);
+    }
+    return fileName.length > 0 ? fileName : downloadId;
+  }
+
+  private static async prepareBreakpointCache(downloadInfo: FileDownloader) {
+    const begins = downloadInfo.begins ?? 0;
+    if (begins <= 0) {
+      return;
+    }
+    const url = DownloaderUtil.getDownloadUrl(downloadInfo.url);
+    const fileName = downloadInfo.fileName && downloadInfo.fileName.length > 0 ? downloadInfo.fileName :
+      DownloaderUtil.getFileName(url, downloadInfo.downloadId);
+    const srcPath = FileUtil.joinPath(getContext().filesDir, downloadInfo.downloadId);
+    const dstPath = FileUtil.joinPath(FileUtil.joinPath(getContext().filesDir, 'tmp'), downloadInfo.downloadId);
+    const tmpFilePath = FileUtil.joinPath(dstPath, fileName);
+    if (FileUtil.getFileSize(tmpFilePath) >= begins) {
+      return;
+    }
+    FileUtil.writeTmpBytes(srcPath, dstPath, fileName, downloadInfo.exitFrequency, downloadInfo.status);
+  }
+
   static deleteTask = async (downloadTask: request.agent.Task) => {
     try {
       downloadTask.off('progress');
       downloadTask.off('completed');
+      downloadTask.off('pause');
+      downloadTask.off('resume');
       downloadTask.off('failed');
       console.log('remove task', downloadTask.tid)
       await request.agent.remove(downloadTask.tid);
@@ -37,6 +84,19 @@ export class DownloaderUtil {
     const numbers = await Promise.all(promiseArr);
     return numbers.every(item=>item===1);
   }
+
+  public static async resumeBackgroundPausedDownloads(userId?: string): Promise<void> {
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    if (userId) {
+      predicates.equalTo('userId', userId).and();
+    }
+    predicates.equalTo('status', DownloadStatus.PAUSE).and().equalTo('isBackgroundPause', 1);
+    let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+    for (let i = 0; i < list.length; i++) {
+      await DownloaderUtil.resume(list[i]);
+    }
+  }
+
   private static  async pauseDownloadWithBreakpoint(item:FileDownloader):Promise<number>{
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
     const netIsAvailable = await connection.hasDefaultNet();
@@ -46,25 +106,26 @@ export class DownloaderUtil {
     } catch (e) {
       ENV.__DEV__ && hilog.error(0x0000, "移除下载任务时出现异常", "%{public}s", e.message);
     } finally {
-      let srcPath = getContext().filesDir + "/" + item.downloadId;
-      let dstPath = getContext().filesDir + "/tmp/" + item.downloadId;
-      FileUtil.writeTmpBytes(srcPath, dstPath, item?.fileName ?? '', item.exitFrequency,item.status)
-      let file = fileIo.openSync(dstPath + '/' + item.fileName,
-        fileIo.OpenMode.READ_WRITE);
-      let buf = new ArrayBuffer(fileIo.statSync(file.fd).size);
-      fileIo.readSync(file.fd, buf);
-      fileIo.closeSync(file);
+      const fileName = item.fileName && item.fileName.length > 0 ? item.fileName :
+        DownloaderUtil.getFileName(DownloaderUtil.getDownloadUrl(item.url), item.downloadId);
+      item.fileName = fileName;
+      item.filePath = FileUtil.joinPath(getContext().filesDir, item.downloadId);
+      let srcPath = FileUtil.joinPath(getContext().filesDir, item.downloadId);
+      let dstPath = FileUtil.joinPath(FileUtil.joinPath(getContext().filesDir, "tmp"), item.downloadId);
+      FileUtil.writeTmpBytes(srcPath, dstPath, fileName, item.exitFrequency,item.status)
+      let breakpointSize = FileUtil.getFileSize(FileUtil.joinPath(dstPath, fileName));
       let exitFrequency: number;
       if (netIsAvailable) {
-        exitFrequency = item?.exitFrequency ?? 1 + 1;
+        exitFrequency = (item?.exitFrequency ?? 1) + 1;
       } else {
         exitFrequency = item?.exitFrequency ?? 1;
       }
-      predicates.and().equalTo('downloadId', item.downloadId);
-      DownloaderUtil.sendEventEmitter(item,buf.byteLength,exitFrequency);
+      predicates.equalTo('userId', item.userId).and().equalTo('downloadId', item.downloadId);
+      DownloaderUtil.sendEventEmitter(item,breakpointSize,exitFrequency);
       return await SqliteHelper.getInstance(getContext()).update({
         'status': DownloadStatus.PAUSE,
-        'begins': buf.byteLength,
+        'downloadSize': breakpointSize,
+        'begins': breakpointSize,
         isBackgroundPause: 1,
         exitFrequency,
       }, predicates)
@@ -76,7 +137,7 @@ export class DownloaderUtil {
       url: item.url,
       downloadId:item.downloadId,
       taskId:item.taskId as string,
-      downloadSize:item.downloadSize as number,
+      downloadSize:begins,
       fileSize: item.fileSize as number,
       status:DownloadStatus.PAUSE,
       filePath:item.filePath as string,
@@ -88,6 +149,9 @@ export class DownloaderUtil {
   }
   static async pause(taskId: string): Promise<void> {
     //暂停下载 调用Api触发暂停 更改数据库状态为0
+    if (!taskId) {
+      return;
+    }
     try {
       const task = await request.agent.getTask(getContext(), taskId);
       await task.pause();
@@ -99,6 +163,11 @@ export class DownloaderUtil {
   static async resume(downloadInfo: FileDownloader): Promise<void> {
     //恢复下载有两种情况 没有退出当前应用程序/ 退出应用程序杀死进程两种
     try {
+      if (!downloadInfo.taskId) {
+        await DownloaderUtil.prepareBreakpointCache(downloadInfo);
+        await DownloaderUtil.downloadFile(downloadInfo);
+        return;
+      }
       const task = await request.agent.getTask(getContext(), downloadInfo.taskId);
       await task.resume();
     } catch (e) {
@@ -106,7 +175,8 @@ export class DownloaderUtil {
       // aboutToAppear已经获取到要从哪开始下载的字节 begins 所以直接启动下载，和之前退出应用程序的那部分字节进行合并，
       // 统一放到一个文件中，这部分库中已经实现。无需手动处理
       if (e.code === 21900007) {
-        DownloaderUtil.downloadFile(downloadInfo);
+        await DownloaderUtil.prepareBreakpointCache(downloadInfo);
+        await DownloaderUtil.downloadFile(downloadInfo);
       }
     }
   }
@@ -119,14 +189,22 @@ export class DownloaderUtil {
        predicates.equalTo('userId', userId).and().equalTo('downloadId',downloadId)
        let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
        if (list.length > 0) {
-         fileIo.accessSync(list[0].filePath) && fileIo.rmdirSync(list[0].filePath)
-         if (fileIo.accessSync(getContext().filesDir + '/tmp/' + list[0].downloadId)) {
-           fileIo.rmdirSync(getContext().filesDir+'/tmp/');
+         FileUtil.removePath(list[0].filePath??'');
+         FileUtil.removePath(FileUtil.joinPath(FileUtil.joinPath(getContext().filesDir, 'tmp'), list[0].downloadId));
+         if (FileUtil.getDirectorySize(FileUtil.joinPath(getContext().filesDir, 'tmp')) === 0) {
+           FileUtil.removePath(FileUtil.joinPath(getContext().filesDir, 'tmp'));
          }
-         const task = await request.agent.getTask(getContext(), list[0].taskId);
-         list[0].status !== 1 && DownloaderUtil.deleteTask(task);
+         if (list[0].status !== DownloadStatus.COMPLETED && list[0].taskId) {
+           try {
+             const task = await request.agent.getTask(getContext(), list[0].taskId);
+             await DownloaderUtil.deleteTask(task);
+           } catch (e) {
+             ENV.__DEV__ && console.error(`deleteTask fail, err= ${JSON.stringify(e)}`);
+           }
+         }
        }
        let number = await SqliteHelper.getInstance(getContext()).delete(predicates);
+       await DownloaderUtil.startNextWaiting(userId);
        resolve(number);
      } catch (e) {
        resolve(0)
@@ -135,19 +213,21 @@ export class DownloaderUtil {
   }
   //统一下载封装 //tips: 这里提供范型支持【没有用Model实体类，请注意，觉得用接口更容易描述】 强制约束类型为FileDownloader，建议提前转化数据结构使用 isBatchInsertQueue此参数只针对全部下载[目前暂时用不到，后续会完善全部下载等功能]-进行排队。非必穿默认false
   static async downloadFile<T extends FileDownloader>(data: T, isBatchInsertQueue?: boolean) {
-    const currentSeconds = new Date().getTime();
-    if (currentSeconds - beforeSeconds < 2500) {
-      ENV.__DEV__&&console.log('已经在下了...请勿频繁操作');
-      return
+    if (!data.userId || !data.downloadId || !data.url) {
+      ENV.__DEV__ && console.error('下载参数缺失，至少需要 userId、downloadId、url');
+      return;
     }
-    beforeSeconds = currentSeconds
+    if (!isBatchInsertQueue && !DownloaderUtil.canOperate(data.downloadId)) {
+      return;
+    }
     const netIsAvailable = await connection.hasDefaultNet();
     if (netIsAvailable) {
-      let url = decodeURIComponent(data.url)
+      let url = DownloaderUtil.getDownloadUrl(data.url)
       let downloadId = data.downloadId;
-      let fileName = url.substring(url.lastIndexOf('/') + 1);
-      let savePath =
-        getContext().filesDir + '/' + downloadId + '/' + fileName
+      let fileName = data.fileName && data.fileName.length > 0 ? data.fileName :
+        DownloaderUtil.getFileName(url, downloadId);
+      let filePath = FileUtil.joinPath(getContext().filesDir, downloadId)
+      let savePath = FileUtil.joinPath(filePath, fileName)
       let downloadConfig: request.agent.Config = {
         action: request.agent.Action.DOWNLOAD,
         url: url,
@@ -166,23 +246,34 @@ export class DownloaderUtil {
           'userId': data.userId,
           'downloadId': downloadId, //必传
           'url': url, //必传
-          'filePath': getContext().filesDir + '/' + downloadId,
+          'filePath': filePath,
           'fileName': fileName,
+          'downloadSize': data.downloadSize ?? data.begins ?? 0,
           "begins": data.begins ?? 0
         }
         valuesBuket.fileSize = data.fileSize ?? 0
         let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
         predicates.equalTo('userId', data.userId).and().equalTo('downloadId', data.downloadId)
         if (isBatchInsertQueue) {
+          valuesBuket.status = DownloadStatus.WAITING;
           let list = await SqliteHelper.getInstance(getContext()).queryData(predicates);
           if (list.length === 0) {
             await SqliteHelper.getInstance(getContext())
               .insert(SqliteHelper.tableName, valuesBuket);
+          } else {
+            await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates);
           }
+          DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
         } else {
+          await DownloaderUtil.prepareBreakpointCache(data);
           let downloadTask = await request.agent.create(getContext(), downloadConfig);
           valuesBuket.taskId = downloadTask.tid;
           valuesBuket.status = DownloadStatus.RUNNING;
+          const updateCount = await SqliteHelper.getInstance(getContext()).update(valuesBuket, predicates);
+          if (updateCount === 0) {
+            await SqliteHelper.getInstance(getContext()).insert(SqliteHelper.tableName, valuesBuket);
+          }
+          DownloadManager.eventEmitter(DownloadManager.eventName, valuesBuket);
           let progressCallback = (progress: request.agent.Progress) => {
             DownloadManager
               .progressCallback(valuesBuket, progress,
@@ -232,15 +323,21 @@ export class DownloaderUtil {
   static  matchInsert<T extends  FileDownloader>(data:T[]):Promise<number>{
     return new Promise(async (resolve)=>{
       try {
+        if (data.length === 0) {
+          resolve(0);
+          return;
+        }
         //基于双重保险
-        const currentSeconds = new Date().getTime();
+        const currentSeconds = Date.now();
         if (currentSeconds - previousSeconds < 2500) {
           ENV.__DEV__&&console.log('已经在下了...请勿频繁操作');
+          resolve(0);
           return
         }
         previousSeconds = currentSeconds
+        const userId = data[0].userId;
         let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
-        predicates.equalTo('userId', data[0].userId)
+        predicates.equalTo('userId', userId)
           .and()
           .notEqualTo('status', DownloadStatus.COMPLETED)
           .and()
@@ -251,18 +348,31 @@ export class DownloaderUtil {
         let allDownload =
           data.filter(item => ![DownloadStatus.COMPLETED, DownloadStatus.RUNNING].includes(item.status ??
           DownloadStatus.WAITING));
+        if (allDownload.length === 0) {
+          resolve(1);
+          return;
+        }
         let list = allDownload.map(item => {
+          const url = DownloaderUtil.getDownloadUrl(item.url);
+          const fileName = item.fileName && item.fileName.length > 0 ? item.fileName :
+            DownloaderUtil.getFileName(url, item.downloadId);
           return {
             userId: item.userId,
-            url: item.url,
+            url: url,
             status: DownloadStatus.WAITING,
-            downloadId: item.downloadId
+            downloadId: item.downloadId,
+            filePath: FileUtil.joinPath(getContext().filesDir, item.downloadId),
+            fileName: fileName,
+            fileSize: item.fileSize ?? 0,
+            downloadSize: item.downloadSize ?? 0,
+            begins: item.begins ?? 0,
           } as ValuesBucket;
         })
         for(let i =0;i<list.length;i++) {
           DownloadManager.eventEmitter(DownloadManager.eventName, list[i]);
         }
-        SqliteHelper.getInstance(getContext()).batchInsert(SqliteHelper.tableName, list).then(() => {
+        SqliteHelper.getInstance(getContext()).batchInsert(SqliteHelper.tableName, list).then(async () => {
+          await DownloaderUtil.startNextWaiting(userId);
           resolve(1);
         }).catch(() => {
           resolve(0);
@@ -274,7 +384,26 @@ export class DownloaderUtil {
   }
   private static  async  batchDelete(item:FileDownloader){
     let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
-    predicates.equalTo('downloadId',item.downloadId);
+    predicates.equalTo('userId', item.userId).and().equalTo('downloadId',item.downloadId);
    return  await  SqliteHelper.getInstance(getContext()).delete(predicates);
+  }
+
+  public static async startNextWaiting(userId: string): Promise<void> {
+    if (!userId) {
+      return;
+    }
+    let runningPredicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    runningPredicates.equalTo('userId', userId).and().equalTo('status', DownloadStatus.RUNNING);
+    let runningList = await SqliteHelper.getInstance(getContext()).queryData(runningPredicates);
+    if (runningList.length > 0) {
+      return;
+    }
+    let waitingPredicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    waitingPredicates.equalTo('userId', userId).and().equalTo('status', DownloadStatus.WAITING);
+    let waitingList = await SqliteHelper.getInstance(getContext()).queryData(waitingPredicates);
+    if (waitingList.length === 0) {
+      return;
+    }
+    await DownloaderUtil.downloadFile(waitingList[0]);
   }
 }

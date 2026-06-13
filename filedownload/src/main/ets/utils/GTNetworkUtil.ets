@@ -24,7 +24,7 @@ export class GTNetworkUtil {
 
   private constructor() {}
 
-  private static netConnection: connection.NetConnection;
+  private static netConnection?: connection.NetConnection;
   /**
    * 检查默认数据网络是否被激活
    */
@@ -85,29 +85,30 @@ export class GTNetworkUtil {
     if (!GTNetworkUtil.netConnection) {
       GTNetworkUtil.netConnection = connection.createNetConnection(); //创建NetConnection对象
     }
+    const netConnection = GTNetworkUtil.netConnection!;
     //先使用register接口注册订阅事件
-    GTNetworkUtil.netConnection.register((error: BusinessError) => {
+    netConnection.register((error: BusinessError) => {
       if (error) {
 
       }
     });
     if (networkCallback.netAvailableCallback) {
-      GTNetworkUtil.netConnection.on('netAvailable', networkCallback.netAvailableCallback); //订阅网络可用事件。
+      netConnection.on('netAvailable', networkCallback.netAvailableCallback); //订阅网络可用事件。
     }
     if (networkCallback.netUnavailableCallback) {
-      GTNetworkUtil.netConnection.on('netUnavailable', networkCallback.netUnavailableCallback); //订阅网络不可用事件。
+      netConnection.on('netUnavailable', networkCallback.netUnavailableCallback); //订阅网络不可用事件。
     }
     if (networkCallback.netCapabilitiesChangeCallback) {
-      GTNetworkUtil.netConnection.on('netCapabilitiesChange', networkCallback.netCapabilitiesChangeCallback); //订阅网络能力变化事件。比如切换Wi-Fi、切换VPN、切换为手机流量。
+      netConnection.on('netCapabilitiesChange', networkCallback.netCapabilitiesChangeCallback); //订阅网络能力变化事件。比如切换Wi-Fi、切换VPN、切换为手机流量。
     }
     if (networkCallback.netConnectionPropertiesChangeCallback) {
-      GTNetworkUtil.netConnection.on('netConnectionPropertiesChange',networkCallback.netConnectionPropertiesChangeCallback); //订阅网络连接信息变化事件。比如更改Wi-Fi、切换Wi-Fi、切换蜂窝网络。
+      netConnection.on('netConnectionPropertiesChange',networkCallback.netConnectionPropertiesChangeCallback); //订阅网络连接信息变化事件。比如更改Wi-Fi、切换Wi-Fi、切换蜂窝网络。
     }
     if (networkCallback.netBlockStatusChangeCallback) {
-      GTNetworkUtil.netConnection.on('netBlockStatusChange',networkCallback.netBlockStatusChangeCallback); //订阅网络阻塞状态事件。
+      netConnection.on('netBlockStatusChange',networkCallback.netBlockStatusChangeCallback); //订阅网络阻塞状态事件。
     }
     if (networkCallback.netLostCallback) {
-      GTNetworkUtil.netConnection.on('netLost',networkCallback.netLostCallback); //订阅网络丢失事件。
+      netConnection.on('netLost',networkCallback.netLostCallback); //订阅网络丢失事件。
     }
   }
 
@@ -121,6 +122,7 @@ export class GTNetworkUtil {
 
         }
       });
+      GTNetworkUtil.netConnection = undefined;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { FileDownloader } from "@ohos_lib/filedownload/src/main/ets/model/FileDownloader";
+import { FileDownloader } from "@ohos_lib/filedownload";
 
 //网络接口
 export class  ResponseData extends  FileDownloader{

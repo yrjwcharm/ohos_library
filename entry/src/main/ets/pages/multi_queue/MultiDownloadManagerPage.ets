@@ -1,8 +1,15 @@
 import { promptAction, router } from '@kit.ArkUI';
-import { DownloaderUtil, DownloadManager, GTNetworkUtil, NetworkCallback } from '@ohos_lib/filedownload';
-import { FileDownloader } from '@ohos_lib/filedownload/src/main/ets/model/FileDownloader';
-import { DownloadStatus } from '@ohos_lib/filedownload/src/main/ets/constants/DownloadStatus';
+import {
+  DownloaderUtil,
+  DownloadManager,
+  GTNetworkUtil,
+  NetworkCallback,
+  FileDownloader,
+  DownloadStatus,
+  SqliteHelper
+} from '@ohos_lib/filedownload';
 import { ResponseData } from '../../model/ResponseData';
+import { relationalStore } from '@kit.ArkData';
 
 @Entry
 @ComponentV2
@@ -10,11 +17,31 @@ struct DownloadManagerPage {
   @Local data:ResponseData[]=[];
   @Local downloadingData:ResponseData[]=[];//下载中（下载失败、暂停等）
   @Local downloadedData:ResponseData[]=[];//已下载
+  private userId: string = '';
+  private downloadListener = (downloadInfo: FileDownloader) => {
+    //进度监听更新回调
+    this.data?.forEach((item)=>{
+      if(item.downloadId===downloadInfo.downloadId){
+        item.taskId = downloadInfo.taskId;
+        item.filePath = downloadInfo.filePath;
+        item.fileName =downloadInfo.fileName;
+        item.downloadSize = downloadInfo.downloadSize;
+        item.fileSize = downloadInfo.fileSize;
+        item.isBackgroundPause =downloadInfo.isBackgroundPause;
+        item.exitFrequency = downloadInfo.exitFrequency;
+        item.status = downloadInfo.status;
+        item.begins = downloadInfo.begins;
+      }
+    })
+    this.loadData();
+  }
   private networkCallback:NetworkCallback={
     netAvailableCallback: (netHandle: ESObject) => {
       promptAction.showToast({
         message:'网络可用~'
       })
+      DownloaderUtil.resumeBackgroundPausedDownloads(this.userId);
+      DownloaderUtil.startNextWaiting(this.userId);
     },
     netLostCallback: (_: ESObject) => {
       promptAction.showToast({
@@ -26,13 +53,13 @@ struct DownloadManagerPage {
     }
   }
   formatFileSize(fileS: number=0): string {
-  const wrongSize = "0MB";
   if (fileS === 0) {
-    return wrongSize;
+    return "0B";
   } else if (fileS < 1024) {
-    return wrongSize;
+    return `${fileS}B`;
   } else if (fileS < 1048576) {
-    return wrongSize;
+    const sizeInKB = fileS / 1024;
+    return `${sizeInKB.toFixed(1)}KB`;
   } else if (fileS < 1073741824) {
     const sizeInMB = fileS / 1048576;
     return `${sizeInMB.toFixed(1)}MB`;
@@ -41,34 +68,56 @@ struct DownloadManagerPage {
     return `${sizeInGB.toFixed(1)}GB`;
   }
 }
-  aboutToAppear(): void {
-    let data = (router.getParams() as Record<string,Object>)['data'] as ResponseData[];
-    this.data=data;
+  progressWidth(item: ResponseData): number {
+    const fileSize = item.fileSize ?? 0;
+    if (fileSize <= 0) {
+      return 0;
+    }
+    const downloadSize = item.downloadSize ?? 0;
+    return Math.min(downloadSize / fileSize, 1) * 180;
+  }
+  async aboutToAppear() {
+    const params = router.getParams() as Record<string,Object>;
+    let data = params['data'] as ResponseData[];
+    this.userId = (params['userId'] as string) ?? '';
+    this.data=data ?? [];
+    await this.syncDownloadRecords();
     this.loadData();
-    DownloadManager.addListener(DownloadManager.eventName,(downloadInfo:FileDownloader)=>{
-      //进度监听更新回调
-      this.data?.forEach((item)=>{
-        if(item.downloadId===downloadInfo.downloadId){
-          item.taskId = downloadInfo.taskId;
-          item.filePath = downloadInfo.filePath;
-          item.fileName =downloadInfo.fileName;
-          item.downloadSize = downloadInfo.downloadSize;
-          item.fileSize = downloadInfo.fileSize;
-          item.isBackgroundPause =downloadInfo.isBackgroundPause;
-          item.exitFrequency = downloadInfo.exitFrequency;
-          item.status = downloadInfo.status;
-          item.begins = downloadInfo.begins;
-        }
-      })
-      this.loadData();
-    })
+    DownloadManager.addListener(DownloadManager.eventName,this.downloadListener)
     //完善在无网络情况下，下载任务暂停，并且恢复网络后继续下载
     GTNetworkUtil.register(this.networkCallback)
   }
   loadData(){
     //这里item.status为undefined代表数据库没有记录，就不用显示课程名称
-    this.downloadingData = this.data.filter(item=>![undefined,1].includes(item.status));
-    this.downloadedData = this.data.filter(item=>item.status===1);
+    this.downloadingData = this.data.filter(item=>![undefined,DownloadStatus.COMPLETED].includes(item.status));
+    this.downloadedData = this.data.filter(item=>item.status===DownloadStatus.COMPLETED);
+  }
+  async syncDownloadRecords() {
+    if (!this.userId) {
+      return;
+    }
+    let predicates = new relationalStore.RdbPredicates(SqliteHelper.tableName);
+    predicates.equalTo('userId', this.userId);
+    let queryList = await SqliteHelper.getInstance(getContext()).queryData(predicates);
+    this.data = this.data.map((item: ResponseData) => {
+      let obj = queryList.find(el => el.downloadId === item.downloadId);
+      if (obj) {
+        item.taskId = obj.taskId;
+        item.filePath = obj.filePath;
+        item.fileName = obj.fileName;
+        item.downloadSize = obj.downloadSize;
+        item.fileSize = obj.fileSize;
+        item.isBackgroundPause = obj.isBackgroundPause;
+        item.exitFrequency = obj.exitFrequency;
+        item.status = obj.status;
+        item.begins = obj.begins;
+      }
+      return item;
+    })
+  }
+  aboutToDisappear(): void {
+    GTNetworkUtil.unregister();
+    DownloadManager.removeListener(DownloadManager.eventName,this.downloadListener)
   }
   build() {
     Column() {
@@ -100,7 +149,7 @@ struct DownloadManagerPage {
               .margin({
                 top: 32
               })
-            })
+            }, (item: ResponseData) => item.downloadId)
           }.width('100%').height('100%')
         }.tabBar(SubTabBarStyle.of('已下载'))
 
@@ -119,7 +168,7 @@ struct DownloadManagerPage {
                       Text(this.formatFileSize(item.downloadSize)+'/'+this.formatFileSize(item.fileSize)).fontColor('#2C2E40').fontSize(12)
                       Row() {
                         Row()
-                          .width(item.fileSize ?? 0 > 0 ? ((item?.downloadSize ?? 0) / (item?.fileSize ?? 0)) * 180 : 0)
+                          .width(this.progressWidth(item))
                           .height('100%')
                           .backgroundColor(Color.Red)
                           .borderRadius(10)
@@ -174,7 +223,7 @@ struct DownloadManagerPage {
               .margin({
                 top: 32
               })
-            })
+            }, (item: ResponseData) => item.downloadId)
           }.width('100%').height('100%')
         }.tabBar(SubTabBarStyle.of('下载中'))
 
