@@ -1,0 +1,7 @@
+{
+  "name": "Rect",
+  "atomic": true,
+  "attrs": [
+    "radiusWidth", "radiusHeight", "radius"
+  ]
+}

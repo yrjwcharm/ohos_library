@@ -1,0 +1,11 @@
+{
+  "name": "Repeat",
+  "attrs": [
+    "each",
+    "key",
+    "onMove",
+    "template",
+    "templateId",
+    "virtualScroll"
+  ]
+}

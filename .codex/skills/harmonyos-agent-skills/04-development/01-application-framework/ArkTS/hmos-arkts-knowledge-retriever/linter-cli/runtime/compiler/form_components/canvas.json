@@ -1,0 +1,6 @@
+{
+  "name": "Canvas",
+  "attrs": [
+    "onReady"
+  ]
+}

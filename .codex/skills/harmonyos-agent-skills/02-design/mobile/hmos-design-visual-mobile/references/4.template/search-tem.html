@@ -1,0 +1,372 @@
+<!--
+  Search Template
+  Reference: references/3.component/search.md
+
+  Variables (Template Contract):
+  - {{searchMode}}: 'off' | 'on'
+  - {{state}}: 'normal' | 'actived' | 'hover' | 'pressed' | 'focus' | 'typing' | 'output' | 'icon-hover' | 'icon-focus' | 'icon-pressed'
+  - {{placeholder}}: string (default "Search")
+  - {{value}}: string (input value text)
+  - {{searchIcon}}: SVG string (18×18 magnifying glass)
+  - {{cancelIcon}}: SVG string (16×16 xmark)
+  - {{voiceIcon}}: SVG string (16×16 microphone)
+  - {{actionLabel}}: string (default "Search")
+  - {{#on}}...{{/on}}: ON mode conditional block
+  - {{#typing}}...{{/typing}}: typing state conditional block
+  - {{#output}}...{{/output}}: output state conditional block
+  - {{#actived}}...{{/actived}}: actived state conditional block
+  - {{#cancel}}...{{/cancel}}: cancel button conditional block
+  - {{#hover}}...{{/hover}}: hover state CSS class toggle (derived from {{state}})
+  - {{#pressed}}...{{/pressed}}: pressed state CSS class toggle (derived from {{state}})
+  - {{#focus}}...{{/focus}}: focus state CSS class toggle (derived from {{state}})
+  - {{#icon-hover}}...{{/icon-hover}}: icon-hover state CSS class toggle (derived from {{state}})
+  - {{#icon-focus}}...{{/icon-focus}}: icon-focus state CSS class toggle (derived from {{state}})
+  - {{#icon-pressed}}...{{/icon-pressed}}: icon-pressed state CSS class toggle (derived from {{state}})
+-->
+<style>
+  @import url("../../../references/2.theme/harmony-tokens.css");
+
+  /* ========== Design Tokens ========== */
+  :root {
+    --search-w: 328px;
+    --search-h: 40px;
+    --search-r: 24px;
+
+    /* Fill — ALL states */
+    --search-fill-1: rgba(255, 255, 255, 0.4);
+    --search-fill-2: rgba(255, 255, 255, 0.15);
+
+    /* Effect — ALL states */
+    --search-shadow: 0 4px 48px rgba(0, 0, 0, 0.08);
+    --search-backdrop-blur: 8px;
+
+    /* Text */
+    --search-placeholder: rgba(0, 0, 0, 0.6);
+    --search-text: rgba(0, 0, 0, 0.898);
+    --search-action-text: rgba(10, 89, 247, 1);
+    --search-cursor: rgba(10, 89, 247, 1);
+
+    /* Interactive state layers */
+    --search-hover-overlay: rgba(0, 0, 0, 0.047);
+    --search-pressed-overlay: rgba(0, 0, 0, 0.098);
+    --search-focus-ring: rgba(10, 89, 247, 1);
+
+    /* Font */
+    --search-font: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  }
+
+  /* ========== Root Container ========== */
+  .harmony-search {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: var(--search-w);
+    height: var(--search-h);
+    padding: 8px 12px;
+    border: 0;
+    border-radius: var(--search-r);
+    cursor: text;
+    font-family: var(--search-font);
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--search-text);
+    background:
+      var(--search-fill-1),
+      var(--search-fill-2);
+    background-blend-mode: normal, plus-lighter;
+    box-shadow: var(--search-shadow);
+    -webkit-backdrop-filter: blur(var(--search-backdrop-blur));
+    backdrop-filter: blur(var(--search-backdrop-blur));
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    transition: none;
+  }
+
+  /* ---- Focus ring: OFF state on container ---- */
+  .harmony-search::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--search-r) + 2px);
+    border: 2px solid var(--search-focus-ring);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .harmony-search.is-focus:not(.is-on)::before {
+    opacity: 1;
+  }
+
+  /* ---- State overlay ---- */
+  .harmony-search__overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ---- OFF state overlays: on entire container ---- */
+  .harmony-search.is-hover:not(.is-on) .harmony-search__overlay {
+    background: var(--search-hover-overlay);
+  }
+
+  .harmony-search.is-pressed:not(.is-on) .harmony-search__overlay {
+    background: var(--search-pressed-overlay);
+  }
+
+  /* ---- ON state: hover/press/focus on Search button ---- */
+  .harmony-search.is-on.is-hover .harmony-search__action-btn {
+    background: var(--search-hover-overlay);
+  }
+
+  .harmony-search.is-on.is-pressed .harmony-search__action-btn {
+    background: var(--search-pressed-overlay);
+  }
+
+  .harmony-search.is-on.is-focus .harmony-search__action-btn {
+    outline: 2px solid var(--search-focus-ring);
+    outline-offset: -2px;
+  }
+
+  /* ---- ON icon states: background/outline on 32×32 voice circle ---- */
+  .harmony-search.is-on.is-icon-hover .harmony-search__action-icon {
+    background: var(--search-hover-overlay);
+    border-radius: 50%;
+  }
+
+  .harmony-search.is-on.is-icon-pressed .harmony-search__action-icon {
+    background: var(--search-pressed-overlay);
+    border-radius: 50%;
+  }
+
+  .harmony-search.is-on.is-icon-focus .harmony-search__action-icon {
+    outline: 2px solid var(--search-focus-ring);
+    outline-offset: 0;
+    border-radius: 50%;
+  }
+
+  /* ---- Search icon (18×18) ---- */
+  .harmony-search__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--search-placeholder);
+  }
+
+  .harmony-search__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  /* ---- Input area: text + cursor, gap=0 ---- */
+  .harmony-search__input-area {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .harmony-search__input-area .harmony-search__text {
+    flex: none;
+  }
+
+  /* ---- Text ---- */
+  .harmony-search__text {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+    line-height: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .harmony-search__text--placeholder {
+    color: var(--search-placeholder);
+    font-weight: 400;
+  }
+
+  .harmony-search__text--value {
+    color: var(--search-text);
+    font-weight: 500;
+  }
+
+  /* ---- Cursor (1.5×24) ---- */
+  .harmony-search__cursor {
+    flex-shrink: 0;
+    width: 1.5px;
+    height: 24px;
+    background: var(--search-cursor);
+    border-radius: 1px;
+  }
+
+  /* ---- Cancel button (32×32, xmark 16×16 centered) ---- */
+  .harmony-search__cancel {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 0;
+    background: none;
+    padding: 0;
+    color: var(--search-placeholder);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .harmony-search__cancel svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  /* ---- Search action container (gap 4) ---- */
+  .harmony-search__action {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+  }
+
+  /* ---- Divider (1×12) ---- */
+  .harmony-search__divider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 12px;
+    border-radius: 1px;
+    background: rgba(0, 0, 0, 0.047);
+  }
+
+  /* ---- Voice icon container (32×32, mic SVG 16×16 centered) ---- */
+  .harmony-search__action-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--search-placeholder);
+  }
+
+  .harmony-search__action-icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  /* ---- Search button (h:32px, padding 6/12, radius 16px) ---- */
+  .harmony-search__action-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 16px;
+    background: none;
+    cursor: pointer;
+    color: var(--search-action-text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* ---- ON state: padding 4/12/4/4 (right: 4px) ---- */
+  .harmony-search.is-on {
+    padding: 4px 4px 4px 12px;
+  }
+
+  /* ---- OFF Actived: gap 6 ---- */
+  .harmony-search.is-actived:not(.is-on) {
+    gap: 6px;
+  }
+
+  /* ---- ON Actived: gap 6 ---- */
+  .harmony-search.is-on.is-actived {
+    gap: 6px;
+  }
+
+  /* ---- OFF Hover/Press: padding 9/12 ---- */
+  .harmony-search.is-hover:not(.is-on),
+  .harmony-search.is-pressed:not(.is-on) {
+    padding: 9px 12px;
+  }
+</style>
+
+<!-- ========== Template Root ========== -->
+<div class="harmony-search{{#on}} is-on{{/on}}{{#actived}} is-actived{{/actived}}{{#hover}} is-hover{{/hover}}{{#pressed}} is-pressed{{/pressed}}{{#focus}} is-focus{{/focus}}{{#icon-hover}} is-icon-hover{{/icon-hover}}{{#icon-focus}} is-icon-focus{{/icon-focus}}{{#icon-pressed}} is-icon-pressed{{/icon-pressed}}"
+  data-component="search"
+  data-search="{{searchMode}}"
+  data-state="{{state}}"
+  data-figma-node-id="88:649">
+
+  <span class="harmony-search__overlay"></span>
+
+  <span class="harmony-search__icon">{{searchIcon}}</span>
+
+  {{#typing}}
+  <span class="harmony-search__input-area">
+    <span class="harmony-search__text harmony-search__text--value">{{value}}</span>
+    <span class="harmony-search__cursor"></span>
+  </span>
+  {{/typing}}
+
+  {{#output}}
+  <span class="harmony-search__text harmony-search__text--value">{{value}}</span>
+  {{/output}}
+
+  {{#actived}}
+  <span class="harmony-search__input-area">
+    <span class="harmony-search__cursor"></span>
+    <span class="harmony-search__text harmony-search__text--placeholder">{{placeholder}}</span>
+  </span>
+  {{/actived}}
+
+  {{^typing}}{{^output}}{{^actived}}
+  <span class="harmony-search__text harmony-search__text--placeholder">{{placeholder}}</span>
+  {{/actived}}{{/output}}{{/typing}}
+
+  {{#typing}}
+  {{#cancel}}<button class="harmony-search__cancel" aria-label="清除" type="button">{{cancelIcon}}</button>{{/cancel}}
+  {{/typing}}
+
+  {{#output}}
+  {{#cancel}}<button class="harmony-search__cancel" aria-label="清除" type="button">{{cancelIcon}}</button>{{/cancel}}
+  {{/output}}
+
+  {{#on}}
+  <span class="harmony-search__action">
+    {{^typing}}{{^output}}
+    <span class="harmony-search__action-icon">{{voiceIcon}}</span>
+    <span class="harmony-search__divider"></span>
+    {{/output}}{{/typing}}
+
+    {{#typing}}
+    {{#cancel}}<button class="harmony-search__cancel" aria-label="清除" type="button">{{cancelIcon}}</button>{{/cancel}}
+    <span class="harmony-search__divider"></span>
+    {{/typing}}
+
+    {{#output}}
+    {{#cancel}}<button class="harmony-search__cancel" aria-label="清除" type="button">{{cancelIcon}}</button>{{/cancel}}
+    <span class="harmony-search__divider"></span>
+    {{/output}}
+
+    <button class="harmony-search__action-btn" type="button">{{actionLabel}}</button>
+  </span>
+  {{/on}}
+</div>

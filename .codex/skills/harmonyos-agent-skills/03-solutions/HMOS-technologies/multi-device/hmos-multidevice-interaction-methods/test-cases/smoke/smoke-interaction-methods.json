@@ -1,0 +1,276 @@
+[
+  {
+    "case_id": "SMOKE-SCENE-01-001",
+    "layer": "smoke",
+    "title": "鼠标左键与右键点击功能开发",
+    "phase": "DEV",
+    "user_prompt": "PC列表页需要支持鼠标左键单击选中列表项，右键点击弹出上下文菜单。请给出开发方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-01，覆盖鼠标左键与右键点击的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-02", "INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-002",
+    "layer": "smoke",
+    "title": "右键上下文菜单",
+    "phase": "REQ",
+    "user_prompt": "桌面端列表页需要支持鼠标右键弹出上下文菜单，请给出需求分析，明确菜单项内容、触发条件和层级定义。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-01，覆盖右键菜单的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "INPUT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["INPUT-02", "INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-003",
+    "layer": "smoke",
+    "title": "鼠标悬浮高亮反馈",
+    "phase": "DEV",
+    "user_prompt": "桌面端列表页需要实现鼠标悬浮时列表项背景变色和边框高亮。请给出使用 onHover 的开发方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-01，覆盖鼠标悬浮反馈的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-02", "INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-001",
+    "layer": "smoke",
+    "title": "触摸与鼠标交互归一化",
+    "phase": "REQ",
+    "user_prompt": "同一列表组件需要同时支持触摸长按和鼠标右键弹出菜单，触摸单击和鼠标单击都要跳转详情页。请给出需求分析，明确统一事件入口和差异化反馈出口的策略。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-02，覆盖触摸与鼠标交互归一化的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "INPUT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["INPUT-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-002",
+    "layer": "smoke",
+    "title": "长按与右键行为不一致排查",
+    "phase": "FIX",
+    "user_prompt": "列表项长按弹出了自定义操作面板，但鼠标右键却弹出了系统默认菜单，两种输入方式没有走统一的菜单逻辑。请排查原因并给出修复方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-02，覆盖长按与右键行为不一致的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "INPUT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["INPUT-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-003",
+    "layer": "smoke",
+    "title": "触摸和鼠标拖拽功能开发并统一",
+    "phase": "REQ",
+    "user_prompt": "文件管理页需要同时支持触摸拖拽和鼠标拖拽移动文件，两种输入方式的拖拽行为需要统一。请给出需求分析，明确统一事件入口和拖拽反馈策略。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-02，覆盖触摸与鼠标拖拽归一化的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "INPUT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["INPUT-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["INPUT-03", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-001",
+    "layer": "smoke",
+    "title": "Tab焦点导航顺序",
+    "phase": "DEV",
+    "user_prompt": "设置页表单需要实现 Tab 键按顺序在输入框、开关、按钮之间切换焦点以及方向键切换焦点。请给出开发方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-03，覆盖 Tab 焦点导航的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-002",
+    "layer": "smoke",
+    "title": "键盘快捷键定义",
+    "phase": "REQ",
+    "user_prompt": "设置页需要支持 Enter 键确认，Ctrl+S 组合键保存。请给出需求分析。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-03，覆盖键盘快捷键含组合键的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "INPUT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-001",
+    "layer": "smoke",
+    "title": "手写笔与触摸输入区分",
+    "phase": "DEV",
+    "user_prompt": "笔记应用需要区分手写笔触碰绘画和手指触摸滚动：手写笔在 Canvas 上绘画，手指触摸则触发页面滚动。请给出开发方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-04，覆盖手写笔与触摸输入区分的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-03"]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-002",
+    "layer": "smoke",
+    "title": "手写笔压感不生效排查",
+    "phase": "FIX",
+    "user_prompt": "绘图应用手写笔压感没有生效，笔触粗细始终不变。代码中已读取触摸事件的 pressure 值并设置线宽。请排查原因并给出修复方案。",
+    "intent": "验证 interaction-methods 是否稳定命中 INPUT-04，覆盖压感不生效的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "INPUT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-03"]
+    }
+  }
+]

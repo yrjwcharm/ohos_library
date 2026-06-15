@@ -1,0 +1,17 @@
+{
+  "name": "Web",
+  "atomic": true,
+  "attrs": [
+    "password", "cacheMode", "tableData", "wideViewModeAccess", "overviewModeAccess", "textZoomAtio", "databaseAccess",
+    "onRefreshAccessedHistory", "onUrlLoadIntercept", "onSslErrorReceive", "onRenderExited", "onFileSelectorShow",
+    "onPageEnd", "onPageBegin", "onProgressChange", "onTitleReceive", "onGeolocationHide", "onGeolocationShow",
+    "onRequestSelected", "javaScriptAccess", "fileAccess", "onAlert", "onBeforeUnload", "onlineImageAccess",
+    "domStorageAccess", "imageAccess", "mixedMode", "zoomAccess", "geolocationAccess", "javaScriptProxy",
+    "onFullScreenExit", "onFullScreenEnter",
+    "userAgent", "onConfirm", "onConsole", "onErrorReceive", "onHttpErrorReceive", "onDownloadStart",
+    "webDebuggingAccess", "onShowFileSelector", "initialScale", "onResourceLoad", "onScaleChange", "onHttpAuthRequest",
+    "onPermissionRequest", "onContextMenuShow", "textZoomRatio", "onScroll", "mediaPlayGestureAccess", "onSslErrorEventReceive",
+    "onClientAuthenticationRequest", "horizontalScrollBarAccess", "verticalScrollBarAccess",
+    "javaScriptOnDocumentStart", "javaScriptOnDocumentEnd"
+  ]
+}

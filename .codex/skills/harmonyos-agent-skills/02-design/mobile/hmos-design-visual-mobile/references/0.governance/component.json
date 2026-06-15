@@ -1,0 +1,1749 @@
+{
+  "version": "1.0",
+  "source_root": "references",
+  "description": "Machine-readable component registry for AI-MiniHarmony. Use this file as the fast entry point before reading component references and templates.",
+  "components": [
+    {
+      "component_id": "bottomtab",
+      "display_name": "BottomTab",
+      "name_zh": "浮动底部标签栏",
+      "category": "shell-fragment",
+      "template_path": "references/4.template/bottomtab-tem.html",
+      "template_slot": "bottomtab",
+      "reference_path": "references/3.component/bottomtab.md",
+      "benchmark_path": "test-cases/Component/bottomtab/benchmark.html",
+      "mcp_source": {
+        "component_node": "52:17585",
+        "variant_nodes": {
+          "2": "52:17669",
+          "3": "52:17662",
+          "4": "52:17654",
+          "5": "52:17645",
+          "1bar": "52:17675",
+          "multibar": "52:17688"
+        }
+      },
+      "template_variables": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "2",
+            "3",
+            "4",
+            "5",
+            "1bar",
+            "multibar"
+          ],
+          "description": "tab 数量 / 特殊变体"
+        },
+        "items": {
+          "type": "slot",
+          "description": "页签项插槽，每个子节点 .harmony-bottomtab__tab 结构"
+        },
+        "activeIndex": {
+          "type": "number",
+          "description": "激活 tab 索引 (0-based)，由消费端在 items 渲染时控制",
+          "optional": true
+        },
+        "tabIcon": {
+          "type": "slot",
+          "description": "[1bar] 左侧圆形背板内 HMSymbol icon glyph",
+          "optional": true
+        },
+        "expandAlbum": {
+          "type": "slot",
+          "description": "[1bar] album 图片 <img> 元素",
+          "optional": true
+        },
+        "expandLabel": {
+          "type": "string",
+          "description": "[1bar] 展开栏文字标签",
+          "optional": true
+        },
+        "expandIcons": {
+          "type": "slot",
+          "description": "[1bar] 3 个控制图标 .harmony-bottomtab__expand-icon",
+          "optional": true
+        },
+        "avatarImage": {
+          "type": "slot",
+          "description": "[multibar] 折叠bar 内头像 <img> 元素",
+          "optional": true
+        }
+      },
+      "numeric_baseline": {
+        "container": "360×100",
+        "pill_bar": "height 56px, border-radius 100px",
+        "bar_widths": {
+          "2": 160,
+          "3": 236,
+          "4": 328,
+          "5": 328,
+          "multi": 264,
+          "single": 264
+        },
+        "bar_padding": "4px 12px (single: 0)",
+        "home_indicator": "360×28, indicator 112×5 radius 2.5",
+        "tab_item": "24×48, icon 24×24, label 10/14 Medium HarmonyHeiTi",
+        "tab_circle": "56×56, border-radius 50%",
+        "fold_bar": "56×56, album 56×56, blur 10px saturate(1.2)",
+        "expand_album": "44×44",
+        "expand_label": "82×16, 12/16 SemiBold HarmonyHeiTi",
+        "expand_icons": "22×22, font-size 22px Medium HMSymbol",
+        "expand_padding": "6px 14px 6px 6px, gap 10px",
+        "row_gap": "8px",
+        "icon_group_gap": "16px",
+        "bar_fill": "rgba(255,255,255,0.15) plus-lighter rgba(255,255,255,0.4)",
+        "bar_shadow": "0 4px 48px rgba(0,0,0,0.08) + 0 4px 8px rgba(0,0,0,0.25)",
+        "bar_blur": "80px",
+        "typography": {
+          "tab_label": "10/14 Medium HarmonyHeiTi",
+          "expand_label": "12/16 SemiBold HarmonyHeiTi",
+          "tab_icon": "24/24 400 HMSymbol",
+          "expand_icon": "22/22 500 HMSymbol"
+        },
+        "icons": {
+          "backward_end_fill": "HMSymbol U+F00A6",
+          "pause_round_triangle_fill": "HMSymbol U+F086B",
+          "forward_end_fill": "HMSymbol U+F00A7"
+        }
+      },
+      "allowed_shells": [
+        "mobile-screen-shell",
+        "tabbed-page-shell",
+        "device-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "底栏",
+        "底部导航",
+        "tab bar",
+        "底部标签栏",
+        "页签栏",
+        "navigation bar",
+        "浮动底栏"
+      ],
+      "quality_audit": "review/quality/bottomtab-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "button",
+      "display_name": "FloatingButton",
+      "name_zh": "浮动按钮",
+      "category": "component",
+      "template_path": "references/4.template/button-tem.html",
+      "template_slot": "button",
+      "reference_path": "references/3.component/button.md",
+      "benchmark_path": "test-cases/Component/button/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/button/V1.html",
+        "v2": "test-cases/Component/button/V2.html"
+      },
+      "mcp_source": {
+        "component_node": "70:241",
+        "token_nodes": {
+          "floating_backgrount_emphasize": "70:907",
+          "floating_backgrount_emphasize_secondary": "70:908",
+          "material_background_thin": "70:903",
+          "font_on_primary": "70:888",
+          "font_primary": "70:889",
+          "warning": "70:895",
+          "interactive_hover": "70:893",
+          "interactive_pressed": "70:894",
+          "interactive_focus": "70:892",
+          "floating_thin": "70:900",
+          "material_thin": "70:902"
+        }
+      },
+      "template_variables": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "medium",
+            "small"
+          ],
+          "description": "按钮尺寸：Medium 120×40 / Small 72×28"
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "emphasized",
+            "normal",
+            "warning",
+            "selected",
+            "unselected"
+          ],
+          "description": "按钮类型，决定背景填充与文本颜色"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "enabled",
+            "hover",
+            "pressed",
+            "focus",
+            "loading",
+            "disabled"
+          ],
+          "description": "交互状态，驱动 overlay / focus-ring / spinner / opacity"
+        },
+        "content": {
+          "type": "string",
+          "description": "按钮文本或富文本内容插槽"
+        },
+        "icon": {
+          "type": "slot",
+          "description": "[optional] 前置图标 SVG 插槽，图标尺寸 = 当前 font-size",
+          "optional": true
+        },
+        "spinnerSvg": {
+          "type": "slot",
+          "description": "[loading] 24×24 spinner SVG 片段，由 {{#loading}} 条件块包裹",
+          "optional": true
+        },
+        "disabled": {
+          "type": "attribute",
+          "description": "disabled 属性字符串或空",
+          "optional": true
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "type",
+          "size",
+          "state"
+        ],
+        "type": [
+          "emphasized",
+          "normal",
+          "warning",
+          "selected",
+          "unselected"
+        ],
+        "size": [
+          "medium",
+          "small"
+        ],
+        "state": [
+          "enabled",
+          "hover",
+          "pressed",
+          "focus",
+          "loading",
+          "disabled"
+        ],
+        "total_variants": 60,
+        "transparency": "强 / 液态玻璃 Light"
+      },
+      "numeric_baseline": {
+        "medium": "120×40px, border-radius 20px, font-size 16px",
+        "small": "72×28px, border-radius 14px, font-size 14px",
+        "loading_width_extension": "+8px",
+        "focus_ring_extension": "+4px each side, 2px stroke",
+        "focus_ring_medium": "128×48px, border-radius 24px",
+        "focus_ring_small": "80×36px, border-radius 18px",
+        "spinner": "24×24px",
+        "content_gap": "4px",
+        "font_weight": "400",
+        "line_height": "1",
+        "typography": {
+          "medium": "16px/1 400 HarmonyHeiTi",
+          "small": "14px/1 400 HarmonyHeiTi"
+        },
+        "colors": {
+          "emphasized_bg": "rgba(0,137,249,0.88)",
+          "selected_bg": "rgba(199,229,253,0.88)",
+          "material_fill_1": "rgba(255,255,255,0.16)",
+          "material_fill_2": "rgba(255,255,255,0.0225)",
+          "font_on_primary": "rgba(255,255,255,1)",
+          "font_primary": "rgba(0,0,0,0.8065)",
+          "warning": "rgba(232,64,38,1)",
+          "hover_overlay": "rgba(0,0,0,0.0022)",
+          "pressed_overlay": "rgba(0,0,0,0.0096)",
+          "focus_ring": "rgba(10,89,247,1)",
+          "disabled_opacity": "0.4"
+        },
+        "effects": {
+          "floating_thin_shadow": "0 4px 48px rgba(0,0,0,0.08)",
+          "floating_thin_blur": "30px",
+          "floating_thin_inner_shadows": "6 层 inset shadow (a–f)",
+          "material_thin_shadow": "0 4px 48px rgba(0,0,0,0.08)",
+          "background_blend_mode": "plus-lighter"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "simple-text",
+          "description": "纯文本作为 button 子节点，颜色由类型样式继承",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "icon-text",
+          "description": "前置图标 SVG 插槽 + 文本，gap:4px，图标尺寸 = font-size",
+          "spec_ref": "§1.3"
+        },
+        {
+          "id": "full-structure",
+          "description": "完整 DOM：overlay + focus-ring + [spinner] + [icon] + content",
+          "spec_ref": "§1.1"
+        }
+      ],
+      "allowed_shells": [
+        "form-shell",
+        "dialog-shell",
+        "card-shell",
+        "mobile-screen-shell",
+        "settings-item-shell",
+        "toolbar-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "slot",
+      "synonyms": [
+        "按钮",
+        "浮动按钮",
+        "floating button",
+        "button",
+        "FAB",
+        "操作按钮",
+        "确认按钮",
+        "glass button"
+      ],
+      "status": "active"
+    },
+    {
+      "component_id": "divider",
+      "display_name": "Divider",
+      "name_zh": "分割线",
+      "category": "primitive",
+      "template_path": "references/4.template/divider-tem.html",
+      "template_slot": "divider",
+      "reference_path": "references/3.component/divider.md",
+      "allowed_shells": [
+        "group-card-shell",
+        "list-group-shell",
+        "section-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "none",
+      "synonyms": [
+        "分隔线",
+        "横线",
+        "竖线",
+        "inset divider",
+        "block divider"
+      ],
+      "status": "active"
+    },
+    {
+      "component_id": "size",
+      "display_name": "SizeShell",
+      "name_zh": "尺寸框架",
+      "category": "shell",
+      "template_path": "references/4.template/size-tem.html",
+      "template_slot": "size",
+      "reference_path": "references/3.component/size.md",
+      "allowed_shells": [
+        "device-shell",
+        "mobile-screen-shell",
+        "page-root-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "shell",
+      "synonyms": [
+        "设备壳层",
+        "页面尺寸框架",
+        "screen shell",
+        "canvas shell",
+        "设备尺寸"
+      ],
+      "status": "active"
+    },
+    {
+      "component_id": "statusbar",
+      "display_name": "StatusBar",
+      "name_zh": "状态栏",
+      "category": "shell-fragment",
+      "template_path": "references/4.template/statusbar-tem.html",
+      "template_slot": "statusbar",
+      "reference_path": "references/3.component/statusbar.md",
+      "benchmark_path": "test-cases/Component/statusbar/benchmark.html",
+      "mcp_source": {
+        "component_node": "36:3656",
+        "variant_nodes": {
+          "light": "36:3657",
+          "dark": "36:3664"
+        }
+      },
+      "template_variables": {
+        "theme": {
+          "type": "enum",
+          "values": [
+            "light",
+            "dark"
+          ]
+        },
+        "time": {
+          "type": "string",
+          "description": "时间文本 (15/20 Medium)"
+        },
+        "wifiIcon": {
+          "type": "slot",
+          "description": "WiFi 图标资源"
+        },
+        "singleCardIcon": {
+          "type": "slot",
+          "description": "单卡图标资源"
+        },
+        "dualCardIcon": {
+          "type": "slot",
+          "description": "双卡图标资源"
+        },
+        "batteryIcon": {
+          "type": "slot",
+          "description": "电池图标资源"
+        }
+      },
+      "numeric_baseline": {
+        "container": "360×36",
+        "padding": "8/24/8/24",
+        "icon_slot": "96×13",
+        "time_box": "40×18",
+        "font": "HarmonyHeiTiMedium 15/20 500"
+      },
+      "allowed_shells": [
+        "device-shell",
+        "mobile-screen-shell",
+        "mobile-settings-single-column"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "asset",
+      "synonyms": [
+        "状态栏",
+        "system status bar",
+        "顶部状态栏",
+        "status bar",
+        "time and signal bar",
+        "信号栏",
+        "通知栏顶部"
+      ],
+      "quality_audit": "review/quality/statusbar-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "aibottombar",
+      "display_name": "AIBottomBar",
+      "name_zh": "AI底部指示栏",
+      "category": "shell-fragment",
+      "template_path": "references/4.template/aibottombar-tem.html",
+      "template_slot": "aibottombar",
+      "reference_path": "references/3.component/aibottombar.md",
+      "benchmark_path": "test-cases/Component/aibottombar/benchmark.html",
+      "mcp_source": {
+        "component_node": "36:3882",
+        "variant_nodes": {
+          "transparent": "36:3883",
+          "light": "36:3885",
+          "dark": "36:3887"
+        }
+      },
+      "template_variables": {
+        "theme": {
+          "type": "enum",
+          "values": [
+            "light",
+            "dark",
+            "transparent"
+          ]
+        }
+      },
+      "numeric_baseline": {
+        "container": "360×28",
+        "indicator": "112×5",
+        "indicator_radius": "2.5"
+      },
+      "allowed_shells": [
+        "device-shell",
+        "mobile-screen-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "none",
+      "synonyms": [
+        "底部指示栏",
+        "AI底部工具栏",
+        "home indicator",
+        "底部横条",
+        "bottom bar",
+        "aibottombar"
+      ],
+      "quality_audit": "review/quality/aibottombar-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "titlebar",
+      "display_name": "FloatingTitleBar",
+      "name_zh": "浮动标题栏",
+      "category": "shell-fragment",
+      "template_path": "references/4.template/titlebar-tem.html",
+      "template_slot": "titlebar",
+      "reference_path": "references/3.component/titlebar.md",
+      "benchmark_path": "test-cases/Component/titlebar/benchmark.html",
+      "mcp_source": {
+        "component_node": "36:1715",
+        "variant_nodes": {
+          "big": "36:1736",
+          "normal": "36:1741",
+          "secondary": "36:1746",
+          "drawer": "36:1751"
+        }
+      },
+      "template_variables": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "big",
+            "normal",
+            "secondary",
+            "drawer"
+          ]
+        },
+        "time": {
+          "type": "string",
+          "description": "状态栏时间文本 (15/20 Medium)"
+        },
+        "title": {
+          "type": "string",
+          "description": "标题文本"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "副标题文本 (仅 big / secondary)",
+          "optional": true
+        },
+        "leadingIcon": {
+          "type": "slot",
+          "description": "HMSymbol glyph HTML entity (secondary: F00DA / drawer: F0163)",
+          "optional": true
+        },
+        "leadingAria": {
+          "type": "string",
+          "description": "leading 按钮 aria-label",
+          "optional": true
+        },
+        "actions": {
+          "type": "array",
+          "description": "动作按钮数组，每项含 actionIcon (glyph) + actionAria (label)"
+        }
+      },
+      "numeric_baseline": {
+        "container": "360×205 (Big) / 360×124 (Normal/Secondary/Drawer)",
+        "statusbar": "360×36, padding 8/24, HORIZONTAL space-between center",
+        "content_height": "Big 169px, Normal/Secondary 88px, Drawer 56px",
+        "icon_button": "40×40, border-radius 50%, bg white floating",
+        "action_shadow": "0 8px 48px rgba(0,0,0,0.08)",
+        "background_blur": "12px saturate(1.2)",
+        "background_gradient_stops": 9,
+        "typography": {
+          "big_title": "30/40 Bold",
+          "normal_drawer_title": "26/35 Bold",
+          "secondary_title": "20/27 Bold",
+          "subtitle": "14/19 Regular",
+          "statusbar_time": "15/20 Medium"
+        },
+        "icons": {
+          "circle_dashed": "HMSymbol F0134 24×24",
+          "chevron_left": "HMSymbol F00DA 24×24",
+          "indent_right": "HMSymbol F0163 24×24"
+        }
+      },
+      "allowed_shells": [
+        "device-shell",
+        "mobile-screen-shell",
+        "mobile-settings-single-column"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "标题栏",
+        "浮动标题",
+        "导航栏",
+        "title bar",
+        "floating header",
+        "顶部标题栏",
+        "titlebar"
+      ],
+      "quality_audit": "review/quality/titlebar-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "search",
+      "display_name": "FloatingSearch",
+      "name_zh": "浮动搜索栏",
+      "category": "component",
+      "template_path": "references/4.template/search-tem.html",
+      "template_slot": "search",
+      "reference_path": "references/3.component/search.md",
+      "benchmark_path": "test-cases/Component/search/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/search/v1.html"
+      },
+      "mcp_source": {
+        "component_node": "88:649",
+        "state_nodes": {
+          "off_normal": "88:761",
+          "off_actived": "88:756",
+          "off_hover": "88:752",
+          "off_pressed": "88:734",
+          "off_focus": "88:748",
+          "off_typing": "88:738",
+          "off_output": "88:744",
+          "on_normal": "88:764",
+          "on_actived": "88:796",
+          "on_hover": "88:787",
+          "on_pressed": "88:791",
+          "on_focus": "88:778",
+          "on_typing": "88:772",
+          "on_output": "88:768",
+          "on_icon_hover": "88:783",
+          "on_icon_focus": "88:730",
+          "on_icon_pressed": "88:726"
+        },
+        "token_nodes": {
+          "fill_style": "88:965",
+          "effect_style": "88:964",
+          "font_primary": "88:955",
+          "font_secondary": "88:956",
+          "font_emphasize": "88:954",
+          "interactive_hover": "88:958",
+          "interactive_pressed": "88:959",
+          "interactive_focus": "88:957"
+        }
+      },
+      "template_variables": {
+        "searchMode": {
+          "type": "enum",
+          "values": [
+            "off",
+            "on"
+          ],
+          "description": "搜索模式，决定是否显示 Search action 区域 (voice+divider+button)"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "normal",
+            "actived",
+            "hover",
+            "pressed",
+            "focus",
+            "typing",
+            "output",
+            "icon-hover",
+            "icon-focus",
+            "icon-pressed"
+          ],
+          "description": "交互状态，驱动 overlay / focus-ring / padding / gap / cancel 显隐"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "占位文本，默认 \"Search\"",
+          "default": "Search"
+        },
+        "value": {
+          "type": "string",
+          "description": "输入值文本，typing/output 状态使用"
+        },
+        "searchIcon": {
+          "type": "slot",
+          "description": "搜索图标 SVG 插槽 (18×18 magnifying glass)"
+        },
+        "cancelIcon": {
+          "type": "slot",
+          "description": "清除图标 SVG 插槽 (16×16 xmark)"
+        },
+        "voiceIcon": {
+          "type": "slot",
+          "description": "语音图标 SVG 插槽 (16×16 microphone)"
+        },
+        "actionLabel": {
+          "type": "string",
+          "description": "Search 按钮文本，默认 \"Search\"",
+          "default": "Search"
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "searchMode",
+          "state"
+        ],
+        "searchMode": [
+          "off",
+          "on"
+        ],
+        "state": [
+          "normal",
+          "actived",
+          "hover",
+          "pressed",
+          "focus",
+          "typing",
+          "output",
+          "icon-hover",
+          "icon-focus",
+          "icon-pressed"
+        ],
+        "total_variants": 17,
+        "note": "icon-hover/icon-focus/icon-pressed 仅在 ON 模式下有效",
+        "transparency": "强 / 液态玻璃 Light"
+      },
+      "numeric_baseline": {
+        "container": "328×40px, border-radius 24px",
+        "default_padding": "8px 12px",
+        "hover_pressed_padding": "9px 12px",
+        "on_padding": "4px 4px 4px 12px",
+        "default_gap": "8px",
+        "actived_gap": "6px",
+        "action_gap": "4px",
+        "search_icon": "18×18px",
+        "cursor": "1.5×24px, radius 1px",
+        "cancel_button": "32×32px, icon 16×16px",
+        "voice_icon": "32×32px, icon 16×16px",
+        "divider": "1×12px, radius 1px",
+        "action_button": "h:32px, padding 6px 12px, radius 16px",
+        "focus_ring_off": "2px stroke, inset:-2px",
+        "focus_ring_on_btn": "2px stroke, outline-offset:-2px",
+        "focus_ring_on_icon": "2px stroke, outline-offset:0, border-radius:50%",
+        "typography": {
+          "placeholder": "16px/22px 400 HarmonyHeiTi",
+          "value": "16px/22px 500 HarmonyHeiTi",
+          "action_button": "14px/19px 500 HarmonyHeiTi"
+        },
+        "colors": {
+          "fill_1": "rgba(255,255,255,0.4)",
+          "fill_2": "rgba(255,255,255,0.15)",
+          "placeholder": "rgba(0,0,0,0.6)",
+          "text": "rgba(0,0,0,0.898)",
+          "action_text": "rgba(10,89,247,1)",
+          "cursor": "rgba(10,89,247,1)",
+          "hover_overlay": "rgba(0,0,0,0.047)",
+          "pressed_overlay": "rgba(0,0,0,0.098)",
+          "focus_ring": "rgba(10,89,247,1)",
+          "divider": "rgba(0,0,0,0.047)"
+        },
+        "effects": {
+          "shadow_1": "0 4px 48px rgba(0,0,0,0.08)",
+          "shadow_2": "0 4px 8px rgba(0,0,0,0.25)",
+          "background_blend_mode": "normal, plus-lighter"
+        },
+        "icons": {
+          "search": "inline SVG magnifying glass 18×18 viewBox 0 0 18 18",
+          "cancel": "inline SVG xmark 16×16 viewBox 0 0 16 16",
+          "voice": "inline SVG microphone 16×16 viewBox 0 0 16 16"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "off-normal",
+          "description": "OFF Normal: icon(18×18) + placeholder text, padding 8/12, gap 8",
+          "spec_ref": "§2.2"
+        },
+        {
+          "id": "off-actived",
+          "description": "OFF Actived: icon + cursor(1.5×24) + placeholder, gap 6",
+          "spec_ref": "§2.2"
+        },
+        {
+          "id": "off-hover-pressed",
+          "description": "OFF Hover/Pressed: overlay 覆盖全容器, padding 9/12",
+          "spec_ref": "§2.2/§2.4"
+        },
+        {
+          "id": "off-focus",
+          "description": "OFF Focus: ::before 伪元素 2px ring inset:-2px",
+          "spec_ref": "§2.2/§2.5"
+        },
+        {
+          "id": "off-typing",
+          "description": "OFF Typing: icon + value text + cursor + cancel button(32×32)",
+          "spec_ref": "§2.2"
+        },
+        {
+          "id": "off-output",
+          "description": "OFF Output: icon + value text + cancel button",
+          "spec_ref": "§2.2"
+        },
+        {
+          "id": "on-normal",
+          "description": "ON Normal: icon + placeholder + voice(32×32) + divider(1×12) + Search button, padding 4/4/4/12",
+          "spec_ref": "§2.3"
+        },
+        {
+          "id": "on-interactive",
+          "description": "ON Hover/Pressed/Focus: overlay/ring 仅作用于 Search button",
+          "spec_ref": "§2.3/§2.4/§2.5"
+        },
+        {
+          "id": "on-icon-interactive",
+          "description": "ON IconHover/IconFocus/IconPressed: overlay/ring 仅作用于 voice 图标 (圆形 50%)",
+          "spec_ref": "§2.3/§2.6"
+        },
+        {
+          "id": "on-typing-output",
+          "description": "ON Typing/Output: cancel 替换 voice 位置, 保留 divider + Search button",
+          "spec_ref": "§2.3"
+        }
+      ],
+      "allowed_shells": [
+        "mobile-screen-shell",
+        "titlebar-shell",
+        "search-page-shell",
+        "card-shell",
+        "toolbar-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "slot",
+      "synonyms": [
+        "搜索栏",
+        "搜索框",
+        "search bar",
+        "search box",
+        "search input",
+        "floating search",
+        "搜索组件",
+        "查询框"
+      ],
+      "quality_audit": "review/quality/search-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "switch",
+      "display_name": "Switch",
+      "name_zh": "开关",
+      "category": "component",
+      "template_path": "references/4.template/switch-tem.html",
+      "template_slot": "switch",
+      "reference_path": "references/3.component/switch.md",
+      "benchmark_path": "test-cases/Component/switch/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/switch/v1.html"
+      },
+      "mcp_source": {
+        "component_node": "88:1670",
+        "variant_nodes": {
+          "on_enabled": "88:1675",
+          "on_hover": "88:1680",
+          "on_pressed": "88:1698",
+          "on_focus": "88:1677",
+          "on_disabled": "88:1671",
+          "off_enabled": "88:1687",
+          "off_hover": "88:1692",
+          "off_pressed": "88:1695",
+          "off_focus": "88:1689",
+          "off_disabled": "88:1683"
+        },
+        "token_nodes": {
+          "comp_background_emphasize": "88:1701",
+          "comp_background_primary_contrary": "88:1702",
+          "comp_background_secondary": "88:1703",
+          "comp_background_tertiary": "88:1704",
+          "interactive_focus": "88:1705",
+          "interactive_hover": "88:1706",
+          "interactive_pressed": "88:1707"
+        }
+      },
+      "template_variables": {
+        "selected": {
+          "type": "enum",
+          "values": [
+            "on",
+            "off"
+          ],
+          "description": "选中态，驱动轨道颜色 (ON=蓝/OFF=灰) 和拇指位置"
+        },
+        "state": {
+          "type": "enum",
+          "values": [
+            "enabled",
+            "hover",
+            "pressed",
+            "focus",
+            "disabled"
+          ],
+          "description": "交互状态，驱动 overlay / focus-ring / disabled opacity"
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "selected",
+          "state"
+        ],
+        "selected": [
+          "on",
+          "off"
+        ],
+        "state": [
+          "enabled",
+          "hover",
+          "pressed",
+          "focus",
+          "disabled"
+        ],
+        "total_variants": 10,
+        "transparency": "Light"
+      },
+      "numeric_baseline": {
+        "track": "36×20px, border-radius 12px",
+        "thumb": "16×16px, border-radius 50%",
+        "on_thumb_left": "18px (right side, no stroke)",
+        "off_thumb_left": "2px (left side, 1px box-shadow stroke)",
+        "focus_ring_rect": "40×24px, positioned L-2,R-2,T-2,B-2",
+        "focus_ring_css_inset": "-4px (补偿 border 向内绘制, 映射 strokeAlign:OUTSIDE)",
+        "focus_ring_css_radius": "14px (12+2, 维持 pill 形状)",
+        "focus_ring_stroke": "2px",
+        "focus_ring_stroke_align": "OUTSIDE (Pixso DSL)",
+        "disabled_opacity": "0.4",
+        "thumb_transition": "left 0.2s ease",
+        "colors": {
+          "on_track": "rgba(10,89,247,1)",
+          "off_track": "rgba(0,0,0,0.098)",
+          "thumb_fill": "rgba(255,255,255,1)",
+          "off_thumb_stroke": "rgba(0,0,0,0.047)",
+          "hover_overlay": "rgba(0,0,0,0.047)",
+          "pressed_overlay": "rgba(0,0,0,0.098)",
+          "focus_ring": "rgba(10,89,247,1)"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "on-enabled",
+          "description": "ON + Enabled: 轨道蓝色, 拇指右侧 left:18px 无描边",
+          "spec_ref": "§1.1/§2.2"
+        },
+        {
+          "id": "on-hover-pressed",
+          "description": "ON + Hover/Pressed: ::after 伪元素 overlay 覆盖轨道 (4.7%/9.8%)",
+          "spec_ref": "§2.2/§2.4"
+        },
+        {
+          "id": "on-focus",
+          "description": "ON + Focus: ::before 伪元素 2px ring, inset:-4px, border-radius:14px (Pixso strokeAlign:OUTSIDE CSS 补偿)",
+          "spec_ref": "§2.2/§2.5"
+        },
+        {
+          "id": "on-disabled",
+          "description": "ON + Disabled: opacity:0.4, cursor:default, pointer-events:none",
+          "spec_ref": "§2.2/§2.6"
+        },
+        {
+          "id": "off-enabled",
+          "description": "OFF + Enabled: 轨道灰色, 拇指左侧 left:2px, 1px box-shadow 描边",
+          "spec_ref": "§1.1/§2.3"
+        },
+        {
+          "id": "off-hover-pressed-focus",
+          "description": "OFF + Hover/Pressed/Focus: overlay/ring 同 ON 模式",
+          "spec_ref": "§2.3/§2.5"
+        },
+        {
+          "id": "off-disabled",
+          "description": "OFF + Disabled: opacity:0.4 (同 ON)",
+          "spec_ref": "§2.3/§2.6"
+        }
+      ],
+      "allowed_shells": [
+        "settings-item-shell",
+        "list-item-shell",
+        "form-shell",
+        "card-shell",
+        "mobile-screen-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "shape",
+      "synonyms": [
+        "开关控件",
+        "开关",
+        "toggle",
+        "toggle switch",
+        "切换器",
+        "switch",
+        "on off",
+        "切换开关"
+      ],
+      "quality_audit": "review/quality/switch-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "cardview",
+      "display_name": "CardView",
+      "name_zh": "卡片视图",
+      "category": "container",
+      "template_path": "references/4.template/cardview-tem.html",
+      "template_slot": "cardview",
+      "reference_path": "references/3.component/cardview.md",
+      "benchmark_path": "test-cases/Component/cardview/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/cardview/v1.html"
+      },
+      "mcp_source": {
+        "component_node": "95:52",
+        "variant_nodes": {
+          "max": "95:60",
+          "larger": "95:53",
+          "medium": "95:55",
+          "small": "95:62",
+          "mini": "95:57"
+        },
+        "token_nodes": {
+          "comp_background_list_card": "95:64",
+          "comp_background_tertiary": "36:1901",
+          "icon_primary": "36:1904"
+        },
+        "icon_button_node": "36:1798"
+      },
+      "template_variables": {
+        "size": {
+          "type": "enum",
+          "values": [
+            "max",
+            "larger",
+            "medium",
+            "small",
+            "mini"
+          ],
+          "description": "卡片尺寸变体"
+        },
+        "content": {
+          "type": "slot",
+          "description": "卡片内容插槽"
+        },
+        "icon": {
+          "type": "conditional",
+          "description": "icon button 条件块 (#icon)",
+          "optional": true
+        },
+        "iconPosition": {
+          "type": "enum",
+          "values": [
+            "br"
+          ],
+          "description": "icon 位置 (br=bottom-right)",
+          "optional": true
+        },
+        "iconGlyph": {
+          "type": "string",
+          "description": "HMSymbol glyph, 默认 circle_dashed F0134",
+          "default": "&#xF0134;",
+          "optional": true
+        },
+        "iconAria": {
+          "type": "string",
+          "description": "icon 无障碍标签",
+          "optional": true
+        },
+        "icon2": {
+          "type": "conditional",
+          "description": "第二 icon 条件块 (#icon2, Mini 变体)",
+          "optional": true
+        },
+        "icon2Position": {
+          "type": "enum",
+          "values": [
+            "left",
+            "right"
+          ],
+          "description": "第二 icon 位置",
+          "optional": true
+        },
+        "icon2Glyph": {
+          "type": "string",
+          "description": "第二 icon HMSymbol glyph",
+          "optional": true
+        },
+        "icon2Aria": {
+          "type": "string",
+          "description": "第二 icon 无障碍标签",
+          "optional": true
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "size"
+        ],
+        "size": [
+          "max",
+          "larger",
+          "medium",
+          "small",
+          "mini"
+        ],
+        "total_variants": 5,
+        "transparency": "Light"
+      },
+      "numeric_baseline": {
+        "card_radius": "20px",
+        "max": "328×496px, 1 icon bottom-right",
+        "larger": "328×328px, 1 icon bottom-right",
+        "medium": "328×156px, 1 icon bottom-right",
+        "small": "156×156px, 1 icon bottom-right",
+        "mini": "328×56px, 2 icons (left + right, vertically centered)",
+        "icon_button": "32×32px, border-radius 50%",
+        "icon": "20×20px, HMSymbol circle_dashed F0134",
+        "icon_margin_br": "right:12px, bottom:12px",
+        "icon_margin_mini": "left:12px / right:12px, top:50%, translateY(-50%)",
+        "colors": {
+          "card_bg": "rgba(255,255,255,1)",
+          "icon_btn_bg": "rgba(0,0,0,0.047)",
+          "icon_color": "rgba(0,0,0,0.898)"
+        },
+        "icons": {
+          "circle_dashed": "HMSymbol U+F0134 20×20"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "max-card",
+          "description": "Max 328×496: 大容量竖版卡片, 1 icon bottom-right",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "larger-card",
+          "description": "Larger 328×328: 正方形卡片, 1 icon bottom-right",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "medium-card",
+          "description": "Medium 328×156: 横向卡片, 1 icon bottom-right",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "small-card",
+          "description": "Small 156×156: 紧凑正方形卡片, 1 icon bottom-right",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "mini-card",
+          "description": "Mini 328×56: 横向窄卡片, 2 icons (left + right 垂直居中)",
+          "spec_ref": "§1.2"
+        },
+        {
+          "id": "content-slot",
+          "description": "{{content}} 插槽自由填充, 容器不限制内部布局",
+          "spec_ref": "§1.1/§3"
+        }
+      ],
+      "allowed_shells": [
+        "mobile-screen-shell",
+        "card-shell",
+        "list-shell",
+        "feed-shell",
+        "dashboard-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "卡片",
+        "卡片视图",
+        "card view",
+        "card",
+        "容器卡片",
+        "cardview",
+        "内容卡片",
+        "卡片容器"
+      ],
+      "quality_audit": "review/quality/cardview-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "chipstab",
+      "display_name": "FloatingChipsTab",
+      "name_zh": "浮动胶囊标签栏",
+      "category": "component",
+      "template_path": "references/4.template/chipstab-tem.html",
+      "template_slot": "chipstab",
+      "reference_path": "references/3.component/chipstab.md",
+      "benchmark_path": "test-cases/Component/chipstab/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/chipstab/v1.html",
+        "v2": "test-cases/Component/chipstab/v2.html"
+      },
+      "mcp_source": {
+        "component_node": "97:18082",
+        "variant_nodes": {
+          "tab": "97:18108",
+          "tab-with-icon": "97:18117",
+          "icontab": "97:18126"
+        },
+        "token_nodes": {
+          "floating_backgrount_emphasize": "70:907",
+          "material_background_ultra_thin": "97:18248",
+          "material_ultra_thin": "97:18249",
+          "icon_secondary": "70:890",
+          "icon_on_primary": "36:3776",
+          "icon_primary": "36:1904",
+          "font_on_primary": "36:3774",
+          "font_secondary": "36:1903",
+          "font_on_tertiary": "97:18241",
+          "font_tertiary": "97:18242"
+        }
+      },
+      "template_variables": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "tab",
+            "tab-with-icon",
+            "icontab"
+          ],
+          "description": "变体枚举，控制 chip 数量、icon 显隐、icon-btn 显隐"
+        },
+        "chips": {
+          "type": "array",
+          "description": "chip 列表数组，每项含 title (string)、isActivated (boolean)、icon (optional boolean，仅 icontab 使用)"
+        },
+        "showIconBtn": {
+          "type": "boolean",
+          "description": "是否渲染 .more icon button (dot_grid_2x2)，tab-with-icon 变体为 true",
+          "optional": true
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "variant"
+        ],
+        "variant": [
+          "tab",
+          "tab-with-icon",
+          "icontab"
+        ],
+        "total_variants": 3,
+        "transparency": "强 / 液态玻璃 Light",
+        "notes": {
+          "tab": "6 chips，无 icon，无 icon-btn，num 可见",
+          "tab-with-icon": "4 chips + icon-btn (40×40 dot_grid_2x2)，无 chip-icon",
+          "icontab": "4 chips，每个 chip title 左侧 star_fill 图标 (16×16)，无 num，无 icon-btn"
+        }
+      },
+      "numeric_baseline": {
+        "container": "360×56px, padding 10px 12px, gap 8px, overflow hidden",
+        "chip": "height 36px, radius 20px, padding 8px 16px, internal gap 6px, width auto (RESIZE_TO_FIT)",
+        "chip_title": "16px/1 400 HarmonyHeiTi, white-space nowrap, text-overflow ellipsis",
+        "chip_icon_star": "16×16px, HMSymbol star_fill F0009",
+        "icon_btn": "40×40px circle, HMSymbol dot_grid_2x2 F0061 24×24",
+        "chip_gap": "8px",
+        "typography": {
+          "title": "16px/1 400 HarmonyHeiTi",
+          "num": "12px/1 400 HarmonyHeiTi"
+        },
+        "colors": {
+          "activated_bg": "#0091FF (70:907 Light/Floating_backgrount_emphasize)",
+          "enable_bg": "rgba(255,255,255,0.05) (97:18248 Light/Blur/Material_background_ULTRA_THIN)",
+          "activated_title": "rgba(255,255,255,1) (36:3774 Light/font_on_primary)",
+          "activated_num": "rgba(255,255,255,0.4) (97:18241 Light/font_on_tertiary)",
+          "enable_title": "rgba(0,0,0,0.6) (36:1903 Light/font_secondary)",
+          "enable_num": "rgba(0,0,0,0.4) (97:18242 Light/font_tertiary)",
+          "icon_btn_color": "rgba(0,0,0,0.898) (36:1904 Light/icon_primary)",
+          "star_enable": "rgba(0,0,0,0.6) (70:890 Light/icon_secondary)",
+          "star_activated": "rgba(255,255,255,1) (36:3776 Light/icon_on_primary)"
+        },
+        "effects": {
+          "shadow_1": "0 8px 48px rgba(0,0,0,0.08) (DROP_SHADOW)",
+          "shadow_2": "0 4px 8px rgba(0,0,0,0.25) (GLASS)",
+          "glass_blur": "backdrop-filter: blur(8px)",
+          "source_node": "97:18249 Light/Blur/Material_ULTRA_THIN"
+        },
+        "icons": {
+          "star_fill": "HMSymbol U+F0009 16×16 (icontab chip 内)",
+          "dot_grid_2x2": "HMSymbol U+F0061 24×24 (icon-btn 内)"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "tab-chip",
+          "description": "tab / tab-with-icon 变体 chip：仅 title 文本，无图标",
+          "spec_ref": "§1.4"
+        },
+        {
+          "id": "icontab-chip",
+          "description": "icontab 变体 chip：star_fill 图标 (16×16) + title，图标居左，order: -1",
+          "spec_ref": "§1.4"
+        },
+        {
+          "id": "icon-btn",
+          "description": "tab-with-icon 变体尾部 icon button：40×40 circle，dot_grid_2x2 (24×24)，aria-label=\"更多\"",
+          "spec_ref": "§1.2/§2.3"
+        }
+      ],
+      "allowed_shells": [
+        "mobile-screen-shell",
+        "card-shell",
+        "toolbar-shell",
+        "device-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "浮动胶囊标签栏",
+        "胶囊标签",
+        "胶囊栏",
+        "chip tab",
+        "floating chips tab",
+        "标签栏",
+        "chipstab",
+        "chips tab bar",
+        "胶囊导航"
+      ],
+      "status": "active"
+    },
+    {
+      "component_id": "toolbar",
+      "display_name": "FloatingToolbar",
+      "name_zh": "浮动工具栏",
+      "category": "shell-fragment",
+      "template_path": "references/4.template/toolbar-tem.html",
+      "template_slot": "toolbar",
+      "reference_path": "references/3.component/toolbar.md",
+      "benchmark_path": "test-cases/Component/toolbar/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/toolbar/v1.html"
+      },
+      "mcp_source": {
+        "component_node": "152:19248",
+        "variant_nodes": {
+          "3": "152:19307",
+          "4": "152:19302",
+          "5": "152:19296",
+          "6": "152:19289",
+          "vertical-icon": "152:19280"
+        },
+        "token_nodes": {
+          "font_emphasize": "52:17308",
+          "icon_emphasize": "52:17310",
+          "font_primary": "36:1902",
+          "icon_primary": "36:1904",
+          "material_background_thin": "152:19383",
+          "material_thin": "152:19382",
+          "component_thin": "52:17307"
+        }
+      },
+      "template_variables": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "3",
+            "4",
+            "5",
+            "6",
+            "vertical-icon"
+          ],
+          "description": "toolbar 方向与 item 数量变体"
+        },
+        "items": {
+          "type": "array",
+          "description": "item 列表数组，每项含 label、isActive、isHover、isPressed、isFocus、isDisabled、ariaLabel"
+        },
+        "label": {
+          "type": "string",
+          "description": "item 标签文本，默认 Tab"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "激活态：添加 harmony-toolbar__item--active，aria-pressed=true，glyph F0021"
+        },
+        "isHover": {
+          "type": "boolean",
+          "description": "静态 hover 态：添加 harmony-toolbar__item--hover",
+          "optional": true
+        },
+        "isPressed": {
+          "type": "boolean",
+          "description": "静态 pressed 态：添加 harmony-toolbar__item--pressed",
+          "optional": true
+        },
+        "isFocus": {
+          "type": "boolean",
+          "description": "静态 focus 态：添加 harmony-toolbar__item--focus",
+          "optional": true
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "description": "禁用态：添加 harmony-toolbar__item--disabled、disabled、aria-disabled=true",
+          "optional": true
+        },
+        "ariaLabel": {
+          "type": "string",
+          "description": "button aria-label；空 label 或 label 不足以说明功能时使用",
+          "optional": true
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "variant",
+          "item_state"
+        ],
+        "variant": [
+          "3",
+          "4",
+          "5",
+          "6",
+          "vertical-icon"
+        ],
+        "item_state": [
+          "default",
+          "active",
+          "hover",
+          "pressed",
+          "focus",
+          "disabled"
+        ],
+        "total_variants": 30,
+        "transparency": "高 / 液态玻璃 Light",
+        "notes": {
+          "3": "192×56 horizontal, 3 items",
+          "4": "248×56 horizontal, 4 items",
+          "5": "304×56 horizontal, 5 items",
+          "6": "328×56 horizontal, 6 items, item width 50.6667px",
+          "vertical-icon": "56×248 vertical, 4 items"
+        }
+      },
+      "numeric_baseline": {
+        "root_horizontal": "height 56px, border-radius 28px, padding 0 12px",
+        "root_vertical": "56×248px, border-radius 28px, padding 12px 0",
+        "root_widths": {
+          "3": 192,
+          "4": 248,
+          "5": 304,
+          "6": 328
+        },
+        "item": "56×56px, padding 4px 0, gap 2px, border-radius 14px",
+        "item_6_width": "50.6667px",
+        "icon": "24×24px, HMSymbol font-size 24px, line-height 24px",
+        "label": "10px/14px Medium HarmonyHeiTi, height 14px, single-line ellipsis",
+        "material": {
+          "fill": "rgba(255,255,255,0.4) + linear-dodge rgba(255,255,255,0.15)",
+          "shadow": "0 4px 48px rgba(0,0,0,0.08) + 0 4px 8px rgba(0,0,0,0.25)",
+          "blur": "backdrop-filter: blur(80px)"
+        },
+        "colors": {
+          "active": "rgba(10,89,247,1)",
+          "primary": "rgba(0,0,0,0.898)",
+          "hover": "rgba(0,0,0,0.05)",
+          "pressed": "rgba(0,0,0,0.1)",
+          "focus": "rgba(10,89,247,0.28)",
+          "disabled": "rgba(0,0,0,0.35) with opacity 0.4"
+        },
+        "icons": {
+          "off": "HMSymbol U+F0025 24×24",
+          "on": "HMSymbol U+F0021 24×24"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "default-item",
+          "description": "OFF item：F0025 glyph + label，aria-pressed=false",
+          "spec_ref": "§1.4"
+        },
+        {
+          "id": "active-item",
+          "description": "ON item：harmony-toolbar__item--active + F0021 glyph + label，aria-pressed=true",
+          "spec_ref": "§1.4/§2.1"
+        },
+        {
+          "id": "state-item",
+          "description": "静态状态类：hover/pressed/focus/disabled，对应模板布尔变量 isHover/isPressed/isFocus/isDisabled",
+          "spec_ref": "§2.1/§4"
+        },
+        {
+          "id": "long-label",
+          "description": "超长 label 在固定 item 槽内单行 ellipsis，不改变 root/item 几何",
+          "spec_ref": "§3"
+        }
+      ],
+      "allowed_shells": [
+        "mobile-screen-shell",
+        "toolbar-shell",
+        "device-shell",
+        "floating-control-shell",
+        "navigation-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "工具栏",
+        "浮动工具栏",
+        "toolbar",
+        "floating toolbar",
+        "操作栏",
+        "快捷栏",
+        "心形工具栏",
+        "纵向工具栏",
+        "胶囊工具栏"
+      ],
+      "quality_audit": "review/quality/toolbar-quality-audit.md",
+      "status": "active"
+    },
+    {
+      "component_id": "list",
+      "display_name": "List",
+      "name_zh": "列表项",
+      "category": "component",
+      "template_path": "references/4.template/list-tem.html",
+      "template_slot": "list",
+      "reference_path": "references/3.component/list.md",
+      "benchmark_path": "test-cases/Component/list/benchmark.html",
+      "render_paths": {
+        "v1": "test-cases/Component/list/index.html",
+        "v2": "test-cases/Component/list/index-v2.html"
+      },
+      "mcp_source": {
+        "component_node": "102:1852",
+        "variant_nodes": {
+          "single": "102:251",
+          "icondot": "102:255",
+          "iconsingle": "102:1136",
+          "2lines": "102:269",
+          "icon2lines": "102:263",
+          "3lines": "102:266"
+        }
+      },
+      "template_variables": {
+        "variant": {
+          "type": "enum",
+          "values": [
+            "single",
+            "icondot",
+            "iconsingle",
+            "2lines",
+            "icon2lines",
+            "3lines"
+          ],
+          "description": "变体类型，决定行高、左侧布局、右侧图标"
+        },
+        "left-layout": {
+          "type": "enum",
+          "values": [
+            "vertical",
+            "horizontal",
+            "horizontal-sm"
+          ],
+          "description": "左内容区布局方向：vertical(纯文本) / horizontal(appicon) / horizontal-sm(dot)"
+        },
+        "left-content": {
+          "type": "slot",
+          "description": "左内容区完整 HTML 片段（含 title/aux/appicon/dot 叶变量）"
+        },
+        "title": {
+          "type": "string",
+          "description": "左标题文本（16px Medium）"
+        },
+        "aux1": {
+          "type": "string",
+          "description": "第一行辅助文本（14px Regular），2lines / icon2lines / 3lines 使用",
+          "optional": true
+        },
+        "aux2": {
+          "type": "string",
+          "description": "第二行辅助文本（14px Regular），仅 3lines 使用",
+          "optional": true
+        },
+        "right-text": {
+          "type": "string",
+          "description": "右侧文本内容（14px Regular）"
+        },
+        "right-clamp": {
+          "type": "enum",
+          "values": [
+            "",
+            " harmony-list__right-text--clamp2"
+          ],
+          "description": "右侧文本行数类名：''=1行, ' harmony-list__right-text--clamp2'=2行"
+        },
+        "right-icon": {
+          "type": "slot",
+          "description": "右侧图标 HTML 片段（chevron HMSymbol 或 arrow-down CSS triangle）"
+        },
+        "appicon-src": {
+          "type": "string",
+          "description": "应用图标图片路径，仅 iconsingle / icon2lines 使用",
+          "optional": true
+        },
+        "appicon-alt": {
+          "type": "string",
+          "description": "应用图标 alt 文本",
+          "optional": true
+        }
+      },
+      "variant_matrix": {
+        "dimensions": [
+          "variant"
+        ],
+        "variant": [
+          "single",
+          "icondot",
+          "iconsingle",
+          "2lines",
+          "icon2lines",
+          "3lines"
+        ],
+        "total_variants": 6,
+        "transparency": "Light",
+        "notes": {
+          "single": "48px, VERTICAL left (title), right arrow-down, 1-line right text, full-width divider",
+          "icondot": "56px, HORIZONTAL-sm left (dot 8×8 + title, gap 12px), right arrow-down, 1-line right text, split dividers (gap=0, left skip 20px)",
+          "iconsingle": "64px, HORIZONTAL left (appicon 48×48 + title, gap 16px), right arrow-down, 1-line right text, split dividers (gap=0, left skip 64px)",
+          "2lines": "64px, VERTICAL left (title + aux1, gap 2px), right chevron, 2-line clamp right text, full-width divider",
+          "icon2lines": "72px, HORIZONTAL left (appicon 48×48 + text-group title+aux1), right chevron, 2-line clamp right text, full-width divider",
+          "3lines": "96px, VERTICAL left (title + aux1 + aux2, gap 2px), right chevron, 2-line clamp right text, full-width divider"
+        }
+      },
+      "numeric_baseline": {
+        "container": "328px width",
+        "padding_h": "12px",
+        "left_right_gap": "10px (single/2lines/icon2lines/3lines) / 0px (iconsingle/icondot)",
+        "left_text_gap": "2px (VERTICAL layout)",
+        "icon_text_gap": "16px (appicon) / 12px (dot)",
+        "heights": {
+          "single": "48px",
+          "icondot": "56px",
+          "iconsingle": "64px",
+          "2lines": "64px",
+          "icon2lines": "72px",
+          "3lines": "96px"
+        },
+        "left_padding": {
+          "single": "13px 0",
+          "icondot": "17px 0",
+          "iconsingle": "8px 0",
+          "2lines": "10px 0",
+          "icon2lines": "12px 0"
+        },
+        "app_icon": "48×48px, border-radius 12px, object-fit cover",
+        "dot": "8×8px CSS circle, color #46B1E3",
+        "right_text_max_width": "96px",
+        "divider": "1px, color --harmony-comp-divider",
+        "divider_patterns": {
+          "full_width": "single/2lines/icon2lines/3lines: --right divider as direct child of .harmony-list, spans full 328px",
+          "split": "iconsingle/icondot: --left in __left (skip: 64px/20px) + --right in __right, gap=0 seamless join"
+        },
+        "typography": {
+          "title": "16px/22px 500 HarmonyHeiTi",
+          "aux": "14px/19px 400 HarmonyHeiTi",
+          "right_text": "14px/19px 400 HarmonyHeiTi"
+        },
+        "colors": {
+          "font_primary": "rgba(0,0,0,0.898)",
+          "font_secondary": "rgba(0,0,0,0.6)",
+          "icon_tertiary": "rgba(0,0,0,0.4)",
+          "divider": "rgba(0,0,0,0.2)",
+          "appicon_bg": "rgba(0,0,0,0.047)",
+          "dot": "#46B1E3",
+          "hover": "rgba(0,0,0,0.047)",
+          "pressed": "rgba(0,0,0,0.098)"
+        },
+        "icons": {
+          "chevron_right": "HMSymbol U+F00D9 12×24",
+          "arrow_down": "CSS triangle 8×6 (border-left/right 4px transparent, border-top 6px)",
+          "dot": "CSS circle 8×8, border-radius 50%"
+        }
+      },
+      "content_patterns": [
+        {
+          "id": "simple-text",
+          "description": "single/2lines/3lines: 左侧纯文本垂直排列，gap 2px。single=title, 2lines=title+aux1, 3lines=title+aux1+aux2",
+          "spec_ref": "§1.3"
+        },
+        {
+          "id": "icon-with-text",
+          "description": "iconsingle/icon2lines: 左侧 appicon(48×48 r=12) + 文本水平排列。iconsingle 为 icon+title, icon2lines 为 icon+text-group(title+aux1)",
+          "spec_ref": "§1.4"
+        },
+        {
+          "id": "dot-indicator",
+          "description": "icondot: 左侧 dot(8×8 CSS circle) + title, 水平排列 gap 12px",
+          "spec_ref": "§1.5"
+        },
+        {
+          "id": "right-chevron",
+          "description": "2lines/icon2lines/3lines: 右侧 text(2-line clamp) + chevron HMSymbol U+F00D9 12×24, gap 4px",
+          "spec_ref": "§1.6"
+        },
+        {
+          "id": "right-arrow-down",
+          "description": "single/icondot/iconsingle: 右侧 text(1-line) + arrow-down CSS triangle 8×6, gap 4px",
+          "spec_ref": "§1.6"
+        },
+        {
+          "id": "full-width-divider",
+          "description": "single/2lines/icon2lines/3lines: --right divider 作为 .harmony-list 直接子节点，全宽 328px",
+          "spec_ref": "§3"
+        },
+        {
+          "id": "split-divider",
+          "description": "iconsingle/icondot: --left divider 在 __left 内(偏移 64px/20px) + --right divider 在 __right 内, gap=0 无缝衔接",
+          "spec_ref": "§3"
+        }
+      ],
+      "allowed_shells": [
+        "list-item-shell",
+        "settings-item-shell",
+        "form-shell",
+        "card-shell",
+        "mobile-screen-shell",
+        "section-shell"
+      ],
+      "required_trace_attrs": [
+        "data-component",
+        "data-figma-node-id"
+      ],
+      "icon_strategy": "hmsymbol",
+      "synonyms": [
+        "列表项",
+        "列表",
+        "list",
+        "list item",
+        "行组件",
+        "列表行",
+        "设置项",
+        "settings item",
+        "list row",
+        "list cell"
+      ],
+      "status": "active"
+    }
+  ]
+}

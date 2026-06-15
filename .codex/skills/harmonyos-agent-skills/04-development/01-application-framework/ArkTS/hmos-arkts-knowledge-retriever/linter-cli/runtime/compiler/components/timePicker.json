@@ -1,0 +1,14 @@
+{
+    "name": "TimePicker",
+    "attrs": [
+        "onChange",
+        "useMilitaryTime",
+        "loop",
+        "disappearTextStyle",
+        "textStyle",
+        "selectedTextStyle",
+        "dateTimeOptions",
+        "enableHapticFeedback",
+        "enableCascade"
+    ]
+}

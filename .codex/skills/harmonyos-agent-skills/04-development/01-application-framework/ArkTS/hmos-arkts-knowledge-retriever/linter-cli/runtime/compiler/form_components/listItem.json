@@ -1,0 +1,6 @@
+{
+  "name": "ListItem",
+  "parents": ["List"],
+  "single": true,
+  "attrs": ["selectable", "onSelect"]
+}

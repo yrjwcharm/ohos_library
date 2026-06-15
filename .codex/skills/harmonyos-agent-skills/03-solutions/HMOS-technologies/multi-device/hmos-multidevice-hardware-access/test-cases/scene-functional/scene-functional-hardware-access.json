@@ -1,0 +1,159 @@
+[
+  {
+    "case_id": "HW-FUNC-001",
+    "layer": "scene-functional",
+    "title": "能力检测 canIUse 入口调用与降级",
+    "phase": "DEV",
+    "user_prompt": "遵循 SKILL.md 中的 HW-01 能力检测机制实现。在 2in1 设备上使用 canIUse 查询 camera/vibrator/sensor 能力，对不支持的能力进行优雅降级（禁用按钮、显示提示），支持的正常启用，参照 syscap_mechanism.md 规范完成代码。",
+    "intent": "基于 HW-01 场景要求开发能力检测入口代码，使用 canIUse 查询设备能力并按是否支持做 UI 降级",
+    "expected": {
+      "primary_scene": "HW-01",
+      "decision_path": "camera/vibrator/sensor 任一命中 → 关键词 'canIUse' + '能力检测' → HW-01"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "使用 canIUse 查询 camera/vibrator/sensor",
+        "不支持的能力禁用对应 UI 按钮并显示提示文案",
+        "支持的能力正常启用",
+        "参照 RSC_HW_01 syscap_mechanism.md 规范"
+      ],
+      "should_reuse_resources": [
+        "RSC_HW_01"
+      ],
+      "forbidden_patterns": [
+        "不查询能力直接假设设备支持",
+        "不支持时不给出可视反馈"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_generation",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "2in1 设备上 camera 可用按钮启用",
+        "不支持的能力按钮置灰且显示提示",
+        "无崩溃或 unhandled error"
+      ],
+      "pass_evidence": "编译通过 + hdc 运行截图显示降级状态"
+    }
+  },
+  {
+    "case_id": "HW-FUNC-002",
+    "layer": "scene-functional",
+    "title": "折叠屏设备相机选择与折叠态重建",
+    "phase": "DEV",
+    "user_prompt": "参照 SKILL.md HW-02-fold 场景及 RSC_HW_02 camera-foldable-adaptation.md 规范，开发折叠屏设备上根据折叠状态选择相机设备并完整重建相机会话的代码。确保折叠/展开切换时释放旧会话、重新选择相机、重建 Session。",
+    "intent": "基于 HW-02-fold 场景要求开发折叠屏相机选择与重建功能",
+    "expected": {
+      "primary_scene": "HW-02-fold",
+      "decision_path": "关键词 '折叠屏' + '相机' + '选择' -> HW-02 -> 子场景 '折叠' -> HW-02-fold"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "监听 foldStatusChange 事件",
+        "折叠状态变化时完整执行 releaseCamera → initCamera",
+        "相机选择时 findIndex 查找目标位置相机，未找到回退 cameras[0]",
+        "参照 RSC_HW_02 camera-foldable-adaptation.md 正例"
+      ],
+      "should_reuse_resources": [
+        "RSC_HW_02"
+      ],
+      "forbidden_patterns": [
+        "折叠状态变化时仅更新 PreviewOutput 不重建 CameraInput",
+        "相机选择时未处理目标位置相机不存在的情况"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_generation",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "折叠/展开切换后相机设备正确重建",
+        "阔折叠外屏只有前置相机时回退到 cameras[0]",
+        "半折叠↔展开切换可跳过重建"
+      ],
+      "pass_evidence": "编译通过 + 折叠态切换录像/gif 显示无黑屏且相机正确重建"
+    }
+  },
+  {
+    "case_id": "HW-FUNC-003",
+    "layer": "scene-functional",
+    "title": "预览流 stride 比对与无效像素去除",
+    "phase": "DEV",
+    "user_prompt": "参照 SKILL.md HW-02-stride 场景及 RSC_HW_04 camera-stride-handling.md 规范，开发预览帧数据 stride 处理代码。通过 ImageReceiver 获取预览帧后，对比 rowStride 与 width，stride 不等时去除无效填充像素再创建 PixelMap，确保不出现花屏。",
+    "intent": "基于 HW-02-stride 场景要求开发 stride 处理逻辑",
+    "expected": {
+      "primary_scene": "HW-02-stride",
+      "decision_path": "关键词 'stride' + '花屏' + '预览帧' → HW-02 → 子场景 'stride' → HW-02-stride"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "通过 component.rowStride 运行时获取 stride 值，不可硬编码",
+        "stride === width 直接创建 PixelMap",
+        "stride ≠ width 时去除无效像素（缓冲拷贝或 cropSync）",
+        "参照 RSC_HW_04 camera-stride-handling.md 正反例"
+      ],
+      "should_reuse_resources": [
+        "RSC_HW_04"
+      ],
+      "forbidden_patterns": [
+        "硬编码 stride 值",
+        "stride ≠ width 时直接用 byteBuffer 创建 PixelMap"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_generation",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "不同平台上 stride 值与 width 比对正确",
+        "stride ≠ width 时画面无花屏/行偏移/内容错位",
+        "stride === width 时走直接创建路径"
+      ],
+      "pass_evidence": "编译通过 + 多个平台预览截图显示无花屏"
+    }
+  },
+  {
+    "case_id": "HW-FUNC-004",
+    "layer": "scene-functional",
+    "title": "相机预览与拍照旋转角度适配",
+    "phase": "DEV",
+    "user_prompt": "参照 SKILL.md HW-02-rotation 场景及 RSC_HW_06 camera-rotation-terms.md、RSC_HW_05 camera-rotation-adaptation.md 规范，开发相机预览旋转角度适配代码。包含 XComponent onLoad 中 setXComponentSurfaceRotation({lock:true})、setupRotationListener 监听 display.on('change') 并重新计算 Surface 宽高比、拍照前通过 sensor.once(GRAVITY) 获取重力数据计算旋转角度、区分前后置相机旋转映射、录像时设置 AVMetadata.videoOrientation。",
+    "intent": "基于 HW-02-rotation 场景要求开发预览/拍照/录像旋转角度适配",
+    "expected": {
+      "primary_scene": "HW-02-rotation",
+      "decision_path": "关键词 'rotation' + '预览' + '拍照' → HW-02 → 子场景 'rotation' → HW-02-rotation"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "XComponent onLoad 中调用 setXComponentSurfaceRotation({lock:true})",
+        "setupRotationListener 监听 display.on('change') 并重新计算 Surface 尺寸和预览旋转角度",
+        "拍照前 sensor.once(GRAVITY) 获取重力数据，区分前后置相机旋转映射",
+        "拍照时 photoOutput.capture(setting) 传入 PhotoCaptureSetting(rotation, mirror)",
+        "录像时设置 AVMetadata.videoOrientation 为合理旋转值",
+        "参照 RSC_HW_05 和 RSC_HW_06"
+      ],
+      "should_reuse_resources": [
+        "RSC_HW_05",
+        "RSC_HW_06"
+      ],
+      "forbidden_patterns": [
+        "拍照时直接调用 capture() 不传 rotation",
+        "设置固定的 Surface 宽高比不随旋转变化",
+        "未监听窗口变化导致旋转后预览方向错误"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_generation",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "竖屏/横屏/反向竖屏/反向横屏四种姿态预览方向正确",
+        "拍照后照片方向与持握方向一致",
+        "录像画面方向与持握方向一致",
+        "旋转时 Surface 宽高比自动适配"
+      ],
+      "pass_evidence": "编译通过 + 四种方向截图显示预览/拍照/录像方向均正确"
+    }
+  }
+]

@@ -1,0 +1,404 @@
+{
+    "api_chains": [
+      {
+        "api_name": "Session.fetch",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "执行 HTTP 请求",
+        "napi_func": "FetchBySession",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:309",
+        "impl_func": "Session::FetchWithInfo",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "FetchBySession (NAPI)",
+          "GetSession (获取会话)",
+          "MakePromiseCallback (创建回调)",
+          "FetchContext (创建上下文)",
+          "NapiManager::NotifyFetch (通知管理器)",
+          "Session::FetchWithInfo (执行请求)",
+          "HttpClient::Execute (HTTP 客户端执行)",
+          "CurlRequestParser::Parse (Curl 请求解析)"
+        ]
+      },
+      {
+        "api_name": "Session.cancel",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "取消会话中的所有请求",
+        "napi_func": "CancelSession",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:544",
+        "impl_func": "Session::Cancel",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "CancelSession (NAPI)",
+          "NapiManager::NotifyCancel (通知管理器)",
+          "Session::Cancel (取消会话)"
+        ]
+      },
+      {
+        "api_name": "Session.close",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "关闭会话",
+        "napi_func": "CloseSession",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:573",
+        "impl_func": "Session::Close",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "CloseSession (NAPI)",
+          "NapiManager::NotifyClose (通知管理器)",
+          "Session::Close (关闭会话)"
+        ]
+      },
+      {
+        "api_name": "CookieRepository.create",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "创建 Cookie 仓库",
+        "napi_func": "CookieRepository::create",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp",
+        "impl_func": "Session::SetCookiesIdentifier",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "CookieRepository::create (静态方法)",
+          "SessionFactory::GetDefaultSessionRef (获取默认会话)",
+          "Session::SetCookiesIdentifier (设置 Cookie 标识)"
+        ]
+      },
+      {
+        "api_name": "CookieRepository.setCookies",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "设置 Cookie",
+        "napi_func": "SetCookies",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:493",
+        "impl_func": "Session::SetCookies",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "SetCookies (NAPI)",
+          "MakeSetCookiesCallback (创建回调)",
+          "GetResponseCookiesFromValue (解析 Cookie)",
+          "Session::SetCookies (设置 Cookie)"
+        ]
+      },
+      {
+        "api_name": "CookieRepository.getCookies",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "获取 Cookie",
+        "napi_func": "GetCookies",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:506",
+        "impl_func": "Session::GetCookies",
+        "impl_file": "frameworks/native/rcp/src/session.cpp",
+        "call_chain": [
+          "GetCookies (NAPI)",
+          "MakeGetCookiesCallback (创建回调)",
+          "Session::GetCookies (获取 Cookie)"
+        ]
+      },
+      {
+        "api_name": "Request.cancel",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "取消请求",
+        "napi_func": "CancelRequestForSession",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:345",
+        "impl_func": "Request::Cancel",
+        "impl_file": "frameworks/native/rcp/src/request.cpp",
+        "call_chain": [
+          "CancelRequestForSession (NAPI)",
+          "NapiManager::NotifyCancel (通知管理器)",
+          "Request::Cancel (取消请求)"
+        ]
+      },
+      {
+        "api_name": "NetworkInputQueue.write",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "写入数据到输入队列",
+        "napi_func": "NetworkInputQueue::write",
+        "napi_file": "frameworks/js/napi/rcp/src/napi_data_recorder.cpp",
+        "impl_func": "RequestContent::WriteData",
+        "impl_file": "frameworks/native/rcp/src/request_content.cpp",
+        "call_chain": [
+          "NetworkInputQueue::write (NAPI)",
+          "RequestContent::WriteData (写入数据)",
+          "CurlRequestParser::WriteBody (写入请求体)"
+        ]
+      },
+      {
+        "api_name": "NetworkOutputQueue.read",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "从输出队列读取数据",
+        "napi_func": "NetworkOutputQueue::read",
+        "napi_file": "frameworks/js/napi/rcp/src/napi_data_requester.cpp",
+        "impl_func": "Response::ReadBody",
+        "impl_file": "frameworks/native/rcp/src/response.cpp",
+        "call_chain": [
+          "NetworkOutputQueue::read (NAPI)",
+          "Response::ReadBody (读取响应体)",
+          "CurlResponseParser::ReadBody (读取响应数据)"
+        ]
+      },
+      {
+        "api_name": "GenerateRequestId",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "生成请求 ID",
+        "napi_func": "GenerateRequestId",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:123",
+        "impl_func": "Request::GenerateId",
+        "impl_file": "frameworks/native/rcp/src/request.cpp:67",
+        "call_chain": [
+          "GenerateRequestId (NAPI)",
+          "Request::GenerateId (生成唯一 ID)"
+        ]
+      },
+      {
+        "api_name": "GenerateSessionId",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "生成会话 ID",
+        "napi_func": "GenerateSessionId",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:129",
+        "impl_func": "SessionFactory::GenerateId",
+        "impl_file": "frameworks/native/rcp/src/session.cpp:26",
+        "call_chain": [
+          "GenerateSessionId (NAPI)",
+          "SessionFactory::GenerateId (生成唯一 ID)"
+        ]
+      },
+      {
+        "api_name": "BindToNativeSession",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "绑定到原生会话",
+        "napi_func": "BindToNativeSession",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:135",
+        "impl_func": "SessionFactory::CreateSession",
+        "impl_file": "frameworks/native/rcp/src/session.cpp:50",
+        "call_chain": [
+          "BindToNativeSession (NAPI)",
+          "SessionConfigurationNapiParser (解析配置)",
+          "SessionFactory::CreateSession (创建会话)",
+          "NapiManager::NotifyNewSession (通知新会话)"
+        ]
+      },
+      {
+        "api_name": "HasPermission",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "检查网络权限",
+        "napi_func": "HasPermission",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:88",
+        "impl_func": "CommonUtils::HasInternetPermission",
+        "impl_file": "utils/src/rcp_native_common_utils.cpp",
+        "call_chain": [
+          "HasPermission (NAPI)",
+          "CommonUtils::HasInternetPermission (检查权限)"
+        ]
+      },
+      {
+        "api_name": "GetError",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "获取错误对象",
+        "napi_func": "GetError",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:655",
+        "impl_func": "CommonUtils::GetStringifiedRcpError",
+        "impl_file": "utils/src/rcp_error_utils.cpp:47",
+        "call_chain": [
+          "GetError (NAPI)",
+          "CommonUtils::GetStringifiedRcpError (获取错误字符串)",
+          "CreateNapiRcpError (创建 NAPI 错误对象)"
+        ]
+      },
+      {
+        "api_name": "BoundaryLengthValid",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "验证边界长度",
+        "napi_func": "BoundaryLengthValid",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:360",
+        "impl_func": "MultipartForm::BoundaryMaxLength",
+        "impl_file": "frameworks/native/rcp/src/multipart_form.cpp",
+        "call_chain": [
+          "BoundaryLengthValid (NAPI)",
+          "MultipartForm::BoundaryMaxLength (获取最大边界长度)"
+        ]
+      },
+      {
+        "api_name": "GetTlsRangeVersion",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "获取 TLS 版本范围",
+        "napi_func": "GetTlsRangeVersion",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:378",
+        "impl_func": "ConvertTlsVersion",
+        "impl_file": "frameworks/js/napi/rcp/src/napi_parser.cpp",
+        "call_chain": [
+          "GetTlsRangeVersion (NAPI)",
+          "ConvertTlsVersion (转换 TLS 版本)"
+        ]
+      },
+      {
+        "api_name": "GetNativeNoNetError",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "获取无网络错误",
+        "napi_func": "GetNativeNoNetError",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:396",
+        "impl_func": "NetworkErrorBuilder::NETWORK_ERROR_STREAM_NO_NET",
+        "impl_file": "utils/src/network_err_builder.cpp",
+        "call_chain": [
+          "GetNativeNoNetError (NAPI)",
+          "NetworkErrorBuilder (网络错误构建器)"
+        ]
+      },
+      {
+        "api_name": "ConvertSendable",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "转换为 Sendable 对象",
+        "napi_func": "ConvertSendable",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:416",
+        "impl_func": "SendableParser::ResponseConvertSendable",
+        "impl_file": "frameworks/js/napi/rcp/src/sendable_parser.cpp",
+        "call_chain": [
+          "ConvertSendable (NAPI)",
+          "SendableParser::ResponseConvertSendable (转换响应)"
+        ]
+      },
+      {
+        "api_name": "ParserAuthChallengeInfo",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "解析认证挑战信息",
+        "napi_func": "ParserAuthChallengeInfo",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:584",
+        "impl_func": "CommonUtils::AuthChallenge::ParseAuthHeader",
+        "impl_file": "utils/src/rcp_native_common_utils.cpp",
+        "call_chain": [
+          "ParserAuthChallengeInfo (NAPI)",
+          "CommonUtils::AuthChallenge::ParseAuthHeader (解析认证头)",
+          "NapiAuthChallengeInfo (创建 NAPI 认证对象)"
+        ]
+      },
+      {
+        "api_name": "CreateParentDirectory",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "创建父目录",
+        "napi_func": "CreateParentDirectory",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:603",
+        "impl_func": "CommonUtils::CreateParentDirectory",
+        "impl_file": "utils/src/rcp_native_common_utils.cpp",
+        "call_chain": [
+          "CreateParentDirectory (NAPI)",
+          "CommonUtils::CreateParentDirectory (创建目录)"
+        ]
+      },
+      {
+        "api_name": "PathExists",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "检查路径是否存在",
+        "napi_func": "PathExists",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:621",
+        "impl_func": "CommonUtils::PathExists",
+        "impl_file": "utils/src/rcp_native_common_utils.cpp",
+        "call_chain": [
+          "PathExists (NAPI)",
+          "CommonUtils::PathExists (检查路径)"
+        ]
+      },
+      {
+        "api_name": "PathResolve",
+        "d_ts_file": "@hms.collaboration.rcp.d.ts",
+        "description": "解析路径",
+        "napi_func": "PathResolve",
+        "napi_file": "frameworks/js/napi/rcp/src/collaboration_rcp.cpp:638",
+        "impl_func": "CommonUtils::PathResolve",
+        "impl_file": "utils/src/rcp_native_common_utils.cpp",
+        "call_chain": [
+          "PathResolve (NAPI)",
+          "CommonUtils::PathResolve (解析路径)"
+        ]
+      }
+    ],
+    "c_api_chains": [
+      {
+        "api_name": "HMS_Rcp_CreateSession",
+        "d_ts_file": "interfaces/kits/c/rcp.h",
+        "description": "创建会话",
+        "impl_func": "CreateSession",
+        "impl_file": "frameworks/c/rcp/rcp_session.c",
+        "call_chain": [
+          "HMS_Rcp_CreateSession (C API)",
+          "CreateSession (内部实现)",
+          "SessionFactory::CreateSession (创建会话)"
+        ]
+      },
+      {
+        "api_name": "HMS_Rcp_DestroySession",
+        "d_ts_file": "interfaces/kits/c/rcp.h",
+        "description": "销毁会话",
+        "impl_func": "DestroySession",
+        "impl_file": "frameworks/c/rcp/rcp_session.c",
+        "call_chain": [
+          "HMS_Rcp_DestroySession (C API)",
+          "DestroySession (内部实现)",
+          "Session::Close (关闭会话)"
+        ]
+      },
+      {
+        "api_name": "HMS_Rcp_CreateRequest",
+        "d_ts_file": "interfaces/kits/c/rcp.h",
+        "description": "创建请求",
+        "impl_func": "CreateRequest",
+        "impl_file": "frameworks/c/rcp/rcp_request.c",
+        "call_chain": [
+          "HMS_Rcp_CreateRequest (C API)",
+          "CreateRequest (内部实现)",
+          "Request (创建请求对象)"
+        ]
+      },
+      {
+        "api_name": "HMS_Rcp_ExecuteSync",
+        "d_ts_file": "interfaces/kits/c/rcp.h",
+        "description": "同步执行请求",
+        "impl_func": "ExecuteSync",
+        "impl_file": "frameworks/c/rcp/rcp_request.c",
+        "call_chain": [
+          "HMS_Rcp_ExecuteSync (C API)",
+          "ExecuteSync (内部实现)",
+          "Session::FetchWithInfo (执行请求)",
+          "HttpClient::Execute (HTTP 客户端执行)"
+        ]
+      },
+      {
+        "api_name": "HMS_Rcp_ExecuteAsync",
+        "d_ts_file": "interfaces/kits/c/rcp.h",
+        "description": "异步执行请求",
+        "impl_func": "ExecuteAsync",
+        "impl_file": "frameworks/c/rcp/rcp_request.c",
+        "call_chain": [
+          "HMS_Rcp_ExecuteAsync (C API)",
+          "ExecuteAsync (内部实现)",
+          "Session::FetchWithInfo (执行请求)",
+          "HttpClient::Execute (HTTP 客户端执行)"
+        ]
+      }
+    ],
+    "napi_mapping_patterns": {
+      "description": "NAPI 映射模式说明",
+      "patterns": [
+        {
+          "pattern": "Promise 回调模式",
+          "description": "异步操作使用 Promise，通过 napi_create_promise 创建，napi_resolve_deferred/napi_reject_deferred 完成",
+          "example": "FetchBySession, SetCookies, GetCookies"
+        },
+        {
+          "pattern": "同步返回模式",
+          "description": "同步操作直接返回结果，使用 NapiUtils 创建返回值",
+          "example": "GenerateRequestId, GenerateSessionId, HasPermission"
+        },
+        {
+          "pattern": "参数验证模式",
+          "description": "使用 napi_get_cb_info 获取参数，通过 NapiUtils 验证类型和值",
+          "example": "所有 NAPI 函数"
+        },
+        {
+          "pattern": "错误处理模式",
+          "description": "使用 ThrowNapiError 抛出错误，或通过 CreateNapiRcpError 创建错误对象",
+          "example": "FetchBySession, GetError"
+        },
+        {
+          "pattern": "线程安全模式",
+          "description": "使用 napi_threadsafe_function 在不同线程间安全调用回调",
+          "example": "MakePromiseCallback, MakeSetCookiesCallback, MakeGetCookiesCallback"
+        }
+      ]
+    }
+  }
+  

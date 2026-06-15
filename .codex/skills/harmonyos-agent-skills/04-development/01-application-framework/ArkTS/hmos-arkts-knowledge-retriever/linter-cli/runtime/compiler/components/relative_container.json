@@ -1,0 +1,7 @@
+{
+    "name": "RelativeContainer",
+    "attrs": [
+        "guideLine",
+        "barrier"
+    ]
+}

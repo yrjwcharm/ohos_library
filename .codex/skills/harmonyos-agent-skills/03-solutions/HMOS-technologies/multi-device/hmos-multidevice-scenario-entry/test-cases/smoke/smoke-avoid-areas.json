@@ -1,0 +1,110 @@
+[
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-03-001",
+    "layer": "smoke",
+    "title": "总入口路由到避让场景（避让区域识别与动态获取）",
+    "phase": "FIX",
+    "user_prompt": "线上反馈：评论输入框在弹出软键盘后被完全遮住，同时顶部挖孔区域也压住了标题。请给出问题修复思路。",
+    "intent": "验证总入口是否把键盘和系统区域问题路由到 SCENE-03（对应 AVOID-01 避让区域识别与 AVOID-04 软键盘避让）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "SCENE-03",
+      "primary_scene_ref": "../hmos-multidevice-avoid-areas/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": ["../hmos-multidevice-avoid-areas/SKILL.md", "../hmos-multidevice-screen-window-size/SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-03-002",
+    "layer": "smoke",
+    "title": "总入口路由到避让场景（安全区扩展与背景延伸）",
+    "phase": "DEV",
+    "user_prompt": "页面需要蓝色背景铺满状态栏和导航栏，但标题和内容不能被遮挡。请用 expandSafeArea 实现背景延伸，内容层保持安全区域 padding。",
+    "intent": "验证总入口是否把背景延伸到系统栏的避让问题路由到 SCENE-03（对应 AVOID-02 安全区扩展与背景延伸）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "SCENE-03",
+      "primary_scene_ref": "../hmos-multidevice-avoid-areas/SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["../hmos-multidevice-avoid-areas/SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-03-003",
+    "layer": "smoke",
+    "title": "总入口路由到避让场景（沉浸式全屏布局）",
+    "phase": "DEV",
+    "user_prompt": "视频播放页需要全屏沉浸式布局，计划使用 setWindowLayoutFullScreen(true) 开启全屏，然后通过 getWindowAvoidArea 动态获取状态栏和导航栏高度设置 padding。请给出完整的 AvoidAreaManager 管理器和页面集成方案。",
+    "intent": "验证总入口是否把全屏沉浸式避让问题路由到 SCENE-03（对应 AVOID-03 沉浸式全屏布局）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "SCENE-03",
+      "primary_scene_ref": "../hmos-multidevice-avoid-areas/SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["../hmos-multidevice-avoid-areas/SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-03-004",
+    "layer": "smoke",
+    "title": "总入口路由到避让场景（软键盘避让与输入区稳定性）",
+    "phase": "REQ",
+    "user_prompt": "表单页面有多个输入框，需要确定键盘避让模式。RESIZE 和 OFFSET 哪种更适合？需要在键盘弹出时保持内容布局稳定，不要出现跳动。请给出需求分析和避让模式选择建议。",
+    "intent": "验证总入口是否把键盘避让模式选型问题路由到 SCENE-03（对应 AVOID-04 软键盘避让与输入区稳定性）。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-03",
+      "primary_scene_ref": "../hmos-multidevice-avoid-areas/SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["../hmos-multidevice-avoid-areas/SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  }
+]

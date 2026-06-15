@@ -1,0 +1,68 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "统一扫码示例"
+    },
+    {
+      "name": "permission_reason_camera",
+      "value": "用于扫码拍照"
+    },
+    {
+      "name": "Scan_light_to_off",
+      "value": "轻触关闭"
+    },
+    {
+      "name": "Scan_light_to_on",
+      "value": "轻触照亮"
+    },
+    {
+      "name": "Scan_diaLog_not_found",
+      "value": "未识别到二维码/条形码。"
+    },
+    {
+      "name": "Scan_diaLog_got_it",
+      "value": "知道了"
+    },
+    {
+      "name": "Scan_access_not_enabled",
+      "value": "未开启相机权限"
+    },
+    {
+      "name": "Scan_got_it",
+      "value": "取消"
+    },
+    {
+      "name": "Scan_settings",
+      "value": "前往设置"
+    },
+    {
+      "name": "Scan_barcode",
+      "value": "扫描二维码/条码"
+    },
+    {
+      "name": "Scan_gallery",
+      "value": "图库"
+    },
+    {
+      "name": "Scan_album_loading",
+      "value": "正在处理…"
+    },
+    {
+      "name": "Scan_barcode_tips_callback",
+      "value": "扫描到多个码，请选择一个打开"
+    },
+    {
+      "name": "Scan_access_tips",
+      "value": "相机权限未开启，请在设置中开启"
+    }
+  ]
+}

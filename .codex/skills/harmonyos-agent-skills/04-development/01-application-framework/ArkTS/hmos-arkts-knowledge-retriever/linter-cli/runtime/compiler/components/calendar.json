@@ -1,0 +1,9 @@
+{
+  "name": "Calendar",
+  "attrs": [
+    "date", "showLunar", "startOfWeek", "offDays", "onSelectChange", "onRequestData",
+    "currentData", "preData", "nextData", "needSlide", "showHoliday", "direction",
+    "currentDayStyle", "nonCurrentDayStyle", "todayStyle", "weekStyle", "workStateStyle"
+  ],
+  "systemApi": true
+}

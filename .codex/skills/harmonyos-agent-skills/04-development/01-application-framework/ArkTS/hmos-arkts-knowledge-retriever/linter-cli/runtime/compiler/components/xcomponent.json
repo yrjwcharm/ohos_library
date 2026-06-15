@@ -1,0 +1,9 @@
+{
+  "name": "XComponent",
+  "attrs": [
+    "id", "type", "libraryname", "controller", "imageAIOptions", "enableAnalyzer", "enableSecure",
+    "onLoad", "onDestroy", "getXComponentSurfaceId", "getXComponentContext", "setXComponentSurfaceRect",
+    "getXComponentSurfaceRect", "onSurfaceCreated", "onSurfaceChanged", "onSurfaceDestroyed", "startImageAnalyzer",
+    "stopImageAnalyzer", "setXComponentSurfaceRotation", "getXComponentSurfaceRotation"
+  ]
+}

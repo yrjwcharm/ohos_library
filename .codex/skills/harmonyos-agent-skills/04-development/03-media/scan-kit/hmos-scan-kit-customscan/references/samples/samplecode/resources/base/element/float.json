@@ -1,0 +1,16 @@
+{
+  "float": [
+    {
+      "name": "container_horizontal_padding_sm",
+      "value": "16vp"
+    },
+    {
+      "name": "container_horizontal_padding_md",
+      "value": "24vp"
+    },
+    {
+      "name": "container_horizontal_padding_lg",
+      "value": "32vp"
+    }
+  ]
+}

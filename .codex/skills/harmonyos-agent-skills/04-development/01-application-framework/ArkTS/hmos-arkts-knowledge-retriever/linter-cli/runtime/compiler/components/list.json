@@ -1,0 +1,15 @@
+{
+  "name": "List",
+  "children": ["ListItem", "Section", "ListItemGroup"],
+  "attrs": [
+    "listDirection", "scrollBar", "edgeEffect", "divider", "editMode", "editModeOptions", "cachedCount", "sticky",
+    "chainAnimation", "lanes", "onScroll", "onReachStart", "onReachEnd", "onScrollStop", "onItemDelete",
+    "onItemMove", "onItemDragStart", "onItemDragEnter", "onItemDragMove", "onItemDragLeave", "onItemDrop",
+    "multiSelectable", "enableScrollInteraction", "onScrollIndex", "onScrollBegin", "scrollSnapAlign", "fadingEdge",
+    "alignListItem", "nestedScroll", "friction", "contentStartOffset", "contentEndOffset", "childrenMainSize",
+    "maintainVisibleContentPosition", "onScrollFrameBegin", "onScrollStart", "onScrollVisibleContentChange",
+    "flingSpeedLimit", "clipContent", "onWillScroll", "onDidScroll", "scrollBarColor", "scrollBarWidth", "backToTop",
+    "stackFromEnd", "focusWrapMode", "onWillStopDragging", "syncLoad", "onWillStartDragging",
+    "onDidStopDragging", "onWillStartFling", "onDidStopFling", "supportEmptyBranchInLazyLoading"
+  ]
+}

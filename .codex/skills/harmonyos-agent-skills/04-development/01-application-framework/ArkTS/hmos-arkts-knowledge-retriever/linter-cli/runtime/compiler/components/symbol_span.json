@@ -1,0 +1,6 @@
+{
+	"name": "SymbolSpan",
+	"parents": ["Text"],
+	"atomic": true,
+	"attrs": ["fontSize", "fontColor", "fontWeight", "effectStrategy", "renderingStrategy", "attributeModifier"]
+}

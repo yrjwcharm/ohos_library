@@ -1,0 +1,526 @@
+[
+  {
+    "case_id": "RW-ORIENT-04-001",
+    "layer": "real-world",
+    "title": "折叠屏展开态横屏使用应用时被强制切为竖屏",
+    "phase": "FIX",
+    "user_prompt": "折叠屏（Mate X5）展开后横屏使用应用，进入写邮件页面后屏幕突然被旋转为竖屏，和手持方向不一致。折叠态下一切正常，普通手机上也没问题。请排查原因并修复。",
+    "intent": "验证 ORIENT-04 场景能否在只给出设备现象、不暴露根因的情况下，定位折叠屏 deviceType 误判问题并给出可落地的修复方案。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-02"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "折叠屏展开态不再被强制竖屏",
+        "折叠屏折叠态和普通手机仍保持竖屏锁定",
+        "修复不破坏已有设备形态的方向行为"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "删除所有竖屏锁定逻辑（直板机仍需锁定）",
+        "不区分折叠屏折叠态和展开态"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "折叠屏折叠态进入页面保持竖屏",
+        "折叠屏展开态横屏进入页面不强制旋转",
+        "折叠屏展开态竖屏进入页面正常竖屏",
+        "退出页面后方向恢复正确",
+        "直板手机进入页面仍为竖屏"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "折叠屏展开态 hdc 日志（rotation/orientation 值）",
+        "设备矩阵覆盖表（折叠态/展开态/悬停态 + 直板机）"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-002",
+    "layer": "real-world",
+    "title": "Tabs + Swiper 短视频页方向锁定异常",
+    "phase": "FIX",
+    "user_prompt": "折叠屏/平板上，应用用 Tabs 做了主页和短视频两个 tab，短视频页用垂直 Swiper 做视频流。首次进短视频 tab 方向就被锁住无法旋转，切回主页再进去反而好了，但在短视频里滑到下一个视频又被锁住。手机上没这个问题。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否从行为模式（首次锁定、二次正常、滑动又锁定）中定位 Tabs 生命周期陷阱和 Swiper 重复锁定的问题。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-02", "ORIENT-03"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "大屏设备进入短视频 tab 方向不被锁定",
+        "直板机进入短视频 tab 仍正确锁定竖屏",
+        "滑动切换视频不触发方向锁定",
+        "各 tab 切换时方向策略正确切换"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "在 Tabs 子组件 aboutToAppear/aboutToDisappear 中控制方向",
+        "在 Swiper onChange 中调用 setPreferredOrientation"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "直板机进入短视频 tab 锁定竖屏，离开后恢复自动旋转",
+        "折叠屏/平板进入短视频 tab 不锁定方向",
+        "滑动切换视频不触发方向锁定",
+        "各 tab 切换时方向策略独立生效"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "tab 切换方向变化日志",
+        "设备矩阵覆盖表（直板机/折叠屏/平板 × 各 tab）"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-003",
+    "layer": "real-world",
+    "title": "分屏/悬浮窗下旋转策略失效",
+    "phase": "FIX",
+    "user_prompt": "平板上应用全屏模式旋转正常，但用户开分屏后方向就固定了不再跟随旋转。同时分屏模式下内容布局也没有适配窗口尺寸，被挤压变形。请给出方案。",
+    "intent": "验证 ORIENT-04 场景能否识别分屏/悬浮窗下旋转策略被系统忽略的行为，并转向响应式布局适配。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_concepts.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "分屏模式下布局能根据窗口尺寸正确适配",
+        "退出分屏回到全屏后旋转策略恢复生效"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_concepts.md"
+      ],
+      "forbidden_patterns": [
+        "尝试在分屏模式下强制控制方向",
+        "依赖方向判断布局形态（应使用断点）"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "分屏模式下布局根据窗口尺寸正确适配",
+        "退出分屏回到全屏后旋转策略恢复生效",
+        "悬浮窗模式下布局正确适配"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "分屏/全屏/悬浮窗模式截图对比",
+        "窗口尺寸变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-004",
+    "layer": "real-world",
+    "title": "视频全屏退出后方向未恢复",
+    "phase": "FIX",
+    "user_prompt": "视频播放应用首页竖屏，进播放页横屏全屏播放，退出返回首页后屏幕仍停留在横屏没有恢复竖屏。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别窗口方向是全局状态、页面跳转不会自动恢复的问题，并给出成对调用 setPreferredOrientation 的修复方案。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-03"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-02"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "退出视频页后方向恢复为进入前的状态",
+        "快速连续进出视频页方向状态不错乱"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/video_rotation.md"
+      ],
+      "forbidden_patterns": [
+        "只在进入时设置方向，退出时不恢复",
+        "使用固定方向值恢复（应保存进入前的方向）"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "进入视频页后切换为横屏",
+        "退出视频页后恢复为进入前的方向",
+        "快速连续进出视频页方向状态不错乱"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "进出视频页方向变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-005",
+    "layer": "real-world",
+    "title": "折叠屏开合时布局异常闪烁",
+    "phase": "FIX",
+    "user_prompt": "折叠屏折叠或展开的瞬间，页面布局会闪一下：先跳到一个中间状态再恢复正常。列表的滚动位置也会偏移，输入框焦点有时会丢失。代码在 display.on('foldStatusChange') 回调里做了布局刷新。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别 foldStatusChange 与 windowSizeChange 时序不同导致二次布局刷新的根因。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/bug-fix-cases.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "折叠→展开和展开→折叠无布局闪烁",
+        "开合后列表滚动位置和输入焦点保持"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md"
+      ],
+      "forbidden_patterns": [
+        "在 foldStatusChange 回调中更新页面布局",
+        "手动计算像素值判断设备形态（应使用断点 API）"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "折叠→展开无布局闪烁（只刷新一次）",
+        "展开→折叠无布局闪烁",
+        "开合后列表滚动位置保持",
+        "开合后输入焦点不丢失"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "开合过程录屏（验证无闪烁）",
+        "windowSizeChange 回调日志（验证单次触发）"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-006",
+    "layer": "real-world",
+    "title": "显示大小缩放调大后应用被强制竖屏",
+    "phase": "FIX",
+    "user_prompt": "应用默认显示大小下旋转正常，但用户把系统设置的显示大小缩放调到最大后，应用冷启动就被强制竖屏无法旋转。折叠屏和平板不受影响。旋转策略用的是官方推荐的 px2vp + 348 阈值方案。请排查原因并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别 px2vp 依赖 DPI 导致显示缩放后旋转阈值误判的非显而易见的根因。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-02"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "最大显示缩放下应用仍支持旋转",
+        "旋转策略判断结果不随系统显示缩放变化"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "继续使用 px2vp + 固定 vp 阈值判断旋转策略"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "默认显示缩放下应用正常旋转",
+        "最大显示缩放下应用仍支持旋转"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "不同显示缩放级别下的旋转验证截图"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-007",
+    "layer": "real-world",
+    "title": "XComponent 相机预览旋转后画面方向错乱与黑屏",
+    "phase": "FIX",
+    "user_prompt": "应用用 XComponent 做后置摄像头预览，竖屏启动时预览正常，旋转到横屏后预览画面顺时针偏转了 90°，旋转回竖屏后直接黑屏无画面。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别屏幕旋转后 XComponent Surface 渲染区域未更新导致预览错乱的根因。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-01"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/rotation_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-02", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "竖屏启动预览方向正确",
+        "旋转到横屏预览方向与屏幕一致",
+        "旋转回竖屏恢复正常，不出现黑屏",
+        "多次连续旋转预览始终正常"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/rotation_detection.md"
+      ],
+      "forbidden_patterns": [
+        "仅在组件 onLoad 中一次性设置旋转保护"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "竖屏启动预览方向正确",
+        "旋转到横屏预览方向与屏幕一致",
+        "旋转回竖屏恢复正常",
+        "再次旋转到横屏不黑屏"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "四方向旋转预览截图"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-008",
+    "layer": "real-world",
+    "title": "折叠屏竖屏下 Navigation Split 分栏布局拥挤",
+    "phase": "FIX",
+    "user_prompt": "折叠屏（Mate X5）展开态竖向持握时，应用页面被左右分栏，右侧内容被压缩在约一半宽度内，文字频繁换行。横屏时左右分栏显示正常。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别 Split 模式基于宽度判断在折叠屏竖屏时误触分栏的问题，并给出根据横竖屏动态切换 Navigation 模式的方案。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-02"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "折叠屏竖屏时使用单栏模式，内容全屏宽度展示",
+        "折叠屏横屏时仍使用分栏模式",
+        "旋转过程中布局切换平滑"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "固定使用 NavigationMode.Split 不区分横竖屏"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "折叠屏竖屏使用单栏模式，内容全屏宽度",
+        "折叠屏横屏使用分栏模式",
+        "旋转过程中布局平滑切换无闪烁"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "竖屏/横屏布局截图对比"
+      ]
+    }
+  },
+  {
+    "case_id": "RW-ORIENT-04-009",
+    "layer": "real-world",
+    "title": "折叠屏外屏看直播切内屏后返回自动转竖屏",
+    "phase": "FIX",
+    "user_prompt": "折叠屏外屏竖屏看直播，展开后切到内屏横屏继续看，点返回按钮回到主页，屏幕突然被旋转为竖屏。请排查并修复。",
+    "intent": "验证 ORIENT-04 场景能否识别折叠屏设备形态变化后保存的方向快照过期导致恢复错误的根因。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": ["ORIENT-02"],
+      "next_scene_refs": ["./references/bug-fix-cases.md", "./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "外屏竖屏进入→展开内屏横屏→返回：保持横屏不强制转竖屏",
+        "外屏竖屏进入→外屏竖屏退出：方向正常",
+        "直板机竖屏进入→竖屏退出：方向正常"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "退出时恢复进入时保存的固定方向值"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "外屏竖屏进→外屏竖屏出：方向正常",
+        "外屏竖屏进→展开内屏横屏→返回：保持横屏不强制转竖屏",
+        "直板机竖屏进→竖屏出：方向正常"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "折叠屏外屏→内屏→返回方向变化日志",
+        "直板机对照验证日志"
+      ]
+    }
+  }
+]

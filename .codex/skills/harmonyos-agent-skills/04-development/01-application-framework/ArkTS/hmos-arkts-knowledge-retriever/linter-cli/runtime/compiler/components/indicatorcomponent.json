@@ -1,0 +1,7 @@
+{
+  "name": "IndicatorComponent",
+  "atomic": true,
+  "attrs": [
+    "initialIndex", "count", "onChange", "style", "loop", "vertical"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ArcList",
+  "children": ["ArcListItem"],
+  "attrs": [
+    "digitalCrownSensitivity", "space", "scrollBar", "scrollBarColor", "scrollBarWidth", "cachedCount",
+    "chainAnimation", "childrenMainSize", "enableScrollInteraction", "fadingEdge", "friction",
+    "flingSpeedLimit", "onScrollIndex", "onReachStart", "onReachEnd", "onScrollStart", "onScrollStop",
+    "onWillScroll", "onDidScroll"
+  ]
+}

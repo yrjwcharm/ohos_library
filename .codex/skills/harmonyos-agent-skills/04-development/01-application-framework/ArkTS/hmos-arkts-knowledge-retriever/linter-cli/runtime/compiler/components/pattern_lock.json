@@ -1,0 +1,18 @@
+{
+  "name": "PatternLock",
+  "atomic": true,
+  "attrs": [
+    "sideLength",
+    "circleRadius",
+    "backgroundColor",
+    "regularColor",
+    "selectedColor",
+    "activeColor",
+    "pathColor",
+    "pathStrokeWidth",
+    "onPatternComplete",
+    "autoReset",
+    "onDotConnect",
+    "activateCircleStyle"
+  ]
+}

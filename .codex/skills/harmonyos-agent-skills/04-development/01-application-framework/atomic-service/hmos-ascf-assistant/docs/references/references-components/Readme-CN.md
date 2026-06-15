@@ -1,0 +1,46 @@
+# 组件<!--components-->
+
+- 视图容器<!--components-view-container-->
+  - [movable-area](components-movable-area.md)
+  - [movable-view](components-movable-view.md)
+  - [scroll-view](components-scroll-view.md)
+  - [swiper](components-swiper.md)
+  - [swiper-item](components-swiper-item.md)
+  - [view](components-view.md)
+  - [cover-view](components-cover-view.md)
+  - [cover-image](components-cover-image.md)
+- 基础内容<!--components-basic-components-->
+  - [icon](components-icon.md)
+  - [progress](components-progress.md)
+  - [rich-text](components-rich-text.md)
+  - [text](components-text.md)
+- 表单组件<!--components-form-components-->
+  - [button](components-button.md)
+  - [checkbox](components-checkbox.md)
+  - [checkbox-group](components-checkbox-group.md)
+  - [form](components-form.md)
+  - [input](components-input.md)
+  - [label](components-label.md)
+  - [picker](components-picker.md)
+  - [picker-view](components-picker-view.md)
+  - [picker-view-column](components-picker-view-column.md)
+  - [radio](components-radio.md)
+  - [radio-group](components-radio-group.md)
+  - [slider](components-slider.md)
+  - [switch](components-switch.md)
+  - [textarea](components-textarea.md)
+  - [editor](components-editor.md)
+- 导航<!--components-navigation-components-->
+  - [navigator](components-navigator.md)
+- 媒体组件<!--components-media-components-->
+  - [image](components-image.md)
+  - [video](components-video.md)
+  - [camera](components-camera.md)
+  - [audio](components-audio.md)
+- 地图<!--components-map-components-->
+  - [Map](components-map.md)
+- 画布<!--components-canvas-components-->
+  - [canvas](components-canvas.md)
+- [web-view](components-web-view.md)
+- 开放能力<!--components-open-capabilities-->
+  - [open-embedded-atomicservice](components-open-embedded-atomicservice.md)

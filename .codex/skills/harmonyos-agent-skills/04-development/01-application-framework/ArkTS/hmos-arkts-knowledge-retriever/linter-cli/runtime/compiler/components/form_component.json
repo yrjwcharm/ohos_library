@@ -1,0 +1,9 @@
+{
+  "name": "FormComponent",
+  "atomic": true,
+  "attrs": [
+    "size", "moduleName", "dimension", "allowUpdate", "visibility",
+    "onAcquired", "onError", "onRouter", "onUninstall"
+  ],
+  "systemApi": true
+}

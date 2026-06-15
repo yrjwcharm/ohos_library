@@ -1,0 +1,6 @@
+{
+    "name": "IsolatedComponent",
+    "attrs": [
+        "onError"
+    ]
+}

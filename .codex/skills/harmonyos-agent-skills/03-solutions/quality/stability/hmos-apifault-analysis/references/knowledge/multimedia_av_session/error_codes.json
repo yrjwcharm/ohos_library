@@ -1,0 +1,416 @@
+[
+  {
+    "code": "201",
+    "message": "Permission denied",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "调用方缺少所需权限。可能原因：应用未在config.json中声明ohos.permission.MANAGE_MEDIA_RESOURCES权限。处理步骤：检查并添加对应权限声明。"
+  },
+  {
+    "code": "202",
+    "message": "Caller is not a system application",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "调用方不是系统应用，无权调用系统API。可能原因：非系统应用调用了仅限系统应用使用的接口。处理步骤：确认当前应用是否为系统签名应用，或改用公开API。"
+  },
+  {
+    "code": "401",
+    "message": "Parameter error",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "参数无效。可能原因：传入参数类型错误、缺少必要参数、参数值为空或超出合法范围。处理步骤：检查API调用时传入的参数类型和值是否符合接口定义要求。"
+  },
+  {
+    "code": "6600101",
+    "message": "Session service exception",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "会话服务端异常，应用端无法获取服务端的消息响应。可能原因：(1)会话服务未运行；(2)会话服务通信失败；(3)会话重启过程中服务被杀；(4)内存不足(ERR_NO_MEMORY)；5)IPC序列化/反序列化失败。处理步骤：(1)定时重试，超过3s仍失败时停止操作；(2)销毁当前会话或控制器并重新创建；(3)若重新创建失败，停止会话相关操作。"
+  },
+  {
+    "code": "6600102",
+    "message": "The session does not exist",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "会话不存在时，向该会话设置参数或发送命令。可能原因：会话已被销毁，服务端无会话记录。处理步骤：(1)被控端：重新创建会话；(2)控制端：停止向该会话发送命令；(3)管理端：重新查询系统当前会话记录，创建控制器时传入正确的会话ID。"
+  },
+  {
+    "code": "6600103",
+    "message": "The session controller does not exist",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "会话控制器不存在时，向该控制器发送控制命令或事件。可能原因：控制器已被销毁。处理步骤：重新查询系统当前会话记录，并创建对应的会话控制器。"
+  },
+  {
+    "code": "6600104",
+    "message": "The session is not connected",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "RPC发送请求失败。可能原因：与服务端的IPC连接异常。处理步骤：检查AVSession系统服务是否正常运行，必要时重启服务。"
+  },
+  {
+    "code": "6600105",
+    "message": "Invalid session command",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "无效会话命令，被控端不支持该命令或事件。可能原因：被控端不支持该命令。处理步骤：停止发送该命令，查询被控会话支持的命令集(getValidCommands)，发送被控端支持的命令。"
+  },
+  {
+    "code": "6600106",
+    "message": "The session is not activated",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "会话未激活时，向会话发送控制命令或事件。可能原因：会话处于未激活状态。处理步骤：停止发送该命令，监听会话的激活状态(activeStateChange事件)，会话激活后恢复发送。"
+  },
+  {
+    "code": "6600107",
+    "message": "Too many commands or events",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "命令和消息过载，客户端在一段时间内向服务端发送了过多的消息或命令。可能原因：服务端消息过载。处理步骤：检查自身命令发送频率，控制查询和控制命令的发送频度。"
+  },
+  {
+    "code": "6600108",
+    "message": "Device connection failed",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "设备连接失败。可能原因：投播目标设备连接异常。处理步骤：检查目标设备状态，确认设备在线且可达后重试。"
+  },
+  {
+    "code": "6600109",
+    "message": "The remote connection is not established",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "远端会话连接不存在。可能原因：远端会话已销毁或未创建。处理步骤：重新查询会话状态，判断是否存在远端会话。"
+  },
+  {
+    "code": "6600110",
+    "message": "Desktop lyric is not enabled",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "桌面歌词未启用。可能原因：桌面歌词功能未被启用。处理步骤：先调用enableDesktopLyric启用桌面歌词功能。"
+  },
+  {
+    "code": "6600111",
+    "message": "Desktop lyric is not supported",
+    "source_file": "interfaces/inner_api/native/session/include/avsession_errors.h",
+    "description": "桌面歌词不支持。可能原因：当前设备不支持桌面歌词功能。处理步骤：确认设备是否支持桌面歌词特性，不支持则不使用相关API。"
+  },
+  {
+    "code": "6611000",
+    "message": "The error code for cast control is unspecified",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "投播控制器出现未知错误。可能原因：(1)状态切换失败；(2)设备鉴权失败；(3)无效InstanceID。处理步骤：重新发起会话。"
+  },
+  {
+    "code": "6611001",
+    "message": "An unspecified error occurs in the remote player",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "远端设备出现未知错误。可能原因：远端设备出现异常。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6611002",
+    "message": "The playback position falls behind the live window",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "加载位置超过投播视频的总进度。可能原因：当前进度超过总进度。处理步骤：对设置的进度进行检查避免超过总进度。"
+  },
+  {
+    "code": "6611003",
+    "message": "The process of cast control times out",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "投播控制器加载超时。可能原因：投播控制器加载超时。处理步骤：重新发起会话。"
+  },
+  {
+    "code": "6611004",
+    "message": "The runtime check failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "运行时检查失败。可能原因：(1)未遵守播放器API要求（传递无效参数）；(2)播放器处于无效状态。处理步骤：对接口入参按API要求校验。"
+  },
+  {
+    "code": "6611100",
+    "message": "Cross-device data transmission is locked",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "跨设备数据传输被锁定。可能原因：传输已锁定。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6611101",
+    "message": "The specified seek mode is not supported",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不支持当前进度条模式。可能原因：设备不支持当前进度条模式。处理步骤：对设置的进度条模式进行校验。"
+  },
+  {
+    "code": "6611102",
+    "message": "The position to seek to is out of the range of the media asset or the specified seek mode is not supported",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "非法seek目标。可能原因：进度条的位置不在资源范围内或不知道当前进度条模式。处理步骤：对进度条数值和类型进行校验。"
+  },
+  {
+    "code": "6611103",
+    "message": "The specified playback mode is not supported",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不支持当前播放模式。可能原因：设备不支持当前播放模式。处理步骤：对设置的播放模式进行校验。"
+  },
+  {
+    "code": "6611104",
+    "message": "The specified playback speed is not supported",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不支持当前播放速度。可能原因：当前播放速度不受AVTransport支持。处理步骤：对设置的播放速度进行校验。"
+  },
+  {
+    "code": "6611105",
+    "message": "The action failed because either the media source device or the media sink device has been revoked",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "设备吊销。可能原因：本端或远端设备已被吊销。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6611106",
+    "message": "The parameter is invalid, for example, the url is illegal to play",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "传入非法参数，例如URL不可播放。可能原因：传入参数异常。处理步骤：对接口入参按API要求校验。"
+  },
+  {
+    "code": "6611107",
+    "message": "Allocation of memory failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "内存分配失败。可能原因：(1)内存不足；(2)系统无法分配内存。处理步骤：先重启设备，再重新发起会话。"
+  },
+  {
+    "code": "6611108",
+    "message": "Operation is not allowed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不允许进行当前操作。可能原因：当前操作不被允许。处理步骤：检查远端设备状态，在正确状态下操作。"
+  },
+  {
+    "code": "6612000",
+    "message": "An unspecified input/output error occurs",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "未知的输入输出错误。可能原因：对端设备回复消息不符合标准、解析失败等。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6612001",
+    "message": "Network connection failure",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "网络连接失败。可能原因：网络异常、对端网络断网等。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6612002",
+    "message": "Network timeout",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "网络超时导致服务器完成请求耗时过长。可能原因：网络异常、对端断网、网络环境差。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6612003",
+    "message": "Invalid Content-Type HTTP header",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "无效Content-Type HTTP头。可能原因：对端设备回复不符合HTTP协议标准，解析失败。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6612004",
+    "message": "The HTTP server returns an unexpected HTTP response status code",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "HTTP服务器返回异常响应状态码。可能原因：对端设备异常，回复HTTP错误码。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6612005",
+    "message": "The file does not exist",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "文件不存在。可能原因：在网络中未找到要播放的文件。处理步骤：检查自身设置的资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612006",
+    "message": "No permission is granted to perform the IO operation",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "缺少执行IO操作的权限。可能原因：缺少文件读取权限。处理步骤：检查是否授予文件读取权限。"
+  },
+  {
+    "code": "6612007",
+    "message": "Access to cleartext HTTP traffic is not allowed by the app's network security configuration",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "网络安全配置不允许明文HTTP流量。可能原因：网络安全访问权限不足。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6612008",
+    "message": "Reading data out of the data bound",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "读取数据超出数据范围。可能原因：文件读取异常。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612100",
+    "message": "The media does not contain any contents that can be played",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "媒体资源中不包含任何可播放的内容。可能原因：媒体资源中没有可播放的内容。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612101",
+    "message": "The media cannot be read",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "媒体资源无法被读取。可能原因：文件被损坏导致读取异常。处理步骤：校验文件完整性。"
+  },
+  {
+    "code": "6612102",
+    "message": "This resource is already in use",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "资源正在使用中。可能原因：资源被其他进程占用。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612103",
+    "message": "The content using the validity interval has expired",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "内容使用有效期已过。可能原因：内容有效期已过。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612104",
+    "message": "Using the requested content to play is not allowed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不允许使用请求的内容。可能原因：内容使用权限受限。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612105",
+    "message": "The use of the allowed content cannot be verified",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "无法验证允许使用的内容。可能原因：内容验证失败。处理步骤：检查资源是否可用，更换资源后重试。"
+  },
+  {
+    "code": "6612106",
+    "message": "The number of times this content has been used as requested has reached the maximum allowed number of uses",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "资源使用次数已达上限。可能原因：请求使用次数已达最大允许次数。处理步骤：检查自身命令发送频率，控制查询和命令的发送频率。"
+  },
+  {
+    "code": "6612107",
+    "message": "An error occurs when sending packet from source device to sink device",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "本端向远端发送资源包失败。可能原因：网络异常、对端状态异常、无法接收等。处理步骤：先重新连接网络，再重新发起会话。"
+  },
+  {
+    "code": "6613000",
+    "message": "Unspecified error related to content parsing",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "未知解析错误。可能原因：对端设备回复消息不符合标准或解析失败。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6613001",
+    "message": "Parsing error associated with media container format bit streams",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "非法类型，媒体容器格式比特流解析错误。可能原因：资源是不受AVTransport支持的MIME类型。处理步骤：更换其他类型资源，再重新发起会话。"
+  },
+  {
+    "code": "6613002",
+    "message": "Parsing error associated with the media manifest",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "媒体清单解析错误。可能原因：设备不支持当前加载的媒体存储格式。处理步骤：检查资源格式，更换格式后重试。"
+  },
+  {
+    "code": "6613003",
+    "message": "An error occurs when attempting to extract a file with an unsupported media container format",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "不支持该媒体格式。可能原因：设备不支持当前媒体存储格式。处理步骤：检查资源格式，更换格式后重试。"
+  },
+  {
+    "code": "6613004",
+    "message": "Unsupported feature in the media manifest",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "媒体清单中不支持此功能。可能原因：设备不支持当前媒体的存储格式。处理步骤：检查资源格式，更换格式后重试。"
+  },
+  {
+    "code": "6614000",
+    "message": "Unspecified decoding error",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "未知解码错误。可能原因：远端设备解码器出现异常。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6614001",
+    "message": "Decoder initialization failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "解码器初始化失败。可能原因：远端设备解码器初始化出现异常。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6614002",
+    "message": "Decoder query failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "解码器查询失败。可能原因：设备或软件无法正确解码文件中的数据。处理步骤：检查文件格式，确保支持该媒体文件格式。"
+  },
+  {
+    "code": "6614003",
+    "message": "Decoding the media samples failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "解码媒体样本失败。可能原因：文件类型超出设备支持范围。处理步骤：检查文件格式，确保支持该媒体文件格式。"
+  },
+  {
+    "code": "6614004",
+    "message": "The format of the content to decode exceeds the capabilities of the device",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "解码内容格式超出设备能力。可能原因：文件类型超出设备支持范围。处理步骤：检查文件格式，确保支持该媒体文件格式。"
+  },
+  {
+    "code": "6614005",
+    "message": "The format of the content to decode is not supported",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "解码不支持的内容格式。可能原因：文件类型超出设备支持范围。处理步骤：检查文件格式，确保支持该媒体文件格式。"
+  },
+  {
+    "code": "6615000",
+    "message": "Unspecified errors related to the audio renderer",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "音频渲染器未知错误。可能原因：远端设备音频渲染器出现问题，无法识别当前音轨。处理步骤：检查文件格式，确保支持该媒体文件格式。"
+  },
+  {
+    "code": "6615001",
+    "message": "Initializing the audio renderer failed",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "音频渲染器初始化失败（AudioTrack初始化失败）。可能原因：远端设备音频渲染器初始化异常。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6615002",
+    "message": "The audio renderer fails to write data",
+    "source_file": "api/interface_sdk_c/multimedia/av_session/native_avsession_errors.h",
+    "description": "音频渲染器写数据失败（AudioTrack写操作失败）。可能原因：远端设备音频渲染器无法写数据。处理步骤：先重启远端设备，再重新发起会话。"
+  },
+  {
+    "code": "6616000",
+    "message": "Unspecified error related to DRM",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "DRM相关的未知错误。可能原因：远端设备DRM识别异常。处理步骤：更新DRM组件后重新发起会话。"
+  },
+  {
+    "code": "6616001",
+    "message": "The chosen DRM protection scheme is not supported by the device",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "设备不支持所选DRM保护方案。可能原因：发生未知DRM错误。处理步骤：更新DRM组件后重新发起会话。"
+  },
+  {
+    "code": "6616002",
+    "message": "Device provisioning failed",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "调配设备时出现故障。可能原因：播放的DRM格式内容不兼容。处理步骤：检查文件DRM格式，确保支持该DRM格式。"
+  },
+  {
+    "code": "6616003",
+    "message": "The DRM-protected content to play is incompatible",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "尝试播放不兼容的DRM保护内容。可能原因：DRM保护内容不兼容。处理步骤：更新DRM组件后重新发起会话。"
+  },
+  {
+    "code": "6616004",
+    "message": "Failed to obtain a license",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "许可证获取失败。可能原因：违反DRM保护内容的许可证条款。处理步骤：检查文件DRM格式，确保支持该DRM格式。"
+  },
+  {
+    "code": "6616005",
+    "message": "The operation is disallowed by the license policy",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "许可证策略不允许的操作。可能原因：违反DRM保护内容的许可证条款。处理步骤：检查文件DRM格式，确保支持该DRM格式。"
+  },
+  {
+    "code": "6616006",
+    "message": "An error occurs in the DRM system",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "DRM系统错误。可能原因：远端设备DRM识别异常。处理步骤：检查文件DRM格式，确保支持该DRM格式。"
+  },
+  {
+    "code": "6616007",
+    "message": "The device has revoked DRM privileges",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "设备已吊销DRM权限。可能原因：设备DRM权限被禁用或撤销。处理步骤：更新DRM组件后重新发起会话。"
+  },
+  {
+    "code": "6616008",
+    "message": "The DRM license being loaded into the open DRM session has expired",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "已过期的DRM许可证被加载到DRM会话中。可能原因：DRM许可证已过期。处理步骤：更新DRM组件后重新发起会话。"
+  },
+  {
+    "code": "6616100",
+    "message": "An error occurs when the DRM processes the key response",
+    "source_file": "error_doc/errorcode-avsession.md",
+    "description": "DRM进程秘钥响应错误。可能原因：DRM秘钥响应处理过程出现异常。处理步骤：更新DRM组件后重新发起会话。"
+  }
+]

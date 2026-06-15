@@ -1,0 +1,245 @@
+{
+    "error_codes": [
+      {
+        "code": 0,
+        "name": "NoErr",
+        "message": "Success",
+        "description": "操作成功",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 201,
+        "name": "PermissionDenied",
+        "message": "Permission Denied",
+        "description": "权限被拒绝",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 401,
+        "name": "Parameter",
+        "message": "Parameter Error",
+        "description": "参数错误",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900401,
+        "name": "RCP_CODE_PARAM_ERR",
+        "message": "Parameter Error",
+        "description": "参数错误，通常为空指针或无效参数",
+        "source_file": "frameworks/c/rcp/rcp_inner_types.h"
+      },
+      {
+        "code": 1007900401,
+        "name": "InvalidParameter",
+        "message": "Parameter Error",
+        "description": "无效参数",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900027,
+        "name": "RCP_CODE_NO_MEMORY",
+        "message": "Out of memory",
+        "description": "内存不足",
+        "source_file": "frameworks/c/rcp/rcp_inner_types.h"
+      },
+      {
+        "code": 1007900990,
+        "name": "OutOfMemory",
+        "message": "Out of memory",
+        "description": "内存不足，无法分配所需内存",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900992,
+        "name": "RCP_CODE_REQUEST_CANCELED",
+        "message": "Request is canceled",
+        "description": "请求已取消",
+        "source_file": "frameworks/c/rcp/rcp_inner_types.h"
+      },
+      {
+        "code": 1007900992,
+        "name": "RequestIsCanceled",
+        "message": "Request is canceled",
+        "description": "请求已被取消",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900993,
+        "name": "RCP_CODE_SESSION_CLOSED_OR_INVALID",
+        "message": "Session is closed or invalid",
+        "description": "会话已关闭或无效",
+        "source_file": "frameworks/c/rcp/rcp_inner_types.h"
+      },
+      {
+        "code": 1007900993,
+        "name": "SessionClosed",
+        "message": "Session is closed",
+        "description": "会话已关闭",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900999,
+        "name": "Internal",
+        "message": "Internal Error",
+        "description": "内部错误",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900999,
+        "name": "NullPtr",
+        "message": "Internal Error",
+        "description": "空指针错误",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900998,
+        "name": "MethodNotSupported",
+        "message": "Method not supported",
+        "description": "不支持的方法",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900997,
+        "name": "InvalidContentType",
+        "message": "Invalid content type",
+        "description": "无效的内容类型",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900996,
+        "name": "ProxyTypeNotSupported",
+        "message": "Proxy type not supported",
+        "description": "不支持的代理类型",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900995,
+        "name": "GetSystemProxyFailed",
+        "message": "Get system proxy failed",
+        "description": "获取系统代理失败",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900994,
+        "name": "SessionComesMaxSize",
+        "message": "Sessions number reached limit",
+        "description": "会话数量已达上限",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900991,
+        "name": "InvalidResponse",
+        "message": "The response is invalid",
+        "description": "响应无效",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900989,
+        "name": "CannotConvertToUrl",
+        "message": "Cannot convert to URL",
+        "description": "无法转换为 URL",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900988,
+        "name": "CannotOpenFile",
+        "message": "Cannot open file",
+        "description": "无法打开文件",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900987,
+        "name": "CannotCreateDirectory",
+        "message": "Cannot create directory",
+        "description": "无法创建目录",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900986,
+        "name": "CellularCannotEstablishLink",
+        "message": "Cannot establish cellular link",
+        "description": "无法建立蜂窝连接",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900985,
+        "name": "FileSystem",
+        "message": "File system IO error",
+        "description": "文件系统 IO 错误",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1007900201,
+        "name": "ForbiddenCleartext",
+        "message": "Plaintext transmission is forbidden",
+        "description": "禁止明文传输",
+        "source_file": "interfaces/innerkits/include/rcp/error.h"
+      },
+      {
+        "code": 1002,
+        "name": "TLV_ERR_INVALID_PARA",
+        "message": "Invalid parameter",
+        "description": "TLV 解析无效参数",
+        "source_file": "utils/include/tlv_utils.h"
+      },
+      {
+        "code": 1003,
+        "name": "TLV_ERR_PARSE_PAYLOAD_ERR",
+        "message": "Parse payload error",
+        "description": "TLV 解析负载错误",
+        "source_file": "utils/include/tlv_utils.h"
+      },
+      {
+        "code": 1004,
+        "name": "TLV_ERR_BUFF_NO_ENOUGH",
+        "message": "Buffer not enough",
+        "description": "TLV 缓冲区不足",
+        "source_file": "utils/include/tlv_utils.h"
+      }
+    ],
+    "error_code_ranges": {
+      "base": 1007900000,
+      "description": "RCP 模块错误码基础值",
+      "ranges": [
+        {
+          "range": "1007900401",
+          "type": "参数错误"
+        },
+        {
+          "range": "1007900985-1007900999",
+          "type": "运行时错误"
+        }
+      ]
+    },
+    "network_errors": {
+      "prefix": "NETWORK_ERROR_",
+      "description": "网络相关错误前缀",
+      "common_errors": [
+        "STREAM_NO_NET",
+        "REQ_NO_NET",
+        "RESP_NO_NET",
+        "STREAM_INVALID_NET_TYPE",
+        "REQ_INVALID_NET_TYPE",
+        "RESP_INVALID_NET_TYPE",
+        "STREAM_EMPTY_IP",
+        "REQ_EMPTY_IP",
+        "RESP_EMPTY_IP",
+        "STREAM_EMPTY_ROUTE",
+        "REQ_EMPTY_ROUTE",
+        "RESP_EMPTY_ROUTE",
+        "STREAM_NO_IFACE",
+        "REQ_NO_IFACE",
+        "RESP_NO_IFACE",
+        "STREAM_EMPTY_DNS",
+        "REQ_EMPTY_DNS",
+        "RESP_EMPTY_DNS",
+        "STREAM_NET_PORTAL",
+        "REQ_NET_PORTAL",
+        "RESP_NET_PORTAL",
+        "STREAM_CAN_NOT_ONLINE",
+        "REQ_CAN_NOT_ONLINE",
+        "RESP_CAN_NOT_ONLINE"
+      ]
+    }
+  }
+  

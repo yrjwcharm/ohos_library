@@ -1,0 +1,7 @@
+{
+  "name": "Line",
+  "atomic": true,
+  "attrs": [
+    "startPoint","endPoint"
+  ]
+}

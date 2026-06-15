@@ -1,0 +1,1786 @@
+[
+  {
+    "case_id": "SIZE-FUNC-001",
+    "layer": "scene-functional",
+    "title": "窗口尺寸监听与布局同步功能验证",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/alpha_index/BadCase/Index.ets中在小屏上字母表过于拥挤",
+    "intent": "验证 SIZE-05 的开发方案能转成可编译、可测试的 HarmonyOS 工程改动契约。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "横竖屏切换录屏",
+        "折叠屏展开态播窗截图",
+        "锁定视频不旋转的证据截图"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-002",
+    "layer": "scene-functional",
+    "title": "登录页组件堆叠遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_stack/BadCase/Index.ets 中登录页在小屏上上半区的背景图+输入框+协议行和下半区的其他登录方式区域发生堆叠重叠，内容被遮挡",
+    "intent": "验证 SIZE-05 的开发方案能将 Flex(SpaceBetween) 布局容器替换为 Scroll+Column，修复小屏堆叠遮挡问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "小屏设备截图（上下区域不重叠）",
+        "大屏设备截图（布局正常）",
+        "滚动行为验证"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-003",
+    "layer": "scene-functional",
+    "title": "音乐播放器专辑封面尺寸溢出修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/large_image/BadCase/Index.ets 中音乐播放器页面在不同屏幕尺寸下专辑封面图片大小不适配，在大屏上尺寸过大",
+    "intent": "验证 SIZE-02 的开发方案能移除硬编码尺寸上限，改为基于窗口尺寸动态计算封面大小，修复尺寸溢出和压缩问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "小屏设备截图（封面不挤压底部控制区）",
+        "大屏设备截图（封面自适应放大）",
+        "多尺寸窗口切换截图"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-004",
+    "layer": "scene-functional",
+    "title": "相机预览竖屏切横屏偏移修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/camera-preview-truncation/BadCase/Index.ets中247行column在竖屏切换横屏时的偏移问题",
+    "intent": "验证 SIZE-03 位置异常修复方案能移除硬编码 position 定位，利用 Stack 默认 Alignment.Center 消除横屏偏移。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏截图（相机预览居中、无偏移）",
+        "横屏截图（相机预览水平居中、两侧对称）",
+        "竖屏切横屏录屏（切换过程无跳跃偏移）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-005",
+    "layer": "scene-functional",
+    "title": "折叠屏展开内容区两侧黑色留白修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/page-centered-black-space/BadCase/Index.ets中折叠屏展开时内容区两侧存在黑色留白的问题",
+    "intent": "验证 SIZE-02 尺寸异常修复方案能移除 aspectRatio 比例约束，消除折叠屏展开后的两侧黑色留白。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "折叠屏折叠态截图（内容区正常、无异常拉伸）",
+        "折叠屏展开态截图（内容区铺满全屏、无黑色留白）",
+        "普通手机竖屏截图（布局无退化）",
+        "折叠态↔展开态切换录屏"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-006",
+    "layer": "scene-functional",
+    "title": "屏幕旋转后自定义键盘宽度未适配",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/keyboard-truncation-on-rotation/BadCase/Index.ets屏幕旋转后自定义键盘尺寸未适配屏幕宽度",
+    "intent": "验证 SIZE-02 的 windowSizeChange 回调中补充 keyboardWidth 更新，使键盘宽度随屏幕旋转自适应。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏截图（键盘宽度等于屏幕宽度）",
+        "横屏截图（键盘宽度等于屏幕宽度，无截断）",
+        "竖屏切横屏录屏（键盘宽度实时跟随屏幕宽度变化）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-007",
+    "layer": "scene-functional",
+    "title": "横竖屏切换后 XComponent 与上方组件之间留白",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/orientation-switch-whitespace/BadCase/Index.ets中横竖屏切换XComponent与上方组件之间存在留白的问题",
+    "intent": "验证 SIZE-03 + SIZE-05 的修复方案能将 XComponent 初始尺寸从 display Math.max/min 改为 windowRect 实际尺寸，并补充 windowSizeChange 监听使旋转时动态更新，消除留白。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-03",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏截图（XComponent 铺满屏幕、与叠加 Column 之间无留白）",
+        "横屏截图（XComponent 铺满屏幕、与叠加 Column 之间无留白）",
+        "竖屏切横屏录屏（XComponent 尺寸实时跟随窗口变化、无留白闪现）",
+        "横屏切竖屏录屏（XComponent 尺寸实时跟随窗口变化、无留白闪现）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-008",
+    "layer": "scene-functional",
+    "title": "系统显示缩放变化后断点计算错误、布局无法切换",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/dpi-breakpoint-anomaly/BadCase/Index.ets中布局无法跟随系统显示缩放大小调整变化",
+    "intent": "验证 SIZE-05 的修复方案能补充 systemDensityChange 监听，使 DPI 变化后用最新值重新计算 VP 宽度和断点，布局正确切换。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "默认 DPI 截图（断点标签与布局分栏匹配）",
+        "增大显示缩放后截图（断点正确切换、布局同步变化）",
+        "减小显示缩放后截图（断点正确切换、布局同步变化）",
+        "退出自由多窗后截图（断点不再停留在错误状态）",
+        "日志证据（systemDensityChange 回调触发、DPI 值与系统设置一致）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-009",
+    "layer": "scene-functional",
+    "title": "盒马商品详情弹窗位置偏移与内容截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/hema_dialog_trunc/BadCase/Index.ets中点击商品项，弹窗位置靠下超出屏幕被截断",
+    "intent": "验证 SIZE-05 布局异常 + 内容溢出截断的修复方案：移除硬编码 margin top 偏移，改用外层居中定位；为弹窗内容添加 Scroll 滚动容器；用 constraintSize 限制弹窗最大高度不超过屏幕 85%。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（弹窗垂直居中、内容完整可见、底部操作栏不被截断）",
+        "手机横屏截图（弹窗垂直居中、中间内容可滚动、底部操作栏固定可见）",
+        "折叠屏展开态截图（弹窗垂直居中、布局无退化）",
+        "滚动行为验证（中间内容区可上下滚动，标题栏和底部操作栏不跟随滚动）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-010",
+    "layer": "scene-functional",
+    "title": "建设银行分栏页面左侧弹窗未居中显示修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/jianshe_dialog_middle/BadCase/Index.ets中左侧弹窗没有居中显示问题",
+    "intent": "验证 SIZE-05 布局异常 + 位置异常的修复方案：将左侧面板根容器从 Stack 改为 Column，头部区域固定在顶部，内容区用 Stack(layoutWeight 1) 承载列表和弹窗遮罩，弹窗通过 justifyContent(FlexAlign.Center) 自然居中于内容区，移除脆弱的 offset({ y: -headerHeight/2 }) 手动补偿。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "分栏模式左侧面板截图（弹窗在内容区域垂直水平居中，头部区域不被遮罩覆盖）",
+        "分栏模式右侧面板点击弹窗截图（左侧弹窗居中正常）",
+        "列表项点击弹窗截图（弹窗居中于内容列表区域）",
+        "横屏分栏模式截图（弹窗居中、布局无退化）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-011",
+    "layer": "scene-functional",
+    "title": "唯品会权限弹窗宽度不随屏幕尺寸自适应修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/weipinhui_open_dialog/BadCase/Index.ets弹窗无法随尺寸宽度变化而变宽",
+    "intent": "验证 SIZE-05 尺寸异常（固定尺寸问题）的修复方案：将弹窗硬编码 width(260) 替换为基于断点的百分比宽度（sm 85%、md/lg 70%）并添加 constraintSize({ maxWidth: 400 }) 约束，使弹窗宽度随窗口尺寸变化自适应。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（弹窗宽度约为屏幕 85%）",
+        "平板/折叠屏展开态截图（弹窗宽度约为屏幕 70%，不超过 400vp）",
+        "窗口宽度变化录屏（弹窗宽度随断点切换实时变化）",
+        "调试文本验证（断点标签与弹窗宽度匹配预期）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-012",
+    "layer": "scene-functional",
+    "title": "银河证券引导弹窗在大屏设备上显示过大修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/yinhe_big_dialog/BadCase/Index.ets中弹窗显示过大的问题",
+    "intent": "验证 SIZE-05 尺寸异常（百分比宽度无上限）的修复方案：为弹窗卡片添加 constraintSize({ maxWidth: 360 }) 约束，使卡片在宽屏设备上不再因 width('85%') + aspectRatio(4/3) 组合导致宽高均过大。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（弹窗宽度约为屏幕 85%，布局正常）",
+        "平板/折叠屏展开态截图（弹窗卡片宽度不超过 360vp，插图区高度合理）",
+        "横屏手机截图（弹窗居中、尺寸不超出屏幕）",
+        "多设备弹窗尺寸对比截图（手机 vs 平板，弹窗尺寸一致）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-013",
+    "layer": "scene-functional",
+    "title": "闲鱼收藏成功弹窗偏移量误用窗口宽度导致不可见修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/xianyu_dialog_dismiss/BadCase/Index.ets中点击收藏，弹窗无法显示的问题",
+    "intent": "验证 SIZE-05 位置异常的修复方案：将 CustomDialogController 的 offset.dy 从误用的 -this.windowWidthVp（窗口宽度作为垂直偏移，大屏上弹窗被推出屏幕外）改为 -70（固定小偏移，使弹窗显示在底部操作栏上方）。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机单栏模式截图（点击收藏后弹窗在底部操作栏上方可见）",
+        "平板分栏模式截图（右侧详情页点击收藏后弹窗可见）",
+        "折叠屏展开态截图（弹窗位置正常、不超出屏幕）",
+        "弹窗自动消失验证（弹窗出现后短时间内自动关闭或点击遮罩关闭）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-014",
+    "layer": "scene-functional",
+    "title": "横竖屏切换聊天内容区宽度未同步导致截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-rotate/BadCase/Index.ets中横竖屏切换时，聊天框内容被截断问题",
+    "intent": "验证 SIZE-03 + SIZE-05 的修复方案能保存窗口实例引用，在 aboutToAppear 中注册 windowSizeChange 监听动态更新 windowWidth，在 aboutToDisappear 中取消监听防止内存泄漏，消除横竖屏切换时聊天内容区截断。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-03",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏截图（聊天内容区宽度铺满 NavDestination、消息气泡完整显示）",
+        "横屏截图（聊天内容区宽度随窗口更新、消息气泡完整显示、无截断）",
+        "竖屏切横屏录屏（聊天内容区宽度实时跟随窗口变化）",
+        "横屏切竖屏录屏（聊天内容区宽度实时跟随窗口变化、无截断闪现）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-015",
+    "layer": "scene-functional",
+    "title": "身份证上传页图片过大导致按钮被截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-slide/BadCase/Index.ets中图片过大导致内容截断的问题",
+    "intent": "验证 SIZE-05 尺寸异常 + 布局异常的修复方案：为内容区 Column 添加 layoutWeight(1) 约束剩余高度，内部包裹 Scroll 容器使内容可滚动，为 Image 添加 objectFit(ImageFit.Contain) 保持比例渲染，消除图片过大导致按钮被推出屏幕外的问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（图片大小适中、两个按钮完整可见在屏幕内）",
+        "平板/大屏截图（图片自适应、按钮完整显示、无退化）",
+        "小屏设备截图（图片缩小后按钮可见，内容区可滚动）",
+        "滚动行为验证（图片较大时内容区可上下滚动查看全部内容）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-016",
+    "layer": "scene-functional",
+    "title": "上证指数区域横竖屏切换被截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-component/BadCase/Index.ets中上证指数区域横竖屏切换被截断问题",
+    "intent": "验证 SIZE-05 Flex 容器溢出截断的修复方案：将 Row 替换为 Flex({ wrap: FlexWrap.Wrap })，窄屏时自动折行显示全部数据；移除固定 .height('80vp') 让容器自适应高度；缩减 margin 从 40vp 到 20vp；分时图区域改用 layoutWeight(1) 填充剩余空间。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏手机截图（所有指数数据项完整显示，自动折行无截断）",
+        "横屏手机截图（所有数据项单行显示、无折行、无截断）",
+        "平板截图（数据项单行显示、布局正常）",
+        "竖屏切横屏录屏（数据项从折行恢复为单行、无截断闪现）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-017",
+    "layer": "scene-functional",
+    "title": "购票筛选弹窗 bindSheet 内容区缺少 Scroll 导致截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-popup/BadCase/Index.ets中弹窗内容被截断问题",
+    "intent": "验证 SIZE-05 布局异常（缺少滚动容器）的修复方案：将 FilterSheetBuilder 内三个筛选区域从普通 Column 改为 Scroll > Column 结构，Scroll 设置 layoutWeight(1) 占据标题和底部按钮之间的剩余空间，使内容超出 sheet 高度时可滚动，底部按钮始终可见。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "小屏手机截图（筛选弹窗内三个筛选区域完整可滚动、底部清空/确认按钮始终可见）",
+        "大屏/平板截图（筛选内容不超出时无多余滚动条、布局正常）",
+        "滚动行为验证（筛选选项超出可视区域时可上下滚动）",
+        "折叠屏折叠态截图（弹窗内容不截断、按钮可见）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-018",
+    "layer": "scene-functional",
+    "title": "城市选择侧边栏字母索引表在高度不足时截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-sidebar/BadCase/Index.ets中字母索引表在屏幕高度不足时截断的问题",
+    "intent": "验证 SIZE-05 布局异常（缺少滚动容器）的修复方案：将 LetterSideBar 中自定义 Column 索引列表包裹在 Scroll 中，Scroll 设置 height('100%') 填充 Row 可用高度，内容超出时可垂直滚动，消除小屏/横屏上底部字母被截断的问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（24 个索引项全部可见、无需滚动）",
+        "手机横屏截图（索引项可垂直滚动、底部字母不再被截断）",
+        "折叠屏折叠态截图（索引栏可滚动、所有字母可触达）",
+        "大屏/平板截图（索引项全部可见、布局无退化）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-019",
+    "layer": "scene-functional",
+    "title": "个人主页 VIP 特权卡片固定宽度导致窄屏截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-squeeze/BadCase/Index.ets中VipFeatureCards内容被截断的问题",
+    "intent": "验证 SIZE-05 尺寸异常（固定尺寸问题）的修复方案：将 VipFeatureCards Row 的硬编码 .width(600) 替换为 .width('100%')，使 Row 自适应父容器可用宽度，消除窄屏设备上右侧内容被截断的问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（三个特权项完整显示、无右侧截断）",
+        "平板/大屏截图（特权卡片自适应宽度、布局无退化）",
+        "折叠屏折叠态截图（特权卡片宽度自适应、内容完整）",
+        "多窗口宽度变化截图（卡片宽度随窗口实时变化）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-020",
+    "layer": "scene-functional",
+    "title": "直播间商品面板产品名称与描述文本被硬裁剪修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-text/BadCase/Index.ets中ShopPanel产品名称截断问题",
+    "intent": "验证 SIZE-05 Flex 容器溢出截断（SIZE-04）的修复方案：为 ProductItemBuilder 中 Text(product.name) 和 Text(product.desc) 补充 .textOverflow({ overflow: TextOverflow.Ellipsis })，配合已有 .maxLines(1) 使长文本以省略号优雅截断，而非被硬裁剪。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-04",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（商品名称超长时末尾显示省略号、描述同理）",
+        "平板/大屏截图（商品名称完整显示或省略号截断、布局无退化）",
+        "商品面板 75% 宽度下截图（名称和描述均以省略号截断、价格和购买按钮完整可见）",
+        "多商品列表滚动截图（所有商品项文本截断行为一致）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-021",
+    "layer": "scene-functional",
+    "title": "拍照查词页面大屏图片高度溢出导致拍照按钮被遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-PhotoScenario/BadCase/Index.ets中在大屏上图片挡住了拍照按钮",
+    "intent": "验证 SIZE-05 尺寸异常（空间竞争问题）的修复方案：在 getPictureHeight 方法末尾添加可用空间上限约束，确保 pictureHeight 不超过 winHeight - 44（头部栏）- 160（按钮区域），使图片区域高度始终在容器可容纳范围内，拍照按钮不再被推出屏幕。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（图片区域正常显示、拍照按钮在图片下方完整可见）",
+        "平板/大屏横屏截图（图片高度被限制、拍照按钮不被遮挡、始终可见）",
+        "平板竖屏截图（图片高度自适应、拍照按钮完整可见）",
+        "窗口尺寸变化截图（图片高度随窗口动态调整、拍照按钮始终可见）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-022",
+    "layer": "scene-functional",
+    "title": "视频播放页横屏切竖屏时视频超出屏幕截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-video/BadCase/Index.ets中横屏切换竖屏时，视频超出屏幕截断问题",
+    "intent": "验证 SIZE-05 尺寸异常（固定尺寸问题 + 状态未同步）的修复方案：移除基于 display.getDefaultDisplaySync().width 的一次性初始计算，改用外层 Stack 的 onAreaChange 监听容器尺寸变化，动态计算视频宽高（宽度取容器 80%，按 9:16 比例算高度，高度超限时反向约束宽度），使视频始终在容器可容纳范围内，横竖屏切换时自动适配。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "竖屏截图（视频在容器内居中显示、不超出屏幕边界）",
+        "横屏截图（视频自适应容器宽度、完整可见）",
+        "横屏切竖屏录屏（视频尺寸实时跟随容器变化、无截断闪现）",
+        "竖屏切横屏录屏（视频尺寸实时跟随容器变化、无截断闪现）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-023",
+    "layer": "scene-functional",
+    "title": "股票分时图横屏切换竖屏时内容区宽度未同步导致截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-OpenAndClose/BadCase/Index.ets中股票分时图横屏切换竖屏时的截断问题",
+    "intent": "验证 SIZE-03 + SIZE-05 的修复方案能保存窗口实例引用，在 aboutToAppear 中注册 windowSizeChange 监听动态更新 imageWidth，在 aboutToDisappear 中取消监听防止内存泄漏，消除横屏切换竖屏时分时图 Row 宽度仍保持横屏值导致的截断。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-03",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "横屏截图（分时图 Row 宽度为窗口宽度 90%、内容完整显示）",
+        "竖屏截图（分时图 Row 宽度随窗口缩小、内容完整显示、无截断）",
+        "横屏切竖屏录屏（Row 宽度实时跟随窗口变化、无截断闪现）",
+        "竖屏切横屏录屏（Row 宽度实时跟随窗口变化、内容铺满）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-024",
+    "layer": "scene-functional",
+    "title": "订单管理页筛选面板硬编码 position 导致非直板机未居中修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/malposition/BadCase/Index.ets中订单状态区域没有居中对齐的问题",
+    "intent": "验证 SIZE-05 位置异常（硬编码绝对定位）的修复方案：将 Stack 的 alignContent 从 Alignment.TopStart 改为 Alignment.Top，移除 .position({ x: phoneDesignPanelLeft, y: 0 }) 硬编码绝对定位，移除不再使用的 phoneDesignPanelLeft 属性，使 220vp 宽的筛选面板在任意宽度父容器中自动水平居中。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "直板机竖屏截图（订单状态面板水平居中、布局与修复前视觉一致）",
+        "平板/大屏截图（订单状态面板水平居中、不偏左）",
+        "折叠屏展开态截图（订单状态面板水平居中、布局无退化）",
+        "多窗口宽度变化截图（面板始终居中于父容器）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-025",
+    "layer": "scene-functional",
+    "title": "我的页面大屏侧边栏缺少扫一扫按钮导致组件消失修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_disappear/BadCase/Index.ets中切换到大屏情况下ProfileArea中扫一扫按钮消失问题",
+    "intent": "验证 SIZE-05 布局异常（多布局模式组件缺失）的修复方案：在 TripleSidebarProfile builder 顶部补充与 ProfileArea 一致的扫一扫按钮行（Blank + Image），使大屏双栏/三栏布局的侧边栏同样具备扫一扫入口，消除切换到大屏后组件消失的问题。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（MobileLayout 中扫一扫按钮在右上角正常显示）",
+        "平板双栏模式截图（DualColumnLayout 侧边栏顶部扫一扫按钮可见、可点击）",
+        "大屏三栏模式截图（TripleColumnLayout 左侧边栏顶部扫一扫按钮可见、可点击）",
+        "点击扫一扫按钮 Toast 验证（三种布局模式下点击均弹出扫一扫已点击提示）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-026",
+    "layer": "scene-functional",
+    "title": "社区帖子详情页分屏布局评论区尺寸过小导致内容重叠修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/size_anomaly/BadCase/Index.ets中评论区尺寸过小导致内容重叠问题",
+    "intent": "验证 SIZE-05 尺寸异常（空间竞争问题）的修复方案：将海报宽度计算从固定保留值（splitRightReserveVp=260）改为比例分配（availableWidth * 0.58），删除不再使用的 splitRightReserveVp 常量，将评论面板 constraintSize minWidth 从 180 提升至 280，使评论面板获得约 42% 的可用宽度并随屏幕尺寸等比增长，消除内容挤压重叠。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（堆叠布局：海报和评论区上下排列、评论区宽度铺满、内容不重叠）",
+        "平板横屏截图（分屏布局：海报占左侧约 58%、评论区占右侧约 42%、评论卡片文字完整显示不重叠）",
+        "大屏平板截图（分屏布局：评论区随屏幕变宽等比增大、评论卡片内容不挤压）",
+        "窗口宽度变化截图（评论区宽度随窗口实时变化、与海报按比例分配）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-027",
+    "layer": "scene-functional",
+    "title": "城市选择页字母索引表超出机场列表显示区域修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_misaligned_stack/BadCase/Index.ets中字母索引表超出机场列表显示的问题",
+    "intent": "验证 SIZE-05 位置异常（POS-0x）+ 尺寸异常（SIZE-0x）复合修复方案：移除 RightIndexSection 的 position() 硬编码绝对定位和 height(505) 固定高度，改用 Stack 内 Row+Blank 自适应右侧对齐、height('100%') 适配容器高度，并添加 hitTestBehavior(HitTestMode.Transparent) 确保 Row 覆盖层不拦截下方 List 的滚动事件，同时保留 RightIndexSection 子元素的点击响应能力。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（字母索引表高度与机场列表区域一致、未超出 Stack 底部边界）",
+        "平板横屏截图（字母索引表自适应右侧对齐、高度匹配列表区域、不溢出）",
+        "列表滚动验证（手指在列表区域滑动、机场列表正常滚动、索引表保持固定）",
+        "索引点击验证（点击索引字母触发 onClick 回调、日志输出正确）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-028",
+    "layer": "scene-functional",
+    "title": "TopBanner 区域 banner 图异常拉伸截断修复",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_stretch/BadCase/Index.ets中TopBannerArea区域banner图异常拉伸截断问题，注意防止图片尺寸过大",
+    "intent": "验证 SIZE-05 尺寸异常（SIZE-0x）修复方案：移除 getBadBannerHeight() 固定像素高度计算（rootWidth*0.56 clamp [188,236]），改用 Image.onComplete 获取图片原始宽高动态计算 bannerRatio，配合 Stack.aspectRatio(this.bannerRatio) 实现等比缩放，同时使用 constraintSize({ maxHeight: 236 }) 限制最大高度防止图片过大。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机竖屏截图（banner 按图片原始宽高比显示、高度 ≤ 236vp、无拉伸截断）",
+        "平板横屏截图（banner 等比放大、高度不超过 236vp 约束、无异常裁剪）",
+        "分屏模式截图（banner 等比缩小、比例正确、无变形）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-029",
+    "layer": "scene-functional",
+    "title": "双屏下正文评论区误分屏显示修复",
+    "phase": "FIX",
+    "user_prompt": "修复entry/src/main/ets/cases/screen-window-size/page-split-in-portrait1/BadCase/Index.ets中双屏下正文和评论区仍然分屏显示的问题，双屏下单栏显示，三屏下保持双栏显示",
+    "intent": "验证 SIZE-01 响应式布局（挪移布局）修复方案：BadCase 中 GridRow 使用 columns {sm:4,md:10,lg:10} 配合 GridCol span {sm:4,md:6,lg:6}+{sm:4,md:4,lg:4}，在双屏折叠设备竖屏下宽度触发 md 断点导致正文和评论区左右分屏显示。修复方式为调整 GridCol span 断点映射：左栏改为 {sm:4,md:10,lg:6}、右栏改为 {sm:4,md:10,lg:4}，使双屏(md)时两个 GridCol 均占满全部列实现单列堆叠，三屏(lg)时恢复 6+4 左右分栏。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "单屏手机截图（sm 断点：正文和评论区上下单列排列、宽度铺满）",
+        "双屏折叠设备竖屏截图（md 断点：正文和评论区上下单列排列、宽度铺满、不左右分屏）",
+        "三屏折叠设备截图（lg 断点：正文占左侧 6 列、评论区占右侧 4 列、左右分栏正常）",
+        "折叠屏展开/收起切换录屏（md↔lg 断点切换时布局实时响应）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-030",
+    "layer": "scene-functional",
+    "title": "宽屏设备 Navigation 未分栏显示修复",
+    "phase": "FIX",
+    "user_prompt": "修复entry/src/main/ets/cases/screen-window-size/page-no-split/BadCase/Index.ets中宽屏不分屏显示的问题，保证双屏下单栏显示，三屏下保持双栏显示",
+    "intent": "验证 SIZE-01 响应式布局修复方案：BadCase 中 Navigation 组件硬编码 .mode(NavigationMode.Stack)，导致所有设备宽度下均使用单栏堆叠模式，宽屏设备（平板、折叠屏展开态）无法利用多栏布局。修复方式为将 NavigationMode.Stack 改为 NavigationMode.Auto，使窄屏自动使用 Stack 单栏模式，宽屏自动使用 Split 分栏模式（左侧导航栏 + 右侧内容区）。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01",
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机窄屏截图（Stack 单栏模式：列表点击后跳转详情页）",
+        "平板/折叠屏展开态截图（Split 分栏模式：左侧显示导航列表、右侧显示内容区）",
+        "折叠屏展开/收起切换录屏（Stack↔Split 模式自动切换、布局实时响应）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-031",
+    "layer": "scene-functional",
+    "title": "分屏模式下文本输入区域被截断修复",
+    "phase": "FIX",
+    "user_prompt": "修复entry/src/main/ets/cases/screen-window-size/component-occlusion/BadCase/Index.ets中在高度不足情况下，出现文本输入区域被截断问题",
+    "intent": "验证 SIZE-05 布局异常 + 内容溢出截断的修复方案：List 组件使用固定百分比 .height(\"90%\") 占据过多垂直空间，导致分屏时底部 TextInput Row 被挤出可视区域并被 clip(true) 裁切。修复方式为将 List 的 .height(\"90%\") 改为 .layoutWeight(1)，使 List 自适应填充剩余空间，TextInput Row 优先获得自然高度。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机全屏截图（List 正常显示、TextInput 完整可见，布局无退化）",
+        "上下分屏截图（TextInput 完整可见、未被截断，List 自适应缩小并可滚动）",
+        "分屏↔全屏切换录屏（布局实时响应、TextInput 始终可见）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-032",
+    "layer": "scene-functional",
+    "title": "启动页图标截断修复（增强启动页方案）",
+    "phase": "FIX",
+    "user_prompt": "修复启动页图标截断问题",
+    "intent": "验证 SIZE-05 → SIZE-07 启动页图标截断的修复方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "FIX",
+      "next_scene_refs": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-05"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "手机设备启动页截图（图标完整显示、无截断）",
+        "平板设备启动页截图（图标自适应缩放、居中显示）",
+        "2in1 设备启动页截图（图标自适应缩放、无溢出）"
+      ]
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_changes",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  }
+]

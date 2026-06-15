@@ -1,0 +1,6 @@
+{
+  "name": "NavDestination",
+  "attrs": ["title", "hideTitleBar", "toolbarConfiguration", "hideToolBar", "mode", "backButtonIcon", "menus",
+    "ignoreLayoutSafeArea", "systemBarStyle", "onShown", "onHidden", "onWillAppear", "onWillShow", "onWillHide",
+    "onWillDisappear", "onBackPressed", "onReady"]
+}

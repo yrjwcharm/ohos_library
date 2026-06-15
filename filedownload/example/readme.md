@@ -63,24 +63,16 @@ HTTP/1.1 206 Partial Content
 | SqliteHelper                                                                               | 数据库操作类、「增删改查」                          |
 | static  addListener(eventName:string,callback:(download:FileDownloader)=>void)             | 下载统一监听回调类「进度监听、失败、恢复、成功、暂停」            |
 
-#### 基本用法
-从1.1.7版本开始，interface声明改为了实体类，主要是应对列表需要局部刷新的支持。依旧采用V2状态管理@ObservedV2 和@Trace实现。
-文档地址：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
-1.1.6版本及以下，采用interface声明。不区分v1与v2 ,皆可使用，建议使用旧版本1.1.6时锁定版本。
-文档地址：<https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/highfileDownload>
-
 
 #### 运行Demo演示效果
 * demo 运行 git clone https://github.com/yrjwcharm/ohos_library.git
 * 切换分支 git checkout feature/ohos/fileDownload
 
-#### 下载观看Demo演示效果--退出应用程序杀掉进程后恢复下载
-[点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_1.mp4)
+#### [下载观看Demo演示效果--退出应用程序杀掉进程后恢复下载](https://github.com/yrjwcharm/ohos_library/blob/feature/ohos/filedownload/demo/demo_1.mp4)
 
-#### 下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载
-[点击下载视频](https://github.com/yrjwcharm/ohos_library/raw/refs/heads/feature/ohos/fileDownload/demo/demo_2.mp4)
+#### [下载观看Demo演示效果--无网络情况下恢复网络后继续保持下载](https://github.com/yrjwcharm/ohos_library/blob/feature/ohos/filedownload/demo/demo_2.mp4)
 
-#### 更多详细用法请查看 https://github.com/yrjwcharm/ohos_library/tree/feature/ohos/fileDownload
+#### 更多详细用法请查看 https://github.com/yrjwcharm/ohos_library/blob/feature/ohos/filedownload
 
 #### 鸿蒙技术交流QQ群：783867484
 

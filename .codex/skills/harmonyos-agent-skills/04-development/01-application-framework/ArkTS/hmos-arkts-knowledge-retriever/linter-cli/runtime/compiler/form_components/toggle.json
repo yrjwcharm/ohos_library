@@ -1,0 +1,4 @@
+{
+  "name": "Toggle",
+  "attrs": ["onChange", "selectedColor", "switchPointColor"]
+}

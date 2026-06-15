@@ -1,0 +1,1129 @@
+[
+  {
+    "case_id": "SIZE-FUNC-DEV-001",
+    "layer": "scene-functional",
+    "title": "新闻头条首页——断点驱动的三态布局切换",
+    "phase": "DEV",
+    "user_prompt": "开发一个新闻头条应用首页。手机端是单列信息流，每条新闻卡片包含标题+摘要+缩略图；平板竖屏时变成双列卡片，每张卡片展示封面图+标题+来源；平板横屏或折叠屏展开时变成三列卡片+右侧热点榜单侧栏。用户旋转屏幕或折叠/展开设备时，布局要无缝切换，不能出现闪烁或内容跳跃。请给出完整的页面开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-001/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-02 后，能输出从零搭建断点系统并驱动三态布局切换的开发方案，覆盖断点枚举定义、AppStorage 全局同步、windowSizeChange 监听注册与销毁、以及三种布局形态的断点映射。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/breakpoint_system.md",
+        "assets/SystemBreakpointExample.ets",
+        "assets/BreakpointObserver.ets"
+      ],
+      "forbidden_scenes": [
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-02"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-002",
+    "layer": "scene-functional",
+    "title": "天气应用——窗口尺寸实时响应的动态布局",
+    "phase": "DEV",
+    "user_prompt": "开发一个天气应用主页。顶部是城市天气大图背景+温度数字+天气描述，中部是24小时逐时预报横向滚动条，底部是7日预报。UX 要求：当用户把手机横过来或折叠屏展开时，顶部天气大图高度要平滑缩小（从占屏幕50%缩到30%），24小时预报从横向滚动变成全部铺开，7日预报从纵向列表变成横向表格。自由窗口模式下拖拽窗口边缘时所有区域都要实时跟随变化。请给出完整的页面开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-002/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-03 后，能输出 windowSizeChange 监听+px2vp 转换+AppStorage 全局同步的开发方案，使天气应用各区域根据实时窗口尺寸动态调整高度和布局形态。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/window_size_detection.md",
+        "assets/WindowSizeChangeListener.ets"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-03"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-003",
+    "layer": "scene-functional",
+    "title": "美食探店首页——餐厅卡片重复布局",
+    "phase": "DEV",
+    "user_prompt": "开发一个美食探店应用首页。页面顶部是搜索栏，下方是餐厅推荐列表，每张卡片包含封面照片、餐厅名称、评分星星、人均价格、距离。屏幕尺寸发生变化时，卡片宽度自动拉伸填满，图片保持4:3不变形，评分和价格不截断。请给出完整的页面开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-003/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-01 后，能输出 List lanes 或 Grid columnsTemplate 的重复布局方案，覆盖不同断点下的列数映射、卡片宽度自适应、图片 aspectRatio 保持和文本截断防护。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-004",
+    "layer": "scene-functional",
+    "title": "即时通讯——会话列表与聊天窗口分栏",
+    "phase": "DEV",
+    "user_prompt": "开发一个即时通讯应用。手机上是经典的全屏会话列表，点击进入全屏聊天详情，并自动适配到折叠屏以及平板。请给出完整的开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-004/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-01 后，能输出 Navigation Stack/Split 模式切换的分栏布局方案，覆盖 mode 属性断点映射、NavDestination 路由集成和空状态展示。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-005",
+    "layer": "scene-functional",
+    "title": "旅游攻略详情页——景点图文挪移布局",
+    "phase": "DEV",
+    "user_prompt": "开发一个旅游攻略详情页。页面包含一个景点大图和下方的攻略正文（标题+段落+Tips列表）。手机上是大图在上、攻略正文在下的纵向排列，在折叠屏和平板上实现多设备适配。提供完整的页面开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-005/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-01 后，能输出 GridRow/GridCol 挪移布局方案，覆盖 span 断点映射实现小屏上图下文、大屏左图右文的位置挪移，以及右侧内容区独立滚动。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-006",
+    "layer": "scene-functional",
+    "title": "系统设置页——大屏居中缩进布局",
+    "phase": "DEV",
+    "user_prompt": "开发一个系统设置页面。设置项是一个列表，包含WiFi、蓝牙、显示、声音、通知、存储等条目，每个条目有图标+标题+右侧箭头。手机上列表铺满全屏宽度；平板和折叠屏展开态上列表需要居中缩进，两侧留白对称。给出完整的页面开发方案。输出到../entry/src/main/ets/SIZE-FUNC-DEV-006/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-01 后，能输出 GridRow/GridCol 缩进布局方案，覆盖 span+offset 断点映射实现小屏铺满、大屏居中缩进、最大宽度约束。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-007",
+    "layer": "scene-functional",
+    "title": "在线客服聊天页——输入框与记录区弹性拉伸",
+    "phase": "DEV",
+    "user_prompt": "开发一个在线客服聊天页面。顶部固定显示客服头像+名称+在线状态（56vp），底部固定显示输入框+发送按钮+附件图标（64vp），中间是聊天气泡记录区需要自动填满剩余空间。用户发消息后气泡从底部追加、列表自动滚动到最新消息。软键盘弹出时，输入框要跟随键盘上移，聊天记录区被压缩但不消失，仍然可以滚动查看历史消息。输出到../entry/src/main/ets/SIZE-FUNC-DEV-007/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 layoutWeight 弹性拉伸方案，覆盖顶栏固定+底栏固定+中间弹性填充的布局结构，以及软键盘弹出时的布局自适应。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-008",
+    "layer": "scene-functional",
+    "title": "电商购物车——商品卡片图片等比缩放",
+    "phase": "DEV",
+    "user_prompt": "开发一个电商购物车页面。每个商品卡片左侧是正方形商品图片（1:1），右侧是商品名称（最多2行省略）+规格+单价+数量选择器（+-按钮+数字）。小屏上卡片全宽排列纵向滚动，自动适配多设备布局。图片必须保持1:1等比缩放。如果图片加载失败要显示占位图。输出到../entry/src/main/ets/SIZE-FUNC-DEV-008/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 aspectRatio 等比缩放方案，覆盖商品图片1:1宽高比保持、卡片宽度自适应、图片加载失败占位和多列布局切换。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-009",
+    "layer": "scene-functional",
+    "title": "视频播放器控制栏——按优先级显隐按钮",
+    "phase": "DEV",
+    "user_prompt": "开发一个视频播放器的控制栏。控制栏包含这些按钮：播放/暂停（必须）、进度条（必须）、全屏切换（必须）、画质切换（次要）、倍速调节（次要）、弹幕开关（次要）、画中画（次要）、投屏（低优先级）。空间不足时只显示必须的3个按钮，空间允许时逐步显示次要按钮，大屏时全部按钮都显示。输出到../entry/src/main/ets/SIZE-FUNC-DEV-009/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 displayPriority 按优先级显隐方案，覆盖多级优先级设定、按钮隐藏后无空白间隙和剩余按钮均匀分布。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-010",
+    "layer": "scene-functional",
+    "title": "外卖应用餐厅筛选栏——标签自动折行",
+    "phase": "DEV",
+    "user_prompt": "开发一个外卖应用的餐厅筛选栏。筛选标签包括：距离最近、好评优先、人均50以下、品牌商家、新店特惠、满减优惠、免费配送、可开发票，标签数量可能动态增减。一行填满时自动换行到下一行，保持左对齐，每行标签之间间距一致，行间距也一致。用户点击某个标签变为选中态（高亮+勾选图标），再次点击取消。输出到../entry/src/main/ets/SIZE-FUNC-DEV-010/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 FlexWrap 自动折行方案，覆盖标签间距一致、左对齐、动态标签数量自适应和选中态交互。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-011",
+    "layer": "scene-functional",
+    "title": "音乐播放器——底栏控制按钮均匀分布",
+    "phase": "DEV",
+    "user_prompt": "开发一个音乐播放器底部控制栏。控制栏从左到右依次是：随机播放图标、上一曲图标、播放/暂停大按钮、下一曲图标、循环播放图标。5个按钮要在底栏中均匀分布，中间的播放/暂停按钮比其他按钮大一圈（64vp vs 40vp）。输出到../entry/src/main/ets/SIZE-FUNC-DEV-011/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 SpaceEvenly 均匀分布方案，覆盖5个按钮（含不同尺寸）等间距分布和不同屏幕宽度下的均匀性。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-012",
+    "layer": "scene-functional",
+    "title": "笔记应用——目录树与编辑区百分比占比",
+    "phase": "DEV",
+    "user_prompt": "开发一个笔记应用的编辑页面。页面分左右两栏：左侧是笔记目录树（文件夹+笔记列表），右侧是笔记编辑区（标题+正文富文本）。左侧目录树占页面宽度的30%，右侧编辑区占70%。输出到../entry/src/main/ets/SIZE-FUNC-DEV-012/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出百分比宽高占比方案，覆盖30:70比例分配、自由窗口缩放时比例保持、最小宽度约束和自动隐藏。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-013",
+    "layer": "scene-functional",
+    "title": "订单历史页——长短不一的卡片滚动延伸",
+    "phase": "DEV",
+    "user_prompt": "开发一个电商订单历史页面。订单列表中每个订单卡片高度不固定：单件商品订单卡片只有1行商品信息，多件商品订单卡片要显示所有商品（最多展示3件，超过的显示'共N件'）。页面底部有'加载更多'按钮，点击后查看更多订单。列表项之间有分割线。输出到../entry/src/main/ets/SIZE-FUNC-DEV-013/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-04 后，能输出 List 滚动延伸方案，覆盖高度不固定的列表项、LazyForEach 懒加载、加载更多和分割线。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-014",
+    "layer": "scene-functional",
+    "title": "地图导航——主窗口地图+分屏路况面板",
+    "phase": "DEV",
+    "user_prompt": "开发一个地图导航应用。主窗口显示地图和路线规划。用户点击'路况详情'按钮后，在屏幕另一半打开路况信息面板，显示实时拥堵路段列表+预计通行时间+事故提醒。两个窗口独立操作：主窗口可以拖拽地图、搜索目的地；路况面板可以上下滚动查看路段详情、点击某路段主窗口地图跳转到该位置。输出到../entry/src/main/ets/SIZE-FUNC-DEV-014/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-06 后，能输出 startAbility + StartOptions 分屏启动方案，覆盖分屏方向配置、Want 参数传递、LocalStorage 数据共享和双窗口独立交互。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/split-screen.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-06"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SIZE-FUNC-DEV-015",
+    "layer": "scene-functional",
+    "title": "电商应用——折叠屏平行视界分栏浏览",
+    "phase": "DEV",
+    "user_prompt": "开发一个电商应用。手机上是正常的商品列表→点击商品→商品详情页的跳转流程。但在折叠屏展开态或平板横屏上，需要通过平行视界实现左侧商品列表+右侧商品详情的分栏模式：用户点击左侧任意商品，右侧立即展示该商品详情（图片轮播+价格+规格+加购按钮），不需要跳转页面。折叠屏折叠回手机形态时要自动回到单栏跳转模式。输出到../entry/src/main/ets/SIZE-FUNC-DEV-015/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SIZE-00 + SIZE-07 后，能输出 EasyGo 平行视界分栏适配方案，覆盖 easy_go.json 配置、module.json5 声明、wideWindowMode + squareWindowMode 双模式配置、分栏后详情页宽度减半的 UI 截断处理。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/easy-go.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-07"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-016",
+    "layer": "scene-functional",
+    "title": "旅行相册——宫格照片浏览与界面图标多设备适配",
+    "phase": "DEV",
+    "user_prompt": "开发一个旅行相册应用首页。页面顶部工具栏包含返回图标、相册名称、分享图标、更多操作图标；下方是照片宫格浏览区，以多列网格形式展示旅行照片；底部导航栏包含首页、发现、相册、我的四个入口图标。支持双指捏合手势动态调整宫格列数。适配多设备给出完整的开发方案。输出到../entry/src/main/ets/SPEC-FUNC-DEV-016/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-01（宫格图片高度占比 10%~50% 屏高、手势缩放列数）+ SPEC-12（界面图标最小尺寸：手机/折叠屏/平板≥8vp、电脑≥10vp、智慧屏≥22vp）后，能输出宫格布局图片高度约束与图标最小尺寸的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/responsive_layout.md",
+        "references/adaptive_layout.md",
+        "references/window_detection.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-017",
+    "layer": "scene-functional",
+    "title": "生活杂志——轮播大图与信息流边距适配",
+    "phase": "DEV",
+    "user_prompt": "开发一个生活方式杂志应用的资讯首页。页面顶部是精选文章的封面大图轮播区，轮播图宽度撑满内容区，下方是文章列表。适配多设备。输出到../entry/src/main/ets/SPEC-FUNC-DEV-017/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-02（内容区全宽图高度≤50%屏高、沉浸式全窗口图高度≤60%屏高）+ SPEC-07（信息流左边距≤20%屏宽、同应用不同页面边距一致）后，能输出轮播图高度约束与断点驱动边距控制的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/window_detection.md",
+        "references/responsive_layout.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-02",
+        "SIZE-04",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01",
+        "SIZE-03"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-018",
+    "layer": "scene-functional",
+    "title": "新闻阅读——图文卡片与大屏文字图标缩放",
+    "phase": "DEV",
+    "user_prompt": "开发一个新闻阅读应用的首页。页面是信息流布局，每张卡片是上图下文结构：顶部新闻配图，下方是新闻标题（最多2行省略）+来源媒体+发布时间。在折叠屏展开态或平板等大屏设备上，卡片中的图片和文字会随屏幕变大。提供双指捏合手势让用户调整卡片密度。输出到../entry/src/main/ets/SPEC-FUNC-DEV-018/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-03（上下图文高度占比、放大倍数折叠≤1.2x/平板≤1.5x、手势缩放卡片密度）+ SPEC-13（大屏图标文字放大倍数折叠≤1.2x/平板≤1.5x）后，能输出 BreakpointType 按断点分配图文尺寸与图标文字尺寸的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/breakpoint_system.md",
+        "references/window_detection.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-03",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-02",
+        "SIZE-04"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-019",
+    "layer": "scene-functional",
+    "title": "通讯录——阔折叠小外屏与宽屏侧边导航",
+    "phase": "DEV",
+    "user_prompt": "开发一个通讯录管理应用的联系人页面。页面底部有四个一级导航页签，顶部有标题栏和搜索入口，下方是联系人列表配合字母索引导航。适配多设备。输出到../entry/src/main/ets/SPEC-FUNC-DEV-019/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-04（阔折叠小外屏：页签左右结构、标题栏紧凑、搜索框→图标、分段式索引条）+ SPEC-08（宽屏底部导航侧边化：窗口宽度≥840vp切换侧边导航、侧边栏宽度≤40%、拖拽调整侧边面板宽度）后，能输出小外屏条件渲染与宽屏 Tabs/SideBarContainer 断点切换的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/breakpoint_system.md",
+        "references/responsive_layout.md",
+        "references/window_detection.md"
+      ],
+      "forbidden_scenes": [
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-01",
+        "SIZE-02"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-020",
+    "layer": "scene-functional",
+    "title": "视频播放——画中画与悬浮窗适配",
+    "phase": "DEV",
+    "user_prompt": "开发一个视频流媒体应用的播放页面。页面中央是视频播放画面，上方是视频标题和返回按钮，下方是进度条和播放控制按钮。用户在观看视频时切换到其他应用或回到桌面，视频要缩小为小窗继续播放不中断。点击小窗可以恢复全屏播放。小窗上要有播放暂停控制按钮。应用还需要支持系统悬浮窗模式运行，在手机和平板上悬浮窗要支持缩放调节。输出到../entry/src/main/ets/SPEC-FUNC-DEV-020/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-05（画中画能力：PiPWindow 全生命周期）+ SPEC-15（悬浮窗适配：supportWindowMode 声明、横向悬浮窗、enableLandscapeMultiWindow 动态启停、windowStatusChange 降级）后，能输出画中画与悬浮窗的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/adaptation-specification.md",
+        "references/split-screen.md",
+        "references/window_detection.md",
+        "assets/PipWindow.ets"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-05",
+        "SIZE-07"
+      ],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-06"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-021",
+    "layer": "scene-functional",
+    "title": "电商首页——分屏模式与字体可读性适配",
+    "phase": "DEV",
+    "user_prompt": "开发一个电商购物应用的首页。页面顶部是搜索栏，中部是分类入口图标网格，下方是商品推荐列表（每个商品项包含商品图、名称、价格）。适配多设备，并支持分屏、悬浮窗模式。输出到../entry/src/main/ets/SPEC-FUNC-DEV-021/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-10（分屏适配：supportWindowMode 声明、GridRow 差异化列数、windowStatusChange 状态降级、Scroll+layoutWeight 弹性填充）+ SPEC-11（字体大小合规：手机/折叠屏/平板≥8vp、电脑≥10vp、智慧屏≥14vp）后，能输出分屏布局适配与最小字号约束的联合开发方案。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/split-screen.md",
+        "references/adaptive_layout.md",
+        "references/window_detection.md"
+      ],
+      "forbidden_scenes": [],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  },
+  {
+    "case_id": "SPEC-FUNC-DEV-022",
+    "layer": "scene-functional",
+    "title": "社交应用——弹出框尺寸多设备适配",
+    "phase": "DEV",
+    "user_prompt": "开发一个社交应用的个人主页。页面包含用户头像、昵称、个人简介、动态列表。点击编辑资料按钮时弹出自定义对话框，对话框内包含昵称输入框、简介文本域、确认和取消按钮。适配多设备。输出到../entry/src/main/ets/SPEC-FUNC-DEV-022/Index.ets。禁止读取functional-window-sync.json文件",
+    "intent": "验证命中 SPEC-14（弹出框大小适中：折叠屏高度≤1.2倍/阔折叠<65%屏高、平板≤1.5倍、电脑 360×240~窗口尺寸、智慧屏宽<36%屏宽+高<80%屏高）后，能输出 CustomDialog + constraintSize 多设备弹出框尺寸约束的开发方案，覆盖 screenWidthVp/screenHeightVp 监听、customStyle 自定义弹窗、按设备类型约束 minWidth/minHeight/maxWidth/maxHeight。",
+    "allowed_tools": [
+      "Read",
+      "Write",
+      "Edit",
+      "Bash",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "expected": {
+      "primary_phase": "DEV",
+      "next_scene_refs": [
+        "references/window_detection.md"
+      ],
+      "forbidden_scenes": [],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-03"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default"
+    },
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "active_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "code_touchpoints",
+      "reuse_resources",
+      "implementation_notes",
+      "integration_risks"
+    ]
+  }
+]

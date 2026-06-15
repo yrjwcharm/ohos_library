@@ -1,0 +1,759 @@
+[
+  {
+    "case_id": "AVOID-FUNC-001",
+    "layer": "scene-functional",
+    "title": "列表页滚动沉浸浏览开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "商品列表/信息流页面需要实现滚动沉浸浏览：上滑时逐渐隐藏顶部标题栏和底部导航栏，下滑时恢复。紧凑型设备使用底部 TabBar 并支持滚动隐藏，宽屏型设备使用侧边导航栏且始终显示。请输出完整的开发方案。",
+    "intent": "验证 AVOID-03 沉浸式全屏布局结合 AVOID-01 动态避让与 onScrollFrameBegin 滚动隐藏/恢复的完整开发方案能转成工程可编译、可验证的契约，覆盖多断点适配。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "secondary_scenes": [
+        "AVOID-01",
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 中调用 setWindowLayoutFullScreen(true) 开启全屏布局。",
+        "必须使用 getWindowAvoidArea 获取 TYPE_SYSTEM 和 TYPE_NAVIGATION_INDICATOR 避让高度。",
+        "必须使用 Stack 叠 Tabs(barHeight=0) + 浮层 TabBar 布局骨架。",
+        "必须使用 onScrollFrameBegin 累计偏移计算 0~1 ratio，线性驱动标题栏高度、TabBar 高度和透明度。",
+        "必须实现 onBreakpointChange 断点切换时重置隐藏状态，紧凑型生效、宽屏型不隐藏。",
+        "根容器必须通过 padding({ top: topAvoidHeight }) 避让状态栏。"
+      ],
+      "should_reuse_resources": [
+        "./references/immersive_layout.md",
+        "./references/scenario-development-cases.md",
+        "./references/safe_area_api.md",
+        "./assets/FullScreenLayoutExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/list_immersion/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "使用固定高度标题栏不包含状态栏避让。",
+        "不监听 avoidAreaChange，折叠屏展开后避让失效。",
+        "不区分断点，所有设备统一使用底部 TabBar 隐藏逻辑。",
+        "使用 opacity 直接切换而非线性渐变隐藏。",
+        "隐藏时标题栏或底部栏仍占位（未收缩高度）。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "紧凑型断点：上滑 0~100vp 标题栏和底部导航栏线性渐隐，超过 100vp 完全隐藏。",
+        "紧凑型断点：下滑时标题栏和底部导航栏恢复显示。",
+        "宽屏型断点：侧边导航栏始终显示，不参与滚动隐藏。",
+        "断点切换时隐藏状态正确重置。",
+        "标题栏内容不被状态栏遮挡。",
+        "隐藏完成后标题栏和底部 TabBar 高度为 0，不占位，列表区域自动扩展。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "紧凑型上滑隐藏截图（标题栏和 TabBar 完全收回，列表全屏）",
+        "紧凑型下滑恢复截图",
+        "宽屏型侧边栏截图",
+        "断点切换截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-002",
+    "layer": "scene-functional",
+    "title": "底部导航栏避让开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "应用需要适配底部系统导航条：底部固定控件（TabBar、操作栏、悬浮按钮）需向上抬高避免与导航条遮挡，背景色延伸到导航条底部实现沉浸效果；可滚动内容需能延伸显示在导航条下方，滚动到底时最后一项不被遮挡；弹出框/半模态需避让导航条；沉浸式全屏场景导航条可动态隐藏/恢复。请输出完整开发方案。",
+    "intent": "验证 AVOID-01 TYPE_NAVIGATION_INDICATOR + AVOID-02 expandSafeArea 背景延伸的底部导航栏完整适配方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 AvoidAreaManager 单例通过 TYPE_NAVIGATION_INDICATOR 获取导航条高度，avoidAreaChange 监听变化。",
+        "必须通过 AppStorage.setOrCreate 全局共享导航条高度，各组件用 @StorageProp 自动响应。",
+        "底部固定区域必须使用 padding({ bottom: navBarHeight }) + expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM]) 实现内容避让与背景沉浸。",
+        "可滚动内容必须在 List/Grid 末尾添加占位 ListItem（高度 = 导航条 + 底部固定栏），确保最后一项可滚动到可见区域。",
+        "弹出框/半模态必须使用系统组件（bindSheet、AlertDialog）自动避让导航条。",
+        "沉浸式全屏场景必须使用 setSpecificSystemBarEnabled('navigationIndicator', false/true) 动态隐藏/恢复导航条。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./references/scenario-development-cases.md",
+        "./assets/AvoidAreaExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码导航条高度（如 padding({ bottom: 34 })）。",
+        "底部固定区域只使用 padding 不使用 expandSafeArea，导致背景色不到导航条底部。",
+        "可滚动内容不加尾部占位，导致最后一项被遮挡。",
+        "悬浮按钮不考虑导航条高度偏移。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "底部 TabBar 内容不被导航条遮挡，背景色延伸到导航条底部无间隙。",
+        "列表滚动到底部时最后一项完全可见，不被导航条遮挡。",
+        "悬浮按钮在导航条上方，不与导航条重叠。",
+        "半模态弹窗不与导航条重叠，交互不误触。",
+        "全屏模式下导航条隐藏，从底部上滑可恢复。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "底部 TabBar 避让截图（背景沉浸）",
+        "列表滚动到底部截图",
+        "悬浮按钮避让截图",
+        "全屏模式导航条隐藏/恢复截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-003",
+    "layer": "scene-functional",
+    "title": "短视频沉浸式布局开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "请帮我开发一个 HarmonyOS 短视频沉浸式播放应用，支持手机、平板、2in1 多设备适配。\n\n核心功能：\n- 全屏沉浸式短视频播放，视频可播放、暂停，有进度条可拖动调节进度\n- 底部/侧边自定义 TabBar，包含首页、朋友、消息、我四个页签\n- 需要正确避让状态栏和底部导航条，UI 不被系统栏遮挡\n- 小屏幕（手机）时 TabBar 在底部水平排列，大屏幕（平板/2in1）时 TabBar 在左侧垂直排列，视频宽度自适应\n- 支持横竖屏切换时自动适配布局",
+    "intent": "验证 AVOID-03 沉浸式全屏布局结合 AVOID-01 动态避让与断点系统的短视频场景方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "secondary_scenes": [
+        "AVOID-01",
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 中 setWindowLayoutFullScreen(true) + setWindowSystemBarProperties 透明系统栏。",
+        "必须通过 getWindowAvoidArea 获取 TYPE_SYSTEM 和 TYPE_NAVIGATION_INDICATOR 初始高度，并注册 avoidAreaChange 动态更新 AppStorage。",
+        "必须使用 Stack 叠 Tabs(barHeight=0) + 浮层 TabBar 布局，TabBar 背景透明不遮挡视频。",
+        "紧凑型断点底部 TabBar 必须 padding({ bottom: px2vp(bottomRectHeight) }) 避让导航条。",
+        "宽屏型断点左侧垂直侧边栏不受底部导航条影响，无需 padding。",
+        "bottomRectHeight 通过 @StorageProp 响应式绑定，避让区变化时 UI 自动刷新。"
+      ],
+      "should_reuse_resources": [
+        "./references/immersive_layout.md",
+        "./references/scenario-development-cases.md",
+        "./references/safe_area_api.md",
+        "./assets/FullScreenLayoutExample.ets",
+        "./assets/BackgroundImmersiveExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/short_video_immersion/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "Tabs barHeight 不设为 0，默认栏占用空间。",
+        "TabBar 背景不透明遮挡视频内容。",
+        "不区分断点，所有设备统一使用底部 TabBar。",
+        "不监听 avoidAreaChange，设备旋转后避让失效。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "视频画面铺满全屏，延伸到状态栏和导航条后方无黑边。",
+        "手机设备底部 TabBar 不被导航条遮挡，padding 正确避让。",
+        "平板设备左侧垂直侧边栏正常显示，无底部多余间距。",
+        "旋转/折叠屏切换后避让值自动更新。",
+        "TabBar 背景透明，不遮挡视频内容。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手机设备短视频沉浸截图",
+        "平板设备侧边栏截图",
+        "折叠屏展开态截图",
+        "TabBar 避让导航条截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-004",
+    "layer": "scene-functional",
+    "title": "挖孔区适配开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "应用需要适配设备挖孔区：竖屏挖孔在顶部，横屏挖孔在左/右侧边，需动态切换避让边。固定交互元素（标题栏、搜索框、Tab栏、底部导航栏）需避开挖孔区且背景延伸不留间隙，可滚动内容和悬浮控件无需避让。请输出完整开发方案。",
+    "intent": "验证 AVOID-01 TYPE_CUTOUT 四方向检测结合 AVOID-02 expandSafeArea 背景延伸的挖孔区适配方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 getWindowAvoidArea(window.AvoidAreaType.TYPE_CUTOUT) 同步获取四边挖孔区域。",
+        "必须实现四方向检测：根据 topRect/leftRect/rightRect/bottomRect 计算避让 padding。",
+        "必须注册 avoidAreaChange 监听，横竖屏旋转时系统自动映射到对应边。",
+        "固定组件必须使用 padding 避让内容 + expandSafeArea 延伸背景到挖孔区，实现背景沉浸 + 内容避让分离。",
+        "可滚动内容（列表/卡片）和悬浮控件（弹窗/侧边栏）无需避让挖孔区。",
+        "必须设置 setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED) 支持横竖屏旋转。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./references/scenario-development-cases.md",
+        "./assets/CutoutAvoidanceManager.ets",
+        "./assets/CutoutAvoidance4DirExample.ets"
+      ],
+      "forbidden_patterns": [
+        "只处理顶部挖孔不检测左右和底部方向。",
+        "固定组件只用 padding 不用 expandSafeArea，导致背景色不到挖孔区边缘。",
+        "对可滚动内容也做挖孔避让，影响列表滚动体验。",
+        "手动判断横竖屏方向，不依赖系统自动映射。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "竖屏时顶部挖孔区固定组件（标题栏、搜索框）内容不被遮挡，背景延伸到挖孔区。",
+        "横屏时左右挖孔区固定组件内容不被遮挡，四方向 padding 动态更新。",
+        "可滚动内容随 Scroll 自然滚动，不做挖孔避让。",
+        "横竖屏旋转后避让边自动切换，无内容重叠。",
+        "悬浮弹窗/侧边栏不受挖孔区影响。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "竖屏挖孔避让截图",
+        "横屏挖孔避让截图（左右方向）",
+        "横竖屏切换后截图",
+        "列表滚动截图（无额外挖孔避让）"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-005",
+    "layer": "scene-functional",
+    "title": "状态栏适配开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "阅读类/工具类常规页面需要适配状态栏：内容区域避让顶部状态栏防止被遮挡，背景色延伸到状态栏后方实现沉浸一体化设计，状态栏高度随设备变化（折叠屏展开/旋转）需动态响应。请输出完整开发方案。",
+    "intent": "验证 AVOID-01 TYPE_SYSTEM + AVOID-02 背景延伸的状态栏适配方案能转成工程可编译、可验证的契约，覆盖多设备动态响应。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 WindowUtil 单例封装，通过 TYPE_SYSTEM 获取状态栏高度，avoidAreaChange 监听变化。",
+        "必须使用监听器回调模式（registerListener/unregisterListener），注册时立即回传当前值。",
+        "页面根容器必须通过 padding({ top: topAvoidHeight }) 整体下移避让状态栏。",
+        "topAvoidHeight 为 @State 变量，避让区变化时 UI 自动刷新。",
+        "页面 aboutToDisappear 中必须调用 unregisterListener 避免内存泄漏。",
+        "必须根据状态栏区域背景色选择合适的状态栏图标颜色（黑/白）保证易读性。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./references/scenario-development-cases.md",
+        "./assets/AvoidAreaExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码状态栏高度不动态获取。",
+        "只在启动时读取一次 getWindowAvoidArea，不监听 avoidAreaChange。",
+        "页面 aboutToDisappear 中不取消监听导致内存泄漏。",
+        "状态栏区域使用左右半区对比差异过大的颜色导致部分信息无法阅读。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "内容区域不被状态栏遮挡，padding 顶部高度为实际状态栏高度。",
+        "背景色延伸到状态栏后方，无视觉割裂。",
+        "折叠屏展开后状态栏高度变化，padding 自动更新。",
+        "屏幕旋转后状态栏高度变化，padding 自动更新。",
+        "状态栏图标颜色与背景色对比度足够，信息易读。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手机设备状态栏避让截图",
+        "折叠屏展开态截图",
+        "屏幕旋转截图",
+        "avoidAreaChange 回调日志"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-006",
+    "layer": "scene-functional",
+    "title": "键盘易操作与多设备适配开发方案验证",
+    "phase": "DEV",
+    "user_prompt": "含表单输入、操作按钮、列表的页面需适配折叠屏/平板大屏双手操作易达性。软键盘弹出时不遮挡输入框、底部操作按钮和弹窗。大屏设备操作按钮置于底部两侧拇指热区，小屏居中排列。请输出完整开发方案。",
+    "intent": "验证 AVOID-04 软键盘避让结合 AVOID-01 多类避让区监听与断点系统的键盘易操作方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": [
+        "AVOID-01"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-03",
+        "AVOID-02"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 WindowUtil 监听 TYPE_SYSTEM + TYPE_NAVIGATION_INDICATOR + TYPE_KEYBOARD 三类避让区。",
+        "外层 Column 必须按断点差异化计算底部 padding：sm 断点使用 keyboardHeight + bottomAvoidHeight，md/lg 断点仅使用 keyboardHeight（大屏设备导航条不影响布局），键盘收起时 keyboardHeight 为 0。",
+        "操作栏必须放入 Scroll 内部而非固定底部，键盘弹出后用户可滚动触达。",
+        "弹窗作为 Stack 独立层，必须使用自身 padding({ bottom: keyboardHeight }) 上推居中区域。",
+        "必须使用 BreakpointManager 断点系统驱动布局：sm 单列全宽、md 两列 + 侧边距、lg 三列 + 大侧边距。",
+        "大屏操作按钮必须置于底部两侧拇指热区，小屏居中排列。",
+        "必须使用 tabIndex + nextFocus 实现键盘 Tab 焦点导航和方向键网格导航。",
+        "页面 aboutToDisappear 中必须调用 WindowUtil.destroy() 或 unregisterListener 取消监听，避免内存泄漏。"
+      ],
+      "should_reuse_resources": [
+        "./references/keyboard_handling.md",
+        "./references/avoid_area_types.md",
+        "./references/scenario-development-cases.md",
+        "./assets/KeyboardAvoidanceExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/keyboard_avoid_adaptation/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "操作栏固定在 Scroll 外部底部，键盘弹出后不可触达。",
+        "只监听 TYPE_KEYBOARD 不监听 TYPE_NAVIGATION_INDICATOR。",
+        "不区分断点，所有设备统一布局。",
+        "弹窗使用 Column 内部 padding 而非 Stack 独立层，影响主内容布局。",
+        "不注销监听导致内存泄漏。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "键盘弹出后输入框不被遮挡，系统自动滚动到焦点输入框。",
+        "键盘弹出后操作栏（取消/提交按钮）可通过滚动触达。",
+        "键盘收起后页面恢复原始布局，无额外空白。",
+        "弹窗在键盘弹出时正确上推居中显示。",
+        "sm 单列、md 两列、lg 三列布局正确切换。",
+        "Tab 键焦点按视觉顺序导航，方向键可在卡片间网格导航。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "键盘弹出截图（输入框和操作栏可见）",
+        "键盘收起截图",
+        "多断点布局截图（sm/md/lg）",
+        "弹窗键盘弹出截图",
+        "Tab 焦点导航录屏"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-007",
+    "layer": "scene-functional",
+    "title": "安全区扩展两方案验证（背景色延伸 + 图片延伸）",
+    "phase": "DEV",
+    "user_prompt": "登录页需要蓝色背景铺满状态栏和导航栏区域，文字和按钮不被遮挡。首页 Banner 图需要铺满状态栏，文字内容保持在安全区内。请分别给出纯色背景延伸和图片延伸两种安全区扩展方案，输出可落到工程中的完整开发方案。",
+    "intent": "验证 AVOID-02 expandSafeArea 背景色延伸和图片延伸两种典型方案能转成工程可编译、可验证的契约，覆盖两层结构分离模式。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-02",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "方案一：外层 Column 必须设置 backgroundColor + expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM]) 延伸背景色到状态栏和导航栏。",
+        "方案一：内层内容 Column 必须使用 padding 保持文字和按钮在安全区域内不被系统栏遮挡。",
+        "方案二：必须使用 Stack 分层布局，底层 Image + expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP]) 延伸图片到状态栏区域。",
+        "方案二：上层 Column 必须使用 padding({ top, bottom, left, right }) 保持内容在安全区内，不被状态栏遮挡。",
+        "两个方案都不需要 setWindowLayoutFullScreen，仅需在 EntryAbility 中设置系统栏透明（setWindowSystemBarProperties）。",
+        "必须说明 expandSafeArea 生效的前提条件：组件设置了 backgroundColor 或背景图，且父容器没有限制尺寸。"
+      ],
+      "should_reuse_resources": [
+        "./references/safe_area_api.md",
+        "./references/immersive_layout.md",
+        "./assets/BackgroundImmersiveExample.ets"
+      ],
+      "forbidden_patterns": [
+        "使用 setWindowLayoutFullScreen(true) 全屏布局（此场景不需要）。",
+        "外层容器和内层内容都设置 expandSafeArea，导致内容也延伸到系统栏区域被遮挡。",
+        "图片场景中 Image 不设置 objectFit(ImageFit.Cover) 导致图片变形。",
+        "不设置系统栏透明，导致默认白色系统栏与背景色不融合。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "方案一：蓝色背景铺满状态栏和导航栏区域，无白色间隙。",
+        "方案一：文字和按钮不被状态栏或导航栏遮挡。",
+        "方案二：Banner 图片铺满状态栏区域，无裁切或黑边。",
+        "方案二：文字内容保持在安全区内，不被状态栏遮挡。",
+        "两个方案系统栏区域与页面背景色融合，无视觉割裂。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "方案一背景色延伸截图（状态栏+导航栏区域蓝色无缝铺满）",
+        "方案一内容避让截图（文字和按钮可见）",
+        "方案二图片延伸截图（图片铺满状态栏）",
+        "方案二内容避让截图（文字可见）"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-008",
+    "layer": "scene-functional",
+    "title": "状态栏透明 + expandSafeArea 沉浸式方案验证（方案一）",
+    "phase": "DEV",
+    "user_prompt": "设置页需要沉浸式体验：页面背景色铺满状态栏和导航栏区域，标题和列表内容保持在安全区内。希望不使用全屏布局方式实现，保持系统默认布局模式。请输出完整开发方案，并说明不同沉浸式方案之间的适用场景区别。",
+    "intent": "验证 AVOID-03 方案一（状态栏透明+expandSafeArea）不使用全屏布局的沉浸式方案能转成工程可编译、可验证的契约，覆盖方案一与方案二的场景选择。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 中使用 setWindowSystemBarProperties 设置 statusBarColor 和 navigationBarColor 为透明（'#00000000'）。",
+        "页面根容器必须使用 expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM]) 延伸背景到状态栏和导航栏。",
+        "页面内容区域必须使用 padding 保持标题和列表在安全区内不被系统栏遮挡。",
+        "不能使用 setWindowLayoutFullScreen(true)，此方案不需要全屏布局。",
+        "必须根据状态栏区域背景色选择合适的状态栏图标颜色（isStatusBarLightIcon 黑/白）保证易读性。",
+        "必须说明方案一适用场景（背景简单、无需精确控制）和方案二适用场景（视频播放、需要动态避让高度）。"
+      ],
+      "should_reuse_resources": [
+        "./references/immersive_layout.md",
+        "./references/safe_area_api.md",
+        "./assets/BackgroundImmersiveExample.ets"
+      ],
+      "forbidden_patterns": [
+        "使用 setWindowLayoutFullScreen(true) 全屏布局（此场景是方案一，不需要全屏）。",
+        "不设置系统栏透明，导致默认白色/黑色系统栏与背景色不融合。",
+        "状态栏区域使用左右半区对比差异过大的颜色，导致部分状态栏信息无法阅读。",
+        "不说明方案一和方案二的适用场景区别。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "页面背景色铺满状态栏和导航栏区域，与系统栏无视觉割裂。",
+        "标题和列表内容不被状态栏或导航栏遮挡。",
+        "状态栏图标颜色与背景色对比度足够，时间、电量等信息清晰可读。",
+        "未调用 setWindowLayoutFullScreen(true)，页面使用常规布局模式。",
+        "滚动到底部时背景无缝铺满导航栏区域。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "状态栏区域沉浸截图（背景色铺满、图标清晰）",
+        "内容避让截图（标题和列表不被遮挡）",
+        "导航栏区域沉浸截图（背景色铺满底部）"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-09",
+    "layer": "scene-functional",
+    "title": "键盘弹出 List 自动避让验证",
+    "phase": "DEV",
+    "user_prompt": "搜索页有长列表和底部输入框。键盘弹出时需要：列表内容不被键盘遮挡且自动调整高度；底部输入框始终可见且可交互。请输出完整开发方案。",
+    "intent": "验证 AVOID-04 中 List 自动键盘避让的方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 或页面 aboutToAppear 中设置 KeyboardAvoidMode.RESIZE，键盘弹出时压缩页面可视区域。",
+        "列表必须使用 layoutWeight(1) 自适应高度，键盘弹出时 List 自动缩小。",
+        "底部输入框必须固定在 List 外部（Column 底部），键盘弹出时始终可见。",
+        "键盘收起后页面必须恢复原始布局，无额外空白。"
+      ],
+      "should_reuse_resources": [
+        "./references/keyboard_handling.md",
+        "./assets/KeyboardAvoidanceExample.ets",
+        "./assets/KeyboardManager.ets"
+      ],
+      "forbidden_patterns": [
+        "不设置 KeyboardAvoidMode，使用默认模式导致键盘遮挡内容。",
+        "列表使用固定高度而非 layoutWeight(1)，键盘弹出后列表不缩小。",
+        "底部输入框放在 Scroll 内部，键盘弹出后被推到不可见区域。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "键盘弹出后 List 自动缩小，列表内容不被键盘遮挡。",
+        "键盘弹出后底部输入框始终可见且可交互。",
+        "键盘收起后页面恢复原始布局，无额外空白。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "键盘弹出截图（输入框可见、列表内容不被遮挡）",
+        "键盘收起截图（布局恢复无额外空白）",
+        "KeyboardAvoidMode 设置日志"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-FUNC-10",
+    "layer": "scene-functional",
+    "title": "多输入框焦点切换自动滚动验证",
+    "phase": "DEV",
+    "user_prompt": "注册表单页面有多个输入框（用户名、手机号、验证码、邮箱、地址、备注等）。键盘弹出时需要：点击不同输入框时页面自动滚动到当前焦点输入框，确保焦点输入框始终在键盘上方可见；从顶部输入框切换到底部输入框时页面平滑向下滚动，反向切换时平滑向上滚动，仅需要键盘弹出时的滚动避让。请输出完整开发方案。",
+    "intent": "验证 AVOID-04 中 Scroll + scroller.scrollEdge 在 onFocus 时实现多输入框焦点切换自动滚动的方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03"
+      ]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 或页面 aboutToAppear 中设置 KeyboardAvoidMode.RESIZE，键盘弹出时压缩页面可视区域。",
+        "多个输入框必须放在 Scroll 容器内，使用 Scroller 控制滚动位置。",
+        "每个输入框必须注册 onFocus 回调，在回调中调用 scroller.scrollEdge(Edge.Bottom) 或 scroller.scrollEdge(Edge.Top) 滚动到当前焦点输入框。",
+        "页面必须有足够多的输入框（至少6个），使 Scroll 内容超出屏幕高度，产生可滚动的场景。",
+        "页面根容器必须使用 expandSafeArea([SafeAreaType.KEYBOARD], [SafeAreaEdge.BOTTOM]) 延伸背景到键盘区域。",
+        "键盘收起后页面必须恢复原始布局，Scroll 可正常滚动浏览所有输入框。"
+      ],
+      "should_reuse_resources": [
+        "./references/keyboard_handling.md",
+        "./references/safe_area_api.md",
+        "./assets/KeyboardAvoidanceExample.ets"
+      ],
+      "forbidden_patterns": [
+        "不设置 KeyboardAvoidMode，使用默认模式导致键盘遮挡输入框。",
+        "所有输入框都在一屏内可见，无法验证滚动行为。",
+        "不在 onFocus 中调用 scroller.scrollEdge，依赖系统默认行为可能无法滚动到正确位置。",
+        "使用 List 而非 Scroll 包裹输入框，List 内的 TextInput 焦点滚动行为与 Scroll 不同。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT Stage/ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "点击页面底部的输入框时，页面自动向下滚动，焦点输入框出现在键盘上方可见区域。",
+        "从底部输入框切换到顶部输入框时，页面自动向上滚动，顶部输入框可见。",
+        "连续切换不同位置的输入框，页面每次都能滚动到当前焦点输入框。",
+        "键盘弹出后页面背景延伸到键盘区域，无白边。",
+        "键盘收起后页面恢复原始布局，Scroll 可正常上下滚动浏览所有输入框。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "点击底部输入框截图（页面自动滚动，输入框在键盘上方可见）",
+        "切换到顶部输入框截图（页面自动向上滚动）",
+        "连续焦点切换截图（每次切换后当前输入框可见）",
+        "键盘收起截图（布局恢复正常）"
+      ]
+    }
+  }
+]

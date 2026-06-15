@@ -1,0 +1,22 @@
+{
+  "devecoStudioPath": "",
+  "emulatorPath": "",
+  "hdcPath": "",
+  "emulatorInstancePath": "",
+  "emulatorDeployPath": "",
+  "tempPath": "",
+  "_comment": {
+    "devecoStudioPath": "DevEco Studio 安装路径，例如：C:\\Program Files\\Huawei\\DevEco Studio",
+    "emulatorPath": "Emulator 可执行文件路径，例如：C:\\Program Files\\Huawei\\DevEco Studio\\tools\\emulator\\emulator.exe",
+    "hdcPath": "HDC 可执行文件路径，例如：C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\openharmony\\toolchains\\hdc.exe",
+    "emulatorInstancePath": "模拟器实例路径，例如：C:\\Users\\YourName\\Huawei\\emulator\\deployed\\MyPhone",
+    "emulatorDeployPath": "模拟器部署目录，例如：C:\\Users\\YourName\\Huawei\\emulator\\deployed",
+    "tempPath": "临时文件目录，例如：C:\\Temp 或 /tmp"
+  },
+  "_usage": [
+    "1. 将此文件复制为 config.json",
+    "2. 填写实际的路径配置",
+    "3. 或者运行 setup.js 自动生成 config.json",
+    "4. 配置优先级：环境变量 > config.json > 自动查找"
+  ]
+}

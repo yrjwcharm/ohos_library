@@ -1,0 +1,5 @@
+{
+  "name": "DataPanel",
+  "atomic": false,
+  "attrs": ["closeEffect"]
+}

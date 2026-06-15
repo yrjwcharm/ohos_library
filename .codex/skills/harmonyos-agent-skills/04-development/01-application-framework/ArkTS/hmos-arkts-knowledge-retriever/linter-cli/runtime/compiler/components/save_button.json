@@ -1,0 +1,11 @@
+{
+  "name": "SaveButton",
+  "atomic": true,
+  "attrs": [
+    "iconSize", "layoutDirection", "position", "markAnchor",
+    "offset", "fontSize", "fontStyle", "fontWeight", "fontFamily",
+    "fontColor", "iconColor", "backgroundColor", "borderStyle",
+    "borderWidth", "borderColor", "borderRadius", "padding",
+    "textIconSpace", "onClick", "key"
+  ]
+}

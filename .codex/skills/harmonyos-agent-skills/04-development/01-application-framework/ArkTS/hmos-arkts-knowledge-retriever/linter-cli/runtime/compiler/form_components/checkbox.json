@@ -1,0 +1,4 @@
+{
+    "name": "Checkbox",
+    "attrs": ["select","selectedColor","onChange"]
+}

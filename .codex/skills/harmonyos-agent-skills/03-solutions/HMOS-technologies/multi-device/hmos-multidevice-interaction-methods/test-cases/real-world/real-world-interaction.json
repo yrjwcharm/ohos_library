@@ -1,0 +1,116 @@
+[
+  {
+    "case_id": "INPUT-REAL-001",
+    "layer": "real-world",
+    "title": "PC图片组件右键菜单、拖拽归一与键盘快捷键开发",
+    "phase": "DEV",
+    "user_prompt": "应用首页图片组件开发以下交互功能：1）图片拖拽移动：图片可以自由拖进和拖出收藏区；2）鼠标悬浮反馈：鼠标悬浮图片时图片略微放大；",
+    "intent": "验证真实 PC 图片宫格场景下，INPUT-01 鼠标悬浮 + INPUT-02 拖拽归一化的开发方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene":  "INPUT-02",
+      "secondary_scenes": ["INPUT-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [ "INPUT-03", "INPUT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "图片拖拽必须使用触摸拖拽和鼠标拖拽走同一 onDragStart/onDrop 路径。"
+      ],
+      "should_reuse_resources": [
+        "./references/mouse.md",
+        "./references/interaction_normalization.md",
+        "./assets/HoverEffectExample.ets",
+        "./assets/FocusNavigationExample.ets"
+      ],
+      "forbidden_patterns": [
+        "鼠标拖拽用 onMouse 实现，触摸拖拽用 PanGesture 实现，两套独立拖拽逻辑。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT PC 端图片组件工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "鼠标拖拽图片到目标区域实现移动，拖拽过程显示图片缩略图。",
+        "触摸长按后拖拽图片到目标区域实现移动，与鼠标拖拽行为一致。",
+        "快捷键正常触发，图片恢复原状"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "鼠标拖拽移动图片录屏",
+        "触摸拖拽移动图片录屏",
+        "快捷键日志"
+      ]
+    }
+  },
+  {
+    "case_id": "INPUT-REAL-002",
+    "layer": "real-world",
+    "title": "平板电子签名板手写笔与手指输入区分开发",
+    "phase": "DEV",
+    "user_prompt": "电子签名交互功能开发：1）手写笔在 Canvas 上书写签名，笔迹粗细随压感变化；2）手指触摸时不在画布上画线并且弹窗提示使用手写笔",
+    "intent": "验证真实平板签名板场景下，INPUT-04 手写笔输入与手指触摸区分的开发方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-04",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "Canvas 的 onTouch 回调中必须通过 event.sourceTool === SourceTool.Pen 判断手写笔输入，仅手写笔执行绘图逻辑。",
+        "onTouch 回调中通过 event.sourceTool === SourceTool.Finger 判断手指触摸，手指触摸不执行绘图，提示弹窗。",
+        "手写笔绘图时必须读取 event.touches[0].pressure 压力值，根据压力动态计算线宽。"
+      ],
+      "should_reuse_resources": [
+        "./references/stylus.md"
+      ],
+      "forbidden_patterns": [
+        "不通过 event.sourceTool 区分输入类型，手指和手写笔都执行绘图逻辑。",
+        "不读取 touch.pressure，笔迹线宽固定不变。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 平板电子签名板工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "手写笔在 Canvas 上书写产生笔迹，轻按线细、重按线粗。",
+        "清除按钮点击后画布清空，确认按钮点击后保存签名。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手写笔书写截图（线宽随压力变化）",
+        "手指滑动弹窗截图（弹窗，无笔迹）"
+      ]
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "name": "CalendarPicker",
+  "atomic": true,
+  "attrs": [
+    "edgeAlign", "textStyle", "onChange", "markToday"
+  ]
+}

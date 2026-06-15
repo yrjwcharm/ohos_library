@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ASCF Configuration Schema",
+  "type": "object",
+  "properties": {
+    "packOptions": {
+      "type": "object",
+      "properties": {
+        "ignore": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["file", "folder", "suffix", "prefix", "regexp", "glob"]
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["type", "value"]
+          }
+        }
+      }
+    },
+    "swc": {
+      "type": "boolean",
+      "description": "Use SWC compiler instead of Babel (ASCF Toolkit ≥1.0.9)"
+    },
+    "templateHoist": {
+      "type": "boolean",
+      "description": "Optimize Taro-like framework builds (ASCF Toolkit ≥1.0.9)"
+    },
+    "disableSubpackages": {
+      "type": "boolean",
+      "description": "Merge subpackages in debug mode (ASCF Toolkit ≥1.0.9)"
+    },
+    "skipApiValidator": {
+      "type": "boolean",
+      "description": "Skip API/component validation (ASCF Toolkit ≥1.0.9)"
+    },
+    "logging": {
+      "type": "string",
+      "enum": ["debug", "info", "warn", "error"],
+      "default": "info",
+      "description": "Minimum log level (ASCF Toolkit ≥1.0.9)"
+    },
+    "devtool": {
+      "type": "string",
+      "default": "eval-cheap-source-map",
+      "description": "Source map generation mode (ASCF Toolkit ≥1.0.9)"
+    },
+    "cache": {
+      "oneOf": [
+        { "type": "boolean" },
+        { "type": "object" }
+      ],
+      "default": true,
+      "description": "Enable/disable build caching (ASCF Toolkit ≥1.0.9)"
+    },
+    "ascfDebugger": {
+      "type": "string",
+      "description": "Set to 'brk' for first-line debugging (ASCF Toolkit ≥1.0.9)"
+    },
+    "externalSwcHelpers": {
+      "type": "boolean",
+      "description": "Control SWC helpers externalization (ASCF Toolkit ≥1.0.9)"
+    },
+    "compileMode": {
+      "type": "string",
+      "enum": ["ascf", "wx"],
+      "default": "ascf",
+      "description": "Project type configuration (ASCF Toolkit ≥1.0.16)"
+    },
+    "emptyJsonpName": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Custom jsonpFunction names for Taro (ASCF Toolkit ≥1.0.16)"
+    },
+    "experimental": {
+      "type": "object",
+      "properties": {
+        "cacheBaseHxml": {
+          "type": "boolean",
+          "description": "Enable base.hxml cache (ASCF Toolkit ≥1.0.9)"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

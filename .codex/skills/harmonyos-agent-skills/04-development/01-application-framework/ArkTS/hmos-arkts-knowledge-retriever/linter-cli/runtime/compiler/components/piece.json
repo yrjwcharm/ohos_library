@@ -1,0 +1,5 @@
+{
+  "name": "Piece",
+  "attrs": ["iconPosition", "fontColor", "fontSize", "fontStyle",
+    "fontWeight","fontFamily", "showDelete", "onClose"]
+}

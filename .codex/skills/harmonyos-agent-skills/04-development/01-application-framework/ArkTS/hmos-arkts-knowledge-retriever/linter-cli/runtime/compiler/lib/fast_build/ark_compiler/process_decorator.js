@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.processDecorator=processDecorator;var _process_mock=require("./process_mock");function processDecorator(o){return(0,_process_mock.isMockDecorator)(o)&&(0,_process_mock.disableMockDecorator)(o)?void 0:o}

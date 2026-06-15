@@ -1,0 +1,162 @@
+<!--
+  CardView Template
+  Reference: references/3.component/cardview.md
+  MCP: component node 95:52
+
+  Variables (Template Contract):
+  - {{size}}: 'max' | 'larger' | 'medium' | 'small' | 'mini'
+  - {{content}}: card content slot
+  - {{#icon}}...{{/icon}}: icon button conditional block
+  - {{iconPosition}}: 'br' (bottom-right)
+  - {{iconGlyph}}: HMSymbol glyph (default &#xF0134; circle_dashed)
+  - {{iconAria}}: icon aria-label
+  - {{#icon2}}...{{/icon2}}: second icon button conditional (Mini variant)
+  - {{icon2Position}}: 'right' | 'left'
+  - {{icon2Glyph}}: second icon HMSymbol glyph
+  - {{icon2Aria}}: second icon aria-label
+-->
+<style>
+  @import url("../../../references/2.theme/harmony-tokens.css");
+
+  /* ========== HMSymbol Font ========== */
+  @font-face {
+    font-family: 'HMSymbol';
+    src: url('../../../assets/HMSymbolVF_1.ttf') format('truetype');
+    font-weight: 1 999;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'HMOS Color Emoji Compat';
+    src: url('../../../assets/HMOSColorEmojiCompat.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'HMOS Color Emoji Flags';
+    src: url('../../../assets/HMOSColorEmojiFlags.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+1F1E6-1F1FF;
+  }
+
+  .hm { font-family: 'HMSymbol', sans-serif; }
+  .hm-emoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family:
+      'HMOS Color Emoji Flags',
+      'HMOS Color Emoji Compat',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Noto Color Emoji',
+      sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .hm-20 { font-size: 20px; line-height: 1; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; }
+
+  /* ========== Design Tokens (from Pixso MCP DSL) ========== */
+  :root {
+    /* 95:64 Light/comp_background_list_card */
+    --cardview-bg: rgba(255, 255, 255, 1);
+    /* 36:1901 Light/comp_background_tertiary */
+    --cardview-icon-btn-bg: rgba(0, 0, 0, 0.047);
+    /* 36:1904 Light/icon_primary */
+    --cardview-icon-color: rgba(0, 0, 0, 0.898);
+
+    --cardview-radius: 20px;
+    --cardview-icon-btn-size: 32px;
+    --cardview-icon-size: 20px;
+    --cardview-icon-margin: 12px;
+  }
+
+  /* ========== Root Container ========== */
+  .harmony-cardview {
+    position: relative;
+    background: var(--cardview-bg);
+    border-radius: var(--cardview-radius);
+    flex-shrink: 0;
+  }
+
+  /* Size variants */
+  .harmony-cardview--max    { width: 328px; height: 496px; }
+  .harmony-cardview--larger { width: 328px; height: 328px; }
+  .harmony-cardview--medium { width: 328px; height: 156px; }
+  .harmony-cardview--small  { width: 156px; height: 156px; }
+  .harmony-cardview--mini   { width: 328px; height: 56px; }
+
+  /* ========== Icon Button ========== */
+  .harmony-cardview__icon-btn {
+    position: absolute;
+    width: var(--cardview-icon-btn-size);
+    height: var(--cardview-icon-btn-size);
+    border-radius: 50%;
+    background: var(--cardview-icon-btn-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Positions */
+  .harmony-cardview__icon-btn--br {
+    right: var(--cardview-icon-margin);
+    bottom: var(--cardview-icon-margin);
+  }
+
+  .harmony-cardview__icon-btn--left {
+    left: var(--cardview-icon-margin);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .harmony-cardview__icon-btn--right {
+    right: var(--cardview-icon-margin);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Icon */
+  .harmony-cardview__icon {
+    width: var(--cardview-icon-size);
+    height: var(--cardview-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cardview-icon-color);
+  }
+</style>
+
+<!-- ========== Template Root ========== -->
+<div class="harmony-cardview harmony-cardview--{{size}}"
+  data-component="cardview"
+  data-size="{{size}}"
+  data-figma-node-id="95:52">
+
+  {{#icon}}
+  <button class="harmony-cardview__icon-btn harmony-cardview__icon-btn--{{iconPosition}}" aria-label="{{iconAria}}" type="button">
+    <span class="harmony-cardview__icon hm hm-20">{{iconGlyph}}</span>
+  </button>
+  {{/icon}}
+
+  {{#icon2}}
+  <button class="harmony-cardview__icon-btn harmony-cardview__icon-btn--{{icon2Position}}" aria-label="{{icon2Aria}}" type="button">
+    <span class="harmony-cardview__icon hm hm-20">{{icon2Glyph}}</span>
+  </button>
+  {{/icon2}}
+
+  {{content}}
+</div>

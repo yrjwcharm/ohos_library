@@ -1,0 +1,7 @@
+{
+  "name": "Marquee",
+  "attrs": [
+    "fontColor", "fontSize", "allowScale", "fontWeight", "fontFamily", "onStart",
+    "onBounce", "onFinish"
+  ]
+}

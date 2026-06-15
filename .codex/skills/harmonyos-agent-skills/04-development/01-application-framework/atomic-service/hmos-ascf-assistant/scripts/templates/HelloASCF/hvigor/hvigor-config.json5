@@ -1,0 +1,10 @@
+{
+  "modelVersion": "5.0.0",
+  "dependencies": {
+    "@atomicservice/ascf-toolkit-hvigor-plugin": "~1.0.11-alpha.0 ||~1.0.11-beta.0 || ~1.0.10"
+  },
+  "execution": {},
+  "logging": {},
+  "debugging": {},
+  "nodeOptions": {}
+}

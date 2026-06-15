@@ -1,0 +1,5 @@
+{
+  "name": "Polyline",
+  "atomic": true,
+  "attrs": ["points"]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "FlowItem",
+    "parents": [
+        "WaterFlow"
+    ],
+    "single": true,
+    "attrs": []
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Scroll",
+  "single": true,
+  "attrs": [
+    "scrollable", "onScroll", "onScrollEdge", "onScrollEnd", "scrollBar", "scrollBarColor",
+    "scrollBarWidth", "edgeEffect", "enableScrollInteraction", "onScrollBegin", "scrollSnap",
+    "nestedScroll", "friction", "enablePaging", "initialOffset", "onScrollFrameBegin",
+    "onWillScroll", "onDidScroll", "onScrollStart", "onScrollStop", "flingSpeedLimit",
+    "fadingEdge", "clipContent", "onReachStart", "onReachEnd", "backToTop", "onWillStopDragging",
+    "maxZoomScale", "minZoomScale", "zoomScale", "enableBouncesZoom", "onDidZoom", "onZoomStart",
+    "onZoomStop", "onWillStartDragging", "onDidStopDragging", "onWillStartFling", "onDidStopFling",
+    "contentStartOffset", "contentEndOffset"
+  ]
+}

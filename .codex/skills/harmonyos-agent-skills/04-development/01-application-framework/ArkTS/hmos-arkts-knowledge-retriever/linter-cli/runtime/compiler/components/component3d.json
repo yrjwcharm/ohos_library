@@ -1,0 +1,9 @@
+{
+  "name": "Component3D",
+  "atomic": true,
+  "attrs": [
+    "environment", "customRender", "shader", "shaderImageTexture",
+    "shaderInputBuffer", "renderWidth", "renderHeight"
+  ],
+  "systemApi": false
+}

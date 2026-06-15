@@ -1,0 +1,13 @@
+{
+    "name": "UIExtensionComponent",
+    "attrs": [
+        "onResult",
+        "onRelease",
+        "onError",
+        "onTerminated",
+        "onReceive",
+        "onRemoteReady"
+    ],
+    "atomic": true,
+    "systemApi": true
+}

@@ -1,0 +1,568 @@
+<!--
+  titlebar Template
+
+  IMPORTANT — Statusbar composition rule:
+  This template's built-in `__status` block is a component-internal fallback. When
+  `references/3.component/statusbar.md` is also available (which it always is for full-page
+  renders per `SKILL.md`), the `__status` block MUST be replaced by a standalone
+  `<section class="harmony-statusbar harmony-statusbar-light" data-component="statusbar">`
+  node as the first child of `.harmony-titlebar`. The standalone component brings:
+    - Real PNG assets (wifi/single-card/dual-card/battery) from repo
+    - Precise 96×13 icon slot geometry per statusbar.md Numeric Baseline
+    - Traceable `data-component="statusbar"` for Code-to-Design round-tripping
+  Do NOT collapse the standalone statusbar into this template's `__status` shorthand.
+
+  Variables (Template Contract):
+- `{{variant}}`: `big|normal|secondary|drawer`
+- `{{time}}`: 状态栏时间文本 (e.g. "08:08")
+- `{{title}}`: 标题文本
+- `{{subtitle}}`: 副标题文本 (仅 big / secondary)
+- `{{leadingIcon}}`: HMSymbol glyph HTML entity (仅 secondary: &#xF00DA; / drawer: &#xF0163;)
+- `{{leadingAria}}`: leading 按钮 aria-label
+- `{{actions}}`: 动作按钮数组，每项含 {{actionIcon}} (glyph) + {{actionAria}} (label)
+-->
+
+<style>
+/*
+  引用语义 token：统一从 harmony-tokens.css 消费
+  模板路径 references/4.template/titlebar-tem.html，相对路径需回退 3 级
+*/
+@import url("../../../references/2.theme/harmony-tokens.css");
+
+/*
+  HMSymbol 字体
+  来源：HarmonyOS Symbol 图标库
+*/
+@font-face {
+  font-family: "HM Symbol-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMSymbolVF_1.ttf") format("truetype");
+}
+
+/*
+  HMOS Color Emoji 字体
+  用于页面增强层中的彩色 emoji，不替代 HMSymbol 线性图标
+*/
+@font-face {
+  font-family: "HMOS Color Emoji Compat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiCompat.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Flags";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiFlags.ttf") format("truetype");
+  unicode-range: U+1F1E6-1F1FF;
+}
+
+/*
+  DSL 提取的组件级颜色 token
+  font_primary (36:1902): rgba(0,0,0,0.898)
+  font_secondary (36:1903): rgba(0,0,0,0.6)
+  icon_primary (36:1904): rgba(0,0,0,0.898)
+  navigation_mark1 (36:1909): rgba(241,243,245,0.8)
+  Blur/Navigation_mark (36:1913): blur=12
+  Floating_background_weak (36:1915): rgba(255,255,255,0.88)
+  interactive_click (2:17228): rgba(0,0,0,0.098)
+  Blur/FLOATING_ULTRA_THIN (36:1916): shadow 0 8px 48px rgba(0,0,0,0.08), blur=16
+*/
+:root {
+  --titlebar-font-primary: rgba(0, 0, 0, 0.898);
+  --titlebar-font-secondary: rgba(0, 0, 0, 0.6);
+  --titlebar-icon-primary: rgba(0, 0, 0, 0.898);
+  --titlebar-bg-fill: rgba(241, 243, 245, 0.8);
+  --titlebar-blur: 12px;
+  --titlebar-normal-bg-gradient: linear-gradient(
+    to bottom,
+    rgba(241, 243, 245, 0.8) 0%,
+    rgba(241, 243, 245, 0.8) 30%,
+    rgba(241, 243, 245, 0.79) 38.5%,
+    rgba(241, 243, 245, 0.74) 51.1%,
+    rgba(241, 243, 245, 0.65) 59.3%,
+    rgba(241, 243, 245, 0.53) 67.5%,
+    rgba(241, 243, 245, 0.32) 76.4%,
+    rgba(241, 243, 245, 0.12) 85.7%,
+    rgba(241, 243, 245, 0) 100%
+  );
+  --titlebar-action-bg: rgba(255, 255, 255, 0.88);
+  --titlebar-action-bg-hover: rgba(255, 255, 255, 0.96);
+  --titlebar-action-pressed: rgba(0, 0, 0, 0.098);
+  --titlebar-action-shadow: 0 8px 48px rgba(0, 0, 0, 0.08);
+  --titlebar-action-blur: blur(16px);
+  --titlebar-action-saturate: 1.2;
+  --titlebar-action-inner-a: inset 0 10px 80px rgba(0, 0, 0, 0.06);
+  --titlebar-action-inner-b: inset 0 -4px 40px rgba(0, 0, 0, 0.03);
+  --titlebar-action-inner-c: inset 0.5px 0 0.5px rgba(0, 0, 0, 0.2);
+  --titlebar-action-inner-d: inset -0.5px 0 0.75px rgba(40, 40, 40, 0.25);
+  --titlebar-action-inner-e: inset 0 -0.5px 0.5px rgba(255, 255, 255, 0.3);
+  --titlebar-action-inner-f: inset 0 0.5px 0.75px rgba(255, 255, 255, 0.7);
+  --titlebar-focus: rgba(245, 249, 255, 0.5);
+}
+
+/*
+  ========== 组件本体 ==========
+  DSL: FloatingTitleBar (36:1715), 4 variants, width=360
+*/
+.harmony-titlebar {
+  position: relative;
+  width: 360px;
+  overflow: hidden;
+  background: var(--titlebar-bg-fill);
+  color: var(--titlebar-font-primary);
+  backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+}
+
+/* ---- Variant 尺寸 ---- */
+/* DSL 36:1736 Big: 360×205 */
+.harmony-titlebar--big {
+  height: 205px;
+}
+
+/* DSL 36:1741 Normal: 360×124 */
+.harmony-titlebar--normal {
+  height: 124px;
+  background: var(--titlebar-normal-bg-gradient);
+  backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+}
+
+/* DSL 36:1746 Secondary: 360×124 */
+.harmony-titlebar--secondary {
+  height: 124px;
+  background: var(--titlebar-normal-bg-gradient);
+  backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+}
+
+/* DSL 36:1751 Drawer: 360×124 */
+.harmony-titlebar--drawer {
+  height: 124px;
+  background: var(--titlebar-normal-bg-gradient);
+  backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--titlebar-blur)) saturate(1.2);
+}
+
+/*
+  ========== StatusBar ==========
+  DSL 2:17590: 360×36, padding 8/24, HORIZONTAL space-between center
+*/
+.harmony-titlebar__status {
+  width: 360px;
+  height: 36px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.harmony-titlebar__time {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--titlebar-font-primary);
+  white-space: nowrap;
+}
+
+.harmony-titlebar__status-icons {
+  position: relative;
+  width: 96px;
+  height: 13px;
+  flex: 0 0 auto;
+}
+
+.harmony-titlebar__status-icon {
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* WiFi (2:17542): 15.34×12 */
+.harmony-titlebar__status-icon--wifi {
+  left: 0.4px;
+  top: 0.5px;
+  width: 15.34px;
+  height: 12px;
+}
+
+/* Signal single: 21.5×12 */
+.harmony-titlebar__status-icon--sig1 {
+  left: 21.4px;
+  top: 0.5px;
+  width: 21.5px;
+  height: 12px;
+}
+
+/* Signal dual: 17.5×12 */
+.harmony-titlebar__status-icon--sig2 {
+  left: 47.4px;
+  top: 0.5px;
+  width: 17.5px;
+  height: 12px;
+}
+
+/* Battery (2:17489): 25.75×13 */
+.harmony-titlebar__status-icon--battery {
+  left: 70.25px;
+  top: 0;
+  width: 25.75px;
+  height: 13px;
+}
+
+/*
+  ========== 内容区域 ==========
+*/
+.harmony-titlebar__content {
+  position: relative;
+  width: 360px;
+}
+
+/* Big: 205 - 36 = 169 */
+.harmony-titlebar--big .harmony-titlebar__content {
+  height: 169px;
+}
+
+/* Normal / Secondary: 124 - 36 = 88 */
+.harmony-titlebar--normal .harmony-titlebar__content,
+.harmony-titlebar--secondary .harmony-titlebar__content {
+  height: 88px;
+}
+
+/* Drawer: 92 - 36 = 56 */
+.harmony-titlebar--drawer .harmony-titlebar__content {
+  height: 56px;
+}
+
+/*
+  ========== 动作按钮组 ==========
+  DSL: gap=8, 右对齐 right=16
+*/
+.harmony-titlebar__actions {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harmony-titlebar--big .harmony-titlebar__actions {
+  top: 4px;
+  right: 16px;
+}
+
+.harmony-titlebar--normal .harmony-titlebar__actions {
+  top: 12px;
+  right: 16px;
+}
+
+.harmony-titlebar--secondary .harmony-titlebar__actions {
+  top: 10px;
+  right: 16px;
+}
+
+.harmony-titlebar--drawer .harmony-titlebar__actions {
+  top: 8px;
+  right: 16px;
+}
+
+/*
+  ========== 动作按钮 ==========
+  DSL 36:1799 IconButton size=40: 40×40, radius=1000, bg=white floating
+  DSL 36:1915/1916: shadow + blur
+*/
+.harmony-titlebar__action-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--titlebar-icon-primary);
+  background: var(--titlebar-action-bg);
+  box-shadow:
+    var(--titlebar-action-shadow),
+    var(--titlebar-action-inner-a),
+    var(--titlebar-action-inner-b),
+    var(--titlebar-action-inner-c),
+    var(--titlebar-action-inner-d),
+    var(--titlebar-action-inner-e),
+    var(--titlebar-action-inner-f);
+  -webkit-backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+  backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.harmony-titlebar__action-btn:hover {
+  background: var(--titlebar-action-bg-hover);
+}
+
+.harmony-titlebar__action-btn:active {
+  background:
+    linear-gradient(var(--titlebar-action-pressed), var(--titlebar-action-pressed)),
+    var(--titlebar-action-bg);
+}
+
+.harmony-titlebar__action-btn:focus-visible {
+  outline: 2px solid var(--titlebar-focus);
+  outline-offset: 2px;
+}
+
+/*
+  ========== 左侧前导按钮 ==========
+*/
+.harmony-titlebar__leading {
+  position: absolute;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--titlebar-icon-primary);
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.harmony-titlebar--secondary .harmony-titlebar__leading {
+  top: 8px;
+  background: var(--titlebar-action-bg);
+  box-shadow:
+    var(--titlebar-action-shadow),
+    var(--titlebar-action-inner-a),
+    var(--titlebar-action-inner-b),
+    var(--titlebar-action-inner-c),
+    var(--titlebar-action-inner-d),
+    var(--titlebar-action-inner-e),
+    var(--titlebar-action-inner-f);
+  -webkit-backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+  backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+}
+
+.harmony-titlebar--secondary .harmony-titlebar__leading:hover {
+  background: var(--titlebar-action-bg-hover);
+}
+
+.harmony-titlebar--secondary .harmony-titlebar__leading:active {
+  background:
+    linear-gradient(var(--titlebar-action-pressed), var(--titlebar-action-pressed)),
+    var(--titlebar-action-bg);
+}
+
+.harmony-titlebar--drawer .harmony-titlebar__leading {
+  top: 8px;
+  background: var(--titlebar-action-bg);
+  box-shadow:
+    var(--titlebar-action-shadow),
+    var(--titlebar-action-inner-a),
+    var(--titlebar-action-inner-b),
+    var(--titlebar-action-inner-c),
+    var(--titlebar-action-inner-d),
+    var(--titlebar-action-inner-e),
+    var(--titlebar-action-inner-f);
+  -webkit-backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+  backdrop-filter: var(--titlebar-action-blur) saturate(var(--titlebar-action-saturate));
+}
+
+.harmony-titlebar--drawer .harmony-titlebar__leading:hover {
+  background: var(--titlebar-action-bg-hover);
+}
+
+.harmony-titlebar--drawer .harmony-titlebar__leading:active {
+  background:
+    linear-gradient(var(--titlebar-action-pressed), var(--titlebar-action-pressed)),
+    var(--titlebar-action-bg);
+}
+
+.harmony-titlebar__leading:focus-visible {
+  outline: 2px solid var(--titlebar-focus);
+  outline-offset: 2px;
+}
+
+/*
+  ========== HMSymbol 图标辅助类 ==========
+*/
+.hm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HM Symbol-Regular", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  color: currentColor;
+  pointer-events: none;
+}
+
+.hm-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family:
+    "HMOS Color Emoji Flags",
+    "HMOS Color Emoji Compat",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.hm-24 {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+/*
+  ========== 标题与副标题 ==========
+*/
+.harmony-titlebar__title,
+.harmony-titlebar__subtitle {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+.harmony-titlebar__title {
+  color: var(--titlebar-font-primary);
+  font-weight: 700;
+}
+
+/* Big title: 30/40 Bold */
+.harmony-titlebar--big .harmony-titlebar__title {
+  left: 16px;
+  top: 71px;
+  width: 328px;
+  height: 40px;
+  font-size: 30px;
+  line-height: 40px;
+}
+
+/* Big subtitle: 14/19 Regular */
+.harmony-titlebar--big .harmony-titlebar__subtitle {
+  left: 16px;
+  top: 112px;
+  width: 328px;
+  height: 19px;
+  color: var(--titlebar-font-secondary);
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 400;
+}
+
+/* Normal title: 26/35 Bold */
+.harmony-titlebar--normal .harmony-titlebar__title {
+  left: 16px;
+  top: 19px;
+  width: 184px;
+  height: 35px;
+  font-size: 26px;
+  line-height: 35px;
+}
+
+/* Secondary title: 20/27 Bold */
+.harmony-titlebar--secondary .harmony-titlebar__title {
+  left: 66px;
+  top: 7px;
+  width: 232px;
+  height: 27px;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+/* Secondary subtitle: 14/19 Regular */
+.harmony-titlebar--secondary .harmony-titlebar__subtitle {
+  left: 66px;
+  top: 36px;
+  width: 232px;
+  height: 19px;
+  color: var(--titlebar-font-secondary);
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 400;
+}
+
+/* Drawer title: 26/35 Bold */
+.harmony-titlebar--drawer .harmony-titlebar__title {
+  left: 66px;
+  top: 10px;
+  width: 232px;
+  height: 35px;
+  font-size: 26px;
+  line-height: 35px;
+}
+
+/*
+  防拉伸约束（强制）
+  图标/按钮禁止拉伸，锁定几何
+*/
+.harmony-titlebar [class*="icon"],
+.harmony-titlebar [class*="btn"],
+.harmony-titlebar [class*="thumb"] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.harmony-titlebar [class*="btn"] {
+  flex: 0 0 auto;
+}
+</style>
+
+<!--
+  Root Element
+  data-component="titlebar" 为必需 trace 属性
+  harmony-titlebar--{{variant}} 枚举值为 big|normal|secondary|drawer
+-->
+<div class="harmony-titlebar harmony-titlebar--{{variant}}" data-component="titlebar" data-figma-node-id="36:1715">
+  <div class="harmony-titlebar__status">
+    <span class="harmony-titlebar__time">{{time}}</span>
+    <span class="harmony-titlebar__status-icons">
+      <i class="harmony-titlebar__status-icon harmony-titlebar__status-icon--wifi"></i>
+      <i class="harmony-titlebar__status-icon harmony-titlebar__status-icon--sig1"></i>
+      <i class="harmony-titlebar__status-icon harmony-titlebar__status-icon--sig2"></i>
+      <i class="harmony-titlebar__status-icon harmony-titlebar__status-icon--battery"></i>
+    </span>
+  </div>
+  <div class="harmony-titlebar__content">
+    {{#leadingIcon}}
+    <button class="harmony-titlebar__leading" type="button" aria-label="{{leadingAria}}">
+      <span class="hm hm-24" aria-hidden="true">{{leadingIcon}}</span>
+    </button>
+    {{/leadingIcon}}
+    <div class="harmony-titlebar__actions">
+      {{#actions}}
+      <button class="harmony-titlebar__action-btn" type="button" aria-label="{{actionAria}}">
+        <span class="hm hm-24" aria-hidden="true">{{actionIcon}}</span>
+      </button>
+      {{/actions}}
+    </div>
+    <h2 class="harmony-titlebar__title">{{title}}</h2>
+    {{#subtitle}}
+    <p class="harmony-titlebar__subtitle">{{subtitle}}</p>
+    {{/subtitle}}
+  </div>
+</div>

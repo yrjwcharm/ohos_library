@@ -1,0 +1,8 @@
+{
+  "name": "MediaCachedImage",
+  "atomic": true,
+  "attrs": [
+    "objectFit", "matchTextDirection", "fitOriginalSize", "objectRepeat", "renderMode",
+    "interpolation", "onComplete", "onError", "onFinish", "sourceSize", "fillColor", "autoResize"
+  ]
+}

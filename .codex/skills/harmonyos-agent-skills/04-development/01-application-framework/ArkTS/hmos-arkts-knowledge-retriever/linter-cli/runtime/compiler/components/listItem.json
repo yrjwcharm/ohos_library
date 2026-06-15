@@ -1,0 +1,6 @@
+{
+  "name": "ListItem",
+  "parents": ["List", "ListItemGroup"],
+  "single": true,
+  "attrs": ["sticky", "editable", "selectable", "swipeAction", "onSelect", "selected"]
+}

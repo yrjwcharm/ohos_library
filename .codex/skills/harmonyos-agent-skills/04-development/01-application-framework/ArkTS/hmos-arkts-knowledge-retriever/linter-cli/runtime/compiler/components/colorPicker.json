@@ -1,0 +1,4 @@
+{
+  "name": "ColorPicker",
+  "attrs": ["colors", "onSelect", "setAlignment", "setColunms", "setRows"]
+}

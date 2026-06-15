@@ -1,0 +1,614 @@
+[
+  {
+    "api_name": "OH_AudioDecoder_CreateByMime",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_CreateByMime",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_factory": "AudioDecoderFactory::CreateByMime",
+    "inner_header": "interfaces/inner_api/native/avcodec_audio_decoder.h",
+    "call_chain": "OH_AudioDecoder_CreateByMime -> AudioDecoderFactory::CreateByMime -> AVCodecAudioDecoder -> IPC -> Codec Engine"
+  },
+  {
+    "api_name": "OH_AudioDecoder_CreateByName",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_CreateByName",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_factory": "AudioDecoderFactory::CreateByName",
+    "inner_header": "interfaces/inner_api/native/avcodec_audio_decoder.h",
+    "call_chain": "OH_AudioDecoder_CreateByName -> AudioDecoderFactory::CreateByName -> AVCodecAudioDecoder -> IPC -> Codec Engine"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Destroy",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Release",
+    "call_chain": "OH_AudioDecoder_Destroy -> AudioDecoderObject::audioDecoder_->Release() -> AVCodecAudioDecoder::Release"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Configure",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Configure",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Configure",
+    "call_chain": "OH_AudioDecoder_Configure -> AudioDecoderObject::audioDecoder_->Configure(format) -> AVCodecAudioDecoder::Configure"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Prepare",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Prepare",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Prepare",
+    "call_chain": "OH_AudioDecoder_Prepare -> AudioDecoderObject::audioDecoder_->Prepare() -> AVCodecAudioDecoder::Prepare"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Start",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Start",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Start",
+    "call_chain": "OH_AudioDecoder_Start -> AudioDecoderObject::audioDecoder_->Start() -> AVCodecAudioDecoder::Start"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Stop",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Stop",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Stop",
+    "call_chain": "OH_AudioDecoder_Stop -> AudioDecoderObject::audioDecoder_->Stop() -> AVCodecAudioDecoder::Stop"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Flush",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Flush",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Flush",
+    "call_chain": "OH_AudioDecoder_Flush -> AudioDecoderObject::audioDecoder_->Flush() -> AVCodecAudioDecoder::Flush"
+  },
+  {
+    "api_name": "OH_AudioDecoder_Reset",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_Reset",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "Reset",
+    "call_chain": "OH_AudioDecoder_Reset -> AudioDecoderObject::audioDecoder_->Reset() -> AVCodecAudioDecoder::Reset"
+  },
+  {
+    "api_name": "OH_AudioDecoder_PushInputData",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_PushInputData",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "QueueInputBuffer",
+    "call_chain": "OH_AudioDecoder_PushInputData -> AudioDecoderObject::audioDecoder_->QueueInputBuffer(index, bufferInfo, bufferFlag)"
+  },
+  {
+    "api_name": "OH_AudioDecoder_GetOutputDescription",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_GetOutputDescription",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "GetOutputFormat",
+    "call_chain": "OH_AudioDecoder_GetOutputDescription -> AudioDecoderObject::audioDecoder_->GetOutputFormat(format)"
+  },
+  {
+    "api_name": "OH_AudioDecoder_FreeOutputData",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_FreeOutputData",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "ReleaseOutputBuffer",
+    "call_chain": "OH_AudioDecoder_FreeOutputData -> AudioDecoderObject::audioDecoder_->ReleaseOutputBuffer(index)"
+  },
+  {
+    "api_name": "OH_AudioDecoder_SetParameter",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_SetParameter",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "SetParameter",
+    "call_chain": "OH_AudioDecoder_SetParameter -> AudioDecoderObject::audioDecoder_->SetParameter(format)"
+  },
+  {
+    "api_name": "OH_AudioDecoder_SetCallback",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_SetCallback",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "AVCodecAudioDecoder",
+    "inner_method": "SetCallback",
+    "call_chain": "OH_AudioDecoder_SetCallback -> NativeAudioDecoder(callback wrapper) -> audioDecoder_->SetCallback(callback)"
+  },
+  {
+    "api_name": "OH_AudioDecoder_IsValid",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioDecoder_IsValid",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_decoder.cpp",
+    "inner_class": "-",
+    "inner_method": "-",
+    "call_chain": "OH_AudioDecoder_IsValid -> 直接返回 true（无内部调用）"
+  },
+  {
+    "api_name": "OH_AudioEncoder_CreateByMime",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioEncoder_CreateByMime",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_encoder.cpp",
+    "inner_class": "AVCodecAudioEncoder",
+    "inner_factory": "AudioEncoderFactory::CreateByMime",
+    "inner_header": "interfaces/inner_api/native/avcodec_audio_encoder.h",
+    "call_chain": "OH_AudioEncoder_CreateByMime -> AudioEncoderFactory::CreateByMime -> AVCodecAudioEncoder"
+  },
+  {
+    "api_name": "OH_AudioEncoder_CreateByName",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioEncoder_CreateByName",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_encoder.cpp",
+    "inner_class": "AVCodecAudioEncoder",
+    "inner_factory": "AudioEncoderFactory::CreateByName",
+    "inner_header": "interfaces/inner_api/native/avcodec_audio_encoder.h",
+    "call_chain": "OH_AudioEncoder_CreateByName -> AudioEncoderFactory::CreateByName -> AVCodecAudioEncoder"
+  },
+  {
+    "api_name": "OH_AudioEncoder_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioEncoder_Destroy",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_encoder.cpp",
+    "inner_class": "AVCodecAudioEncoder",
+    "inner_method": "Release",
+    "call_chain": "OH_AudioEncoder_Destroy -> AudioEncoderObject::audioEncoder_->Release()"
+  },
+  {
+    "api_name": "OH_AudioEncoder_Configure",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioEncoder_Configure",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_encoder.cpp",
+    "inner_class": "AVCodecAudioEncoder",
+    "inner_method": "Configure",
+    "call_chain": "OH_AudioEncoder_Configure -> AudioEncoderObject::audioEncoder_->Configure(format)"
+  },
+  {
+    "api_name": "OH_VideoDecoder_CreateByMime",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_CreateByMime",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_factory": "VideoDecoderFactory::CreateByMime",
+    "inner_header": "interfaces/inner_api/native/avcodec_video_decoder.h",
+    "call_chain": "OH_VideoDecoder_CreateByMime -> VideoDecoderFactory::CreateByMime -> AVCodecVideoDecoder"
+  },
+  {
+    "api_name": "OH_VideoDecoder_CreateByName",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_CreateByName",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_factory": "VideoDecoderFactory::CreateByName",
+    "inner_header": "interfaces/inner_api/native/avcodec_video_decoder.h",
+    "call_chain": "OH_VideoDecoder_CreateByName -> VideoDecoderFactory::CreateByName -> AVCodecVideoDecoder"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Destroy",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Release",
+    "call_chain": "OH_VideoDecoder_Destroy -> VideoDecoderObject::videoDecoder_->Release()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Configure",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Configure",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Configure",
+    "call_chain": "OH_VideoDecoder_Configure -> VideoDecoderObject::videoDecoder_->Configure(format)"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Prepare",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Prepare",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Prepare",
+    "call_chain": "OH_VideoDecoder_Prepare -> VideoDecoderObject::videoDecoder_->Prepare()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Start",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Start",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Start",
+    "call_chain": "OH_VideoDecoder_Start -> VideoDecoderObject::videoDecoder_->Start()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Stop",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Stop",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Stop",
+    "call_chain": "OH_VideoDecoder_Stop -> VideoDecoderObject::videoDecoder_->Stop()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Flush",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Flush",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Flush",
+    "call_chain": "OH_VideoDecoder_Flush -> VideoDecoderObject::videoDecoder_->Flush()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_Reset",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_Reset",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "Reset",
+    "call_chain": "OH_VideoDecoder_Reset -> VideoDecoderObject::videoDecoder_->Reset()"
+  },
+  {
+    "api_name": "OH_VideoDecoder_SetSurface",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoDecoder_SetSurface",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_decoder.cpp",
+    "inner_class": "AVCodecVideoDecoder",
+    "inner_method": "SetSurface",
+    "call_chain": "OH_VideoDecoder_SetSurface -> VideoDecoderObject::videoDecoder_->SetSurface(window)"
+  },
+  {
+    "api_name": "OH_VideoEncoder_CreateByMime",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoEncoder_CreateByMime",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_encoder.cpp",
+    "inner_class": "AVCodecVideoEncoder",
+    "inner_factory": "VideoEncoderFactory::CreateByMime",
+    "inner_header": "interfaces/inner_api/native/avcodec_video_encoder.h",
+    "call_chain": "OH_VideoEncoder_CreateByMime -> VideoEncoderFactory::CreateByMime -> AVCodecVideoEncoder"
+  },
+  {
+    "api_name": "OH_VideoEncoder_CreateByName",
+    "d_ts_file": "",
+    "capi_func": "OH_VideoEncoder_CreateByName",
+    "impl_file": "frameworks/native/capi/avcodec/native_video_encoder.cpp",
+    "inner_class": "AVCodecVideoEncoder",
+    "inner_factory": "VideoEncoderFactory::CreateByName",
+    "inner_header": "interfaces/inner_api/native/avcodec_video_encoder.h",
+    "call_chain": "OH_VideoEncoder_CreateByName -> VideoEncoderFactory::CreateByName -> AVCodecVideoEncoder"
+  },
+  {
+    "api_name": "OH_AudioCodec_CreateByMime",
+    "d_ts_file": "",
+    "capi_func": "OH_AudioCodec_CreateByMime",
+    "impl_file": "frameworks/native/capi/avcodec/native_audio_codec.cpp",
+    "inner_class": "AVCodecAudioCodecImpl",
+    "inner_header": "interfaces/inner_api/native/avcodec_audio_codec.h",
+    "call_chain": "OH_AudioCodec_CreateByMime -> AVCodecAudioCodecImpl"
+  },
+  {
+    "api_name": "OH_AVCodec_GetCapability",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCodec_GetCapability",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "AVCodecList",
+    "inner_factory": "AVCodecListFactory::CreateAVCodecList",
+    "inner_header": "interfaces/inner_api/native/avcodec_list.h",
+    "call_chain": "OH_AVCodec_GetCapability -> AVCodecListFactory::CreateAVCodecList -> codeclist->GetCapability(mime, isEncoder, AVCODEC_NONE)"
+  },
+  {
+    "api_name": "OH_AVCodec_GetCapabilityByCategory",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCodec_GetCapabilityByCategory",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "AVCodecList",
+    "inner_factory": "AVCodecListFactory::CreateAVCodecList",
+    "inner_header": "interfaces/inner_api/native/avcodec_list.h",
+    "call_chain": "OH_AVCodec_GetCapabilityByCategory -> AVCodecListFactory::CreateAVCodecList -> codeclist->GetCapability(mime, isEncoder, category)"
+  },
+  {
+    "api_name": "OH_AVCapability_IsHardware",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_IsHardware",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_IsHardware -> 读取 OH_AVCapability->capabilityData_ 的 isHardware_ 字段"
+  },
+  {
+    "api_name": "OH_AVCapability_GetName",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetName",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetName -> 读取 OH_AVCapability->capabilityData_ 的 codecName 字段"
+  },
+  {
+    "api_name": "OH_AVCapability_GetEncoderBitrateRange",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetEncoderBitrateRange",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetEncoderBitrateRange -> 读取 OH_AVCapability->capabilityData_ 的 bitrateRange"
+  },
+  {
+    "api_name": "OH_AVCapability_GetAudioSupportedSampleRates",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetAudioSupportedSampleRates",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetAudioSupportedSampleRates -> 读取 capabilityData_ 的 supportedSampleRates"
+  },
+  {
+    "api_name": "OH_AVCapability_GetVideoWidthRange",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetVideoWidthRange",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetVideoWidthRange -> 读取 capabilityData_ 的 width"
+  },
+  {
+    "api_name": "OH_AVCapability_GetVideoHeightRange",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetVideoHeightRange",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetVideoHeightRange -> 读取 capabilityData_ 的 height"
+  },
+  {
+    "api_name": "OH_AVCapability_GetVideoFrameRateRange",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetVideoFrameRateRange",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetVideoFrameRateRange -> 读取 capabilityData_ 的 frameRate"
+  },
+  {
+    "api_name": "OH_AVCapability_GetVideoSupportedPixelFormats",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetVideoSupportedPixelFormats",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetVideoSupportedPixelFormats -> 读取 capabilityData_ 的 supportedPixelFormats"
+  },
+  {
+    "api_name": "OH_AVCapability_GetSupportedProfiles",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_GetSupportedProfiles",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_GetSupportedProfiles -> 读取 capabilityData_ 的 supportedProfiles"
+  },
+  {
+    "api_name": "OH_AVCapability_IsFeatureSupported",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCapability_IsFeatureSupported",
+    "impl_file": "frameworks/native/capi/common/native_avcapability.cpp",
+    "inner_class": "CapabilityData",
+    "call_chain": "OH_AVCapability_IsFeatureSupported -> 读取 capabilityData_ 的 features"
+  },
+  {
+    "api_name": "OH_AVSource_CreateWithFD",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_CreateWithFD",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_factory": "AVSourceFactory::CreateWithFD",
+    "inner_header": "interfaces/inner_api/native/avsource.h",
+    "call_chain": "OH_AVSource_CreateWithFD -> AVSourceFactory::CreateWithFD(fd, offset, size) -> AVSource"
+  },
+  {
+    "api_name": "OH_AVSource_CreateWithURI",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_CreateWithURI",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_factory": "AVSourceFactory::CreateWithURI",
+    "inner_header": "interfaces/inner_api/native/avsource.h",
+    "call_chain": "OH_AVSource_CreateWithURI -> AVSourceFactory::CreateWithURI(uri) -> AVSource"
+  },
+  {
+    "api_name": "OH_AVSource_CreateWithDataSource",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_CreateWithDataSource",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_factory": "AVSourceFactory::CreateWithDataSource",
+    "inner_header": "interfaces/inner_api/native/avsource.h",
+    "call_chain": "OH_AVSource_CreateWithDataSource -> NativeAVDataSource(dataSource) -> AVSourceFactory::CreateWithDataSource"
+  },
+  {
+    "api_name": "OH_AVSource_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_Destroy",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_method": "Destroy",
+    "call_chain": "OH_AVSource_Destroy -> AVSourceObject::source_->Destroy()"
+  },
+  {
+    "api_name": "OH_AVSource_GetSourceFormat",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_GetSourceFormat",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_method": "GetSourceFormat",
+    "call_chain": "OH_AVSource_GetSourceFormat -> AVSourceObject::source_->GetSourceFormat()"
+  },
+  {
+    "api_name": "OH_AVSource_GetTrackFormat",
+    "d_ts_file": "",
+    "capi_func": "OH_AVSource_GetTrackFormat",
+    "impl_file": "frameworks/native/capi/avsource/native_avsource.cpp",
+    "inner_class": "AVSource",
+    "inner_method": "GetTrackFormat",
+    "call_chain": "OH_AVSource_GetTrackFormat -> AVSourceObject::source_->GetTrackFormat(trackIndex)"
+  },
+  {
+    "api_name": "OH_AVDemuxer_CreateWithSource",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_CreateWithSource",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_factory": "DemuxerFactory::CreateWithSource",
+    "inner_header": "interfaces/inner_api/native/avdemuxer.h",
+    "call_chain": "OH_AVDemuxer_CreateWithSource -> DemuxerFactory::CreateWithSource(source) -> AVDemuxer"
+  },
+  {
+    "api_name": "OH_AVDemuxer_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_Destroy",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_method": "Release",
+    "call_chain": "OH_AVDemuxer_Destroy -> DemuxerObject::demuxer_->Release()"
+  },
+  {
+    "api_name": "OH_AVDemuxer_SelectTrackByID",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_SelectTrackByID",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_method": "SelectTrackByID",
+    "call_chain": "OH_AVDemuxer_SelectTrackByID -> DemuxerObject::demuxer_->SelectTrackByID(trackIndex)"
+  },
+  {
+    "api_name": "OH_AVDemuxer_UnselectTrackByID",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_UnselectTrackByID",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_method": "UnselectTrackByID",
+    "call_chain": "OH_AVDemuxer_UnselectTrackByID -> DemuxerObject::demuxer_->UnselectTrackByID(trackIndex)"
+  },
+  {
+    "api_name": "OH_AVDemuxer_ReadSample",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_ReadSample",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_method": "ReadSample",
+    "call_chain": "OH_AVDemuxer_ReadSample -> DemuxerObject::demuxer_->ReadSample(trackIndex, buffer, info, flag)"
+  },
+  {
+    "api_name": "OH_AVDemuxer_SeekToTime",
+    "d_ts_file": "",
+    "capi_func": "OH_AVDemuxer_SeekToTime",
+    "impl_file": "frameworks/native/capi/avdemuxer/native_avdemuxer.cpp",
+    "inner_class": "AVDemuxer",
+    "inner_method": "SeekToTime",
+    "call_chain": "OH_AVDemuxer_SeekToTime -> DemuxerObject::demuxer_->SeekToTime(mSeconds, seekMode)"
+  },
+  {
+    "api_name": "OH_AVMuxer_Create",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_Create",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_factory": "AVMuxerFactory::CreateAVMuxer",
+    "inner_header": "interfaces/inner_api/native/avmuxer.h",
+    "call_chain": "OH_AVMuxer_Create -> AVMuxerFactory::CreateAVMuxer(fd, format) -> AVMuxer"
+  },
+  {
+    "api_name": "OH_AVMuxer_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_Destroy",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "Release",
+    "call_chain": "OH_AVMuxer_Destroy -> AVMuxerObject::muxer_->Release()"
+  },
+  {
+    "api_name": "OH_AVMuxer_SetRotation",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_SetRotation",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "SetParameter",
+    "call_chain": "OH_AVMuxer_SetRotation -> Meta(Tag::VIDEO_ROTATION) -> muxer_->SetParameter(param)"
+  },
+  {
+    "api_name": "OH_AVMuxer_AddTrack",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_AddTrack",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "AddTrack",
+    "call_chain": "OH_AVMuxer_AddTrack -> AVMuxerObject::muxer_->AddTrack(trackIndex, meta)"
+  },
+  {
+    "api_name": "OH_AVMuxer_Start",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_Start",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "Start",
+    "call_chain": "OH_AVMuxer_Start -> AVMuxerObject::muxer_->Start()"
+  },
+  {
+    "api_name": "OH_AVMuxer_WriteSample",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_WriteSample",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "WriteSample",
+    "call_chain": "OH_AVMuxer_WriteSample -> AVMuxerObject::muxer_->WriteSample(trackIndex, buffer)"
+  },
+  {
+    "api_name": "OH_AVMuxer_Stop",
+    "d_ts_file": "",
+    "capi_func": "OH_AVMuxer_Stop",
+    "impl_file": "frameworks/native/capi/avmuxer/native_avmuxer.cpp",
+    "inner_class": "AVMuxer",
+    "inner_method": "Stop",
+    "call_chain": "OH_AVMuxer_Stop -> AVMuxerObject::muxer_->Stop()"
+  },
+  {
+    "api_name": "OH_AVCencInfo_Create",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCencInfo_Create",
+    "impl_file": "frameworks/native/capi/avcencinfo/native_cencinfo.cpp",
+    "inner_class": "OH_AVCencInfo (直接结构体)",
+    "call_chain": "OH_AVCencInfo_Create -> new OH_AVCencInfo() (包含 MetaDrmCencInfo)"
+  },
+  {
+    "api_name": "OH_AVCencInfo_Destroy",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCencInfo_Destroy",
+    "impl_file": "frameworks/native/capi/avcencinfo/native_cencinfo.cpp",
+    "inner_class": "OH_AVCencInfo",
+    "call_chain": "OH_AVCencInfo_Destroy -> delete cencInfo"
+  },
+  {
+    "api_name": "OH_AVCencInfo_SetAlgorithm",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCencInfo_SetAlgorithm",
+    "impl_file": "frameworks/native/capi/avcencinfo/native_cencinfo.cpp",
+    "inner_class": "MetaDrmCencInfo",
+    "call_chain": "OH_AVCencInfo_SetAlgorithm -> 设置 cencInfo_->algo (cenc/cbc1/cbs1/cenc)"
+  },
+  {
+    "api_name": "OH_AVCencInfo_SetKeyIdAndIv",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCencInfo_SetKeyIdAndIv",
+    "impl_file": "frameworks/native/capi/avcencinfo/native_cencinfo.cpp",
+    "inner_class": "MetaDrmCencInfo",
+    "call_chain": "OH_AVCencInfo_SetKeyIdAndIv -> 设置 cencInfo_ 的 keyId/iv"
+  },
+  {
+    "api_name": "OH_AVCencInfo_SetSubSampleInfo",
+    "d_ts_file": "",
+    "capi_func": "OH_AVCencInfo_SetSubSampleInfo",
+    "impl_file": "frameworks/native/capi/avcencinfo/native_cencinfo.cpp",
+    "inner_class": "MetaDrmCencInfo",
+    "call_chain": "OH_AVCencInfo_SetSubSampleInfo -> 设置 cencInfo_ 的 subSamples/clearHeaderLen/payLoadLen"
+  }
+]

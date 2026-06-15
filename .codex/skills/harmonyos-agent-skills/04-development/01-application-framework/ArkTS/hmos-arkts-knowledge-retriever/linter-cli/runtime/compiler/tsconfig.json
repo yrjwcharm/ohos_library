@@ -1,0 +1,1010 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "ets": {
+      "emitDecorators":[
+        {
+          "name":"Entry",
+          "emitParameters" : true
+        },
+        {
+          "name":"Component",
+          "emitParameters" : false
+        },
+        {
+          "name":"Reusable",
+          "emitParameters" : false
+        },
+        {
+          "name":"CustomDialog",
+          "emitParameters" : false
+        },
+        {
+          "name":"Consume",
+          "emitParameters" : true
+        },
+        {
+          "name":"Link",
+          "emitParameters" : false
+        },
+        {
+          "name":"LocalStorageLink",
+          "emitParameters" : true
+        },
+        {
+          "name":"LocalStorageProp",
+          "emitParameters" : true
+        },
+        {
+          "name":"ObjectLink",
+          "emitParameters" : false
+        },
+        {
+          "name":"Prop",
+          "emitParameters" : false
+        },
+        {
+          "name":"Provide",
+          "emitParameters" : true
+        },
+        {
+          "name":"State",
+          "emitParameters" : false
+        },
+        {
+          "name":"StorageLink",
+          "emitParameters" : true
+        },
+        {
+          "name":"StorageProp",
+          "emitParameters" : true
+        },
+        {
+          "name":"Builder",
+          "emitParameters" : false
+        },
+        {
+          "name":"LocalBuilder",
+          "emitParameters" : false
+        },
+        {
+          "name":"BuilderParam",
+          "emitParameters" : false
+        },
+        {
+          "name":"Observed",
+          "emitParameters" : false
+        },
+        {
+          "name": "Require",
+          "emitParameters" : false
+        },
+        {
+          "name": "Sendable",
+          "emitParameters" : false
+        },
+        {
+          "name": "Track",
+          "emitParameters": false
+        },
+        {
+          "name": "ComponentV2",
+          "emitParameters": true
+        },
+        {
+          "name": "ObservedV2",
+          "emitParameters": false
+        },
+        {
+          "name": "Trace",
+          "emitParameters": false
+        },
+        {
+          "name": "Local",
+          "emitParameters" : false
+        },
+        {
+          "name": "Param",
+          "emitParameters" : false
+        },
+        {
+          "name": "Once",
+          "emitParameters" : false
+        },
+        {
+          "name": "Event",
+          "emitParameters" : false
+        },
+        {
+          "name": "Monitor",
+          "emitParameters" : true
+        },
+        {
+          "name": "Provider",
+          "emitParameters" : true
+        },
+        {
+          "name": "Consumer",
+          "emitParameters" : true
+        },
+        {
+          "name": "Computed",
+          "emitParameters" : false
+        },
+        {
+          "name": "Type",
+          "emitParameters": true
+        },
+        {
+          "name": "Env",
+          "emitParameters": true
+        }
+      ],
+      "propertyDecorators": [
+        {
+          "name": "Link",
+          "needInitialization": false
+        },
+        {
+          "name": "Prop",
+          "needInitialization": false
+        },
+        {
+          "name": "ObjectLink",
+          "needInitialization": false
+        },
+        {
+          "name": "Consume",
+          "needInitialization": false
+        }
+      ],
+      "render": {
+        "method": ["build", "pageTransition"],
+        "decorator": ["LocalBuilder", "Builder"]
+      },
+      "components": [
+        "DynamicLayout",
+        "AbilityComponent",
+        "AlphabetIndexer",
+        "AnalogClock",
+        "Animator",
+        "ArcList",
+        "ArcListItem",
+        "Badge",
+        "Blank",
+        "Button",
+        "Calendar",
+        "CalendarPicker",
+        "Camera",
+        "Canvas",
+        "Checkbox",
+        "CheckboxGroup",
+        "Circle",
+        "ColorPicker",
+        "ColorPickerDialog",
+        "Column",
+        "ColumnSplit",
+        "ContentSlot",
+        "Counter",
+        "DataPanel",
+        "DatePicker",
+        "Divider",
+        "EffectComponent",
+        "Ellipse",
+        "EmbeddedComponent",
+        "Flex",
+        "FolderStack",
+        "FormComponent",
+        "FormLink",
+        "Gauge",
+        "GeometryView",
+        "Grid",
+        "GridItem",
+        "GridContainer",
+        "Hyperlink",
+        "Image",
+        "ImageAnimator",
+        "IndicatorComponent",
+        "LazyVGridLayout",
+        "Line",
+        "List",
+        "ListItem",
+        "ListItemGroup",
+        "LoadingProgress",
+        "Marquee",
+        "MediaCachedImage",
+        "Menu",
+        "MenuItem",
+        "MenuItemGroup",
+        "MovingPhotoView",
+        "NavDestination",
+        "NavRouter",
+        "Navigation",
+        "Navigator",
+        "NodeContainer",
+        "PageTransitionEnter",
+        "PageTransitionExit",
+        "Panel",
+        "Particle",
+        "Path",
+        "PatternLock",
+        "Piece",
+        "PlatformView",
+        "PluginComponent",
+        "Polygon",
+        "Polyline",
+        "Progress",
+        "QRCode",
+        "Radio",
+        "Rating",
+        "Rect",
+        "Refresh",
+        "RelativeContainer",
+        "RemoteWindow",
+        "RootScene",
+        "Row",
+        "RowSplit",
+        "RichText",
+        "Screen",
+        "Scroll",
+        "ScrollBar",
+        "Search",
+        "Section",
+        "Select",
+        "Shape",
+        "Sheet",
+        "SideBarContainer",
+        "Slider",
+        "Span",
+        "Stack",
+        "Stepper",
+        "StepperItem",
+        "Swiper",
+        "SymbolGlyph",
+        "SymbolSpan",
+        "TabContent",
+        "Tabs",
+        "Text",
+        "TextPicker",
+        "TextClock",
+        "TextArea",
+        "TextInput",
+        "TextTimer",
+        "TimePicker",
+        "Toggle",
+        "ToolBarItem",
+        "Video",
+        "Web",
+        "WindowScene",
+        "WithTheme",
+        "XComponent",
+        "GridRow",
+        "GridCol",
+        "WaterFlow",
+        "FlowItem",
+        "ImageSpan",
+        "LocationButton",
+        "PasteButton",
+        "SaveButton",
+        "UIExtensionComponent",
+        "IsolatedComponent",
+        "RichEditor",
+        "Component3D",
+        "ContainerSpan",
+        "ArcAlphabetIndexer",
+        "ArcSwiper",
+        "ArcScrollBar",
+        "UnionEffectContainer",
+        "UIPickerComponent"
+      ],
+      "extend": {
+        "decorator": ["Extend", "AnimatableExtend"],
+        "components": [
+          {
+            "name": "DynamicLayout",
+            "type": "DynamicLayoutAttribute",
+            "instance": "DynamicLayoutInstance"
+          },
+          {
+            "name": "AbilityComponent",
+            "type": "AbilityComponentAttribute",
+            "instance": "AbilityComponentInstance"
+          },
+          {
+            "name": "AlphabetIndexer",
+            "type": "AlphabetIndexerAttribute",
+            "instance": "AlphabetIndexerInstance"
+          },
+          {
+            "name": "AnalogClock",
+            "type": "AnalogClockAttribute",
+            "instance": "AnalogClockInstance"
+          },
+          {
+            "name": "Animator",
+            "type": "AnimatorAttribute",
+            "instance": "AnimatorInstance"
+          },
+          {
+            "name": "ArcList",
+            "type": "ArcListAttribute",
+            "instance": "ArcListInstance"
+          },
+          {
+            "name": "ArcListItem",
+            "type": "ArcListItemAttribute",
+            "instance": "ArcListItemInstance"
+          },
+          {
+            "name": "Badge",
+            "type": "BadgeAttribute",
+            "instance": "BadgeInstance"
+          },
+          {
+            "name": "Blank",
+            "type": "BlankAttribute",
+            "instance": "BlankInstance"
+          },
+          {
+            "name": "Button",
+            "type": "ButtonAttribute",
+            "instance": "ButtonInstance"
+          },
+          {
+            "name": "Calendar",
+            "type": "CalendarAttribute",
+            "instance": "CalendarInstance"
+          },
+          {
+            "name": "CalendarPicker",
+            "type": "CalendarPickerAttribute",
+            "instance": "CalendarPickerInstance"
+          },
+          {
+            "name": "Camera",
+            "type": "CameraAttribute",
+            "instance": "CameraInstance"
+          },
+          {
+            "name": "Canvas",
+            "type": "CanvasAttribute",
+            "instance": "CanvasInstance"
+          },
+          {
+            "name": "Checkbox",
+            "type": "CheckboxAttribute",
+            "instance": "CheckboxInstance"
+          },
+          {
+            "name": "CheckboxGroup",
+            "type": "CheckboxGroupAttribute",
+            "instance": "CheckboxGroupInstance"
+          },
+          {
+            "name": "Circle",
+            "type": "CircleAttribute",
+            "instance": "CircleInstance"
+          },
+          {
+            "name": "ColorPicker",
+            "type": "ColorPickerAttribute",
+            "instance": "ColorPickerInstance"
+          },
+          {
+            "name": "ColorPickerDialog",
+            "type": "ColorPickerDialogAttribute",
+            "instance": "ColorPickerDialogInstance"
+          },
+          {
+            "name": "Column",
+            "type": "ColumnAttribute",
+            "instance": "ColumnInstance"
+          },
+          {
+            "name": "ColumnSplit",
+            "type": "ColumnSplitAttribute",
+            "instance": "ColumnSplitInstance"
+          },
+          {
+            "name": "Counter",
+            "type": "CounterAttribute",
+            "instance": "CounterInstance"
+          },
+          {
+            "name": "DataPanel",
+            "type": "DataPanelAttribute",
+            "instance": "DataPanelInstance"
+          },
+          {
+            "name": "DatePicker",
+            "type": "DatePickerAttribute",
+            "instance": "DatePickerInstance"
+          },
+          {
+            "name": "Divider",
+            "type": "DividerAttribute",
+            "instance": "DividerInstance"
+          },
+          {
+            "name": "EffectComponent",
+            "type": "EffectComponentAttribute",
+            "instance": "EffectComponentInstance"
+          },
+          {
+            "name": "Ellipse",
+            "type": "EllipseAttribute",
+            "instance": "EllipseInstance"
+          },
+          {
+            "name": "EmbeddedComponent",
+            "type": "EmbeddedComponentAttribute",
+            "instance": "EmbeddedComponentInstance"
+          },
+          {
+            "name": "Flex",
+            "type": "FlexAttribute",
+            "instance": "FlexInstance"
+          },
+          {
+            "name": "FolderStack",
+            "type": "FolderStackAttribute",
+            "instance": "FolderStackInstance"
+          },
+          {
+            "name": "FormComponent",
+            "type": "FormComponentAttribute",
+            "instance": "FormComponentInstance"
+          },
+          {
+            "name": "FormLink",
+            "type": "FormLinkAttribute",
+            "instance": "FormLinkInstance"
+          },
+          {
+            "name": "Gauge",
+            "type": "GaugeAttribute",
+            "instance": "GaugeInstance"
+          },
+          {
+            "name": "GeometryView",
+            "type": "GeometryViewAttribute",
+            "instance": "GeometryViewInstance"
+          },
+          {
+            "name": "Grid",
+            "type": "GridAttribute",
+            "instance": "GridInstance"
+          },
+          {
+            "name": "GridItem",
+            "type": "GridItemAttribute",
+            "instance": "GridItemInstance"
+          },
+          {
+            "name": "GridContainer",
+            "type": "GridContainerAttribute",
+            "instance": "GridContainerInstance"
+          },
+          {
+            "name": "Hyperlink",
+            "type": "HyperlinkAttribute",
+            "instance": "HyperlinkInstance"
+          },
+          {
+            "name": "Image",
+            "type": "ImageAttribute",
+            "instance": "ImageInstance"
+          },
+          {
+            "name": "ImageAnimator",
+            "type": "ImageAnimatorAttribute",
+            "instance": "ImageAnimatorInstance"
+          },
+          {
+            "name": "IndicatorComponent",
+            "type": "IndicatorComponentAttribute",
+            "instance": "IndicatorComponentInstance"
+          },
+          {
+            "name": "LazyVGridLayout",
+            "type": "LazyVGridLayoutAttribute",
+            "instance": "LazyVGridLayoutInstance"
+          },
+          {
+            "name": "Line",
+            "type": "LineAttribute",
+            "instance": "LineInstance"
+          },
+          {
+            "name": "List",
+            "type": "ListAttribute",
+            "instance": "ListInstance"
+          },
+          {
+            "name": "ListItem",
+            "type": "ListItemAttribute",
+            "instance": "ListItemInstance"
+          },
+          {
+            "name": "ListItemGroup",
+            "type": "ListItemGroupAttribute",
+            "instance": "ListItemGroupInstance"
+          },
+          {
+            "name": "LoadingProgress",
+            "type": "LoadingProgressAttribute",
+            "instance": "LoadingProgressInstance"
+          },
+          {
+            "name": "Marquee",
+            "type": "MarqueeAttribute",
+            "instance": "MarqueeInstance"
+          },
+          {
+            "name": "MediaCachedImage",
+            "type": "MediaCachedImageAttribute",
+            "instance": "MediaCachedImageInstance"
+          },
+          {
+            "name": "Menu",
+            "type": "MenuAttribute",
+            "instance": "MenuInstance"
+          },
+          {
+            "name": "MenuItem",
+            "type": "MenuItemAttribute",
+            "instance": "MenuItemInstance"
+          },
+          {
+            "name": "MenuItemGroup",
+            "type": "MenuItemGroupAttribute",
+            "instance": "MenuItemGroupInstance"
+          },
+          {
+            "name": "MovingPhotoView",
+            "type": "MovingPhotoViewAttribute",
+            "instance": "MovingPhotoViewInstance"
+          },
+          {
+            "name": "NavDestination",
+            "type": "NavDestinationAttribute",
+            "instance": "NavDestinationInstance"
+          },
+          {
+            "name": "NavRouter",
+            "type": "NavRouterAttribute",
+            "instance": "NavRouterInstance"
+          },
+          {
+            "name": "Navigation",
+            "type": "NavigationAttribute",
+            "instance": "NavigationInstance"
+          },
+          {
+            "name": "Navigator",
+            "type": "NavigatorAttribute",
+            "instance": "NavigatorInstance"
+          },
+          {
+            "name": "NodeContainer",
+            "type": "NodeContainerAttribute",
+            "instance": "NodeContainerInstance"
+          },
+          {
+            "name": "PageTransitionEnter",
+            "type": "PageTransitionEnterAttribute",
+            "instance": "PageTransitionEnterInstance"
+          },
+          {
+            "name": "PageTransitionExit",
+            "type": "PageTransitionExitAttribute",
+            "instance": "PageTransitionExitInstance"
+          },
+          {
+            "name": "Panel",
+            "type": "PanelAttribute",
+            "instance": "PanelInstance"
+          },
+          {
+            "name": "Particle",
+            "type": "ParticleAttribute",
+            "instance": "ParticleInstance"
+          },
+          {
+            "name": "Path",
+            "type": "PathAttribute",
+            "instance": "PathInstance"
+          },
+          {
+            "name": "PatternLock",
+            "type": "PatternLockAttribute",
+            "instance": "PatternLockInstance"
+          },
+          {
+            "name": "UIPickerComponent",
+            "type": "UIPickerComponentAttribute",
+            "instance": "UIPickerComponentInstance"
+          },
+          {
+            "name": "Piece",
+            "type": "PieceAttribute",
+            "instance": "PieceInstance"
+          },
+          {
+            "name": "PlatformView",
+            "type": "PlatformViewAttribute",
+            "instance": "PlatformViewInstance"
+          },
+          {
+            "name": "PluginComponent",
+            "type": "PluginComponentAttribute",
+            "instance": "PluginComponentInstance"
+          },
+          {
+            "name": "Polygon",
+            "type": "PolygonAttribute",
+            "instance": "PolygonInstance"
+          },
+          {
+            "name": "Polyline",
+            "type": "PolylineAttribute",
+            "instance": "PolylineInstance"
+          },
+          {
+            "name": "Progress",
+            "type": "ProgressAttribute",
+            "instance": "ProgressInstance"
+          },
+          {
+            "name": "QRCode",
+            "type": "QRCodeAttribute",
+            "instance": "QRCodeInstance"
+          },
+          {
+            "name": "Radio",
+            "type": "RadioAttribute",
+            "instance": "RadioInstance"
+          },
+          {
+            "name": "Rating",
+            "type": "RatingAttribute",
+            "instance": "RatingInstance"
+          },
+          {
+            "name": "Rect",
+            "type": "RectAttribute",
+            "instance": "RectInstance"
+          },
+          {
+            "name": "RelativeContainer",
+            "type": "RelativeContainerAttribute",
+            "instance": "RelativeContainerInstance"
+          },
+          {
+            "name": "Refresh",
+            "type": "RefreshAttribute",
+            "instance": "RefreshInstance"
+          },
+          {
+            "name": "RemoteWindow",
+            "type": "RemoteWindowAttribute",
+            "instance": "RemoteWindowInstance"
+          },
+          {
+            "name": "RootScene",
+            "type": "RootSceneAttribute",
+            "instance": "RootSceneInstance"
+          },
+          {
+            "name": "Row",
+            "type": "RowAttribute",
+            "instance": "RowInstance"
+          },
+          {
+            "name": "RowSplit",
+            "type": "RowSplitAttribute",
+            "instance": "RowSplitInstance"
+          },
+          {
+            "name": "RichText",
+            "type": "RichTextAttribute",
+            "instance": "RichTextInstance"
+          },
+          {
+            "name": "Screen",
+            "type": "ScreenAttribute",
+            "instance": "ScreenInstance"
+          },
+          {
+            "name": "Scroll",
+            "type": "ScrollAttribute",
+            "instance": "ScrollInstance"
+          },
+          {
+            "name": "ScrollBar",
+            "type": "ScrollBarAttribute",
+            "instance": "ScrollBarInstance"
+          },
+          {
+            "name": "Search",
+            "type": "SearchAttribute",
+            "instance": "SearchInstance"
+          },
+          {
+            "name": "Section",
+            "type": "SectionAttribute",
+            "instance": "SectionInstance"
+          },
+          {
+            "name": "Select",
+            "type": "SelectAttribute",
+            "instance": "SelectInstance"
+          },
+          {
+            "name": "Shape",
+            "type": "ShapeAttribute",
+            "instance": "ShapeInstance"
+          },
+          {
+            "name": "Sheet",
+            "type": "SheetAttribute",
+            "instance": "SheetInstance"
+          },
+          {
+            "name": "SideBarContainer",
+            "type": "SideBarContainerAttribute",
+            "instance": "SideBarContainerInstance"
+          },
+          {
+            "name": "Slider",
+            "type": "SliderAttribute",
+            "instance": "SliderInstance"
+          },
+          {
+            "name": "Span",
+            "type": "SpanAttribute",
+            "instance": "SpanInstance"
+          },
+          {
+            "name": "Stack",
+            "type": "StackAttribute",
+            "instance": "StackInstance"
+          },
+          {
+            "name": "Stepper",
+            "type": "StepperAttribute",
+            "instance": "StepperInstance"
+          },
+          {
+            "name": "StepperItem",
+            "type": "StepperItemAttribute",
+            "instance": "StepperItemInstance"
+          },
+          {
+            "name": "Swiper",
+            "type": "SwiperAttribute",
+            "instance": "SwiperInstance"
+          },
+          {
+            "name": "SymbolGlyph",
+            "type": "SymbolGlyphAttribute",
+            "instance": "SymbolGlyphInstance"
+          },
+          {
+            "name": "SymbolSpan",
+            "type": "SymbolSpanAttribute",
+            "instance": "SymbolSpanInstance"
+          },
+          {
+            "name": "TabContent",
+            "type": "TabContentAttribute",
+            "instance": "TabContentInstance"
+          },
+          {
+            "name": "Tabs",
+            "type": "TabsAttribute",
+            "instance": "TabsInstance"
+          },
+          {
+            "name": "Text",
+            "type": "TextAttribute",
+            "instance": "TextInstance"
+          },
+          {
+            "name": "TextPicker",
+            "type": "TextPickerAttribute",
+            "instance": "TextPickerInstance"
+          },
+          {
+            "name": "TextClock",
+            "type": "TextClockAttribute",
+            "instance": "TextClockInstance"
+          },
+          {
+            "name": "TextArea",
+            "type": "TextAreaAttribute",
+            "instance": "TextAreaInstance"
+          },
+          {
+            "name": "TextInput",
+            "type": "TextInputAttribute",
+            "instance": "TextInputInstance"
+          },
+          {
+            "name": "TextTimer",
+            "type": "TextTimerAttribute",
+            "instance": "TextTimerInstance"
+          },
+          {
+            "name": "TimePicker",
+            "type": "TimePickerAttribute",
+            "instance": "TimePickerInstance"
+          },
+          {
+            "name": "Toggle",
+            "type": "ToggleAttribute",
+            "instance": "ToggleInstance"
+          },
+          {
+            "name": "ToolBarItem",
+            "type": "ToolBarItemAttribute",
+            "instance": "ToolBarItemInterface"
+          },
+          {
+            "name": "Video",
+            "type": "VideoAttribute",
+            "instance": "VideoInstance"
+          },
+          {
+            "name": "Web",
+            "type": "WebAttribute",
+            "instance": "WebInstance"
+          },
+          {
+            "name": "WindowScene",
+            "type": "WindowSceneAttribute",
+            "instance": "WindowSceneInstance"
+          },
+          {
+            "name": "XComponent",
+            "type": "XComponentAttribute",
+            "instance": "XComponentInstance"
+          },
+          {
+            "name": "GridRow",
+            "type": "GridRowAttribute",
+            "instance": "GridRowInstance"
+          },
+          {
+            "name": "GridCol",
+            "type": "GridColAttribute",
+            "instance": "GridColInstance"
+          },
+          {
+            "name": "WaterFlow",
+            "type": "WaterFlowAttribute",
+            "instance": "WaterFlowInstance"
+          },
+          {
+            "name": "FlowItem",
+            "type": "FlowItemAttribute",
+            "instance": "FlowItemInstance"
+          },
+          {
+            "name": "ImageSpan",
+            "type": "ImageSpanAttribute",
+            "instance": "ImageSpanInstance"
+          },
+          {
+            "name": "LocationButton",
+            "type": "LocationButtonAttribute",
+            "instance": "LocationButtonInstance"
+          },
+          {
+            "name": "PasteButton",
+            "type": "PasteButtonAttribute",
+            "instance": "PasteButtonInstance"
+          },
+          {
+            "name": "SaveButton",
+            "type": "SaveButtonAttribute",
+            "instance": "SaveButtonInstance"
+          },
+          {
+            "name": "UIExtensionComponent",
+            "type": "UIExtensionComponentAttribute",
+            "instance": "UIExtensionComponentInstance"
+          },
+          {
+            "name": "IsolatedComponent",
+            "type": "IsolatedComponentAttribute",
+            "instance": "IsolatedComponentInstance"
+          },
+          {
+            "name": "RichEditor",
+            "type": "RichEditorAttribute",
+            "instance": "RichEditorInstance"
+          },
+          {
+            "name": "Component3D",
+            "type": "Component3DAttribute",
+            "instance": "Component3DInstance"
+          },
+          {
+            "name": "ContainerSpan",
+            "type": "ContainerSpanAttribute",
+            "instance": "ContainerSpanInstance"
+          },
+          {
+            "name": "ArcAlphabetIndexer",
+            "type": "ArcAlphabetIndexerAttribute",
+            "instance": "ArcAlphabetIndexerInstance"
+          },
+          {
+            "name": "ArcSwiper",
+            "type": "ArcSwiperAttribute",
+            "instance": "ArcSwiperInstance"
+          },
+          {
+            "name": "ArcScrollBar",
+            "type": "ArcScrollBarAttribute",
+            "instance": "ArcScrollBarInstance"
+          },
+          {
+            "name": "UnionEffectContainer",
+            "type": "UnionEffectContainerAttribute",
+            "instance": "UnionEffectContainerInstance"
+          },
+        ]
+      },
+      "styles": {
+        "decorator": "Styles",
+        "component": {
+            "name": "Common",
+            "type": "T",
+            "instance": "CommonInstance"
+        },
+        "property": "stateStyles"
+      },
+      "concurrent": {
+        "decorator": "Concurrent"
+      },
+      "customComponent": "CustomComponent",
+      "syntaxComponents": {
+        "paramsUICallback": [
+          "ForEach",
+          "LazyForEach"
+        ],
+        "attrUICallback": [
+          {
+            "name": "Repeat",
+            "attributes": ["each", "template"]
+          }
+        ]
+      }
+    },
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "importsNotUsedAsValues": "preserve",
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es2021",
+    "types": [],
+    "typeRoots": [],
+    "lib": [
+      "es2021"
+    ],
+    "alwaysStrict": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

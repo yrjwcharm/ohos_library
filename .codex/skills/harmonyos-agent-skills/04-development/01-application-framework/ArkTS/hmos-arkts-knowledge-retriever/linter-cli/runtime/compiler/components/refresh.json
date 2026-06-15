@@ -1,0 +1,9 @@
+{
+  "name": "Refresh",
+  "single": true,
+  "attrs": [
+    "onStateChange", "onRefreshing", "refreshOffset",
+    "pullToRefresh", "pullDownRatio", "onOffsetChange",
+    "pullUpToCancelRefresh"
+  ]
+}

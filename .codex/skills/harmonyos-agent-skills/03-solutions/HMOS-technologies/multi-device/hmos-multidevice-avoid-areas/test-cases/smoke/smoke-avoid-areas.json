@@ -1,0 +1,1101 @@
+[
+  {
+    "case_id": "SMOKE-SCENE-02-001",
+    "layer": "smoke",
+    "title": "背景色延伸到系统栏区域",
+    "phase": "DEV",
+    "user_prompt": "页面需要蓝色背景铺满状态栏和导航栏，但标题和内容不能被遮挡。请给出开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖背景色延伸场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-002",
+    "layer": "smoke",
+    "title": "图片延伸到状态栏沉浸式布局",
+    "phase": "REQ",
+    "user_prompt": "首页 Banner 图片需要铺满状态栏区域，文字内容保持在安全区内。请给出需求分析。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖图片延伸与 Stack 分层需求场景。请先给出需求分析。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-003",
+    "layer": "smoke",
+    "title": "列表背景延伸到底部导航栏",
+    "phase": "DEV",
+    "user_prompt": "列表页灰色背景需要延伸到底部导航栏区域，列表滚动到底时背景无缝铺满，但底部确认按钮必须在导航栏上方可见。请给出开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖列表底部延伸与按钮不延伸的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-001",
+    "layer": "smoke",
+    "title": "挖孔区避让区域识别与动态获取",
+    "phase": "REQ",
+    "user_prompt": "应用在挖孔屏设备上标题被遮挡，需要识别挖孔区域类型并设计动态避让策略。请先给出需求分析。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖挖孔区类型识别与动态获取需求场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-004",
+    "layer": "smoke",
+    "title": "expandSafeArea 不生效排查",
+    "phase": "FIX",
+    "user_prompt": "页面设置了 expandSafeArea 但背景色没有延伸到状态栏，背景仍然是白色。代码中已设置 backgroundColor 和 expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP])。这个配置为什么不生效？请修复。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖 expandSafeArea 不生效的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-005",
+    "layer": "smoke",
+    "title": "内容被系统栏遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "沉浸式页面文字内容被状态栏遮住了一半，使用了 expandSafeArea 让背景延伸了，但内容没有留出顶部空间。请给出修复思路。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖内容被遮挡需要两层结构分离的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-002",
+    "layer": "smoke",
+    "title": "监听避让区域动态变化",
+    "phase": "DEV",
+    "user_prompt": "应用在折叠屏展开/折叠和横竖屏切换后，状态栏和导航栏高度发生变化，页面布局没有更新，内容被遮挡。需要通过 avoidAreaChange 监听动态刷新。请给出开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖 avoidAreaChange 动态监听与布局同步的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-003",
+    "layer": "smoke",
+    "title": "底部导航栏避让需求分析",
+    "phase": "REQ",
+    "user_prompt": "应用底部操作栏在虚拟按键导航模式下被系统导航指示条遮挡，手势导航模式下正常。请给出需求分析。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖导航栏 TYPE_NAVIGATION_INDICATOR 的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-004",
+    "layer": "smoke",
+    "title": "四方向挖孔避让实现",
+    "phase": "DEV",
+    "user_prompt": "游戏应用设备四个角落都有挖孔，部分 UI 元素被挖孔遮挡。应用需要全屏显示。请给出挖孔避让的开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖四方向挖孔检测与动态 padding 的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-005",
+    "layer": "smoke",
+    "title": "避让区域高度为0排查",
+    "phase": "FIX",
+    "user_prompt": "页面在 aboutToAppear 中调用 getWindowAvoidArea 获取状态栏高度，但返回值始终为 0，导致内容被遮挡。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖 getWindowAvoidArea 返回值异常的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-001",
+    "layer": "smoke",
+    "title": "全屏布局 + setWindowLayoutFullScreen 实现",
+    "phase": "DEV",
+    "user_prompt": "视频播放页需要全屏沉浸式布局，使用 setWindowLayoutFullScreen(true) 开启全屏，然后需要获取状态栏和导航栏高度设置 padding。请给出完整的开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖全屏布局 + 动态 padding 的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-002",
+    "layer": "smoke",
+    "title": "状态栏透明沉浸式需求分析",
+    "phase": "REQ",
+    "user_prompt": "阅读应用需要沉浸式阅读体验，使用 setWindowSystemBarProperties 设置状态栏透明，背景色铺满状态栏和导航栏区域，文字内容保持在安全区内。请给出需求分析。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖状态栏透明 + expandSafeArea 沉浸式的需求场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-003",
+    "layer": "smoke",
+    "title": "全屏后内容被状态栏遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "调用 setWindowLayoutFullScreen(true) 后页面内容铺满了屏幕，但标题栏被状态栏完全遮挡。getWindowAvoidArea 获取的状态栏高度为 0。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖全屏布局后内容被系统栏遮挡的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-002",
+    "layer": "smoke",
+    "title": "KeyboardAvoidMode 选择策略",
+    "phase": "REQ",
+    "user_prompt": "表单页面有多个输入框，键盘弹出时内容布局出现跳动。请给出需求分析和键盘避让方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖 KeyboardAvoidMode 模式选择的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-003",
+    "layer": "smoke",
+    "title": "监听键盘高度变化并动态调整",
+    "phase": "DEV",
+    "user_prompt": "评论页需要在键盘弹出时在键盘上方显示工具栏，键盘收起时隐藏。请给出完整的开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖 avoidAreaChange 监听键盘高度的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-004",
+    "layer": "smoke",
+    "title": "键盘弹出布局错乱修复",
+    "phase": "FIX",
+    "user_prompt": "搜索页弹出键盘后，顶部标题栏和中部内容区域被压缩变形，布局出现错乱。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖键盘弹出导致布局错乱的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-006",
+    "layer": "smoke",
+    "title": "仅启动时读取一次避让区域，折叠后标题栏重叠",
+    "phase": "FIX",
+    "user_prompt": "应用使用 setWindowLayoutFullScreen(true) 开启全屏，启动时 getWindowAvoidArea 获取状态栏高度正常。但折叠屏折叠/展开后，标题栏与状态栏重叠，避让区域没有更新。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖仅在启动时读取一次避让区域导致折叠后不更新的修复场景（bug-fix-cases 场景11）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-007",
+    "layer": "smoke",
+    "title": "windowSizeChange 中 getWindowAvoidArea 获取旧避让值",
+    "phase": "FIX",
+    "user_prompt": "聊天应用使用 setWindowLayoutFullScreen(true) 全屏布局，在 windowSizeChange 回调中调用 getWindowAvoidArea() 获取状态栏和导航指示器高度。折叠屏折叠/展开后，底部输入栏被导航指示器遮挡。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖 windowSizeChange 中 getWindowAvoidArea 时序问题的修复场景（bug-fix-cases 场景10）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-008",
+    "layer": "smoke",
+    "title": "display.on('change') 中获取旧避让值导致布局跳变",
+    "phase": "FIX",
+    "user_prompt": "折叠屏折叠/展开后页面顶部 padding 出现跳变：先显示一个不正确的避让高度，随后又跳变为正确值。使用了 display.on change 屏幕事件回调来获取避让区。请排查原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖 display.on('change') 中 getWindowAvoidArea 时序问题导致布局跳变的修复场景（bug-fix-cases 场景12）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-006",
+    "layer": "smoke",
+    "title": "顶部 padding 加错位置导致背景色间隙",
+    "phase": "FIX",
+    "user_prompt": "外层容器灰色背景、标题栏白色背景。padding({ top: statusBarHeight }) 加在了外层灰色容器上，导致状态栏区域显示灰色间隙，白色标题栏背景未延伸到状态栏。请给出修复方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖 padding 加在外层容器而非子组件导致背景色间隙的修复场景（bug-fix-cases 场景4 顶部问题）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-01",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-007",
+    "layer": "smoke",
+    "title": "底部 padding 加在 Stack 外层导致列表内容被导航指示器遮挡",
+    "phase": "FIX",
+    "user_prompt": "底部 padding({ bottom: navBarHeight }) 加在了 Stack 外层容器上而非 Scroll 组件上，导致滚动内容未被压缩，滚动到底部时数据被导航指示器遮挡。请修复 padding 的位置。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-02，覆盖底部 padding 加在外层 Stack 而非 Scroll 导致列表无法滚动避让的修复场景（bug-fix-cases 场景4 底部问题）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-004",
+    "layer": "smoke",
+    "title": "阅读器顶部内容被状态栏遮挡",
+    "phase": "FIX",
+    "user_prompt": "阅读器应用使用 setWindowLayoutFullScreen(true) 全屏模式，多设备适配（手机、折叠屏、平板）。顶部固定内容被状态栏遮挡，不同设备遮挡程度不同。请给出修复方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖全屏阅读器顶部内容被状态栏遮挡的修复场景（bug-fix-cases 场景1）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-005",
+    "layer": "smoke",
+    "title": "全屏应用底部内容被系统导航指示器遮挡",
+    "phase": "FIX",
+    "user_prompt": "应用使用 setWindowLayoutFullScreen(true) 全屏沉浸式布局，页面底部有协议勾选、反馈链接、底部按钮等交互元素被系统导航指示器遮挡。请给出修复方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖全屏应用底部被导航指示器遮挡的修复场景（bug-fix-cases 场景7）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-006",
+    "layer": "smoke",
+    "title": "短视频底部未适配沉浸式布局",
+    "phase": "FIX",
+    "user_prompt": "全屏沉浸式短视频播放页面，使用自定义底部 Tab 栏替代系统 Tab 栏。视频内容底部被系统导航栏上推，未延伸到屏幕底部。修复这个沉浸式布局问题。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖短视频底部未适配沉浸式布局的修复场景（bug-fix-cases 场景3）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-007",
+    "layer": "smoke",
+    "title": "列表页滚动沉浸浏览开发",
+    "phase": "DEV",
+    "user_prompt": "商品列表页需要实现滚动沉浸浏览效果：上滑时逐渐隐藏顶部标题栏和底部导航栏，下滑时恢复。紧凑型设备使用底部 TabBar 支持隐藏，宽屏设备使用侧边导航栏不隐藏。请给出完整开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖列表页滚动沉浸浏览的多设备断点适配开发场景（scenario-development-cases 场景1）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-008",
+    "layer": "smoke",
+    "title": "底部导航栏避让 + 背景沉浸开发",
+    "phase": "DEV",
+    "user_prompt": "应用底部 TabBar、操作栏、悬浮按钮需要避让系统导航条，同时背景色延伸到导航条底部实现沉浸效果。弹出框和半模态需要自动避让导航条。请给出完整开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖底部导航栏避让 + 背景沉浸的开发场景（scenario-development-cases 场景2）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": []
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-009",
+    "layer": "smoke",
+    "title": "短视频沉浸多设备适配开发",
+    "phase": "DEV",
+    "user_prompt": "短视频类应用，视频画面铺满全屏延伸到状态栏和导航条后方，浮层 TabBar 叠加在视频上。手机底部水平 TabBar 避让导航条，平板左侧垂直侧边栏无需底部避让。请给出完整开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖短视频沉浸式多设备适配的开发场景（scenario-development-cases 场景3）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-009",
+    "layer": "smoke",
+    "title": "挖孔区适配多方向避让需求分析",
+    "phase": "REQ",
+    "user_prompt": "应用支持横竖屏旋转，竖屏时挖孔在顶部或底部，横屏时挖孔在左侧或右侧。页面有两个避让需求：一是固定交互元素被挖孔遮挡需要检测挖孔区域并避让，二是背景需要通过 expandSafeArea 延伸到挖孔区域不留间隙。请分析需要检测哪些方向的挖孔区域，以及背景延伸的范围。",  
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖挖孔区多方向适配的需求分析场景（scenario-development-cases 场景4）。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "AVOID-03",
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-010",
+    "layer": "smoke",
+    "title": "全屏应用挖孔区内容遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "全屏游戏使用 ignoreLayoutSafeArea() 全屏显示，横屏时左右挖孔遮挡关键 UI 元素，竖屏时顶部挖孔遮挡标题栏。请给出修复方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-01，覆盖 ignoreLayoutSafeArea 后挖孔区内容遮挡的修复场景（bug-fix-cases 场景2）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "AVOID-03"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-005",
+    "layer": "smoke",
+    "title": "输入法键盘拉起导致引用视图截断",
+    "phase": "FIX",
+    "user_prompt": "输入框位于底部，引用视图在输入框上方，键盘弹出后引用视图被截断，无法看到完整引用内容。请排查修复这个键盘避让问题。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖输入法拉起导致引用视图截断的修复场景（bug-fix-cases 场景5）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-006",
+    "layer": "smoke",
+    "title": "底部工具栏整体高度限制导致输入框被压缩",
+    "phase": "FIX",
+    "user_prompt": "消息页底部工具栏包含引用视图和输入框。键盘弹出时输入框被压缩无法正常输入，constraintSize 高度限制导致了这个问题。请修复。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖底部工具栏整体高度限制导致输入框被压缩的修复场景（bug-fix-cases 场景6）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-007",
+    "layer": "smoke",
+    "title": "输入法弹起导致页面内容被键盘遮挡",
+    "phase": "FIX",
+    "user_prompt": "笔记发布页点击输入框拉起键盘后，页面内容和底部工具栏被键盘遮挡，无法操作。键盘避让配置已设置但未生效。请排查问题原因。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖 RelativeContainer 锚定布局下键盘弹起遮挡内容的修复场景（bug-fix-cases 场景8）。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "suspected_root_domain",
+        "linked_regression_domains",
+        "handoff_priority"
+      ],
+      "forbidden_scenes": [
+        "AVOID-02",
+        "AVOID-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-008",
+    "layer": "smoke",
+    "title": "键盘易操作多设备适配开发",
+    "phase": "DEV",
+    "user_prompt": "含表单输入的页面需要适配折叠屏和平板。主要关注键盘弹出时不遮挡输入框、底部操作按钮和弹窗。大屏设备操作按钮在底部两侧，小屏居中排列。请给出完整开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-04，覆盖键盘易操作多设备适配的开发场景（scenario-development-cases 场景6）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "AVOID-01"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": []
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-010",
+    "layer": "smoke",
+    "title": "消息列表页标题栏与底部导航栏沉浸式滚动隐藏",
+    "phase": "DEV",
+    "user_prompt": "消息列表类应用，页面由顶部标题栏、可滚动消息列表、底部导航栏组成。需要沉浸式全屏布局，标题栏延伸到状态栏区域消除视觉割裂，底部导航栏避让系统导航指示器。上下滑动时标题栏和底部导航栏自动隐藏/恢复。请给出完整开发方案。",
+    "intent": "验证 device-avoid-areas 是否稳定命中 AVOID-03，覆盖消息列表页标题栏与底部导航栏沉浸式滚动隐藏的开发场景（bug-fix-cases 场景9）。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "AVOID-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "AVOID-02"
+      ],
+      "next_scene_refs": [
+        "./SKILL.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "AVOID-04"
+      ]
+    }
+  }
+]

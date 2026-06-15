@@ -1,0 +1,533 @@
+[
+  {
+    "case_id": "SF-ORIENT-01-001",
+    "layer": "scene-functional",
+    "title": "屏幕旋转检测与方向变化监听",
+    "phase": "DEV",
+    "user_prompt": "地图导航应用需要感知设备旋转来调整地图朝向：设备竖屏时地图朝上，横屏时地图跟随旋转方向。需要实时监听方向变化，把当前 rotation 值传给地图组件。但用户开车时设备会频繁晃动触发旋转，不能每次微小变化都回调影响性能。页面退出时要把监听清理干净。兼容手机、折叠屏、平板等多设备。",
+    "intent": "验证 ORIENT-01 场景能否在 DEV 阶段将自然语言需求路由到正确的技术方案：使用 display.on('change') 监听方向变化，回调中通过 Display 实例（而非 Window 实例）获取 rotation 值。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/rotation_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-03", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "使用 display.on('change') 监听方向变化",
+        "回调中通过 Display 实例获取 rotation 值",
+        "防抖处理（至少 300ms debounce）",
+        "回调使用命名引用以便在 aboutToDisappear 中取消",
+        "结合断点系统判断设备形态"
+      ],
+      "should_reuse_resources": [
+        "./references/rotation_detection.md"
+      ],
+      "forbidden_patterns": [
+        "使用 Window 实例获取方向信息（有时序问题）",
+        "使用 deviceInfo.deviceType 判断设备形态"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "旋转设备后 rotation 值在 200ms 内更新",
+        "180° 旋转不遗漏（display.on 能触发回调）",
+        "快速连续旋转 10 次不产生回调风暴（防抖生效）",
+        "页面退出后回调已取消（无内存泄漏）"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "旋转日志截图（rotation 值变化序列）",
+        "性能日志（防抖前后回调次数对比）"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-01-002",
+    "layer": "scene-functional",
+    "title": "display.on('change') 回调时序问题修复",
+    "phase": "FIX",
+    "user_prompt": "地图导航应用监听了 display.on('change') 来响应设备旋转，但旋转时地图布局更新总是有延迟——回调里拿到的窗口尺寸还是旋转前的旧值。快速连续旋转 3-4 次时，地图控件会错位甚至重叠。我们是在回调里通过 window.getLastWindow().getWindowProperties() 获取宽高来重新计算布局的。请排查根因并修复。",
+    "intent": "验证 ORIENT-01 场景能否在 FIX 阶段正确识别 display.on('change') 回调中通过 Window 实例获取信息的时序问题，并给出改用 Display 实例的修复方案。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "ORIENT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/rotation_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-02", "ORIENT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "定位根因为 display.on('change') 回调中通过 Window 实例获取宽高存在时序问题",
+        "修复方案为在回调中改用 display.getDefaultDisplaySync() 获取屏幕信息",
+        "说明 display 和 window 在不同进程、display 更新先于 window 完成的技术原因",
+        "保留原有监听注册与取消逻辑不变"
+      ],
+      "should_reuse_resources": [
+        "./references/rotation_detection.md"
+      ],
+      "forbidden_patterns": [
+        "在 display.on('change') 回调中继续通过 Window 实例获取宽高",
+        "删除 display.on('change') 改用 windowSizeChange（会遗漏 180° 旋转）"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "旋转后布局在 display.on('change') 回调触发时立即正确更新",
+        "快速连续旋转不出现布局错乱",
+        "180° 旋转仍能正确触发回调并更新布局"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "修复前后对比日志（Window 实例 vs Display 实例获取值的时序差异）",
+        "快速旋转 5 次布局更新日志"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-02-001",
+    "layer": "scene-functional",
+    "title": "多设备方向适配需求分析与设备约束",
+    "phase": "REQ",
+    "user_prompt": "新闻资讯阅读应用要适配手机、折叠屏、平板和 PC 四种设备。手机上希望竖屏阅读体验最佳，折叠屏展开后类似平板应该支持旋转，平板默认支持自动旋转，PC 上窗口由用户自由调整。请帮我分析各设备形态的方向约束、旋转能力边界，以及验收时各设备应该表现为什么方向行为。",
+    "intent": "验证 ORIENT-02 场景能否在 REQ 阶段输出结构化的多设备方向适配分析。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md", "./references/orientation_concepts.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "明确各设备形态的自然方向：直板机/折叠屏折叠态/三折叠F/M态/平板为自然竖屏，PC/2in1 为自然横屏",
+        "明确折叠屏 deviceInfo.deviceType 返回 'phone'，不能用 deviceType 区分折叠屏与直板机",
+        "说明分屏/悬浮窗/自由窗口下 setPreferredOrientation 静默无效，需通过响应式布局适配",
+        "给出推荐策略：module.json5 配置 follow_desktop + 运行时基于断点动态切换",
+        "给出各设备形态的验收标准（方向行为预期）"
+      ],
+      "should_reuse_resources": [
+        "./references/orientation_adaptation.md",
+        "./references/orientation_concepts.md"
+      ],
+      "forbidden_patterns": [
+        "使用 deviceInfo.deviceType 区分折叠屏与直板机做方向判断",
+        "未说明分屏/自由窗口下的方向行为限制"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "manual_review",
+      "runtime_assertions": [
+        "输出包含 device_constraints 字段，覆盖直板机/折叠屏/平板/PC 四种设备形态",
+        "输出包含 capability_boundary 字段，说明方向策略在分屏/自由窗口下不生效",
+        "输出包含 acceptance_focus 字段，给出各设备形态的方向行为验收标准",
+        "推荐策略为 follow_desktop + 断点动态切换"
+      ],
+      "pass_evidence": [
+        "device_constraints 覆盖直板机/折叠屏/平板/PC 的自然方向和旋转能力",
+        "capability_boundary 包含分屏/悬浮窗/自由窗口限制说明",
+        "acceptance_focus 包含各设备的方向行为预期和验证条件"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-02-002",
+    "layer": "scene-functional",
+    "title": "基于断点的多设备动态旋转策略实现",
+    "phase": "DEV",
+    "user_prompt": "阅读类应用要做一多方向适配：直板手机冷启动后锁定竖屏，折叠屏展开态和平板允许自动旋转。运行时根据窗口大小自动切换旋转策略——小屏锁竖屏，大屏支持旋转。需要从 module.json5 配置到 EntryAbility 监听 windowSizeChange 的完整实现方案，窗口尺寸变化时策略要即时切换。",
+    "intent": "验证 ORIENT-02 场景能否在 DEV 阶段指导生成基于断点的动态旋转策略代码，覆盖 module.json5 配置到 EntryAbility 监听的完整链路。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "module.json5 中配置 orientation 为 follow_desktop",
+        "EntryAbility 中使用 windowStage.getMainWindowSync() 获取窗口实例",
+        "监听 windowSizeChange 事件，回调使用命名引用以便在 onDestroy 中取消",
+        "使用 uiContext.px2vp() 转换像素值后判断窗口最小边",
+        "最小边 > 348vp 时设置 AUTO_ROTATION_RESTRICTED，否则设置 PORTRAIT",
+        "onDestroy 中取消 windowSizeChange 监听避免内存泄漏"
+      ],
+      "should_reuse_resources": [
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "使用 deviceInfo.deviceType 判断是否锁定竖屏",
+        "直接使用像素值比较不经过 px2vp 转换",
+        "在 loadContent 回调之外使用 uiContext"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "直板手机冷启动后锁定竖屏（setPreferredOrientation 调用 PORTRAIT）",
+        "折叠屏展开态自动旋转（setPreferredOrientation 调用 AUTO_ROTATION_RESTRICTED）",
+        "平板设备自动旋转",
+        "窗口尺寸变化时旋转策略即时切换（折叠屏开合、分屏调整）"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "直板机启动方向日志（确认 PORTRAIT）",
+        "折叠屏展开态方向日志（确认 AUTO_ROTATION_RESTRICTED）",
+        "windowSizeChange 回调触发日志"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-03-001",
+    "layer": "scene-functional",
+    "title": "视频播放页横竖屏切换",
+    "phase": "DEV",
+    "user_prompt": "视频应用播放页，竖屏时正常展示视频卡片和评论列表，点击全屏按钮后设备切换为横屏全屏播放，退出全屏后恢复进入前的方向（可能是竖屏也可能是横屏）。折叠屏展开态时点击全屏不旋转设备，直接调整播窗大小。使用 Navigation 组件管理页面路由。请给出完整实现方案。",
+    "intent": "验证 ORIENT-03 场景能否指导生成可编译、可测试的视频横竖屏切换代码。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "进入全屏时使用 setPreferredOrientation(USER_ROTATION_LANDSCAPE)",
+        "进入前保存当前方向值",
+        "退出全屏时恢复之前保存的方向",
+        "setPreferredOrientation 成对调用",
+        "Navigation 场景使用 onShown/onHidden 处理方向切换"
+      ],
+      "should_reuse_resources": [
+        "./references/video_rotation.md"
+      ],
+      "forbidden_patterns": [
+        "只在进入时设置方向，退出时不恢复",
+        "使用 LOCKED_PORTRAIT 作为默认恢复方向"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "点击全屏后设备切换为横屏方向",
+        "退出全屏后设备恢复为进入前的方向",
+        "快速连续点击全屏/退出不导致方向状态错乱",
+        "折叠屏展开态视频全屏时不旋转（调整播窗大小）"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "测试报告（test 命令输出）",
+        "全屏/退出方向变化日志",
+        "折叠屏展开态播窗大小变化截图"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-03-002",
+    "layer": "scene-functional",
+    "title": "短视频自适应旋转实现",
+    "phase": "DEV",
+    "user_prompt": "短视频应用播放页需要根据视频内容方向自动旋转：16:9 横向视频全屏时设备切换为横屏，9:16 竖向视频全屏时保持竖屏不旋转。在折叠屏展开态和平板等大屏设备上，无论视频方向都支持自动旋转。直板手机上竖向视频不旋转、横向视频全屏时旋转。请给出实现方案，可以使用三方库或手动实现。",
+    "intent": "验证 ORIENT-03 场景能否命中短视频自适应旋转需求，并推荐 adaptive_video 三方库或基于断点的手动实现方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "根据视频宽高比区分横向视频和竖向视频，分别设置不同旋转策略",
+        "横向视频全屏时使用 USER_ROTATION_LANDSCAPE，竖向视频固定 PORTRAIT",
+        "大屏设备（折叠屏展开态、平板）使用 AUTO_ROTATION_UNSPECIFIED 支持自动旋转",
+        "推荐使用 adaptive_video 三方库或基于系统断点 API 手动实现"
+      ],
+      "should_reuse_resources": [
+        "./references/video_rotation.md"
+      ],
+      "forbidden_patterns": [
+        "所有视频统一使用同一旋转策略，不区分横竖",
+        "使用 deviceInfo.deviceType 判断设备形态做旋转决策"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "横向视频全屏后设备切换为横屏方向",
+        "竖向视频全屏后设备保持竖屏方向",
+        "折叠屏展开态播放短视频时支持自动旋转",
+        "直板机竖向视频不旋转、横向视频全屏时旋转"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "横向/竖向视频方向切换日志",
+        "直板机与折叠屏展开态方向策略差异日志"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-02-003",
+    "layer": "scene-functional",
+    "title": "三折叠G态方向适配",
+    "phase": "DEV",
+    "user_prompt": "新闻资讯应用要适配三折叠设备（如 Mate XT）。折叠态 F 和半展开 M 态都是竖屏阅读体验，但完全展开到 G 态时屏幕超宽，方向行为和普通设备不一样——听说 rotation=0 时不是竖屏而是横屏反向。应用怎么正确识别 G 态并适配方向？需要区分 F/M/G 三种形态分别给出方向策略。",
+    "intent": "验证 ORIENT-02 场景能否命中三折叠G态方向适配需求，正确说明G态自然方向为横屏且rotation=0对应LANDSCAPE_INVERTED的特殊性。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md", "./references/orientation_concepts.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "说明三折叠G态的自然方向是横屏，rotation=0 对应 LANDSCAPE_INVERTED",
+        "G态下窗口方向不能通过 rotation 推断，需直接读取窗口尺寸判断横竖屏",
+        "折叠状态检测使用 display.isFoldable() + display.getFoldStatus() 区分F/M/G态",
+        "G态默认支持旋转（桌面可旋转），使用 follow_desktop 策略即可自然适配"
+      ],
+      "should_reuse_resources": [
+        "./references/orientation_adaptation.md",
+        "./references/orientation_concepts.md"
+      ],
+      "forbidden_patterns": [
+        "假设 rotation=0 对应 PORTRAIT（G态不成立）",
+        "使用 deviceInfo.deviceType 区分三折叠设备"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "manual_review",
+      "runtime_assertions": [
+        "明确指出G态 rotation=0 对应 LANDSCAPE_INVERTED 而非 PORTRAIT",
+        "折叠状态检测使用 FOLD_STATUS_EXPANDED_WITH_SECOND_EXPANDED 识别G态",
+        "推荐策略为 follow_desktop，无需为G态单独写特殊逻辑"
+      ],
+      "pass_evidence": [
+        "G态自然方向与rotation映射关系说明正确",
+        "折叠状态检测代码覆盖F/M/G三种形态",
+        "方向适配方案不依赖 rotation 推断窗口方向"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-02-004",
+    "layer": "scene-functional",
+    "title": "页面级方向策略切换",
+    "phase": "DEV",
+    "user_prompt": "社交应用中，聊天列表和对话页面保持竖屏，但点击图片进入大图浏览页时需要横屏全屏查看。用户从聊天页进入图片页时设备要切换为横屏，返回聊天页时要恢复进入前的方向。连续快速进出不同方向页面时不能导致方向状态错乱。请给出页面级方向策略切换的实现方案。",
+    "intent": "验证 ORIENT-02 场景能否命中页面级方向切换需求，指导开发者实现进入页面时设置方向、退出时恢复的成对调用模式。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "aboutToAppear 中保存当前方向值（getPreferredOrientation），再设置目标方向",
+        "aboutToDisappear 中恢复之前保存的方向值",
+        "setPreferredOrientation 进入和退出必须成对调用",
+        "通过 windowSizeChange 监听窗口尺寸变化判断当前实际横竖屏状态"
+      ],
+      "should_reuse_resources": [
+        "./references/orientation_adaptation.md"
+      ],
+      "forbidden_patterns": [
+        "进入页面设置方向但退出时不恢复",
+        "在子组件生命周期中控制方向（应放页面级组件）"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "进入横屏页面后设备切换为横屏",
+        "返回上一页后方向恢复为进入前的方向",
+        "连续快速进出不同方向页面不导致方向状态错乱"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "页面进出方向变化日志（进入设置/退出恢复成对）",
+        "getPreferredOrientation 保存值与恢复值一致"
+      ]
+    }
+  },
+  {
+    "case_id": "SF-ORIENT-03-003",
+    "layer": "scene-functional",
+    "title": "视频播放屏幕锁定功能",
+    "phase": "DEV",
+    "user_prompt": "视频应用全屏播放时想加个屏幕锁定按钮：锁定后设备只能在横屏和反向横屏之间旋转，不能切到竖屏（用户躺着看视频时防止误触旋转）。解锁后恢复正常的三向旋转，且受控制中心旋转锁定开关控制。锁定/解锁切换时方向策略要立即生效。请给出实现方案。",
+    "intent": "验证 ORIENT-03 场景能否命中屏幕锁定需求，正确推荐 AUTO_ROTATION_LANDSCAPE 锁定和 AUTO_ROTATION_UNSPECIFIED 解锁方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "primary_code_domain",
+        "secondary_code_domains",
+        "integration_edges"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "锁定时使用 AUTO_ROTATION_LANDSCAPE，支持横屏/反向横屏旋转，不可旋转为竖屏",
+        "解锁时使用 AUTO_ROTATION_UNSPECIFIED，恢复三向旋转，受控制中心开关控制",
+        "说明可通过 settings.registerKeyObserver 监听控制中心旋转锁定状态变化"
+      ],
+      "should_reuse_resources": [
+        "./references/video_rotation.md"
+      ],
+      "forbidden_patterns": [
+        "锁定时使用 LOCKED 或固定 LANDSCAPE（不支持反向横屏旋转）",
+        "忽略控制中心旋转锁定开关的影响"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS API 12+",
+      "compile_command_template": "./hvigorw assembleHap --mode module -p module={module_name}@default",
+      "test_command_template": "./hvigorw test --mode module -p module={module_name}@default",
+      "runtime_assertions": [
+        "锁定后设备只能在横屏和反向横屏之间旋转，不会切到竖屏",
+        "解锁后设备恢复三向旋转，受控制中心开关控制",
+        "锁定/解锁切换时方向策略立即生效"
+      ],
+      "pass_evidence": [
+        "编译日志（assembleHap 成功）",
+        "锁定/解锁方向策略切换日志",
+        "锁定状态下旋转设备方向变化日志（仅横屏区间）"
+      ]
+    }
+  }
+]

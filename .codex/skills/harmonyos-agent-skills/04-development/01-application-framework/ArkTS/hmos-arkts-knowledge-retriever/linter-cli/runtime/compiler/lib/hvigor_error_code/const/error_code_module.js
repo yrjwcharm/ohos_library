@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.ErrorCodeModule=void 0;let ErrorCodeModule=function(e){return e[e.TSC=0]="TSC",e[e.LINTER=1]="LINTER",e[e.UI=2]="UI",e}({});exports.ErrorCodeModule=ErrorCodeModule;

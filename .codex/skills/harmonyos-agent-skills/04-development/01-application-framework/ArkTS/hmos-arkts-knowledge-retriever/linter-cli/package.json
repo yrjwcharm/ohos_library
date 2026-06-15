@@ -1,0 +1,31 @@
+{
+  "name": "linter-cli",
+  "version": "0.1.0",
+  "description": "Standalone ArkTS linter CLI.",
+  "private": true,
+  "cpu": [
+    "x64"
+  ],
+  "bin": {
+    "linter-cli": "./bin/linter-cli.js"
+  },
+  "files": [
+    "bin/",
+    "scripts/",
+    "runtime/compiler/",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node ./bin/linter-cli.js",
+    "check": "node ./bin/linter-cli.js --help",
+    "install-runtime-deps": "node ./scripts/install-runtime-deps.mjs"
+  },
+  "dependencies": {
+    "fs-extra": "8.1.0",
+    "graceful-fs": "4.2.11",
+    "json5": "2.2.3",
+    "jsonfile": "4.0.0",
+    "uglify-js": "3.17.4",
+    "universalify": "0.1.2"
+  }
+}

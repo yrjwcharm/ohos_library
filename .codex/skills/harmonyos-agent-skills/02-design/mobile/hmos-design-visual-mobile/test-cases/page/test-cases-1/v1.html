@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-harmony-token-set="system" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=360, initial-scale=1.0, user-scalable=no">
+<title>音乐播客 - Harmony Music Podcast</title>
+<style>
+/* ========== Token Imports ========== */
+@import url("../../../../references/2.theme/harmony-tokens.css");
+@import url("../../../../references/2.theme/mobile-scale.css");
+
+/* ========== Local Token Fallbacks (独立 HTML 兜底) ========== */
+:root {
+  /* 页面尺寸与间距 */
+  --harmony-space-4: 4px;
+  --harmony-space-8: 8px;
+  --harmony-space-12: 12px;
+  --harmony-space-16: 16px;
+  --harmony-space-20: 20px;
+  --harmony-space-24: 24px;
+  --harmony-page-canvas-width-mobile: 360px;
+  --harmony-page-padding-mobile: 16px;
+  --harmony-page-content-width-mobile: 328px;
+  /* 圆角 */
+  --harmony-radius-4: 4px;
+  --harmony-radius-8: 8px;
+  --harmony-radius-12: 12px;
+  --harmony-radius-16: 16px;
+  --harmony-radius-20: 20px;
+  --harmony-radius-24: 24px;
+  /* 控件高度 */
+  --harmony-control-height-28: 28px;
+  --harmony-control-height-36: 36px;
+  --harmony-control-height-40: 40px;
+  --harmony-control-height-56: 56px;
+  --harmony-control-height-64: 64px;
+  /* 关键颜色语义 */
+  --harmony-brand: rgba(10, 89, 247, 1);
+  --harmony-font-primary: rgba(0, 0, 0, 0.898);
+  --harmony-font-secondary: rgba(0, 0, 0, 0.6);
+  --harmony-font-tertiary: rgba(0, 0, 0, 0.4);
+  --harmony-font-fourth: rgba(0, 0, 0, 0.2);
+  --harmony-font-emphasize: rgba(10, 89, 247, 1);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1);
+  --harmony-icon-primary: rgba(0, 0, 0, 0.898);
+  --harmony-icon-secondary: rgba(0, 0, 0, 0.6);
+  --harmony-icon-tertiary: rgba(0, 0, 0, 0.4);
+  --harmony-icon-emphasize: rgba(10, 89, 247, 1);
+  --harmony-background-primary: rgba(255, 255, 255, 1);
+  --harmony-background-secondary: rgba(241, 243, 245, 1);
+  --harmony-background-tertiary: rgba(229, 229, 234, 1);
+  --harmony-comp-background-primary: rgba(255, 255, 255, 1);
+  --harmony-comp-background-secondary: rgba(0, 0, 0, 0.098);
+  --harmony-comp-background-tertiary: rgba(0, 0, 0, 0.047);
+  --harmony-comp-background-emphasize: rgba(10, 89, 247, 1);
+  --harmony-comp-emphasize-secondary: rgba(10, 89, 247, 0.2);
+  --harmony-comp-divider: rgba(0, 0, 0, 0.2);
+  --harmony-interactive-hover: rgba(0, 0, 0, 0.047);
+  --harmony-interactive-pressed: rgba(0, 0, 0, 0.098);
+  --harmony-interactive-focus: rgba(10, 89, 247, 1);
+  --harmony-interactive-active: rgba(10, 89, 247, 1);
+}
+
+/* ========== Font Faces ========== */
+@font-face {
+  font-family: "HM Symbol-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../../assets/HMSymbolVF_1.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Flags";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../../assets/HMOSColorEmojiFlags.ttf") format("truetype");
+  unicode-range: U+1F1E6-1F1FF;
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Compat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../../assets/HMOSColorEmojiCompat.ttf") format("truetype");
+}
+
+/* ========== Global Reset & Page Canvas ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgba(229, 232, 238, 1);
+  padding: 32px 0;
+}
+
+/* ========== Screen Container ========== */
+.screen {
+  width: 360px;
+  height: 792px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--harmony-background-secondary);
+  border-radius: 24px;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.1), 0 2px 16px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
+}
+
+/* ========== HMSymbol Helper ========== */
+.hm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HM Symbol-Regular", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  color: currentColor;
+  pointer-events: none;
+}
+
+.hm-24 { font-size: 24px; width: 24px; height: 24px; }
+.hm-18 { font-size: 18px; width: 18px; height: 18px; }
+.hm-16 { font-size: 16px; width: 16px; height: 16px; }
+
+.hm-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family:
+    "HMOS Color Emoji Flags",
+    "HMOS Color Emoji Compat",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ================================================================ */
+/*                    STATUSBAR (独立组件 / 模板真值)                  */
+/* ================================================================ */
+.harmony-statusbar {
+  width: 360px;
+  height: 36px;
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+}
+
+.harmony-statusbar-light {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.898);
+}
+
+.harmony-statusbar-time {
+  width: 40px;
+  min-width: 40px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.harmony-statusbar-icons {
+  width: 96px;
+  height: 13px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.harmony-statusbar-icon {
+  position: absolute;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+/* WiFi: 15.344×12.001, left=0.401, top=0.796 */
+.harmony-statusbar-icon-wifi {
+  left: 0.4px;
+  top: 0.8px;
+  width: 15.34px;
+  height: 12px;
+  background-image: url("../../../../assets/statusbar-wifi-light.png");
+}
+
+/* Single Card: 21.5×12, left=21.4, top=0.8 */
+.harmony-statusbar-icon-single-card {
+  left: 21.4px;
+  top: 0.8px;
+  width: 21.5px;
+  height: 12px;
+  background-image: url("../../../../assets/statusbar-single-card-light.png");
+}
+
+/* Dual Card: 17.5×12, left=47.4, top=0.8 */
+.harmony-statusbar-icon-dual-card {
+  left: 47.4px;
+  top: 0.8px;
+  width: 17.5px;
+  height: 12px;
+  background-image: url("../../../../assets/statusbar-dual-card-light.png");
+}
+
+/* Battery: 25.75×13, left=70.25, top=0 */
+.harmony-statusbar-icon-battery {
+  left: 70.25px;
+  top: 0;
+  width: 25.75px;
+  height: 13px;
+  background-image: url("../../../../assets/statusbar-battery-light.png");
+}
+
+/* ================================================================ */
+/*                    TITLEBAR (normal 变体 / 浮层)                   */
+/* ================================================================ */
+.harmony-titlebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 360px;
+  height: 124px;
+  z-index: 10;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.898);
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+  pointer-events: none;
+}
+
+/* 背板层: 渐隐背景 + blur + mask, 不在根节点整块模糊 */
+.harmony-titlebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(241, 243, 245, 0.8) 0%,
+    rgba(241, 243, 245, 0.8) 30%,
+    rgba(241, 243, 245, 0.79) 38.5%,
+    rgba(241, 243, 245, 0.74) 51.1%,
+    rgba(241, 243, 245, 0.65) 59.3%,
+    rgba(241, 243, 245, 0.53) 67.5%,
+    rgba(241, 243, 245, 0.32) 76.4%,
+    rgba(241, 243, 245, 0.12) 85.7%,
+    rgba(241, 243, 245, 0) 100%
+  );
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.95) 35%,
+    rgba(0, 0, 0, 0.82) 55%,
+    rgba(0, 0, 0, 0.55) 70%,
+    rgba(0, 0, 0, 0.2) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.95) 35%,
+    rgba(0, 0, 0, 0.82) 55%,
+    rgba(0, 0, 0, 0.55) 70%,
+    rgba(0, 0, 0, 0.2) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.harmony-titlebar > * { position: relative; z-index: 1; pointer-events: auto; }
+
+/* titlebar 内容区: 124 - 36 = 88 */
+.harmony-titlebar__content {
+  position: relative;
+  width: 360px;
+  height: 88px;
+}
+
+/* normal title: 26/35 Bold */
+.harmony-titlebar__title {
+  position: absolute;
+  left: 16px;
+  top: 19px;
+  width: 184px;
+  height: 35px;
+  margin: 0;
+  font-size: 26px;
+  line-height: 35px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.898);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+.harmony-titlebar__actions {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.harmony-titlebar__action-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.898);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.08);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.harmony-titlebar__action-btn:hover { background: rgba(255, 255, 255, 0.96); }
+.harmony-titlebar__action-btn:active {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.098), rgba(0, 0, 0, 0.098)),
+    rgba(255, 255, 255, 0.88);
+}
+
+/* ================================================================ */
+/*                    LAYOUT CONTENT (滚动内容区)                     */
+/* ================================================================ */
+.layout-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-top: 96px;
+  padding-bottom: 113px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.layout-content::-webkit-scrollbar { display: none; }
+
+/* ================================================================ */
+/*                    SEARCH BAR (内容区首项 / z-index:30)            */
+/* ================================================================ */
+.layout-search-bar {
+  position: relative;
+  width: 328px;
+  height: 40px;
+  margin: 0 auto 16px;
+  z-index: 30;
+}
+
+.harmony-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 328px;
+  height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 24px;
+  cursor: text;
+  font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--harmony-font-primary);
+  background:
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.15);
+  background-blend-mode: normal, plus-lighter;
+  box-shadow: 0 4px 48px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.harmony-search__overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.harmony-search__icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--harmony-font-secondary);
+}
+
+.harmony-search__text {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.harmony-search__text--placeholder {
+  color: var(--harmony-font-secondary);
+  font-weight: 400;
+}
+
+/* ================================================================ */
+/*                    SECTION HEADER                                 */
+/* ================================================================ */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--harmony-page-content-width-mobile);
+  height: 48px;
+  margin: 0 auto;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.section-header__title {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  color: var(--harmony-font-primary);
+}
+
+.section-header__more {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--harmony-font-tertiary);
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+}
+
+.section-header__more .hm { font-size: 12px; width: 12px; height: 12px; }
+
+/* ================================================================ */
+/*                    FEATURED PODCAST HERO                          */
+/* ================================================================ */
+.featured-podcast {
+  width: var(--harmony-page-content-width-mobile);
+  margin: 0 auto 12px;
+  position: relative;
+  border-radius: var(--harmony-radius-16);
+  overflow: hidden;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.featured-podcast__bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(10, 89, 247, 0.85) 0%, rgba(71, 55, 211, 0.9) 50%, rgba(120, 40, 180, 0.88) 100%);
+  display: flex;
+  align-items: center;
+  padding: var(--harmony-space-24);
+}
+
+.featured-podcast__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--harmony-space-8);
+}
+
+.featured-podcast__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--harmony-radius-4);
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--harmony-font-on-primary);
+  width: fit-content;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.featured-podcast__title {
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: 700;
+  color: var(--harmony-font-on-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.featured-podcast__meta {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.featured-podcast__play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--harmony-brand);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.15s ease;
+}
+
+.featured-podcast__play-btn:active { background: rgba(255, 255, 255, 0.8); }
+
+.featured-podcast__play-btn .hm { font-size: 28px; width: 28px; height: 28px; }
+
+/* ================================================================ */
+/*                    CATEGORY CHIPS                                 */
+/* ================================================================ */
+.category-chips {
+  display: flex;
+  gap: var(--harmony-space-8);
+  width: var(--harmony-page-content-width-mobile);
+  margin: 0 auto var(--harmony-space-16);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.category-chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 16px;
+  border: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: inherit;
+  background: var(--harmony-comp-background-primary);
+  color: var(--harmony-font-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.chip:active { background: var(--harmony-interactive-pressed); }
+
+.chip--active {
+  background: var(--harmony-comp-background-emphasize);
+  color: var(--harmony-font-on-primary);
+}
+
+.chip__emoji { font-size: 14px; }
+
+/* ================================================================ */
+/*                    EPISODE LIST CARD                              */
+/* ================================================================ */
+.episode-list {
+  width: var(--harmony-page-content-width-mobile);
+  margin: 0 auto var(--harmony-space-16);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: var(--harmony-radius-16);
+  overflow: hidden;
+  background: var(--harmony-comp-background-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.episode-item {
+  display: flex;
+  align-items: center;
+  gap: var(--harmony-space-12);
+  padding: 14px var(--harmony-space-16);
+  cursor: pointer;
+  transition: background 0.12s ease;
+  position: relative;
+}
+
+.episode-item:active { background: var(--harmony-interactive-pressed); }
+
+.episode-item + .episode-item {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.episode-item__cover {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--harmony-radius-8);
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.episode-item__cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.episode-item__cover--blue { background: rgba(10, 89, 247, 0.1); color: var(--harmony-brand); }
+.episode-item__cover--purple { background: rgba(136, 60, 235, 0.1); color: rgba(136, 60, 235, 1); }
+.episode-item__cover--teal { background: rgba(0, 168, 148, 0.1); color: rgba(0, 168, 148, 1); }
+.episode-item__cover--orange { background: rgba(245, 101, 34, 0.1); color: rgba(245, 101, 34, 1); }
+.episode-item__cover--pink { background: rgba(235, 60, 120, 0.1); color: rgba(235, 60, 120, 1); }
+
+.episode-item__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.episode-item__title {
+  font-size: 15px;
+  line-height: 21px;
+  font-weight: 500;
+  color: var(--harmony-font-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.episode-item__meta {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--harmony-font-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.episode-item__duration {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--harmony-font-fourth);
+  flex-shrink: 0;
+}
+
+.episode-item__play-mini {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--harmony-comp-background-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--harmony-icon-primary);
+  cursor: pointer;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.15s ease;
+}
+
+.episode-item__play-mini:active { background: var(--harmony-interactive-pressed); }
+
+.episode-item__play-mini .hm { font-size: 16px; width: 16px; height: 16px; }
+
+/* ================================================================ */
+/*                    HORIZONTAL SCROLL CARDS                        */
+/* ================================================================ */
+.horizontal-scroll {
+  width: 360px;
+  margin: 0 0 var(--harmony-space-16);
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+
+.horizontal-scroll::-webkit-scrollbar { display: none; }
+
+.horizontal-scroll__inner {
+  display: flex;
+  gap: var(--harmony-space-12);
+  padding-inline: var(--harmony-page-padding-mobile);
+}
+
+.h-card {
+  width: 148px;
+  flex-shrink: 0;
+  border-radius: var(--harmony-radius-12);
+  overflow: hidden;
+  background: var(--harmony-comp-background-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.h-card:active { background: var(--harmony-interactive-pressed); }
+
+.h-card__cover {
+  width: 148px;
+  height: 148px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.h-card__cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+.h-card__cover--grad1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.h-card__cover--grad2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.h-card__cover--grad3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+.h-card__cover--grad4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+.h-card__cover--grad5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+.h-card__cover--grad6 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+
+.h-card__play-overlay {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--harmony-brand);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.h-card__play-overlay .hm { font-size: 16px; width: 16px; height: 16px; }
+
+.h-card__info {
+  padding: 10px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.h-card__title {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--harmony-font-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.h-card__subtitle {
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 400;
+  color: var(--harmony-font-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================================================================ */
+/*                    BOTTOMTAB (浮层 / 4-tab)                        */
+/* ================================================================ */
+.harmony-bottomtab {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 360px;
+  height: 100px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.harmony-bottomtab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(241, 243, 245, 0) 0%,
+    rgba(241, 243, 245, 0.0017) 11.8%,
+    rgba(241, 243, 245, 0.0065) 21.4%,
+    rgba(241, 243, 245, 0.0141) 29.1%,
+    rgba(241, 243, 245, 0.0241) 35.3%,
+    rgba(241, 243, 245, 0.0363) 40.4%,
+    rgba(241, 243, 245, 0.0502) 44.6%,
+    rgba(241, 243, 245, 0.0656) 48.2%,
+    rgba(241, 243, 245, 0.0821) 51.8%,
+    rgba(241, 243, 245, 0.0994) 55.4%,
+    rgba(241, 243, 245, 0.117) 59.6%,
+    rgba(241, 243, 245, 0.1348) 64.7%,
+    rgba(241, 243, 245, 0.1523) 70.9%,
+    rgba(241, 243, 245, 0.1693) 78.6%,
+    rgba(241, 243, 245, 0.1853) 88.2%,
+    rgba(241, 243, 245, 0.2) 100%
+  );
+  pointer-events: none;
+}
+
+.harmony-bottomtab__bar {
+  height: 56px;
+  border-radius: 100px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  background:
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.4);
+  background-blend-mode: plus-lighter;
+  box-shadow: 0 4px 48px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
+  pointer-events: auto;
+}
+
+.harmony-bottomtab__bar--4 { width: 328px; }
+
+.harmony-bottomtab__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  flex: 1;
+}
+
+.harmony-bottomtab__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 48px;
+  flex: 1;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.898);
+  font-family: inherit;
+  transition: color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  min-width: 0;
+}
+
+.harmony-bottomtab__tab:focus-visible {
+  outline: 2px solid var(--harmony-brand);
+  outline-offset: -2px;
+  border-radius: 8px;
+}
+
+.harmony-bottomtab__tab--active {
+  color: var(--harmony-brand);
+}
+
+.harmony-bottomtab__tab:disabled,
+.harmony-bottomtab__tab[aria-disabled="true"] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.harmony-bottomtab__tab-icon {
+  font-family: "HM Symbol-Regular", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  pointer-events: none;
+}
+
+.harmony-bottomtab__tab-label {
+  font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  color: inherit;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.harmony-bottomtab__indicator {
+  width: 360px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.harmony-bottomtab__indicator-bar {
+  width: 112px;
+  height: 5px;
+  border-radius: 2.5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+</style>
+</head>
+<body>
+
+<!-- ========== Page Container ========== -->
+<div class="screen">
+
+  <!-- ========== TITLEBAR (浮层 / normal 变体) ========== -->
+  <div class="harmony-titlebar harmony-titlebar--normal" data-component="titlebar" data-figma-node-id="36:1715">
+
+    <!-- 独立 statusbar 组件 (titlebar 容器内首位) -->
+    <div class="harmony-statusbar harmony-statusbar-light" data-component="statusbar" data-figma-node-id="36:3656">
+      <span class="harmony-statusbar-time">09:41</span>
+      <span class="harmony-statusbar-icons" aria-hidden="true">
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-wifi"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-single-card"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-dual-card"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-battery"></i>
+      </span>
+    </div>
+
+    <!-- titlebar 内容区 -->
+    <div class="harmony-titlebar__content">
+      <h2 class="harmony-titlebar__title">音乐播客</h2>
+      <div class="harmony-titlebar__actions">
+        <!-- HMSymbol: magnifyingglass (F0029) -->
+        <button class="harmony-titlebar__action-btn" type="button" aria-label="搜索">
+          <span class="hm hm-24" aria-hidden="true">&#xF0029;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CONTENT SCROLL REGION ========== -->
+  <div class="layout-content">
+
+    <!-- Search Bar (内容区首项 / z-index:30) -->
+    <div class="layout-search-bar">
+      <div class="harmony-search" data-component="search" data-search="off" data-state="normal" data-figma-node-id="88:649">
+        <span class="harmony-search__overlay"></span>
+        <!-- HMSymbol: magnifyingglass (F0029) -->
+        <span class="harmony-search__icon"><span class="hm hm-18" aria-hidden="true">&#xF0029;</span></span>
+        <span class="harmony-search__text harmony-search__text--placeholder">搜索播客、节目或主播</span>
+      </div>
+    </div>
+
+    <!-- Featured Podcast Hero -->
+    <div class="featured-podcast">
+      <div class="featured-podcast__bg">
+        <div class="featured-podcast__info">
+          <span class="featured-podcast__label">
+            <span class="hm-emoji" aria-hidden="true">&#x1F31F;</span> 编辑精选
+          </span>
+          <div class="featured-podcast__title">科技乱炖：AI 时代的产品设计新思路</div>
+          <div class="featured-podcast__meta">🎙️ 枫言枫语 · 第 218 期 · 58 分钟</div>
+        </div>
+        <!-- HMSymbol: play_fill (F00B4) -->
+        <button class="featured-podcast__play-btn" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Chips -->
+    <div class="category-chips">
+      <button class="chip chip--active">全部</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F4BB;</span>科技</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F4B0;</span>商业</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F3A8;</span>设计</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F4DA;</span>读书</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F3A4;</span>音乐</button>
+      <button class="chip"><span class="chip__emoji hm-emoji" aria-hidden="true">&#x1F3AC;</span>影视</button>
+    </div>
+
+    <!-- Section: 最近更新 -->
+    <div class="section-header">
+      <span class="section-header__title">最近更新</span>
+      <button class="section-header__more" type="button">
+        查看全部
+        <!-- HMSymbol: arrow_right (F0231) — 线性 chevron 偏右箭头, 用于 "more" 语义 -->
+        <span class="hm" aria-hidden="true">&#xF0231;</span>
+      </button>
+    </div>
+
+    <div class="episode-list">
+      <!-- Episode 1 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--blue">
+          <!-- HMSymbol: music (F00AD) -->
+          <span class="episode-item__cover-placeholder hm" aria-hidden="true">&#xF00AD;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">SaaS 创业者的自我修养</div>
+          <div class="episode-item__meta">硅谷早知道 · 6 天前</div>
+        </div>
+        <span class="episode-item__duration">42:15</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <!-- HMSymbol: play_fill (F00B4) -->
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+      <!-- Episode 2 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--purple">
+          <!-- HMSymbol: mic (F0006) -->
+          <span class="episode-item__cover-placeholder hm" aria-hidden="true">&#xF0006;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">从零开始学 Rust：所有权机制深入解析</div>
+          <div class="episode-item__meta">代码时间 · 3 天前</div>
+        </div>
+        <span class="episode-item__duration">1:05:32</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+      <!-- Episode 3 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--teal">
+          <!-- HMSymbol: speaker_wave_3 (F004A) -->
+          <span class="episode-item__cover-placeholder hm" aria-hidden="true">&#xF004A;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">情绪管理与正念冥想入门指南</div>
+          <div class="episode-item__meta">身心健康 · 昨天</div>
+        </div>
+        <span class="episode-item__duration">28:07</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+      <!-- Episode 4 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--orange">
+          <!-- HMSymbol: headphones_fill (F0672) — 设计明确要求播客/音乐场景，fill 通过 -->
+          <span class="episode-item__cover-placeholder hm" aria-hidden="true">&#xF0672;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">2026 年音乐产业趋势与独立音乐人之路</div>
+          <div class="episode-item__meta">音乐飞行 · 2 天前</div>
+        </div>
+        <span class="episode-item__duration">51:40</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Section: 热门播客 -->
+    <div class="section-header">
+      <span class="section-header__title">热门播客</span>
+      <button class="section-header__more" type="button">
+        查看全部
+        <span class="hm" aria-hidden="true">&#xF0231;</span>
+      </button>
+    </div>
+
+    <div class="horizontal-scroll">
+      <div class="horizontal-scroll__inner">
+        <!-- Podcast Card 1 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad1">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F4BB;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">代码时间</div>
+            <div class="h-card__subtitle">程序员的闲聊播客</div>
+          </div>
+        </div>
+        <!-- Podcast Card 2 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad2">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F3A7;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">枫言枫语</div>
+            <div class="h-card__subtitle">科技 · 人文 · 慢聊</div>
+          </div>
+        </div>
+        <!-- Podcast Card 3 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad3">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F30F;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">硅谷早知道</div>
+            <div class="h-card__subtitle">深度商业科技分析</div>
+          </div>
+        </div>
+        <!-- Podcast Card 4 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad4">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F4DA;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">文化有限</div>
+            <div class="h-card__subtitle">读书 · 观点 · 生活</div>
+          </div>
+        </div>
+        <!-- Podcast Card 5 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad5">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F3A4;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">音乐飞行</div>
+            <div class="h-card__subtitle">独立音乐与音乐人故事</div>
+          </div>
+        </div>
+        <!-- Podcast Card 6 -->
+        <div class="h-card" role="button" tabindex="0">
+          <div class="h-card__cover h-card__cover--grad6">
+            <span class="h-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F9E0;</span>
+            <div class="h-card__play-overlay"><span class="hm" aria-hidden="true">&#xF00B4;</span></div>
+          </div>
+          <div class="h-card__info">
+            <div class="h-card__title">身心探索</div>
+            <div class="h-card__subtitle">心理学 · 冥想 · 成长</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: 推荐单集 -->
+    <div class="section-header">
+      <span class="section-header__title">推荐单集</span>
+      <button class="section-header__more" type="button">
+        查看全部
+        <span class="hm" aria-hidden="true">&#xF0231;</span>
+      </button>
+    </div>
+
+    <div class="episode-list">
+      <!-- Episode 5 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--pink">
+          <!-- HMSymbol: headphones_fill (F0672) -->
+          <span class="episode-item__cover-placeholder hm" aria-hidden="true">&#xF0672;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">Vol.42 我们和 AI 聊了一整期节目</div>
+          <div class="episode-item__meta">代码时间 · 上周</div>
+        </div>
+        <span class="episode-item__duration">1:12:08</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+      <!-- Episode 6 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--blue">
+          <span class="episode-item__cover-placeholder hm-emoji" aria-hidden="true">&#x1F30D;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">出海东南亚：一个创业者的三年复盘</div>
+          <div class="episode-item__meta">硅谷早知道 · 5 天前</div>
+        </div>
+        <span class="episode-item__duration">45:22</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+      <!-- Episode 7 -->
+      <div class="episode-item" role="button" tabindex="0">
+        <div class="episode-item__cover episode-item__cover--teal">
+          <span class="episode-item__cover-placeholder hm-emoji" aria-hidden="true">&#x1F3B6;</span>
+        </div>
+        <div class="episode-item__info">
+          <div class="episode-item__title">爵士乐入门：从 Miles Davis 说起</div>
+          <div class="episode-item__meta">音乐飞行 · 4 天前</div>
+        </div>
+        <span class="episode-item__duration">38:50</span>
+        <button class="episode-item__play-mini" aria-label="播放">
+          <span class="hm" aria-hidden="true">&#xF00B4;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom spacer for better scroll feel -->
+    <div style="height: 8px;"></div>
+
+  </div><!-- /.layout-content -->
+
+  <!-- ========== BOTTOMTAB (浮层 / 4-tab 变体) ========== -->
+  <nav class="harmony-bottomtab" data-component="bottomtab" data-variant="4" data-figma-node-id="52:17585" aria-label="底部导航">
+    <div class="harmony-bottomtab__bar harmony-bottomtab__bar--4">
+      <div class="harmony-bottomtab__tabs">
+        <!-- Tab 1: 首页 (Active) -->
+        <button class="harmony-bottomtab__tab harmony-bottomtab__tab--active" type="button" aria-pressed="true">
+          <!-- HMSymbol: square_grid_2x2 (F00E3) -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF00E3;</span>
+          <span class="harmony-bottomtab__tab-label">首页</span>
+        </button>
+        <!-- Tab 2: 发现 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: list_bullet (F0069) — music_note_list 未命中, 线性列表图标回退 -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF0069;</span>
+          <span class="harmony-bottomtab__tab-label">发现</span>
+        </button>
+        <!-- Tab 3: 订阅 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: headphones_fill (F0672) — 播客语义明确, fill 版本通过 -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF0672;</span>
+          <span class="harmony-bottomtab__tab-label">订阅</span>
+        </button>
+        <!-- Tab 4: 我的 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: person (F05E5) — 线性版本 -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF05E5;</span>
+          <span class="harmony-bottomtab__tab-label">我的</span>
+        </button>
+      </div>
+    </div>
+    <div class="harmony-bottomtab__indicator">
+      <div class="harmony-bottomtab__indicator-bar"></div>
+    </div>
+  </nav>
+
+</div><!-- /.screen -->
+
+</body>
+</html>

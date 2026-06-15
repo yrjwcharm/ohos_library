@@ -1,0 +1,16 @@
+{
+    "name": "UIPickerComponent",
+    "children": [
+        "SymbolGlyph",
+        "Text",
+        "Image",
+        "Row"
+    ],
+    "attrs": [
+        "onChange",
+        "onScrollStop",
+        "canLoop",
+        "enableHapticFeedback",
+        "selectionIndicator"
+    ]
+}

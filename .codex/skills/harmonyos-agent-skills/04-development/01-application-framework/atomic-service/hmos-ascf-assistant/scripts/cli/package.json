@@ -1,0 +1,20 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "ASCF development toolkit CLI",
+  "main": "asicon-node.js",
+  "bin": {
+    "ascf-cli": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ascf",
+  "license": "ISC",
+  "dependencies": {
+    "@atomicservice/as-icon-generator": "^1.0.16",
+    "@napi-rs/canvas": "^0.1.100",
+    "commander": "^14.0.3"
+  }
+}

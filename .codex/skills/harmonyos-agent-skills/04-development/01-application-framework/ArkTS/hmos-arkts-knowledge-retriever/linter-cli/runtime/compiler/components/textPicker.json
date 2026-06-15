@@ -1,0 +1,6 @@
+{
+  "name": "TextPicker",
+  "attrs": ["defaultPickerItemHeight", "onAccept", "onCancel", "onChange", "selectedIndex", "divider", "gradientHeight",
+    "selectedTextStyle", "textStyle", "disappearTextStyle", "canLoop", "enableHapticFeedback"
+  ]
+}

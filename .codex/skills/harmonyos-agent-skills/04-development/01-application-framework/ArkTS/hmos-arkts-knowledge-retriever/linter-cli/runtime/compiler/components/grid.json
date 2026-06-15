@@ -1,0 +1,16 @@
+{
+  "name": "Grid",
+  "children": ["GridItem"],
+  "attrs": [
+    "columnsTemplate", "rowsTemplate", "columnsGap", "rowsGap", "scrollBar", "scrollBarWidth",
+    "scrollBarColor", "editMode", "editModeOptions", "maxCount", "minCount", "cellLength", "onItemDragStart",
+    "onItemDragMove", "onItemDragEnter", "onItemDrop", "layoutDirection", "direction",
+    "supportAnimation", "onItemDragLeave", "multiSelectable", "onScrollIndex", "edgeEffect",
+    "onScrollBarUpdate", "enableScrollInteraction", "fadingEdge", "onScrollStart", "onScroll",
+    "onScrollStop", "onWillScroll", "onDidScroll", "cachedCount", "nestedScroll", "friction", 
+    "alignItems", "onReachStart", "onReachEnd", "onScrollFrameBegin", "flingSpeedLimit",
+    "clipContent", "backToTop", "focusWrapMode", "onWillStopDragging", "syncLoad", "onWillStartDragging",
+    "onDidStopDragging", "onWillStartFling", "onDidStopFling", "contentStartOffset", "contentEndOffset",
+    "supportEmptyBranchInLazyLoading"
+  ]
+}

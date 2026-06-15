@@ -1,0 +1,5 @@
+{
+	"name": "SymbolGlyph",
+	"atomic": true,
+	"attrs": ["fontSize", "fontColor", "fontWeight", "effectStrategy", "renderingStrategy", "symbolEffect"]
+}

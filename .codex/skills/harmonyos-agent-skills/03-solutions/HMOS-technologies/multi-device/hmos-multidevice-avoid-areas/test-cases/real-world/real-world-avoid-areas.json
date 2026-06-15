@@ -1,0 +1,800 @@
+[
+  {
+    "case_id": "AVOID-REAL-001",
+    "layer": "real-world",
+    "title": "阅读器应用顶部内容被状态栏遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "阅读器应用线上问题：多设备（手机、折叠屏、平板）全屏显示时，顶部标题栏和工具栏被状态栏遮挡，折叠屏和平板遮挡更严重，用户无法看到完整标题内容。请输出修复方案和工程验证要求。",
+    "intent": "验证真实阅读器场景下，AVOID-01 TYPE_SYSTEM 避让区域识别与动态获取的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": ["AVOID-03"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 getWindowAvoidArea(TYPE_SYSTEM) 动态获取状态栏高度，不能硬编码。",
+        "必须注册 avoidAreaChange 监听，折叠屏展开/折叠和横竖屏切换时自动更新 padding。",
+        "根容器必须通过 padding({ top: statusBarHeight }) 整体下移避让状态栏。",
+        "statusBarHeight 为 @State 变量，避让区变化时 UI 自动刷新。",
+        "aboutToDisappear 中必须取消监听避免内存泄漏。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./references/bug-fix-cases.md",
+        "./assets/AvoidAreaExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码状态栏高度（如 padding({ top: 48 })）。",
+        "只在启动时 getWindowAvoidArea 读取一次，不监听 avoidAreaChange。",
+        "页面 aboutToDisappear 中不取消监听导致内存泄漏。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 阅读器应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "手机设备顶部标题栏内容不被状态栏遮挡，padding 顶部高度为实际状态栏高度。",
+        "折叠屏展开后状态栏高度变化，padding 自动更新。",
+        "平板设备状态栏遮挡正确避让。",
+        "屏幕旋转后状态栏高度变化，padding 自动更新。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手机设备状态栏避让截图",
+        "折叠屏展开态截图",
+        "屏幕旋转截图",
+        "avoidAreaChange 回调日志"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-002",
+    "layer": "real-world",
+    "title": "全屏应用挖孔区内容遮挡与交互失效修复",
+    "phase": "FIX",
+    "user_prompt": "全屏游戏应用线上问题：全屏显示后，设备挖孔（居中单孔、左侧单孔、药丸形）遮挡顶部关键 UI。横屏时左右挖孔也遮挡操作按钮导致交互失效，横竖屏切换后避让没有更新。请输出修复方案和工程验证要求。",
+    "intent": "验证真实全屏游戏场景下，AVOID-01 TYPE_CUTOUT 四方向检测与 AVOID-02 背景延伸的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": ["AVOID-02"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须设置 setPreferredOrientation(AUTO_ROTATION_RESTRICTED) 支持横竖屏旋转。",
+        "必须使用 CutoutAvoidanceManager 管理器封装 TYPE_CUTOUT 避让逻辑。",
+        "必须实现四方向挖孔检测：根据 topRect/leftRect/rightRect/bottomRect 计算避让 padding。",
+        "必须注册 avoidAreaChange 监听，横竖屏旋转时系统自动映射到对应边。",
+        "固定交互元素（操作按钮）必须使用 padding 避让内容。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./references/bug-fix-cases.md",
+        "./assets/CutoutAvoidanceManager.ets",
+        "./assets/CutoutAvoidance4DirExample.ets"
+      ],
+      "forbidden_patterns": [
+        "只处理顶部挖孔不检测左右和底部方向。",
+        "使用 ignoreLayoutSafeArea 但不获取 TYPE_CUTOUT 避让区域。",
+        "手动判断横竖屏方向，不依赖系统自动映射。",
+        "对所有内容都做挖孔避让，影响沉浸式体验。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 全屏游戏应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "竖屏时顶部挖孔区固定 UI（操作按钮）内容不被遮挡。",
+        "横屏时左右挖孔区固定 UI 内容不被遮挡，四方向 padding 动态更新。",
+        "横竖屏旋转后避让边自动切换，无内容重叠。",
+        "游戏内容区域不受挖孔避让影响，保持沉浸式体验。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "竖屏挖孔避让截图",
+        "横屏挖孔避让截图（左右方向）",
+        "横竖屏切换后截图",
+        "不同挖孔形态设备截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-003",
+    "layer": "real-world",
+    "title": "短视频底部未适配沉浸式布局修复",
+    "phase": "FIX",
+    "user_prompt": "短视频应用线上问题：全屏沉浸式视频播放时，底部自定义 Tab 栏和进度条被系统导航栏上推，未延伸到屏幕底部，底部存在明显黑边，视频内容没有真正沉浸式效果。请输出修复方案和工程验证要求。",
+    "intent": "验证真实短视频场景下，AVOID-03 沉浸式布局 + AVOID-01 底部避让的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "secondary_scenes": ["AVOID-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须将 Tabs barHeight 从 56 改为 0，隐藏默认栏。",
+        "必须移除 Stack 外层的 padding({ bottom })，避免整体布局偏移。",
+        "必须为底部交互元素（进度条、点赞按钮等）添加 padding({ bottom: tabHeight }) 避让自定义 Tab 栏。",
+        "必须使用 setWindowLayoutFullScreen(true) 开启全屏沉浸式布局。",
+        "必须通过 getWindowAvoidArea(TYPE_NAVIGATION_INDICATOR) 获取导航条高度。"
+      ],
+      "should_reuse_resources": [
+        "./references/immersive_layout.md",
+        "./references/safe_area_api.md",
+        "./references/bug-fix-cases.md",
+        "./assets/FullScreenLayoutExample.ets"
+      ],
+      "forbidden_patterns": [
+        "Tabs barHeight 不设为 0，默认栏占用底部空间。",
+        "在 Stack 外层添加 padding({ bottom }) 上推整体内容而非沉浸式。",
+        "不为底部交互元素添加避让 padding，导致被 Tab 栏遮挡。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 短视频应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "视频画面铺满全屏，无底部黑边。",
+        "底部进度条和交互元素不被自定义 Tab 栏遮挡。",
+        "自定义 Tab 栏不被系统导航指示器遮挡。",
+        "视频内容延伸到导航指示器后方实现沉浸式效果。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "短视频沉浸式截图（无黑边）",
+        "底部交互元素避让截图",
+        "不同设备截图（手机、折叠屏）"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-004",
+    "layer": "real-world",
+    "title": "顶部 padding 位置错误导致背景色间隙与列表截断修复",
+    "phase": "FIX",
+    "user_prompt": "全屏沉浸式列表页线上问题：顶部状态栏与白色标题栏之间出现灰色间隙，白色背景未延伸到状态栏。底部列表滚动到最后几条数据时被系统导航指示器遮挡。请输出修复方案和工程验证要求。",
+    "intent": "验证真实列表页场景下，AVOID-02 背景延伸与 AVOID-01 避让的 padding 位置正确性的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-02",
+      "secondary_scenes": ["AVOID-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "顶部 padding 必须加在标题栏容器上（使用 statusBarHeight），让标题栏背景延伸到状态栏，消除色差间隙。",
+        "顶部必须使用正确的变量 statusBarHeight（TYPE_SYSTEM topRect.height），而非 navBarHeight。",
+        "底部 padding 必须加在 Scroll 组件上（使用 navBarHeight），让滚动内容在底部留出导航指示器避让空间。",
+        "不能在外层容器上添加 padding 导致整体布局偏移。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/safe_area_api.md",
+        "./references/avoid_area_types.md",
+        "./assets/AvoidAreaExample.ets"
+      ],
+      "forbidden_patterns": [
+        "在外层容器上添加 padding 而非在子组件上。",
+        "顶部使用错误的变量 navBarHeight 代替 statusBarHeight。",
+        "底部 padding 加在 Stack 外层而非 Scroll 内部。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 列表页应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "顶部白色标题栏背景延伸到状态栏，无灰色间隙。",
+        "底部列表滚动到最后一条数据时完全可见，不被导航指示器遮挡。",
+        "折叠屏展开后避让参数正确更新。",
+        "标题栏内容不被状态栏遮挡。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "顶部标题栏延伸截图（无间隙）",
+        "底部列表滚动到底截图",
+        "折叠屏展开态截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-005",
+    "layer": "real-world",
+    "title": "竖折叠模式下输入法键盘导致引用视图截断修复",
+    "phase": "FIX",
+    "user_prompt": "聊天应用线上问题：竖折叠模式下，输入框上方引用视图（图片/文本）在输入法拉起时被截断，内容直接被截掉不可滚动。请输出修复方案和工程验证要求。",
+    "intent": "验证真实聊天应用竖折叠场景下，AVOID-04 键盘避让时引用视图截断的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": ["AVOID-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须基于断点系统判断 xs 断点时限制引用视图高度为 80vp，其他断点为 auto。",
+        "必须用 Scroll 组件包裹引用区域，超出高度时内容可滚动而非截断。",
+        "必须为 Scroll 组件添加 constraintSize({ maxHeight }) 属性，xs 断点 maxHeight 为 80，其他断点为 auto。",
+        "根因必须指出引用视图未使用 Scroll 包裹、未设置 constraintSize 高度限制。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/keyboard_handling.md",
+        "./references/avoid_area_types.md",
+        "./assets/KeyboardAvoidanceExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/dingding_input_region_truncation/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "引用视图不用 Scroll 包裹，超出高度时直接截断。",
+        "不区分断点，所有设备使用相同的引用视图高度。",
+        "对整个底部工具栏设置固定高度限制（属于场景6问题）。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 聊天应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "xs 断点键盘弹出后引用视图高度限制为 80vp，内容可滚动不被截断。",
+        "非 xs 断点引用视图高度自适应，不限制。",
+        "键盘弹出后输入框和发送按钮始终可见。",
+        "键盘收起后页面恢复原始布局，无额外空白。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "xs 断点键盘弹出截图（引用视图可滚动，不再截断）",
+        "非 xs 断点键盘弹出截图",
+        "键盘收起截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-006",
+    "layer": "real-world",
+    "title": "底部工具栏整体高度限制导致输入法区域压缩异常修复",
+    "phase": "FIX",
+    "user_prompt": "聊天应用线上问题：竖折叠模式下，输入法拉起时引用视图被压缩截断，输入框空间不足。请输出修复方案和工程验证要求。",
+    "intent": "验证真实聊天应用竖折叠场景下，AVOID-04 底部工具栏整体高度限制导致输入框空间不足的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": ["AVOID-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须将底部工具栏整体的 constraintSize({ maxHeight }) 移除，底部工具栏本身不设置高度限制。",
+        "必须仅对引用视图的 Scroll 组件设置 constraintSize({ maxHeight })，xs 断点 maxHeight 为 80，其他断点为 auto。",
+        "必须使用 BreakpointType 管理不同断点的引用视图高度配置。",
+        "根因必须指出对整个底部工具栏设置 constraintSize({ maxHeight }) 导致引用视图和输入框共享固定空间，输入框空间不足。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/keyboard_handling.md",
+        "./references/avoid_area_types.md",
+        "./assets/KeyboardAvoidanceExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/dingding_input_overlop/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "对底部工具栏整体设置 constraintSize({ maxHeight }) 或固定 height。",
+        "引用视图和输入框共享固定高度空间，不优先保证输入框可见性。",
+        "不区分断点，所有设备使用相同的底部工具栏高度。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 聊天应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "底部工具栏整体不设置高度限制，输入框在键盘弹出时有足够空间。",
+        "xs 断点引用视图高度限制为 80vp（仅 Scroll 的 constraintSize），内容可滚动。",
+        "非 xs 断点引用视图高度自适应。",
+        "键盘弹出后输入框和发送按钮始终可见，不被压缩。",
+        "键盘收起后页面恢复原始布局，无额外空白。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "xs 断点键盘弹出截图（输入框有足够空间，引用视图可滚动）",
+        "非 xs 断点键盘弹出截图",
+        "键盘收起截图",
+        "底部工具栏无整体高度限制的代码差异截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-007",
+    "layer": "real-world",
+    "title": "全屏应用底部内容被系统导航指示器遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "应用登录/注册页线上问题：使用 setWindowLayoutFullScreen(true) 开启全屏沉浸式布局后，底部协议勾选和反馈链接被系统导航指示器（手势条）遮挡。不同设备导航指示器高度不同（约 28–34vp），平板设备遮挡更严重。用户无法正常点击底部按钮。请输出修复方案和工程验证要求。",
+    "intent": "验证真实登录页面场景下，AVOID-01 TYPE_NAVIGATION_INDICATOR 底部避让与 AVOID-03 全屏布局的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": ["AVOID-03"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 getWindowAvoidArea(TYPE_NAVIGATION_INDICATOR) 获取导航指示器高度，不能硬编码。",
+        "必须通过 @State 变量存储高度值，实现响应式更新。",
+        "根容器必须通过 padding({ bottom: bottomSafeHeight }) 避让导航指示器。",
+        "必须注册 avoidAreaChange 监听，设备状态变化时自动更新。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md",
+        "./assets/AvoidAreaExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码导航指示器高度（如 padding({ bottom: 34 })）。",
+        "不使用 TYPE_NAVIGATION_INDICATOR 而用 TYPE_SYSTEM 推算。",
+        "不监听 avoidAreaChange，设备旋转后避让失效。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 登录/注册页工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "底部协议勾选和反馈链接不被导航指示器遮挡。",
+        "不同设备（手机、平板）导航指示器高度不同时 padding 正确适配。",
+        "折叠屏展开/折叠后导航指示器高度变化时 padding 自动更新。",
+        "底部按钮可正常点击，无误触。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手机设备底部避让截图",
+        "平板设备底部避让截图",
+        "折叠屏展开态截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-008",
+    "layer": "real-world",
+    "title": "输入法弹起导致页面内容被键盘遮挡修复",
+    "phase": "FIX",
+    "user_prompt": "笔记发布页线上问题：页面包含可编辑区域（标题、内容）和底部固定工具栏。用户点击输入框拉起键盘后，页面内容和底部工具栏被键盘遮挡无法操作。请输出修复方案和工程验证要求。",
+    "intent": "验证真实笔记发布页场景下，AVOID-04 键盘避让模式与布局重构的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-04",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-01", "AVOID-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 EntryAbility 中设置 setKeyboardAvoidMode(KeyboardAvoidMode.RESIZE)，且在 loadContent 回调之后调用。",
+        "必须将 RelativeContainer 替换为 Column + Scroll 布局，内容可自由滚动。",
+        "Scroll 必须使用 layoutWeight(1) 自适应高度，键盘弹起时自动缩小。",
+        "底部工具栏必须固定在 Scroll 外部，键盘弹起时始终可见。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/keyboard_handling.md",
+        "./assets/KeyboardAvoidanceExample.ets",
+        "../../code/all-cases/entry/src/main/ets/cases/device-avoid-areas/input_method_occlusion_page/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "不设置 KeyboardAvoidMode.RESIZE，使用默认模式。",
+        "继续使用 RelativeContainer 锚定布局，键盘弹起时不会自动调整。",
+        "内容区域使用固定高度不可滚动。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 笔记发布页工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "键盘弹出后底部工具栏始终可见，不被键盘遮挡。",
+        "键盘弹出后内容区域可滚动，焦点输入框自动滚动到可见区域。",
+        "键盘收起后页面恢复原始布局，无额外空白。",
+        "不同设备上键盘高度不同时布局正确适配。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "键盘弹出截图（底部工具栏和内容可见）",
+        "键盘收起截图",
+        "不同设备键盘弹出截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-009",
+    "layer": "real-world",
+    "title": "消息列表页沉浸式滚动隐藏与避让修复",
+    "phase": "FIX",
+    "user_prompt": "消息列表应用线上问题：标题栏未延伸到状态栏，状态栏与标题栏之间存在视觉割裂。底部导航栏被手势条遮挡。用户滑动列表时标题栏和底部导航栏始终占据空间，无法沉浸式浏览。折叠屏展开后避让参数未更新。请输出修复方案和工程验证要求。",
+    "intent": "验证真实消息列表场景下，AVOID-03 沉浸式布局 + AVOID-01 动态避让 + onScrollFrameBegin 滚动隐藏的完整修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-03",
+      "secondary_scenes": ["AVOID-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在页面 aboutToAppear 中通过 window.getLastWindow(context) 获取窗口并调用 setWindowLayoutFullScreen(true) 开启全屏沉浸式布局。",
+        "标题栏高度必须动态计算：默认内容高度（56vp）+ 状态栏避让高度（topAvoidHeight），存入 @State headerTitleHeight 变量。",
+        "底部导航栏高度使用 @State tabsBarHeight 变量（默认 54vp），通过 .height(this.tabsBarHeight) 控制显隐。",
+        "底部导航栏必须设置 .margin({ bottom: barBottomMargin }) 避让导航指示器，barBottomMargin 为 @State 变量。",
+        "必须使用 Stack({ alignContent: Alignment.Bottom }) 叠加 List 和 BottomTabBar——List 占满高度，BottomTabBar 浮在 List 下方。",
+        "必须使用 onScrollFrameBegin 监听列表滚动，实现连续线性比例隐藏算法：累积偏移量 currentYOffset += offset，当 currentYOffset <= SCROLL_THRESHOLD（100vp）时，headerTitleHeight = (默认高度 + 状态栏避让高度) * (1 - currentYOffset / SCROLL_THRESHOLD)，tabsBarHeight = 默认高度 * (1 - currentYOffset / SCROLL_THRESHOLD)，barBottomMargin = 导航指示器高度 * (1 - currentYOffset / SCROLL_THRESHOLD)，headerOpacity = 1 - currentYOffset / SCROLL_THRESHOLD；超过阈值时全部置为 0。",
+        "下滑时使用 getUIContext().animateTo({ duration: 300 }) 一次性恢复所有属性为初始值（不是全局 animateTo 函数）。",
+        "TitleBar 必须使用 .alignItems(VerticalAlign.Bottom) 对齐，.opacity(this.headerOpacity) 实现渐变隐藏效果。",
+        "BottomTabBar 必须使用 .opacity(this.headerOpacity) 与标题栏同步渐变。",
+        "必须使用窗口条件判断函数（基于宽高断点 WidthBreakpoint/HeightBreakpoint）控制沉浸式开关，不满足条件时不执行隐藏逻辑。",
+        "必须监听 avoidAreaChange 和 windowSizeChange，设备状态切换时参数刷新，且 isHiding 状态下不更新 headerTitleHeight 和 barBottomMargin。",
+        "aboutToDisappear 中必须取消监听并调用 setWindowLayoutFullScreen(false) 恢复窗口状态。"
+      ],
+      "should_reuse_resources": [
+        "./references/avoid_area_types.md",
+        "./references/immersive_layout.md",
+        "./references/scenario-development-cases.md",
+        "./references/bug-fix-cases.md"
+      ],
+      "forbidden_patterns": [
+        "标题栏使用固定高度不包含状态栏避让。",
+        "不监听 avoidAreaChange，折叠屏展开后避让失效。",
+        "不使用 onScrollFrameBegin 滚动监听，标题栏和导航栏始终占位。",
+        "不区分窗口条件，所有场景统一执行隐藏逻辑。",
+        "aboutToDisappear 中不取消监听导致内存泄漏。",
+        "不使用 Stack 叠加 List 和 BottomTabBar，导致 List 和 BottomTabBar 上下排列而非浮层关系。",
+        "隐藏/恢复使用离散的显示/隐藏状态切换（如用 animateTo 在两个固定高度之间跳变），而非 onScrollFrameBegin 中逐帧连续线性比例计算。",
+        "使用全局 animateTo() 而非 getUIContext().animateTo() 恢复隐藏状态。",
+        "在 onScrollFrameBegin 中对每次 offset 都调用 animateTo 执行隐藏动画（应该在回调中直接修改 @State 值逐帧计算）。",
+        "TitleBar 不使用 .opacity() 渐变，导致隐藏/显示时出现突兀的闪切。",
+        "BottomTabBar 不使用 .opacity() 渐变，与标题栏不同步。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 消息列表应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "标题栏背景延伸到状态栏，无视觉割裂。",
+        "底部导航栏不被手势条遮挡。",
+        "满足窗口条件时上滑列表标题栏和底部导航栏线性隐藏，下滑恢复。",
+        "隐藏过程中标题栏和底部导航栏 opacity 从 1 渐变到 0，无突兀闪切。",
+        "隐藏完成后标题栏和底部导航栏高度为 0，不占位。",
+        "折叠屏展开/折叠后避让参数正确更新。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "标题栏延伸截图（无视觉割裂）",
+        "上滑隐藏截图",
+        "下滑恢复截图",
+        "折叠屏展开态截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-010",
+    "layer": "real-world",
+    "title": "windowSizeChange 回调中获取到旧避让值时序问题修复",
+    "phase": "FIX",
+    "user_prompt": "聊天类应用线上问题：全屏沉浸式布局下，折叠/展开、横竖屏切换后，底部输入栏被导航指示器遮挡，顶部标题栏被状态栏遮挡。问题在折叠屏上尤为明显。请输出修复方案和工程验证要求。",
+    "intent": "验证真实聊天应用场景下，AVOID-01 avoidAreaChange 专有监听接口替代 windowSizeChange + getWindowAvoidArea 组合的时序问题修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须将 windowSizeChange + getWindowAvoidArea 替换为 avoidAreaChange 专有监听接口。",
+        "avoidAreaChange 回调中通过 data.type 区分 TYPE_SYSTEM 和 TYPE_NAVIGATION_INDICATOR。",
+        "回调参数 data.area 由系统直接提供，保证数据准确无时序问题。",
+        "必须使用 getUIContext().px2vp() 进行像素转换，确保上下文正确。",
+        "必须说明 windowSizeChange 触发时机早于系统 UI 布局更新完成是根因。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md"
+      ],
+      "forbidden_patterns": [
+        "在 windowSizeChange 回调中调用 getWindowAvoidArea() 主动查询避让区域。",
+        "在 display.on('change') 回调中调用 getWindowAvoidArea() 主动查询。",
+        "不解释时序竞争根因，只给代码修改。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 聊天应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "折叠屏展开后顶部标题栏不被状态栏遮挡，padding 正确更新。",
+        "折叠屏展开后底部输入栏不被导航指示器遮挡，padding 正确更新。",
+        "横竖屏切换后避让参数正确更新，无布局跳变。",
+        "avoidAreaChange 回调日志显示正确的高度值。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "折叠屏展开态截图（避让正确）",
+        "折叠屏折叠态截图",
+        "横竖屏切换截图",
+        "avoidAreaChange 回调日志"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-011",
+    "layer": "real-world",
+    "title": "仅启动时读取一次避让区域导致折叠后标题栏重叠修复",
+    "phase": "FIX",
+    "user_prompt": "应用线上问题：全屏沉浸式布局下，启动时避让正常，但折叠屏折叠/展开后状态栏高度变化，标题栏顶部 padding 仍是旧值，导致标题栏与状态栏重叠或间距异常。请输出修复方案和工程验证要求。",
+    "intent": "验证真实折叠屏场景下，AVOID-01 avoidAreaChange 持续监听替代一次性 getWindowAvoidArea 读取的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须将 onWindowStageCreate 中的一次性 getWindowAvoidArea() 替换为 avoidAreaChange 持续监听。",
+        "avoidAreaChange 回调中更新 AppStorage，页面 @StorageLink 自动刷新。",
+        "避让区域高度存储原始 px 值，页面中通过 getUIContext().px2vp() 转换为 vp。",
+        "必须说明 getWindowAvoidArea 是一次性快照查询，avoidAreaChange 是持续监听的差异。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md"
+      ],
+      "forbidden_patterns": [
+        "只在 onWindowStageCreate 中调用一次 getWindowAvoidArea()，不注册 avoidAreaChange。",
+        "在页面 aboutToAppear 中读取一次 getWindowAvoidArea()，不注册 avoidAreaChange。",
+        "不解释一次性查询与持续监听的区别。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 全屏应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "启动时标题栏顶部 padding 正确避让状态栏。",
+        "折叠屏折叠后状态栏高度变化，标题栏 padding 自动更新，无重叠。",
+        "折叠屏展开后状态栏高度变化，标题栏 padding 自动更新。",
+        "屏幕旋转后状态栏高度变化，padding 自动更新。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "启动时避让截图",
+        "折叠屏折叠态截图",
+        "折叠屏展开态截图",
+        "屏幕旋转截图"
+      ]
+    }
+  },
+  {
+    "case_id": "AVOID-REAL-012",
+    "layer": "real-world",
+    "title": "屏幕回调中获取旧避让值导致布局跳变修复",
+    "phase": "FIX",
+    "user_prompt": "应用线上问题：折叠屏折叠/展开或屏幕旋转后，页面顶部 padding 出现跳变——先显示一个不正确的避让高度，随后又跳变为正确值，表现为列表内容先被压下或拉起再恢复正常。请输出修复方案和工程验证要求。",
+    "intent": "验证真实折叠屏/旋转场景下，AVOID-01 window.on('avoidAreaChange') 替代 display.on('change') + getWindowAvoidArea 的时序问题修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "AVOID-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["AVOID-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须将 display.on('change') + getWindowAvoidArea() 替换为 window.on('avoidAreaChange')。",
+        "avoidAreaChange 回调在窗口状态更新后触发，回调参数直接携带最新避让区数据。",
+        "必须说明 display.on('change') 是屏幕级事件，触发时窗口状态可能未刷新导致获取旧值。",
+        "必须说明与场景10类似都是时序问题，但本场景是 display.on('change') 回调中的时序问题。"
+      ],
+      "should_reuse_resources": [
+        "./references/bug-fix-cases.md",
+        "./references/avoid_area_types.md",
+        "./references/safe_area_api.md"
+      ],
+      "forbidden_patterns": [
+        "在 display.on('change') 回调中调用 getWindowAvoidArea() 主动查询避让区域。",
+        "在 windowSizeChange 回调中调用 getWindowAvoidArea() 主动查询。",
+        "添加延时或定时器来等待系统 UI 更新完成后再查询。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 全屏应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "折叠屏折叠/展开后页面顶部 padding 无跳变，一步到位显示正确避让高度。",
+        "屏幕旋转后页面 padding 无跳变，直接显示正确值。",
+        "列表内容无先被压下/拉起再恢复的视觉跳变。",
+        "avoidAreaChange 回调日志显示正确的高度值。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "折叠屏折叠/展开前后截图（无跳变）",
+        "屏幕旋转前后截图（无跳变）",
+        "avoidAreaChange 回调日志"
+      ]
+    }
+  }
+]

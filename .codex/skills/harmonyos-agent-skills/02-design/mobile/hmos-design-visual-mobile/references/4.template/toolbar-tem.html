@@ -1,0 +1,217 @@
+<!--
+  toolbar Template
+
+  Variables (Template Contract):
+  - {{variant}}: 3 | 4 | 5 | 6 | vertical-icon
+  - {{items}}: item 列表数组，每个 item 对象包含：
+    - {{label}}: 标签文本，默认 Tab
+    - {{isActive}}: 布尔（true → class harmony-toolbar__item--active, aria-pressed=true, glyph F0021）
+    - {{isHover}}: 布尔（true → class harmony-toolbar__item--hover）
+    - {{isPressed}}: 布尔（true → class harmony-toolbar__item--pressed）
+    - {{isFocus}}: 布尔（true → class harmony-toolbar__item--focus）
+    - {{isDisabled}}: 布尔（true → class harmony-toolbar__item--disabled, disabled, aria-disabled=true）
+    - {{ariaLabel}}: 可选，用于补充 button aria-label
+-->
+
+<style>
+@font-face {
+  font-family: "HMSymbol";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../Page-Render/DrinkSettings/assets/HMSymbolVF_1.ttf") format("truetype");
+}
+
+:root {
+  /* MCP localStyleMap 52:17308 / 52:17310 */
+  --harmony-toolbar-emphasize: rgba(10, 89, 247, 1);
+  /* MCP localStyleMap 36:1902 / 36:1904 */
+  --harmony-toolbar-primary: rgba(0, 0, 0, 0.898);
+  /* MCP localStyleMap 152:19383 */
+  --harmony-toolbar-material-base: rgba(255, 255, 255, 0.4);
+  --harmony-toolbar-material-dodge: rgba(255, 255, 255, 0.15);
+  /* MCP localStyleMap 152:19382 */
+  --harmony-toolbar-shadow: 0 4px 48px rgba(0, 0, 0, 0.08);
+  --harmony-toolbar-glass-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  /* MCP localStyleMap 52:17307 */
+  --harmony-toolbar-blur: 80px;
+  --harmony-toolbar-hover: rgba(0, 0, 0, 0.05);
+  --harmony-toolbar-pressed: rgba(0, 0, 0, 0.1);
+  --harmony-toolbar-focus: rgba(10, 89, 247, 0.28);
+  --harmony-toolbar-disabled: rgba(0, 0, 0, 0.35);
+
+  --harmony-toolbar-radius: 28px;
+  --harmony-toolbar-height: 56px;
+  --harmony-toolbar-item-size: 56px;
+  --harmony-toolbar-item-six-width: 50.6667px;
+  --harmony-toolbar-icon-size: 24px;
+  --harmony-toolbar-label-height: 14px;
+  --harmony-toolbar-font: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+}
+
+.harmony-toolbar,
+.harmony-toolbar * {
+  box-sizing: border-box;
+}
+
+/*
+  Root
+  Pixso: radius 28, Material_background_THIN, Material_THIN, COMPONENT_THIN blur 80.
+*/
+.harmony-toolbar {
+  border: 0;
+  border-radius: var(--harmony-toolbar-radius);
+  background:
+    var(--harmony-toolbar-material-dodge),
+    var(--harmony-toolbar-material-base);
+  background-blend-mode: plus-lighter;
+  box-shadow:
+    var(--harmony-toolbar-shadow),
+    var(--harmony-toolbar-glass-shadow);
+  backdrop-filter: blur(var(--harmony-toolbar-blur));
+  -webkit-backdrop-filter: blur(var(--harmony-toolbar-blur));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-family: var(--harmony-toolbar-font);
+}
+
+.harmony-toolbar--3,
+.harmony-toolbar--4,
+.harmony-toolbar--5,
+.harmony-toolbar--6 {
+  height: var(--harmony-toolbar-height);
+  padding: 0 12px;
+  flex-direction: row;
+}
+
+.harmony-toolbar--3 { width: 192px; }
+.harmony-toolbar--4 { width: 248px; }
+.harmony-toolbar--5 { width: 304px; }
+.harmony-toolbar--6 { width: 328px; }
+
+.harmony-toolbar--vertical-icon {
+  width: 56px;
+  height: 248px;
+  padding: 12px 0;
+  flex-direction: column;
+}
+
+/*
+  Item
+  Pixso ON/OFF component: 56x56, vertical auto-layout, padding 4px 0, gap 2px.
+*/
+.harmony-toolbar__item {
+  width: var(--harmony-toolbar-item-size);
+  height: var(--harmony-toolbar-item-size);
+  padding: 4px 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--harmony-toolbar-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.14s ease,
+    color 0.14s ease,
+    box-shadow 0.14s ease,
+    opacity 0.14s ease;
+}
+
+.harmony-toolbar--6 .harmony-toolbar__item {
+  width: var(--harmony-toolbar-item-six-width);
+}
+
+.harmony-toolbar__item:hover,
+.harmony-toolbar__item--hover {
+  background: var(--harmony-toolbar-hover);
+}
+
+.harmony-toolbar__item:active,
+.harmony-toolbar__item--pressed {
+  background: var(--harmony-toolbar-pressed);
+}
+
+.harmony-toolbar__item:focus-visible,
+.harmony-toolbar__item--focus {
+  outline: 0;
+  box-shadow: inset 0 0 0 2px var(--harmony-toolbar-focus);
+}
+
+.harmony-toolbar__item:disabled,
+.harmony-toolbar__item--disabled,
+.harmony-toolbar__item[aria-disabled="true"] {
+  color: var(--harmony-toolbar-disabled);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.harmony-toolbar__item--active {
+  color: var(--harmony-toolbar-emphasize);
+}
+
+.harmony-toolbar__icon {
+  width: var(--harmony-toolbar-icon-size);
+  height: var(--harmony-toolbar-icon-size);
+  flex: 0 0 var(--harmony-toolbar-icon-size);
+  font-family: "HMSymbol", "HarmonyOS Sans SC", sans-serif;
+  font-size: var(--harmony-toolbar-icon-size);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--harmony-toolbar-icon-size);
+  text-align: center;
+  color: inherit;
+  pointer-events: none;
+}
+
+.harmony-toolbar__label {
+  width: 100%;
+  height: var(--harmony-toolbar-label-height);
+  color: inherit;
+  font-family: var(--harmony-toolbar-font);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: var(--harmony-toolbar-label-height);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+</style>
+
+<!--
+  Root Element
+  data-component="toolbar" 为必需 trace 属性
+  harmony-toolbar--{{variant}} 枚举值为 3 | 4 | 5 | 6 | vertical-icon
+
+  Example item state class mapping:
+  - active: harmony-toolbar__item--active
+  - hover: harmony-toolbar__item--hover
+  - pressed: harmony-toolbar__item--pressed
+  - focus: harmony-toolbar__item--focus
+  - disabled: harmony-toolbar__item--disabled
+-->
+<div class="harmony-toolbar harmony-toolbar--{{variant}}" data-component="toolbar" data-figma-node-id="152:19248">
+  {{#each items}}
+  <button
+    class="harmony-toolbar__item{{#if isActive}} harmony-toolbar__item--active{{/if}}{{#if isHover}} harmony-toolbar__item--hover{{/if}}{{#if isPressed}} harmony-toolbar__item--pressed{{/if}}{{#if isFocus}} harmony-toolbar__item--focus{{/if}}{{#if isDisabled}} harmony-toolbar__item--disabled{{/if}}"
+    type="button"
+    aria-pressed="{{#if isActive}}true{{else}}false{{/if}}"
+    {{#if ariaLabel}}aria-label="{{ariaLabel}}"{{/if}}
+    {{#if isDisabled}}disabled aria-disabled="true"{{/if}}
+  >
+    <span class="harmony-toolbar__icon" aria-hidden="true">{{#if isActive}}&#xF0021;{{else}}&#xF0025;{{/if}}</span>
+    <span class="harmony-toolbar__label">{{label}}</span>
+  </button>
+  {{/each}}
+</div>

@@ -1,0 +1,5 @@
+{
+  "name": "Radio",
+  "atomic": true,
+  "attrs": ["checked", "onChange"]
+}

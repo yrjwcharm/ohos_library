@@ -1,0 +1,8 @@
+{
+  "name": "Navigation",
+  "attrs": ["title", "subTitle", "hideTitleBar", "hideBackButton", "titleMode", "menus", "menuCount",
+    "toolBar", "hideToolBar", "onTitleModeChange", "onNavBarStateChange", "navBarWidth", "navBarPosition",
+    "mode", "backButtonIcon", "hideNavBar", "navDestination", "minContentWidth", "ignoreLayoutSafeArea",
+    "navBarWidthRange", "systemBarStyle", "toolbarConfiguration", "onNavigationModeChange",
+    "customNavContentTransition"]
+}

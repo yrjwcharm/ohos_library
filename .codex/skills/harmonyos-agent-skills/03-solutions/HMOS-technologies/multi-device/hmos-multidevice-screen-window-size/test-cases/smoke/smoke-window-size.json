@@ -1,0 +1,1873 @@
+[
+  {
+    "case_id": "SMOKE-SCENE-01-001",
+    "layer": "smoke",
+    "title": "应用内分窗",
+    "phase": "REQ",
+    "user_prompt": "帮我开发一个比价页面，左边窗口是酒店列表+酒店详情，点击酒店列表项上的比价按钮后，开启右边窗口，内容是对应的酒店详情",
+    "intent": "验证 screen-window-size 是否稳定命中 SIZE-06，并输出应用内分窗的开发契约。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/split-screen.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [],
+      "active_scenes": [
+        "SIZE-00",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-002",
+    "layer": "smoke",
+    "title": "画中画能力集成",
+    "phase": "REQ",
+    "user_prompt": "我的视频播放页，用户切换到别的页面后视频就看不到了，想加一个画中画小窗让视频继续播放",
+    "intent": "验证命中 SIZE-00（SPEC-05）后，能输出画中画集成方案，覆盖 PipManager 生命周期、CustomNodeController 与页面集成。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-05"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-00"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-003",
+    "layer": "smoke",
+    "title": "平行视界分栏适配",
+    "phase": "REQ",
+    "user_prompt": "应用在平板上运行时使用平行视界能力实现列表和详情的分栏显示",
+    "intent": "验证命中 SIZE-00（SIZE-07）后，能输出 EasyGo 平行视界配置方案，覆盖 easy_go.json 配置、module.json5 声明和分栏截断处理。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/easy-go.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-07"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-004",
+    "layer": "smoke",
+    "title": "窗口尺寸监听与断点同步",
+    "phase": "REQ",
+    "user_prompt": "页面在旋转屏幕和拖拽窗口后布局不更新，尺寸变了但界面没有跟着适配窗口尺寸变化",
+    "intent": "验证命中 SIZE-03 后，能输出完整的窗口监听方案：Ability 侧注册 windowSizeChange → AppStorage 传递 → 组件侧 @StorageProp 消费。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/window_detection.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-04"
+      ],
+      "active_scenes": [
+        "SIZE-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-005",
+    "layer": "smoke",
+    "title": "分栏布局实现",
+    "phase": "REQ",
+    "user_prompt": "我要在宽屏设备上实现邮件列表和邮件详情的分栏显示，窄屏时回到单栏导航",
+    "intent": "验证命中 SIZE-01 后，能输出 Navigation Split 模式 + 断点条件渲染的分栏布局方案。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "next_scene_caps": [
+        "RESP-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-006",
+    "layer": "smoke",
+    "title": "重复布局实现",
+    "phase": "REQ",
+    "user_prompt": "开发首页的商品列表，在手机上显示一列，平板上显示两列，大屏上显示三列",
+    "intent": "验证命中 SIZE-01 后，能输出基于断点的重复布局方案，覆盖 List lanes、WaterFlow columnsTemplate、Swiper displayCount、Grid columnsTemplate 四种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "next_scene_caps": [
+        "RESP-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-007",
+    "layer": "smoke",
+    "title": "侧边栏布局实现",
+    "phase": "REQ",
+    "user_prompt": "应用的主界面需要一个侧边栏菜单，宽屏时默认展开嵌入主界面，窄屏时通过按钮呼出覆盖在上面",
+    "intent": "验证命中 SIZE-01 后，能输出 SideBarContainer + 断点的侧边栏方案，覆盖 Overlay/Embed 模式切换、showSideBar、sideBarWidth 断点配置。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "next_scene_caps": [
+        "RESP-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-008",
+    "layer": "smoke",
+    "title": "挪移布局实现",
+    "phase": "REQ",
+    "user_prompt": "开发一个新闻详情页面，在单屏上是上图下文分布，在双屏/三屏上需要左图右文分布",
+    "intent": "验证命中 SIZE-01 后，能输出 GridRow/GridCol 挪移布局方案，覆盖 columns、breakpoints、span、offset 的断点配置。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "next_scene_caps": [
+        "RESP-03"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-009",
+    "layer": "smoke",
+    "title": "缩进布局实现",
+    "phase": "REQ",
+    "user_prompt": "列表内容在大屏上需要居中展示，左右存在一定边距，小屏铺满全宽",
+    "intent": "验证命中 SIZE-01 后，能输出 GridRow/GridCol 缩进布局方案，覆盖 columns、span、offset 的断点配置实现居中缩进。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/responsive_layout.md"
+      ],
+      "next_scene_caps": [
+        "RESP-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-01"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-010",
+    "layer": "smoke",
+    "title": "断点系统设计与集成",
+    "phase": "REQ",
+    "user_prompt": "当前应用只给出了单屏方案，需要双屏/三屏上适配不同的布局方案",
+    "intent": "验证命中 SIZE-02 后，能输出完整的断点系统设计方案，覆盖系统断点 vs 自定义断点、横向/纵向断点、监听与同步。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/breakpoint_system.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-04"
+      ],
+      "active_scenes": [
+        "SIZE-02"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-011",
+    "layer": "smoke",
+    "title": "拉伸布局实现",
+    "phase": "REQ",
+    "user_prompt": "标题栏的标题和操作按钮固定在两端，中间搜索框填满剩余空间",
+    "intent": "验证命中 SIZE-04 后，能输出拉伸布局方案，覆盖 layoutWeight 权重分配和 Blank 弹性填充两种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-012",
+    "layer": "smoke",
+    "title": "缩放布局实现",
+    "phase": "REQ",
+    "user_prompt": "页面顶部的轮播图和卡片跟随父组件大小自动调整且不变形",
+    "intent": "验证命中 SIZE-04 后，能输出缩放布局方案，覆盖百分比宽度配合 aspectRatio 保持宽高比的模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-013",
+    "layer": "smoke",
+    "title": "隐藏布局实现",
+    "phase": "REQ",
+    "user_prompt": "列表项在窄屏时只显示核心标题，宽屏时额外显示副标题和摘要信息，空间不够时自动隐藏次要内容",
+    "intent": "验证命中 SIZE-04 后，能输出隐藏布局方案，覆盖 displayPriority 优先级显隐和 visibility 手动控制两种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-03"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-014",
+    "layer": "smoke",
+    "title": "折行布局实现",
+    "phase": "REQ",
+    "user_prompt": "标签列表在空间不足时需要自动换行显示",
+    "intent": "验证命中 SIZE-04 后，能输出折行布局方案，覆盖 Flex wrap: FlexWrap.Wrap 自动换行模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-015",
+    "layer": "smoke",
+    "title": "均分布局实现",
+    "phase": "REQ",
+    "user_prompt": "底部工具栏的图标按钮需要均匀分布，每个按钮宽度相同，间距也相同",
+    "intent": "验证命中 SIZE-04 后，能输出均分布局方案，覆盖 FlexAlign.SpaceEvenly 均匀分布和 layoutWeight 等权重分配两种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-05"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-016",
+    "layer": "smoke",
+    "title": "占比布局实现",
+    "phase": "REQ",
+    "user_prompt": "页面需要按固定比例分配左右两栏，侧边栏占30%内容区占70%，比例不随屏幕大小变化",
+    "intent": "验证命中 SIZE-04 后，能输出占比布局方案，覆盖 layoutWeight 权重比例分配和百分比宽高字符串两种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-06"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-017",
+    "layer": "smoke",
+    "title": "延伸布局实现",
+    "phase": "REQ",
+    "user_prompt": "内容列表在屏幕上通过滚动显示更多条目，横向推荐卡片可以横向滚动查看更多",
+    "intent": "验证命中 SIZE-04 后，能输出延伸布局方案，覆盖 List 纵向按需加载和 Scroll + Row/Column 横向滚动两种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "next_scene_refs": [
+        "references/adaptive_layout.md"
+      ],
+      "next_scene_caps": [
+        "ADAPT-07"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-05",
+        "SIZE-06",
+        "SIZE-02",
+        "SIZE-03"
+      ],
+      "active_scenes": [
+        "SIZE-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-019",
+    "layer": "smoke",
+    "title": "布局基础要求：无错位变形与无截断遮挡",
+    "phase": "REQ",
+    "user_prompt": "我的页面在不同尺寸设备上显示时，图片出现拉伸变形、文字被截断显示不全，需要做基础的布局适配",
+    "intent": "验证命中 SIZE-00（SPEC-00）后，能输出布局基础适配方案，覆盖 aspectRatio 防拉伸、maxLines + textOverflow 防截断、layoutWeight/Blank 防遮挡。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-00"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-020",
+    "layer": "smoke",
+    "title": "宫格图片高度占比约束",
+    "phase": "REQ",
+    "user_prompt": "首页WaterFlow中的图片在大屏上单行太高了，影响浏览体验",
+    "intent": "验证命中 SIZE-00（SPEC-01）后，能输出宫格图片高度占比约束方案，覆盖 constraintSize 结合 screenHeightVp 的 10%~50% 限制。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-021",
+    "layer": "smoke",
+    "title": "单图轮播图高度占比约束",
+    "phase": "REQ",
+    "user_prompt": "详情页顶部的轮播大图占满了整个屏幕，下面什么内容都看不到，需要限制图片高度",
+    "intent": "验证命中 SIZE-00（SPEC-02）后，能输出单图高度占比约束方案，覆盖内容区全宽 50% 和沉浸式 60% 上限。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-022",
+    "layer": "smoke",
+    "title": "上下图文放大倍数约束",
+    "phase": "FIX",
+    "user_prompt": "新闻详情页中上方的配图在折叠屏展开后放得太大了，导致下方文字区域过小",
+    "intent": "验证命中 SIZE-00（SPEC-03）后，能输出上下图文放大倍数约束方案，覆盖折叠屏 1.2x、平板 1.5x 上限及高度占比约束。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-03"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-023",
+    "layer": "smoke",
+    "title": "阔折叠外屏底部页签侧边化",
+    "phase": "REQ",
+    "user_prompt": "阔折叠外屏上底部Tab栏和上方内容区的UX效果不好，请进行优化",
+    "intent": "验证命中 SIZE-00（SPEC-04）后，能输出阔折叠外屏 sm+md 断点检测与底部页签侧边化方案。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-024",
+    "layer": "smoke",
+    "title": "大屏搜索框与页签聚合",
+    "phase": "REQ",
+    "user_prompt": "平板上搜索页顶部的搜索框、子页签和标题栏各占一行过于拥挤",
+    "intent": "验证命中 SIZE-00（SPEC-06）后，能输出大屏搜索框与子页签和标题栏聚合显示方案。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-06"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-025",
+    "layer": "smoke",
+    "title": "信息流边距控制",
+    "phase": "REQ",
+    "user_prompt": "新闻列表在平板上左右边距过大，导致内容区过小",
+    "intent": "验证命中 SIZE-00（SPEC-07）后，能输出信息流边距控制方案，覆盖左边距不超过屏幕宽度 20% 的约束。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-07"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-026",
+    "layer": "smoke",
+    "title": "宽屏底部导航侧边化",
+    "phase": "REQ",
+    "user_prompt": "单屏上Tabs导航栏需要适配平板显示",
+    "intent": "验证命中 SIZE-00（SPEC-08）后，能输出宽屏底部导航侧边化方案，覆盖 Tabs/SideBarContainer 断点切换与状态连续。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-08"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-027",
+    "layer": "smoke",
+    "title": "大屏页面留白比例约束",
+    "phase": "REQ",
+    "user_prompt": "平板上页面空白区域太多了，内容只占了一小块，看起来很空",
+    "intent": "验证命中 SIZE-00（SPEC-09）后，能输出大屏留白比例约束方案，覆盖 60% 推荐值和 70% 强制上限。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-09"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-028",
+    "layer": "smoke",
+    "title": "小高度阔折叠标题栏与搜索优化",
+    "phase": "FIX",
+    "user_prompt": "阔折叠外屏高度太小，顶部标题栏和搜索框占了太多空间，内容区被压缩了",
+    "intent": "验证命中 SIZE-00（SPEC-04）后，能输出小高度阔折叠标题栏字号缩小与搜索图标替代方案。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-029",
+    "layer": "smoke",
+    "title": "字体大小合规性检查",
+    "phase": "REQ",
+    "user_prompt": "应用字体尺寸过小，看不清楚具体内容",
+    "intent": "验证命中 SIZE-00（SPEC-11）后，能输出字体大小合规方案，覆盖 minFontSize 按设备类型约束最小字号。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-11"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-030",
+    "layer": "smoke",
+    "title": "界面图标大小合规性检查",
+    "phase": "REQ",
+    "user_prompt": "应用中的功能图标在智慧屏上太小了看不清",
+    "intent": "验证命中 SIZE-00（SPEC-12）后，能输出界面图标大小合规方案，覆盖 constraintSize 按设备类型约束最小图标尺寸。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-12"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-031",
+    "layer": "smoke",
+    "title": "大屏图标文字放大倍数约束",
+    "phase": "REQ",
+    "user_prompt": "折叠屏展开后一行图标显示过多，UX体验差",
+    "intent": "验证命中 SIZE-00（SPEC-13）后，能输出大屏图标文字放大倍数约束方案，覆盖折叠屏 1.2x、平板 1.5x 上限及一排图标数量约束。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-13"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-032",
+    "layer": "smoke",
+    "title": "弹出框大屏尺寸约束",
+    "phase": "REQ",
+    "user_prompt": "平板和折叠屏上弹窗太大了，几乎占了整个屏幕，体验不好",
+    "intent": "验证命中 SIZE-00（SPEC-14）后，能输出弹出框大小适中的方案，覆盖折叠屏/平板/电脑/智慧屏的尺寸约束。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-14"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-033",
+    "layer": "smoke",
+    "title": "悬浮窗模式适配",
+    "phase": "REQ",
+    "user_prompt": "当前游戏应用需要支持横向悬浮窗模式",
+    "intent": "验证命中 SIZE-00（SPEC-15）后，能输出悬浮窗适配方案，覆盖 supportWindowMode 声明和沉浸式场景横向悬浮窗。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-15"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-034",
+    "layer": "smoke",
+    "title": "用户手势缩放布局密度",
+    "phase": "REQ",
+    "user_prompt": "帮我开发一个相册页面",
+    "intent": "验证命中 SIZE-00（SPEC-16）后，能输出手势缩放布局密度方案，覆盖 PinchGesture 列数映射与断点感知初始化。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-035",
+    "layer": "smoke",
+    "title": "小方形屏底部栏未收起导致主内容区被挤压",
+    "phase": "FIX",
+    "user_prompt": "在小方形屏设备上底部导航栏占用了太多空间，主内容区被挤压显示不全",
+    "intent": "验证命中 SIZE-05（SIZE-01）后，能输出小方形屏底部栏断点收起方案，覆盖 height 断点分支、clip 裁剪和附加垂直占位移除。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-036",
+    "layer": "smoke",
+    "title": "内容超出父组件被截断",
+    "phase": "FIX",
+    "user_prompt": "页面内容在小屏设备上被截断看不到完整内容",
+    "intent": "验证命中 SIZE-05（SIZE-02）后，能输出内容截断修复方案，覆盖 Scroll/List 容器补全、外部容器高度约束调整和固定 padding 动态化。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-037",
+    "layer": "smoke",
+    "title": "AlphabetIndexer 索引条挤压",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/alpha_index/BadCase/Index.ets中在小屏上字母表过于拥挤",
+    "intent": "验证命中 SIZE-05（SIZE-03）后，能输出 AlphabetIndexer 自动折叠方案，覆盖 autoCollapse 启用。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-03"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-038",
+    "layer": "smoke",
+    "title": "Flex 容器子组件溢出截断",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/truncate-text/BadCase/Index.ets中ShopPanel产品名称截断问题",
+    "intent": "验证命中 SIZE-05（SIZE-04）后，能输出 flexShrink 优先级分配方案，覆盖可压缩组件设 flexShrink(1)、需完整组件设 flexShrink(0) 及容器主轴约束。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-039",
+    "layer": "smoke",
+    "title": "GridRow 在局部容器变窄时不降列",
+    "phase": "FIX",
+    "user_prompt": "GridRow变窄后里面的内容保持原来的列数，导致子项被挤压重叠了",
+    "intent": "验证命中 SIZE-05（LAYOUT-01）后，能输出 GridRow 断点参考系修复方案，覆盖 BreakpointsReference.ComponentSize 替换 WindowSize。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "LAYOUT-01"
+      ],
+      "forbidden_scenes": [
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-040",
+    "layer": "smoke",
+    "title": "Stack 布局导致底部栏遮挡主内容",
+    "phase": "FIX",
+    "user_prompt": "页面Stack组件中底部导航栏挡住了主内容区域，滚动到底部也看不到被遮挡的部分",
+    "intent": "验证命中 SIZE-05（LAYOUT-02）后，能输出 Stack→Column 容器替换方案，覆盖根容器从 Stack 改为 Column 实现垂直排列互不遮挡。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "LAYOUT-02"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-041",
+    "layer": "smoke",
+    "title": "分屏模式下界面截断挤压",
+    "phase": "FIX",
+    "user_prompt": "应用在分屏模式下图片被截断了，文字也挤在一起，布局完全没有适配分屏",
+    "intent": "验证命中 SIZE-05（LAYOUT-03）后，能输出分屏模式断点动态适配方案，覆盖横向纵向断点判断和属性值动态设置。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "LAYOUT-03"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-042",
+    "layer": "smoke",
+    "title": "DPI 变化后断点计算错误",
+    "phase": "FIX",
+    "user_prompt": "修复entry/src/main/ets/cases/screen-window-size/dpi-breakpoint-anomaly/BadCase/Index.ets中布局无法跟随系统显示缩放大小调整变化",
+    "intent": "验证命中 SIZE-06后，能输出 systemDensityChange 监听补全方案，覆盖 DPI 变化后断点重新计算。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-06"
+      ],
+      "forbidden_scenes": [
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-043",
+    "layer": "smoke",
+    "title": "Flex SpaceBetween 小屏上下区域重叠",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_stack/BadCase/Index.ets 中登录页在小屏上上半区的背景图+输入框+协议行和下半区的其他登录方式区域发生堆叠重叠，内容被遮挡\"",
+    "intent": "验证命中 SIZE-05（LAYOUT-05）后，能输出 Flex SpaceBetween→Scroll>Column 替换方案，覆盖 constraintSize minHeight 和 justifyContent SpaceBetween 保留。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "LAYOUT-04"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-04",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-044",
+    "layer": "smoke",
+    "title": "图片仅设宽度未设高度导致拉伸",
+    "phase": "FIX",
+    "user_prompt": "entry/src/main/ets/cases/screen-window-size/component_stretch/BadCase/Index.ets中TopBannerArea区域banner图异常拉伸截断问题，注意防止图片尺寸过大",
+    "intent": "验证命中 SIZE-05 后，能输出图片高度约束方案，覆盖显式高度约束+objectFit、aspectRatio 宽高比约束、断点条件高度三种模式。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-05"
+      ],
+      "next_scene_refs": [
+        "references/bug-fix-cases.md"
+      ],
+      "next_scene_caps": [
+        "SIZE-05"
+      ],
+      "forbidden_scenes": [
+        "SIZE-01",
+        "SIZE-02",
+        "SIZE-03",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-045",
+    "layer": "smoke",
+    "title": "应用支持上下分屏适配",
+    "phase": "FIX",
+    "user_prompt": "应用在上下分屏模式下界面布局显示异常，部分元素被截断遮挡了",
+    "intent": "验证命中 SIZE-00（SPEC-10）后，能输出上下分屏适配方案，覆盖窗口模式声明与断点自适应布局。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-10"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-046",
+    "layer": "smoke",
+    "title": "左右分屏比例调节无变形",
+    "phase": "FIX",
+    "user_prompt": "应用在左右分屏模式下拖动分屏分割线调整比例时，界面元素出现变形挤压",
+    "intent": "验证命中 SIZE-00（SPEC-10）后，能输出分屏比例调节适配方案，覆盖窗口尺寸变化监听与弹性布局。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "route_reason": "str 路由到主场景的原因",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-07）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-00"
+      ],
+      "next_scene_refs": [
+        "references/adaptation-specification.md"
+      ],
+      "next_scene_caps": [
+        "SPEC-10"
+      ],
+      "forbidden_scenes": [
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-047",
+    "layer": "smoke",
+    "title": "多设备资源文件差异化配置",
+    "phase": "REQ",
+    "user_prompt": "应用在手机和平板上需要使用不同的字体大小、间距和颜色主题，手机上用紧凑布局配色偏暖，平板上用宽松布局配色偏冷",
+    "intent": "验证命中 SIZE-08 后，能输出多设备资源限定词目录方案，覆盖 base 默认值定义、tablet 限定词目录创建、color.json/float.json 差异化配置和 $r('app.type.name') 引用。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-08）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "REQ",
+      "active_scenes": [
+        "SIZE-08"
+      ],
+      "next_scene_refs": [
+        "references/multi-device-resource.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-048",
+    "layer": "smoke",
+    "title": "使用系统分层参数保持视觉一致性",
+    "phase": "DEV",
+    "user_prompt": "需要使用系统预置的颜色和字体资源，保证应用在不同设备上与系统风格一致",
+    "intent": "验证命中 SIZE-08 后，能输出系统资源引用方案，覆盖 $r('sys.type.resource_id') 分层参数用法和系统资源选型建议。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-08）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "DEV",
+      "active_scenes": [
+        "SIZE-08"
+      ],
+      "next_scene_refs": [
+        "references/multi-device-resource.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-049",
+    "layer": "smoke",
+    "title": "资源限定词目录下图片差异化",
+    "phase": "DEV",
+    "user_prompt": "应用在手机上显示竖版启动图，在平板上需要显示横版启动图，不同设备使用不同的图片资源",
+    "intent": "验证命中 SIZE-08 后，能输出 media 资源组目录差异化方案，覆盖 base/tablet 目录下同名图片文件放置和 $r('app.media.name') 引用。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-08）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "DEV",
+      "active_scenes": [
+        "SIZE-08"
+      ],
+      "next_scene_refs": [
+        "references/multi-device-resource.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-050",
+    "layer": "smoke",
+    "title": "资源未找到导致崩溃",
+    "phase": "FIX",
+    "user_prompt": "应用在平板上运行时报错找不到 color.json 中定义的 theme_color 资源，手机上正常",
+    "intent": "验证命中 SIZE-08 后，能输出资源缺失修复方案，覆盖 base 目录默认值补全和限定词目录命名校验。",
+    "allowed_tools": [
+      "Read"
+    ],
+    "required_output_fields": {
+      "active_phases": "list[str] 当前激活的阶段标签",
+      "primary_phase": "str 主阶段标签",
+      "active_scenes": "list[str] 当前激活的场景ID列表",
+      "route_reason": "str 路由到主场景的原因",
+      "next_scene_refs": "list[str] 下一步要打开的场景文件相对路径列表",
+      "next_scene_caps": "list[str] next_scene_refs对应参考文档内部定义的子规格/子能力编号（如 adaptation-specification.md 的 SPEC-xx，bug-fix-cases.md 的 LAYOUT-xx/SIZE-0x），必须先读取文档后按其内部决策树确定，禁止填入场景级 ID（SIZE-00~SIZE-08）",
+      "primary_code_domain": "str 主代码落点域",
+      "secondary_code_domains": "list[str] 次级代码域列表",
+      "integration_edges": "list[dict] 集成边列表，每项含 from/to/edge 三个字符串字段"
+    },
+    "expected": {
+      "primary_phase": "FIX",
+      "active_scenes": [
+        "SIZE-08"
+      ],
+      "next_scene_refs": [
+        "references/multi-device-resource.md"
+      ],
+      "next_scene_caps": [],
+      "forbidden_scenes": [
+        "SIZE-05",
+        "SIZE-06"
+      ]
+    }
+  }
+]

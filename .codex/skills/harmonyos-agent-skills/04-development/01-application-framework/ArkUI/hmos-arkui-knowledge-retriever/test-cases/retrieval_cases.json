@@ -1,0 +1,333 @@
+[
+  {
+    "id": "rt_001",
+    "title": "具体API查询-装饰器",
+    "type": "api_query",
+    "query": "@Local 装饰器",
+    "expected_category": "02-state-management",
+    "expected_keywords": ["@Local", "组件内状态", "@ComponentV2"],
+    "expected_non_keywords": ["@State", "@Component"],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true,
+      "category": "02-state-management"
+    },
+    "verification": {
+      "must_find": ["@Local 装饰器的接口签名", "使用示例代码"],
+      "must_not_find": ["@State 的用法（V1装饰器）"],
+      "min_relevance": "文档标题或摘要中包含 @Local"
+    }
+  },
+  {
+    "id": "rt_002",
+    "title": "具体API查询-导航",
+    "type": "api_query",
+    "query": "Navigation 页面跳转",
+    "expected_category": "07-navigation",
+    "expected_keywords": ["Navigation", "NavDestination", "navPathStack"],
+    "expected_non_keywords": ["@ohos.router", "router.pushUrl"],
+    "retrieval_params": {
+      "top_k": 5,
+      "max_content_chars": 2000,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["Navigation 组件用法", "NavDestination 配置方式"],
+      "must_not_find": ["@ohos.router 的旧版用法"],
+      "min_relevance": "返回文档包含 Navigation 或 NavDestination 关键词"
+    }
+  },
+  {
+    "id": "rt_003",
+    "title": "具体API查询-LazyForEach",
+    "type": "api_query",
+    "query": "LazyForEach IDataSource",
+    "expected_category": "09-rendering",
+    "expected_keywords": ["LazyForEach", "IDataSource", "DataChangeListener"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["IDataSource 接口定义", "DataChangeListener 回调方法", "代码示例"],
+      "must_not_find": [],
+      "min_relevance": "文档中包含 IDataSource 或 LazyForEach 的接口说明"
+    }
+  },
+  {
+    "id": "rt_004",
+    "title": "概念性问题-状态管理V1/V2区别",
+    "type": "concept_query",
+    "query": "V1 V2 状态管理区别 迁移",
+    "expected_category": "02-state-management",
+    "expected_keywords": ["V1", "V2", "迁移", "装饰器对照"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 5,
+      "max_content_chars": 2000,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["V1/V2 装饰器对照关系", "迁移指南或注意事项"],
+      "must_not_find": [],
+      "min_relevance": "返回文档涉及 V1 和 V2 的对比或迁移"
+    }
+  },
+  {
+    "id": "rt_005",
+    "title": "错误码查询",
+    "type": "error_query",
+    "query": "错误码 100005",
+    "expected_category": "17-error-code",
+    "expected_keywords": ["100005", "Navigation"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "category": "17-error-code"
+    },
+    "verification": {
+      "must_find": ["100005 错误码含义", "触发原因", "解决方案"],
+      "must_not_find": [],
+      "min_relevance": "返回文档包含错误码 100005 的说明"
+    }
+  },
+  {
+    "id": "rt_006",
+    "title": "错误码查询-LazyForEach",
+    "type": "error_query",
+    "query": "LazyForEach 数据源报错",
+    "expected_category": ["09-rendering", "17-error-code"],
+    "expected_keywords": ["LazyForEach", "IDataSource", "数据源"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["LazyForEach 数据源相关错误说明"],
+      "must_not_find": [],
+      "min_relevance": "返回文档涉及 LazyForEach 的数据源约束或错误"
+    }
+  },
+  {
+    "id": "rt_007",
+    "title": "用法验证-ForEach第三个参数",
+    "type": "validation_query",
+    "query": "ForEach 第三个参数 key",
+    "expected_category": "09-rendering",
+    "expected_keywords": ["ForEach", "keyGenerator", "键值生成"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["ForEach 接口签名包含第三个参数", "keyGenerator 的类型和用法"],
+      "must_not_find": [],
+      "min_relevance": "返回文档明确展示 ForEach 的三参数用法"
+    }
+  },
+  {
+    "id": "rt_008",
+    "title": "用法验证-废弃接口确认",
+    "type": "validation_query",
+    "query": "CustomDialogController 废弃替代",
+    "expected_category": "08-dialog-menu",
+    "expected_keywords": ["CustomDialogController", "废弃", "promptAction.openCustomDialog"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["CustomDialogController 废弃说明", "替代方案 promptAction.openCustomDialog"],
+      "must_not_find": ["推荐使用 CustomDialogController"],
+      "min_relevance": "返回文档标注 CustomDialogController 已废弃并提供替代方案"
+    }
+  },
+  {
+    "id": "rt_009",
+    "title": "分类过滤-状态管理精准检索",
+    "type": "filtered_query",
+    "query": "@Param 装饰器",
+    "expected_category": "02-state-management",
+    "expected_keywords": ["@Param", "组件入参", "@ComponentV2"],
+    "expected_non_keywords": ["@Prop"],
+    "retrieval_params": {
+      "top_k": 3,
+      "category": "02-state-management",
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["@Param 的接口签名和使用约束"],
+      "must_not_find": ["@Prop 的用法（V1装饰器）"],
+      "min_relevance": "返回文档均来自 02-state-management 分类"
+    }
+  },
+  {
+    "id": "rt_010",
+    "title": "分类过滤-布局组件检索",
+    "type": "filtered_query",
+    "query": "Grid 网格布局",
+    "expected_category": "03-layout",
+    "expected_keywords": ["Grid", "GridItem", "columnsTemplate"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "category": "03-layout",
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["Grid 组件用法", "columnsTemplate 或相关属性"],
+      "must_not_find": [],
+      "min_relevance": "返回文档均来自 03-layout 分类"
+    }
+  },
+  {
+    "id": "rt_011",
+    "title": "方案对比-导航方案",
+    "type": "comparison_query",
+    "query": "Navigation Router 区别 推荐",
+    "expected_category": "07-navigation",
+    "expected_keywords": ["Navigation", "Router", "推荐"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["Navigation 为推荐方案的说明"],
+      "must_not_find": [],
+      "min_relevance": "返回文档对比了 Navigation 和 Router 或明确推荐 Navigation"
+    }
+  },
+  {
+    "id": "rt_012",
+    "title": "复杂查询-转场动画",
+    "type": "api_query",
+    "query": "Navigation 自定义页面转场动画 customNavContentTransition",
+    "expected_category": ["05-animation", "07-navigation"],
+    "expected_keywords": ["customNavContentTransition", "NavigationAnimatedTransition"],
+    "expected_non_keywords": ["pageTransition"],
+    "retrieval_params": {
+      "top_k": 5,
+      "max_content_chars": 2000,
+      "max_total_chars": 16000,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["customNavContentTransition 接口", "NavigationAnimatedTransition 类型定义"],
+      "must_not_find": ["推荐使用 pageTransition"],
+      "min_relevance": "返回文档包含自定义转场的接口和示例"
+    }
+  },
+  {
+    "id": "rt_013",
+    "title": "基础组件查询",
+    "type": "api_query",
+    "query": "Text 组件 fontSize fontColor",
+    "expected_category": "04-components",
+    "expected_keywords": ["Text", "fontSize", "fontColor"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["Text 组件的 fontSize 和 fontColor 属性说明"],
+      "must_not_find": [],
+      "min_relevance": "返回文档包含 Text 组件属性参考"
+    }
+  },
+  {
+    "id": "rt_014",
+    "title": "跨分类查询-手势与动画",
+    "type": "api_query",
+    "query": "PinchGesture 捏合手势 缩放动画",
+    "expected_category": ["06-interaction", "05-animation"],
+    "expected_keywords": ["PinchGesture", "手势", "scale"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 5,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["PinchGesture 接口和回调参数"],
+      "must_not_find": [],
+      "min_relevance": "返回文档包含手势组件用法"
+    }
+  },
+  {
+    "id": "rt_015",
+    "title": "跨分类查询-V2共享状态",
+    "type": "api_query",
+    "query": "@Provider @Consumer V2跨组件共享",
+    "expected_category": "02-state-management",
+    "expected_keywords": ["@Provider", "@Consumer", "@ObservedV2", "@Trace"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["@Provider/@Consumer 的接口签名和使用约束"],
+      "must_not_find": [],
+      "min_relevance": "返回文档包含 V2 跨组件状态共享的说明"
+    }
+  },
+  {
+    "id": "rt_016",
+    "title": "模糊查询-窗口管理",
+    "type": "concept_query",
+    "query": "沉浸式状态栏 setWindowLayoutFullScreen expandSafeArea",
+    "expected_category": "16-window",
+    "expected_keywords": ["setWindowLayoutFullScreen", "expandSafeArea", "状态栏"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["setWindowLayoutFullScreen 或 expandSafeArea 的用法"],
+      "must_not_find": [],
+      "min_relevance": "返回文档涉及沉浸式窗口配置"
+    }
+  },
+  {
+    "id": "rt_017",
+    "title": "性能优化查询",
+    "type": "concept_query",
+    "query": "LazyForEach 性能优化 cachedCount @Reusable",
+    "expected_category": ["09-rendering", "14-performance"],
+    "expected_keywords": ["LazyForEach", "cachedCount", "@Reusable"],
+    "expected_non_keywords": [],
+    "retrieval_params": {
+      "top_k": 5,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["cachedCount 参数说明", "@Reusable 装饰器用法"],
+      "must_not_find": [],
+      "min_relevance": "返回文档包含列表性能优化相关内容"
+    }
+  },
+  {
+    "id": "rt_018",
+    "title": "import路径验证",
+    "type": "validation_query",
+    "query": "router promptAction import @kit",
+    "expected_category": ["01-basics"],
+    "expected_keywords": ["@kit.ArkUI", "UIContext", "getRouter", "getPromptAction"],
+    "expected_non_keywords": ["@ohos.router", "@ohos.promptAction"],
+    "retrieval_params": {
+      "top_k": 3,
+      "include_code": true
+    },
+    "verification": {
+      "must_find": ["@kit.* 导入路径", "UIContext 调用方式"],
+      "must_not_find": ["@ohos.* 旧版导入路径"],
+      "min_relevance": "返回文档使用 @kit.* 导入方式"
+    }
+  }
+]

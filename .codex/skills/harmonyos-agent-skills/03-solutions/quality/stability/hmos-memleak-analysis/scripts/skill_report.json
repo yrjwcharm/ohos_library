@@ -1,0 +1,60 @@
+{
+  "tool": "HarmonyOS Memory Leak Detection Skill",
+  "version": "1.0",
+  "timestamp": "2026-03-07",
+  "success": true,
+  "codebase_path": "../test_examples",
+  "language_filter": "arkts",
+  "stats": {
+    "files_analyzed": 3,
+    "issues_found": 4,
+    "analysis_time": 0
+  },
+  "issues": [
+    {
+      "severity": "Critical",
+      "type": "Lifecycle Subscription Leak",
+      "file_path": "..\\test_examples\\memory_leak_example.ts",
+      "line_number": 9,
+      "technical_breakdown": "\n对象 this.windowStage 在第 9 行注册了事件监听器 'windowSizeChange'，但没有在组件生命周期结束时对应的 .off() 调用。\n\n根据 HarmonyOS 内存泄漏规范:\n- 所有的 window.on 接口需要在 aboutToDisappear 时主动调用 off 接口进行注销\n- 开发者需要主动配对 .on/.off 使用，确保第一个参数 key 也要配对\n- off 时注意不要 off 匿名函数，因为匿名函数函数名唯一，会造成与 on 不配对\n",
+      "optimized_solution": "\n// 在组件的 aboutToDisappear() 方法中添加:\nif (this.windowStage) {\n    this.windowStage.off('windowSizeChange');\n}\n\n// 或者，如果使用了具名回调函数:\nconst windowSizeChangeCallback = (data) => {\n    // 处理事件\n};\n\n// aboutToAppear() 中:\nthis.windowStage.on('windowSizeChange', windowSizeChangeCallback);\n\n// aboutToDisappear() 中:\nthis.windowStage.off('windowSizeChange', windowSizeChangeCallback);\n",
+      "spec_source": "HarmonyOS_App_MemoryLeak_Specifications_arkts_js_api.md#1.3.8",
+      "code_snippet": "this.windowStage.on('windowSizeChange', (size) => {"
+    },
+    {
+      "severity": "Critical",
+      "type": "Lifecycle Subscription Leak",
+      "file_path": "..\\test_examples\\memory_leak_example.ts",
+      "line_number": 14,
+      "technical_breakdown": "\n对象 this.windowStage 在第 14 行注册了事件监听器 'keyboardHeightChange'，但没有在组件生命周期结束时对应的 .off() 调用。\n\n根据 HarmonyOS 内存泄漏规范:\n- 所有的 window.on 接口需要在 aboutToDisappear 时主动调用 off 接口进行注销\n- 开发者需要主动配对 .on/.off 使用，确保第一个参数 key 也要配对\n- off 时注意不要 off 匿名函数，因为匿名函数函数名唯一，会造成与 on 不配对\n",
+      "optimized_solution": "\n// 在组件的 aboutToDisappear() 方法中添加:\nif (this.windowStage) {\n    this.windowStage.off('keyboardHeightChange');\n}\n\n// 或者，如果使用了具名回调函数:\nconst keyboardHeightChangeCallback = (data) => {\n    // 处理事件\n};\n\n// aboutToAppear() 中:\nthis.windowStage.on('keyboardHeightChange', keyboardHeightChangeCallback);\n\n// aboutToDisappear() 中:\nthis.windowStage.off('keyboardHeightChange', keyboardHeightChangeCallback);\n",
+      "spec_source": "HarmonyOS_App_MemoryLeak_Specifications_arkts_js_api.md#1.3.8",
+      "code_snippet": "this.windowStage.on('keyboardHeightChange', (height) => {"
+    },
+    {
+      "severity": "Major",
+      "type": "Lifecycle Subscription Leak",
+      "file_path": "..\\test_examples\\complex_example.ts",
+      "line_number": 16,
+      "technical_breakdown": "\n对象 this.display 在第 16 行注册了事件监听器 'foldStatusChange'，但没有在组件生命周期结束时对应的 .off() 调用。\n\n根据 HarmonyOS 内存泄漏规范:\n- 所有的 window.on 接口需要在 aboutToDisappear 时主动调用 off 接口进行注销\n- 开发者需要主动配对 .on/.off 使用，确保第一个参数 key 也要配对\n- off 时注意不要 off 匿名函数，因为匿名函数函数名唯一，会造成与 on 不配对\n",
+      "optimized_solution": "\n// 在组件的 aboutToDisappear() 方法中添加:\nif (this.display) {\n    this.display.off('foldStatusChange');\n}\n\n// 或者，如果使用了具名回调函数:\nconst foldStatusChangeCallback = (data) => {\n    // 处理事件\n};\n\n// aboutToAppear() 中:\nthis.display.on('foldStatusChange', foldStatusChangeCallback);\n\n// aboutToDisappear() 中:\nthis.display.off('foldStatusChange', foldStatusChangeCallback);\n",
+      "spec_source": "HarmonyOS_App_MemoryLeak_Specifications_arkts_js_api.md#1.3.8",
+      "code_snippet": "this.display.on('foldStatusChange', (status) => {"
+    },
+    {
+      "severity": "Minor",
+      "type": "Lifecycle Subscription Leak",
+      "file_path": "..\\test_examples\\complex_example.ts",
+      "line_number": 21,
+      "technical_breakdown": "\n对象 sensor 在第 21 行注册了事件监听器 'this.sensorId'，但没有在组件生命周期结束时对应的 .off() 调用。\n\n根据 HarmonyOS 内存泄漏规范:\n- 所有的 window.on 接口需要在 aboutToDisappear 时主动调用 off 接口进行注销\n- 开发者需要主动配对 .on/.off 使用，确保第一个参数 key 也要配对\n- off 时注意不要 off 匿名函数，因为匿名函数函数名唯一，会造成与 on 不配对\n",
+      "optimized_solution": "\n// 在组件的 aboutToDisappear() 方法中添加:\nif (sensor) {\n    sensor.off('this.sensorId');\n}\n\n// 或者，如果使用了具名回调函数:\nconst this.sensorIdCallback = (data) => {\n    // 处理事件\n};\n\n// aboutToAppear() 中:\nsensor.on('this.sensorId', this.sensorIdCallback);\n\n// aboutToDisappear() 中:\nsensor.off('this.sensorId', this.sensorIdCallback);\n",
+      "spec_source": "HarmonyOS_App_MemoryLeak_Specifications_arkts_js_api.md#1.3.8",
+      "code_snippet": "sensor.on(this.sensorId, (data) => {"
+    }
+  ],
+  "summary": {
+    "critical_issues": 2,
+    "major_issues": 1,
+    "minor_issues": 1
+  }
+}

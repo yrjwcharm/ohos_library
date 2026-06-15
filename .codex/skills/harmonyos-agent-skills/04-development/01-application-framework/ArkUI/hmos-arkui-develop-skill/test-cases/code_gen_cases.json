@@ -1,0 +1,292 @@
+[
+  {
+    "id": "tc_001",
+    "title": "基础列表展示",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["03-layout", "09-rendering"],
+    "query": "用 ArkTS 写一个商品列表页，使用 List + LazyForEach 实现懒加载，每个列表项展示商品图片、名称和价格",
+    "expected_components": ["List", "LazyForEach", "ListItem", "Image", "Text", "IDataSource"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["List", "LazyForEach", "cachedCount"],
+      "anti_patterns": ["ForEach用于长列表", "索引作为key"],
+      "mistake_refs": ["第6节 ForEach/LazyForEach错误"]
+    }
+  },
+  {
+    "id": "tc_002",
+    "title": "Navigation多页面跳转",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["07-navigation", "02-state-management"],
+    "query": "实现一个 Navigation 导航框架，包含首页和详情页两个 NavDestination。首页有一个列表，点击列表项跳转到详情页并传递 itemId 参数",
+    "expected_components": ["Navigation", "NavDestination", "List", "@State", "onItemClick"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["Navigation", "NavDestination", "navDestinationInfo"],
+      "anti_patterns": ["使用router代替Navigation", "多个@Entry页面"],
+      "mistake_refs": ["第8节 导航和路由错误", "第1节 import路径和模块错误"]
+    }
+  },
+  {
+    "id": "tc_003",
+    "title": "状态管理V2计数器",
+    "complexity": "simple",
+    "mode": "示例输出",
+    "category": ["02-state-management"],
+    "query": "用状态管理 V2 写一个计数器组件，有加减两个按钮，显示当前计数值",
+    "expected_components": ["@Local", "Button", "Text", "@ComponentV2"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["@Local", "@ComponentV2"],
+      "anti_patterns": ["使用V1的@State"],
+      "mistake_refs": ["第3节 状态管理V1/V2混用", "第4节 装饰器用在错误的位置"]
+    }
+  },
+  {
+    "id": "tc_004",
+    "title": "自定义弹窗",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["08-dialog-menu"],
+    "query": "实现一个自定义确认弹窗，包含标题、描述文字、取消和确认按钮，点击确认后回调通知父组件",
+    "expected_components": ["ComponentContent", "promptAction"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["promptAction.openCustomDialog", "ComponentContent"],
+      "anti_patterns": ["使用CustomDialogController", "使用AlertDialog代替自定义弹窗"],
+      "mistake_refs": ["第11节 废弃接口使用", "第2节 全局接口未通过UIContext调用"]
+    }
+  },
+  {
+    "id": "tc_005",
+    "title": "下拉刷新列表",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["03-layout", "04-components"],
+    "query": "实现一个支持下拉刷新和上拉加载更多的列表页，模拟网络请求加载数据，加载过程中显示 loading 状态",
+    "expected_components": ["Refresh", "List", "LazyForEach", "@State", "LoadingProgress"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["Refresh", "onRefreshing", "onReachEnd"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_006",
+    "title": "属性动画与显隐",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["05-animation"],
+    "query": "实现一个卡片展开收起效果，点击卡片时平滑展开详细内容，再次点击收起。使用 transition 实现出现消失动画",
+    "expected_components": ["transition", "animateTo", "@State", "if条件渲染"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["transition", "animateTo"],
+      "anti_patterns": ["animateTo+手动显隐控制代替transition"],
+      "mistake_refs": ["第2节 全局接口未通过UIContext调用"]
+    }
+  },
+  {
+    "id": "tc_007",
+    "title": "Tabs标签页",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["03-layout", "02-state-management"],
+    "query": "实现一个底部 Tabs 导航页，包含首页、发现、我的三个标签页，每个标签页有独立的标题和内容区域",
+    "expected_components": ["Tabs", "TabContent", "TabBuilder"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["Tabs", "TabContent", "barPosition"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_008",
+    "title": "瀑布流布局",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["03-layout", "09-rendering"],
+    "query": "用 WaterFlow 实现一个瀑布流图片浏览页面，两列布局，图片高度不固定，支持下拉刷新加载更多",
+    "expected_components": ["WaterFlow", "FlowItem", "LazyForEach", "Refresh"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["WaterFlow", "FlowItem", "columnsTemplate"],
+      "anti_patterns": ["用Grid模拟瀑布流"],
+      "mistake_refs": ["第6节 ForEach/LazyForEach错误"]
+    }
+  },
+  {
+    "id": "tc_009",
+    "title": "表单输入与校验",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["04-components", "02-state-management"],
+    "query": "实现一个注册表单页面，包含用户名、手机号、密码、确认密码输入框，提交时校验：用户名不为空、手机号11位、密码至少6位且两次一致。校验失败在对应输入框下方显示红色提示文字",
+    "expected_components": ["TextInput", "@State", "Button", "Text", "Column"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["TextInput", "onChange", "type"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_010",
+    "title": "手势操作",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["06-interaction", "05-animation"],
+    "query": "实现一个图片查看器，支持双指捏合缩放、双击放大还原、长按触发保存菜单",
+    "expected_components": ["PinchGesture", "TapGesture", "LongPressGesture", "Image", "scale"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["PinchGesture", "TapGesture", "LongPressGesture", "gesture"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_011",
+    "title": "深色模式适配",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["11-theme-style"],
+    "query": "实现一个设置页面，页面内的颜色全部使用系统资源颜色（$r），能自动适配深色模式。包含一个切换深色模式的开关",
+    "expected_components": ["$r", "Toggle", "@State", "Column"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["$r", "sys.color"],
+      "anti_patterns": ["硬编码颜色值"]
+    }
+  },
+  {
+    "id": "tc_012",
+    "title": "沉浸式状态栏",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["16-window"],
+    "query": "实现一个沉浸式页面，内容延伸到状态栏区域，状态栏文字为白色，底部内容避开安全区",
+    "expected_components": ["expandSafeArea", "window", "@Entry"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["expandSafeArea", "setWindowLayoutFullScreen"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_013",
+    "title": "MVVM架构页面",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["02-state-management", "04-components"],
+    "query": "用 MVVM 架构实现一个待办事项页面。Model 层定义 TodoItem 数据类，ViewModel 层管理列表数据和增删操作（使用 V2 状态管理），View 层展示列表和添加按钮，UI 与逻辑分离到不同文件",
+    "expected_components": ["@ObservedV2", "@Local", "@ComponentV2", "List", "TextInput", "Button"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["@ObservedV2", "@Local", "@ComponentV2"],
+      "anti_patterns": ["所有代码写在一个文件", "V1状态管理"],
+      "mistake_refs": ["第3节 状态管理V1/V2混用"]
+    }
+  },
+  {
+    "id": "tc_014",
+    "title": "搜索页面",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["04-components", "02-state-management", "03-layout"],
+    "query": "实现一个搜索页面：顶部搜索框输入关键词，实时过滤下方列表。搜索历史保存在本地，点击历史词自动搜索。搜索结果为空时显示空状态提示",
+    "expected_components": ["TextInput", "List", "@State", "LazyForEach", "@Builder"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["TextInput", "onChange", "LazyForEach"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_015",
+    "title": "底部弹窗BindSheet",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["08-dialog-menu"],
+    "query": "实现一个底部半模态弹窗，点击按钮从底部弹出，包含标题、内容区域和关闭按钮，支持下拉关闭",
+    "expected_components": ["bindSheet", "SheetMode", "@State"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["bindSheet", "showClose", "dragDown"],
+      "anti_patterns": ["CustomDialog模拟底部弹窗"],
+      "mistake_refs": ["第11节 废弃接口使用"]
+    }
+  },
+  {
+    "id": "tc_016",
+    "title": "自定义Builder组件",
+    "complexity": "simple",
+    "mode": "示例输出",
+    "category": ["01-basics", "10-extension"],
+    "query": "用 @Builder 封装一个通用的列表空状态组件，接收图标资源、提示文字和按钮文字作为参数，按钮点击回调给父组件处理",
+    "expected_components": ["@Builder", "Image", "Text", "Button"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["@Builder"],
+      "anti_patterns": ["用@Component代替@Builder做纯UI片段"]
+    }
+  },
+  {
+    "id": "tc_017",
+    "title": "RelativeContainer复杂布局",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["03-layout"],
+    "query": "用 RelativeContainer 实现一个个人中心头部布局：左上角头像、右上角设置按钮、中间昵称和签名、底部统计数据行（粉丝/关注/获赞）",
+    "expected_components": ["RelativeContainer", "RelativeContainer.AlignRules", "Image", "Text", "Row"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["RelativeContainer", "alignRules"],
+      "anti_patterns": ["多层嵌套Column/Row"]
+    }
+  },
+  {
+    "id": "tc_018",
+    "title": "共享状态跨组件",
+    "complexity": "complex",
+    "mode": "示例输出",
+    "category": ["02-state-management"],
+    "query": "用 V2 状态管理实现跨组件共享购物车数量。页面有三个独立组件：商品列表（可添加到购物车）、底部购物车栏（显示数量和总价）、浮动购物车按钮（显示角标数量），三者共享同一份购物车数据",
+    "expected_components": ["@Provider", "@Consumer", "@ObservedV2", "@Trace", "@ComponentV2"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["@Provider", "@Consumer", "@Trace"],
+      "anti_patterns": ["用AppStorage共享", "V1的@Provide/@Consume"],
+      "mistake_refs": ["第3节 状态管理V1/V2混用"]
+    }
+  },
+  {
+    "id": "tc_019",
+    "title": "页面转场动画",
+    "complexity": "medium",
+    "mode": "示例输出",
+    "category": ["05-animation", "07-navigation"],
+    "query": "在 Navigation 中实现自定义页面转场动画：push 时新页面从右侧滑入，pop 时当前页面向右滑出",
+    "expected_components": ["Navigation", "NavDestination", "customNavContentTransition"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["customNavContentTransition", "NavigationAnimatedTransition"],
+      "anti_patterns": []
+    }
+  },
+  {
+    "id": "tc_020",
+    "title": "商城首页综合页面",
+    "complexity": "complex",
+    "mode": "上下文执行",
+    "category": ["03-layout", "04-components", "02-state-management", "07-navigation"],
+    "query": "实现一个商城首页，从上到下包含：搜索栏、轮播图（Swiper）、金刚区（两行四个圆形图标入口）、秒杀倒计时区块（显示时 分 秒）、商品推荐瀑布流。使用 V2 状态管理，复杂组件用 @Builder 拆分",
+    "expected_components": ["Swiper", "WaterFlow", "@Local", "@ComponentV2", "@Builder", "TextInput", "Text", "Column", "Row"],
+    "verification": {
+      "must_compile": true,
+      "key_apis": ["Swiper", "WaterFlow", "@Local", "@ComponentV2", "@Builder"],
+      "anti_patterns": ["所有代码写在build里", "ForEach用于长列表", "V1状态管理"],
+      "mistake_refs": ["第3节 状态管理V1/V2混用", "第5节 build()函数内违规操作", "第6节 ForEach/LazyForEach错误"]
+    }
+  }
+]

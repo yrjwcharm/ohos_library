@@ -1,0 +1,265 @@
+<!--
+  button Template
+
+  Variables (Template Contract):
+  - {{size}}: 'medium' | 'small'
+  - {{type}}: 'emphasized' | 'normal' | 'warning' | 'selected' | 'unselected'
+  - {{state}}: 'enabled' | 'hover' | 'pressed' | 'focus' | 'loading' | 'disabled'
+  - {{content}}: 按钮文本或富文本内容插槽
+  - {{spinnerSvg}}: Loading 态 SVG 图标 HTML 片段 (24×24)
+  - {{disabled}}: 'disabled' 属性字符串或空
+  - {{icon}}: [optional] 前置图标 SVG 插槽
+
+-->
+
+<style>
+  /*
+    ========== Design Tokens — from Pixso DSL ==========
+    Component node: 70:241 (FloatingButton-Phone)
+    Variants: 尺寸(Medium|Small) × 类型(Emphasized|Normal|Warning|Selected|Unselected) × 状态(Enabled|Hover|Pressed|Focus|Loading|Disabled)
+  */
+
+  .harmony-button {
+    /* ---- 类型 · 背景 Fill ---- */
+    /* 70:907 Light/Floating_backgrount_emphasize: blue-tinted glass */
+    --btn-emphasized-bg: rgba(0, 137, 249, 0.88);
+
+    /* 70:908 Light/Floating_backgrount_emphasize_secondary: subtle blue-tinted glass */
+    --btn-selected-bg: rgba(199, 229, 253, 0.88);
+
+    /* 70:903 Light/Blur/Material_background_THIN: light glass (Normal / Warning / Unselected) */
+    --btn-material-fill-1: rgba(255, 255, 255, 0.16);
+    --btn-material-fill-2: rgba(255, 255, 255, 0.0225);
+
+    /* ---- 类型 · 文本 ---- */
+    /* 70:888 Light/font_on_primary */
+    --btn-font-on-primary: rgba(255, 255, 255, 1);
+    /* 70:889 Light/font_primary */
+    --btn-font-primary: rgba(0, 0, 0, 0.8065);
+    /* 70:895 Light/warning */
+    --btn-warning: rgba(232, 64, 38, 1);
+
+    /* ---- 状态层 ---- */
+    /* 70:893 Light/interactive_hover */
+    --btn-interactive-hover: rgba(0, 0, 0, 0.0022);
+    /* 70:894 Light/interactive_pressed */
+    --btn-interactive-pressed: rgba(0, 0, 0, 0.0096);
+    /* 70:892 Light/interactive_focus */
+    --btn-interactive-focus: rgba(10, 89, 247, 1);
+
+    /* ---- 效果 ---- */
+    /* 70:900 Light/Blur/FLOATING_THIN */
+    --btn-floating-shadow: 0 8px 48px rgba(0, 0, 0, 0.08);
+    --btn-floating-blur: 30px;
+    --btn-floating-saturate: 1.2;
+    --btn-floating-inner-a: inset 0 10px 80px rgba(0, 0, 0, 0.06);
+    --btn-floating-inner-b: inset 0 -4px 40px rgba(0, 0, 0, 0.03);
+    --btn-floating-inner-c: inset 0.5px 0 0.5px rgba(0, 0, 0, 0.2);
+    --btn-floating-inner-d: inset -0.5px 0 0.75px rgba(40, 40, 40, 0.25);
+    --btn-floating-inner-e: inset 0 -0.5px 0.5px rgba(255, 255, 255, 0.4);
+    --btn-floating-inner-f: inset 0 0.5px 0.75px rgba(255, 255, 255, 0.7);
+
+    /* 70:902 Light/Blur/Material_THIN */
+    --btn-material-shadow: 0 4px 48px rgba(0, 0, 0, 0.08);
+    --btn-material-blur: 8px;
+
+    /* ---- 尺寸 ---- */
+    /* Medium: 120×40 r=20 */
+    --btn-medium-w: 120px;
+    --btn-medium-h: 40px;
+    --btn-medium-r: 20px;
+    --btn-medium-font: 16px;
+    /* Small: 72×28 r=14 */
+    --btn-small-w: 72px;
+    --btn-small-h: 28px;
+    --btn-small-r: 14px;
+    --btn-small-font: 14px;
+    /* Loading extension: +8px width */
+    --btn-loading-ext: 8px;
+    /* Focus ring extension: +4px each side */
+    --btn-focus-ext: 4px;
+    --btn-focus-stroke: 2px;
+    /* Spinner: 24×24 */
+    --btn-spinner-size: 24px;
+
+    /* ---- 字体 ---- */
+    --btn-font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+
+    /* ========== Button Base ========== */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--btn-font-family);
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: none;
+    outline: none;
+    box-sizing: border-box;
+  }
+
+  /* ---- 尺寸 ---- */
+  .harmony-button--medium {
+    width: var(--btn-medium-w);
+    height: var(--btn-medium-h);
+    border-radius: var(--btn-medium-r);
+    font-size: var(--btn-medium-font);
+  }
+
+  .harmony-button--small {
+    width: var(--btn-small-w);
+    height: var(--btn-small-h);
+    border-radius: var(--btn-small-r);
+    font-size: var(--btn-small-font);
+  }
+
+  /* ---- 类型背景 ---- */
+  .harmony-button--emphasized {
+    color: var(--btn-font-on-primary);
+    background-color: var(--btn-emphasized-bg);
+    box-shadow:
+      var(--btn-floating-shadow),
+      var(--btn-floating-inner-a),
+      var(--btn-floating-inner-b),
+      var(--btn-floating-inner-c),
+      var(--btn-floating-inner-d),
+      var(--btn-floating-inner-e),
+      var(--btn-floating-inner-f);
+    backdrop-filter: blur(var(--btn-floating-blur)) saturate(var(--btn-floating-saturate));
+    -webkit-backdrop-filter: blur(var(--btn-floating-blur)) saturate(var(--btn-floating-saturate));
+  }
+
+  .harmony-button--normal {
+    color: var(--btn-font-primary);
+    background:
+      var(--btn-material-fill-1),
+      var(--btn-material-fill-2);
+    background-blend-mode: plus-lighter;
+    box-shadow: var(--btn-material-shadow);
+    backdrop-filter: blur(var(--btn-material-blur));
+    -webkit-backdrop-filter: blur(var(--btn-material-blur));
+  }
+
+  .harmony-button--warning {
+    color: var(--btn-warning);
+    background:
+      var(--btn-material-fill-1),
+      var(--btn-material-fill-2);
+    background-blend-mode: plus-lighter;
+    box-shadow: var(--btn-material-shadow);
+    backdrop-filter: blur(var(--btn-material-blur));
+    -webkit-backdrop-filter: blur(var(--btn-material-blur));
+  }
+
+  .harmony-button--selected {
+    color: var(--btn-font-primary);
+    background-color: var(--btn-selected-bg);
+    box-shadow: var(--btn-material-shadow);
+    backdrop-filter: blur(var(--btn-material-blur));
+    -webkit-backdrop-filter: blur(var(--btn-material-blur));
+  }
+
+  .harmony-button--unselected {
+    color: var(--btn-font-primary);
+    background:
+      var(--btn-material-fill-1),
+      var(--btn-material-fill-2);
+    background-blend-mode: plus-lighter;
+    box-shadow: var(--btn-material-shadow);
+    backdrop-filter: blur(var(--btn-material-blur));
+    -webkit-backdrop-filter: blur(var(--btn-material-blur));
+  }
+
+  /* ---- 状态叠加层 ---- */
+  .harmony-button__overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .harmony-button[data-state="hover"] .harmony-button__overlay {
+    background: var(--btn-interactive-hover);
+  }
+
+  .harmony-button[data-state="pressed"] .harmony-button__overlay {
+    background: var(--btn-interactive-pressed);
+  }
+
+  /* ---- Focus 环 ---- */
+  .harmony-button__focus-ring {
+    position: absolute;
+    inset: calc(-1 * var(--btn-focus-ext));
+    border-radius: calc(var(--btn-medium-r) + var(--btn-focus-ext));
+    border: var(--btn-focus-stroke) solid var(--btn-interactive-focus);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .harmony-button--small .harmony-button__focus-ring {
+    border-radius: calc(var(--btn-small-r) + var(--btn-focus-ext));
+    inset: calc(-1 * var(--btn-focus-ext));
+  }
+
+  .harmony-button[data-state="focus"] .harmony-button__focus-ring {
+    opacity: 1;
+  }
+
+  /* ---- Disabled ---- */
+  .harmony-button[data-state="disabled"] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ---- Loading Spinner (ProgressBar-Loading-Phone, 尺寸=24) ---- */
+  .harmony-button__spinner {
+    width: var(--btn-spinner-size);
+    height: var(--btn-spinner-size);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .harmony-button__spinner-img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .harmony-button--loading {
+    cursor: default;
+  }
+
+  .harmony-button--medium.harmony-button--loading {
+    width: calc(var(--btn-medium-w) + var(--btn-loading-ext));
+  }
+
+  .harmony-button--small.harmony-button--loading {
+    width: calc(var(--btn-small-w) + var(--btn-loading-ext));
+  }
+</style>
+
+<!-- ================================================================== -->
+<!--  默认渲染: {{type}}={{variant}}, {{size}}=medium|small              -->
+<!--  消费端通过注入 {{content}} / {{spinnerSvg}} / {{disabled}} /       -->
+<!--  data-state="{{state}}" 来控制交互状态视觉                           -->
+<!-- ================================================================== -->
+<button class="harmony-button harmony-button--{{size}} harmony-button--{{type}} {{#loading}}harmony-button--loading{{/loading}}"
+  data-component="button"
+  data-state="{{state}}"
+  data-figma-node-id="70:241"
+  type="button"
+  {{disabled}}>
+  <span class="harmony-button__overlay"></span>
+  <span class="harmony-button__focus-ring"></span>
+  {{#loading}}<span class="harmony-button__spinner"><svg class="harmony-button__spinner-img" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 12C23.5 7.02944 19.4706 3 14.5 3C9.52944 3 5.5 7.02944 5.5 12C5.5 16.9706 9.52944 21 14.5 21C19.4706 21 23.5 16.9706 23.5 12ZM21.5 12C21.5 8.134 18.366 5 14.5 5C10.634 5 7.5 8.134 7.5 12C7.5 15.866 10.634 19 14.5 19C18.366 19 21.5 15.866 21.5 12Z" fill="currentColor" fill-rule="evenodd"/><circle cx="2.5" cy="14.5" r="2" fill="currentColor"/><circle cx="2" cy="15" r="2" fill="currentColor"/></svg></span>{{/loading}}
+  {{#icon}}<span class="harmony-button__icon">{{icon}}</span>{{/icon}}
+  <span class="harmony-button__content">{{content}}</span>
+</button>

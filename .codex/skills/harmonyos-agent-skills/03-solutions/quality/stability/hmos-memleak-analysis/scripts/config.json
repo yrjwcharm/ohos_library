@@ -1,0 +1,41 @@
+{
+  "memory_leak_detection": {
+    "version": "1.0",
+    "event_listener_analysis": {
+      "supported_file_extensions": [".js", ".ts", ".ets", ".jsx", ".tsx"],
+      "white_list_objects": ["netCon", "netConnection", "netConn", "safeObject"],
+      "severity_mapping": {
+        "windowSizeChange": "Critical",
+        "keyboardHeightChange": "Critical",
+        "avoidAreaChange": "Critical",
+        "touchOutside": "Critical",
+        "screenshot": "Critical",
+        "foldStatusChange": "Major",
+        "brightnessInfoChange": "Major",
+        "default": "Minor"
+      },
+      "ignore_patterns": [
+        "test_",
+        "mock_",
+        "spec_"
+      ]
+    },
+    "napi_analysis": {
+      "enabled": false,
+      "check_reference_pairs": true,
+      "check_handle_scope": true,
+      "check_error_paths": true
+    },
+    "app_storage_analysis": {
+      "enabled": false,
+      "large_object_threshold": 1024,
+      "check_cleanup": true
+    },
+    "output": {
+      "default_format": "skill",
+      "include_code_snippets": true,
+      "include_fix_suggestions": true,
+      "max_issues_per_file": 50
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "name": "ListItemGroup",
+    "parents": ["List"],
+    "children": ["ListItem"],
+    "attrs": ["divider", "childrenMainSize"]
+  }

@@ -1,0 +1,130 @@
+<!--
+  Switch Template
+  Reference: references/3.component/switch.md
+  MCP: component node 88:1670
+
+  Variables (Template Contract):
+  - {{selected}}: 'on' | 'off'
+  - {{state}}: 'enabled' | 'hover' | 'pressed' | 'focus' | 'disabled'
+  - {{#on}}...{{/on}}: ON selected conditional block
+  - {{#hover}}...{{/hover}}: hover state CSS class toggle (derived from {{state}})
+  - {{#pressed}}...{{/pressed}}: pressed state CSS class toggle (derived from {{state}})
+  - {{#focus}}...{{/focus}}: focus state CSS class toggle (derived from {{state}})
+  - {{#disabled}}...{{/disabled}}: disabled state CSS class toggle (derived from {{state}})
+-->
+<style>
+  @import url("../../../references/2.theme/harmony-tokens.css");
+
+  /* ========== Design Tokens (from Pixso MCP DSL localStyleMap) ========== */
+  :root {
+    /* 88:1701 Light/comp_background_emphasize */
+    --switch-on-track: rgba(10, 89, 247, 1);
+    /* 88:1702 Light/comp_background_primary_contrary */
+    --switch-thumb-fill: rgba(255, 255, 255, 1);
+    /* 88:1703 Light/comp_background_secondary */
+    --switch-off-track: rgba(0, 0, 0, 0.098);
+    /* 88:1704 Light/comp_background_tertiary */
+    --switch-off-thumb-stroke: rgba(0, 0, 0, 0.047);
+    /* 88:1705 Light/interactive_focus */
+    --switch-focus-ring: rgba(10, 89, 247, 1);
+    /* 88:1706 Light/interactive_hover */
+    --switch-hover-overlay: rgba(0, 0, 0, 0.047);
+    /* 88:1707 Light/interactive_pressed */
+    --switch-pressed-overlay: rgba(0, 0, 0, 0.098);
+
+    --switch-track-w: 36px;
+    --switch-track-h: 20px;
+    --switch-track-r: 12px;
+    --switch-thumb-s: 16px;
+    --switch-thumb-on-left: 18px;
+    --switch-thumb-off-left: 2px;
+    --switch-focus-stroke: 2px;
+    --switch-disabled-opacity: 0.4;
+    --switch-font: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  }
+
+  /* ========== Root Container ========== */
+  .harmony-switch {
+    position: relative;
+    display: inline-block;
+    width: var(--switch-track-w);
+    height: var(--switch-track-h);
+    border-radius: var(--switch-track-r);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
+    background: var(--switch-off-track);
+    transition: background 0.2s ease;
+  }
+
+  /* ---- ON state: track turns blue ---- */
+  .harmony-switch.is-on {
+    background: var(--switch-on-track);
+  }
+
+  /* ---- Hover overlay ---- */
+  .harmony-switch.is-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--switch-hover-overlay);
+    pointer-events: none;
+  }
+
+  /* ---- Pressed overlay ---- */
+  .harmony-switch.is-pressed::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--switch-pressed-overlay);
+    pointer-events: none;
+  }
+
+  /* ---- Focus ring (Pixso strokeAlign:OUTSIDE → CSS border compensates with inset:-4px) ---- */
+  .harmony-switch.is-focus::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: calc(var(--switch-track-r) + 2px);
+    border: var(--switch-focus-stroke) solid var(--switch-focus-ring);
+    pointer-events: none;
+  }
+
+  /* ---- Disabled ---- */
+  .harmony-switch.is-disabled {
+    opacity: var(--switch-disabled-opacity);
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* ---- Thumb ---- */
+  .harmony-switch__thumb {
+    position: absolute;
+    top: 2px;
+    width: var(--switch-thumb-s);
+    height: var(--switch-thumb-s);
+    border-radius: 50%;
+    background: var(--switch-thumb-fill);
+    transition: left 0.2s ease;
+    left: var(--switch-thumb-off-left);
+    box-shadow: 0 0 0 1px var(--switch-off-thumb-stroke);
+  }
+
+  /* ---- ON thumb: right side, no stroke ---- */
+  .harmony-switch.is-on .harmony-switch__thumb {
+    left: var(--switch-thumb-on-left);
+    box-shadow: none;
+  }
+</style>
+
+<!-- ========== Template Root ========== -->
+<div class="harmony-switch{{#on}} is-on{{/on}}{{#hover}} is-hover{{/hover}}{{#pressed}} is-pressed{{/pressed}}{{#focus}} is-focus{{/focus}}{{#disabled}} is-disabled{{/disabled}}"
+  data-component="switch"
+  data-selected="{{selected}}"
+  data-state="{{state}}"
+  data-figma-node-id="88:1670"
+  tabindex="0">
+  <div class="harmony-switch__thumb"></div>
+</div>

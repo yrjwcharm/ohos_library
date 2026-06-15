@@ -1,0 +1,9 @@
+{
+  "name": "List",
+  "children": ["ListItem"],
+  "attrs": [
+    "lanes", "alignListItem", "listDirection", "scrollBar", "edgeEffect", "divider", "multiSelectable",
+    "cachedCount", "chainAnimation", "sticky", "onScroll", "onScrollIndex", "onReachStart", "onReachEnd",
+    "onScrollStop", "onScrollFrameBegin"
+  ]
+}

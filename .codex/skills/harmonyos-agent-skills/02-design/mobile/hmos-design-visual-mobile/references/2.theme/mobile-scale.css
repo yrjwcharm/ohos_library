@@ -1,0 +1,59 @@
+:root,
+:root[data-harmony-token-set="system"][data-theme="light"],
+[data-harmony-token-set="system"][data-theme="light"],
+:root[data-harmony-token-set="system"][data-theme="dark"],
+[data-harmony-token-set="system"][data-theme="dark"] {
+  --harmony-padding-level0: 0px;
+  --harmony-padding-level1: 2px;
+  --harmony-padding-level2: 4px;
+  --harmony-padding-level3: 6px;
+  --harmony-padding-level4: 8px;
+  --harmony-padding-level5: 10px;
+  --harmony-padding-level6: 12px;
+  --harmony-padding-level7: 14px;
+  --harmony-padding-level8: 16px;
+  --harmony-padding-level9: 18px;
+  --harmony-padding-level10: 20px;
+  --harmony-padding-level11: 22px;
+  --harmony-padding-level12: 24px;
+  --harmony-padding-level13: 26px;
+  --harmony-padding-level16: 32px;
+
+  --harmony-corner-radius-none: 0px;
+  --harmony-corner-radius-level1: 2px;
+  --harmony-corner-radius-level2: 4px;
+  --harmony-corner-radius-level3: 6px;
+  --harmony-corner-radius-level4: 8px;
+  --harmony-corner-radius-level5: 10px;
+  --harmony-corner-radius-level6: 12px;
+  --harmony-corner-radius-level7: 14px;
+  --harmony-corner-radius-level8: 16px;
+  --harmony-corner-radius-level9: 18px;
+  --harmony-corner-radius-level10: 20px;
+  --harmony-corner-radius-level11: 22px;
+  --harmony-corner-radius-level12: 24px;
+  --harmony-corner-radius-level13: 26px;
+  --harmony-corner-radius-level16: 32px;
+  --harmony-corner-radius-level18: 36px;
+
+  --harmony-control-height-28: 28px;
+  --harmony-control-height-36: 36px;
+  --harmony-control-height-40: 40px;
+  --harmony-control-height-56: 56px;
+  --harmony-control-height-64: 64px;
+  --harmony-control-height-72: 72px;
+
+  --harmony-page-canvas-width-mobile: 360px;
+  --harmony-page-padding-mobile: var(--harmony-padding-level8);
+  --harmony-page-padding-mobile-top: 36px;
+  --harmony-page-padding-mobile-bottom: 28px;
+  --harmony-page-content-width-mobile: 328px;
+  --harmony-card-gap-mobile: var(--harmony-padding-level6);
+  --harmony-section-gap-mobile: var(--harmony-padding-level8);
+  --harmony-section-gap-tight-mobile: var(--harmony-padding-level4);
+  --harmony-text-gap-mobile-top: var(--harmony-padding-level1);
+  --harmony-text-gap-mobile-left: var(--harmony-padding-level4);
+  --harmony-inline-gap-tight-mobile: var(--harmony-padding-level2);
+  --harmony-inline-gap-mobile: var(--harmony-padding-level6);
+  --harmony-inline-gap-loose-mobile: var(--harmony-padding-level8);
+}

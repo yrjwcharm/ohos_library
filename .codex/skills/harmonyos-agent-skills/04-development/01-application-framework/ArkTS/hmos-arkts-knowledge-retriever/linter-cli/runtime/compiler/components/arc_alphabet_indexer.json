@@ -1,0 +1,9 @@
+{
+  "name": "ArcAlphabetIndexer",
+  "atomic": true,
+  "attrs": [
+    "color", "selectedColor", "popupColor", "selectedBackgroundColor", "popupBackground", "usePopup",
+    "selectedFont", "popupFont", "itemSize", "font", "selected", "onSelect",  "autoCollapse", 
+    "popupBackgroundBlurStyle"
+  ]
+}

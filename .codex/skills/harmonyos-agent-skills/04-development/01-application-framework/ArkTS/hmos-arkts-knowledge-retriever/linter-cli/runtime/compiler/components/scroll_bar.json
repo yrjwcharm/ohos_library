@@ -1,0 +1,6 @@
+{
+    "name": "ScrollBar",
+    "atomic": false,
+    "single": true,
+    "attrs": ["enableNestedScroll"]
+}

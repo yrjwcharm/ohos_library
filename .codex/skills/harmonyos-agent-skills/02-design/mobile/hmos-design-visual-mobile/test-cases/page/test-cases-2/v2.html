@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-harmony-token-set="system" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=360, initial-scale=1.0, user-scalable=no">
+<title>美食外卖 - Harmony Food Delivery</title>
+<style>
+/* ========== Token Imports ========== */
+@import url("../../../references/2.theme/harmony-tokens.css");
+@import url("../../../references/2.theme/mobile-scale.css");
+
+/* ========== Local Token Fallbacks (独立 HTML 兜底) ========== */
+:root {
+  /* 页面尺寸与间距 */
+  --harmony-space-4: 4px;
+  --harmony-space-8: 8px;
+  --harmony-space-12: 12px;
+  --harmony-space-16: 16px;
+  --harmony-space-20: 20px;
+  --harmony-space-24: 24px;
+  --harmony-page-canvas-width-mobile: 360px;
+  --harmony-page-padding-mobile: 16px;
+  --harmony-page-content-width-mobile: 328px;
+  /* 圆角 */
+  --harmony-radius-4: 4px;
+  --harmony-radius-8: 8px;
+  --harmony-radius-12: 12px;
+  --harmony-radius-16: 16px;
+  --harmony-radius-20: 20px;
+  --harmony-radius-24: 24px;
+  /* 控件高度 */
+  --harmony-control-height-28: 28px;
+  --harmony-control-height-36: 36px;
+  --harmony-control-height-40: 40px;
+  --harmony-control-height-56: 56px;
+  /* 关键颜色语义 */
+  --harmony-brand: rgba(10, 89, 247, 1);
+  --harmony-font-primary: rgba(0, 0, 0, 0.898);
+  --harmony-font-secondary: rgba(0, 0, 0, 0.6);
+  --harmony-font-tertiary: rgba(0, 0, 0, 0.4);
+  --harmony-font-fourth: rgba(0, 0, 0, 0.2);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1);
+  --harmony-icon-primary: rgba(0, 0, 0, 0.898);
+  --harmony-icon-secondary: rgba(0, 0, 0, 0.6);
+  --harmony-icon-tertiary: rgba(0, 0, 0, 0.4);
+  --harmony-background-primary: rgba(255, 255, 255, 1);
+  --harmony-background-secondary: rgba(241, 243, 245, 1);
+  --harmony-comp-background-primary: rgba(255, 255, 255, 1);
+  --harmony-comp-background-secondary: rgba(0, 0, 0, 0.098);
+  --harmony-comp-background-emphasize: rgba(10, 89, 247, 1);
+  --harmony-comp-divider: rgba(0, 0, 0, 0.2);
+  --harmony-interactive-hover: rgba(0, 0, 0, 0.047);
+  --harmony-interactive-pressed: rgba(0, 0, 0, 0.098);
+
+  /* ========== 外卖业务品牌色 (暖橙) ========== */
+  --fm-brand: rgba(255, 102, 0, 1);
+  --fm-brand-light: rgba(255, 102, 0, 0.1);
+  --fm-brand-020: rgba(255, 102, 0, 0.2);
+  --fm-brand-008: rgba(255, 102, 0, 0.08);
+}
+
+/* ========== Font Faces ========== */
+@font-face {
+  font-family: "HM Symbol-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMSymbolVF_1.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Flags";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiFlags.ttf") format("truetype");
+  unicode-range: U+1F1E6-1F1FF;
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Compat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiCompat.ttf") format("truetype");
+}
+
+/* ========== Global Reset & Page Canvas ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgba(229, 232, 238, 1);
+  padding: 32px 0;
+}
+
+.screen {
+  width: 360px;
+  height: 792px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--harmony-background-secondary);
+  border-radius: 24px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.1), 0 2px 16px rgba(0,0,0,0.05);
+  flex-shrink: 0;
+}
+
+/* ========== HMSymbol Helper ========== */
+.hm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HM Symbol-Regular", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  color: currentColor;
+  pointer-events: none;
+}
+.hm-24 { font-size: 24px; width: 24px; height: 24px; }
+.hm-18 { font-size: 18px; width: 18px; height: 18px; }
+.hm-16 { font-size: 16px; width: 16px; height: 16px; }
+
+.hm-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HMOS Color Emoji Flags","HMOS Color Emoji Compat","Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  font-style: normal; font-weight: 400; line-height: 1; flex-shrink: 0;
+}
+
+/* ====== STATUSBAR (模板真值) ====== */
+.harmony-statusbar {
+  width: 360px; height: 36px; padding: 8px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-sizing: border-box;
+  font-family: "HarmonyOS Sans SC","HarmonyOS Sans","Noto Sans SC",sans-serif;
+}
+.harmony-statusbar-light { background: transparent; color: rgba(0,0,0,0.898); }
+.harmony-statusbar-time { width: 40px; min-width: 40px; font-size: 15px; line-height: 20px; font-weight: 500; white-space: nowrap; }
+.harmony-statusbar-icons { width: 96px; height: 13px; position: relative; flex: 0 0 auto; }
+.harmony-statusbar-icon { position: absolute; display: block; background-repeat: no-repeat; background-position: center; background-size: 100% 100%; }
+.harmony-statusbar-icon-wifi { left: 0.4px; top: 0.8px; width: 15.34px; height: 12px; background-image: url("../../../assets/statusbar-wifi-light.png"); }
+.harmony-statusbar-icon-single-card { left: 21.4px; top: 0.8px; width: 21.5px; height: 12px; background-image: url("../../../assets/statusbar-single-card-light.png"); }
+.harmony-statusbar-icon-dual-card { left: 47.4px; top: 0.8px; width: 17.5px; height: 12px; background-image: url("../../../assets/statusbar-dual-card-light.png"); }
+.harmony-statusbar-icon-battery { left: 70.25px; top: 0; width: 25.75px; height: 13px; background-image: url("../../../assets/statusbar-battery-light.png"); }
+
+/* ====== TITLEBAR (normal 变体 / 浮层) ====== */
+.harmony-titlebar {
+  position: absolute; top: 0; left: 0; width: 360px; height: 124px; z-index: 10;
+  overflow: hidden; color: rgba(0,0,0,0.898);
+  font-family: "HarmonyOS Sans SC","HarmonyOS Sans","HarmonyHeiTi","Noto Sans SC",sans-serif;
+  pointer-events: none;
+}
+.harmony-titlebar::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(241,243,245,0.8) 0%, rgba(241,243,245,0.8) 30%, rgba(241,243,245,0.79) 38.5%,
+    rgba(241,243,245,0.74) 51.1%, rgba(241,243,245,0.65) 59.3%, rgba(241,243,245,0.53) 67.5%,
+    rgba(241,243,245,0.32) 76.4%, rgba(241,243,245,0.12) 85.7%, rgba(241,243,245,0) 100%);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-mask-image: linear-gradient(to bottom,rgba(0,0,0,1) 0%,rgba(0,0,0,0.95) 35%,rgba(0,0,0,0.82) 55%,rgba(0,0,0,0.55) 70%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to bottom,rgba(0,0,0,1) 0%,rgba(0,0,0,0.95) 35%,rgba(0,0,0,0.82) 55%,rgba(0,0,0,0.55) 70%,rgba(0,0,0,0.2) 85%,rgba(0,0,0,0) 100%);
+  z-index: 0; pointer-events: none;
+}
+.harmony-titlebar > * { position: relative; z-index: 1; pointer-events: auto; }
+.harmony-titlebar__content { position: relative; width: 360px; height: 88px; }
+.harmony-titlebar__title { position: absolute; left: 16px; top: 19px; width: 184px; height: 35px; margin: 0; font-size: 26px; line-height: 35px; font-weight: 700; color: rgba(0,0,0,0.898); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: 0; }
+.harmony-titlebar__actions { position: absolute; top: 12px; right: 16px; display: flex; align-items: center; gap: 8px; }
+.harmony-titlebar__action-btn { width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; flex: 0 0 40px; display: flex; align-items: center; justify-content: center; color: rgba(0,0,0,0.898); background: rgba(255,255,255,0.88); box-shadow: 0 8px 48px rgba(0,0,0,0.08); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); appearance: none; -webkit-appearance: none; cursor: pointer; transition: background 0.15s ease; }
+.harmony-titlebar__action-btn:hover { background: rgba(255,255,255,0.96); }
+.harmony-titlebar__action-btn:active { background: linear-gradient(var(--harmony-interactive-pressed), var(--harmony-interactive-pressed)), rgba(255,255,255,0.88); }
+
+/* ====== LAYOUT CONTENT ====== */
+.layout-content {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  padding-top: 96px; padding-bottom: 113px;
+  scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+}
+.layout-content::-webkit-scrollbar { display: none; }
+
+/* ====== SEARCH BAR (内容区首项 / z-index:30) ====== */
+.layout-search-bar { position: relative; width: 328px; height: 40px; margin: 0 auto 16px; z-index: 30; }
+.harmony-search { position: relative; display: inline-flex; align-items: center; gap: 8px; width: 328px; height: 40px; padding: 8px 12px; border: 0; border-radius: 24px; cursor: text; font-family: "HarmonyHeiTi","HarmonyOS Sans SC","HarmonyOS Sans","Noto Sans SC",sans-serif; font-size: 16px; line-height: 22px; color: var(--harmony-font-primary); background: rgba(255,255,255,0.4), rgba(255,255,255,0.15); background-blend-mode: normal, plus-lighter; box-shadow: 0 4px 48px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.25); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); -webkit-tap-highlight-color: transparent; outline: none; }
+.harmony-search__overlay { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.harmony-search__icon { flex-shrink: 0; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; color: var(--harmony-font-secondary); }
+.harmony-search__text { flex: 1; min-width: 0; font-size: 16px; line-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.harmony-search__text--placeholder { color: var(--harmony-font-secondary); font-weight: 400; }
+
+/* ====== ADDRESS BAR ====== */
+.address-bar {
+  display: flex; align-items: center; gap: 8px; width: var(--harmony-page-content-width-mobile);
+  margin: 0 auto var(--harmony-space-12); padding: 12px var(--harmony-space-16);
+  background: var(--harmony-comp-background-primary);
+  border-radius: var(--harmony-radius-16);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  flex-shrink: 0;
+}
+.address-bar__icon-loc { color: var(--fm-brand); flex-shrink: 0; }
+.address-bar__info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.address-bar__label { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--harmony-font-primary); }
+.address-bar__addr { font-size: 11px; line-height: 15px; font-weight: 400; color: var(--harmony-font-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.address-bar__arrow { color: var(--harmony-font-fourth); flex-shrink: 0; }
+
+/* ====== SECTION HEADER ====== */
+.section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  width: var(--harmony-page-content-width-mobile); height: 48px;
+  margin: 0 auto; padding: 0; flex-shrink: 0;
+}
+.section-header__title { font-size: 16px; line-height: 22px; font-weight: 500; color: var(--harmony-font-primary); }
+.section-header__more { display: flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; font-weight: 400; color: var(--harmony-font-tertiary); background: none; border: 0; padding: 4px 0; cursor: pointer; appearance: none; -webkit-appearance: none; font-family: inherit; }
+.section-header__more .hm { font-size: 12px; width: 12px; height: 12px; }
+
+/* ====== BANNER CAROUSEL ====== */
+.banner-scroll {
+  width: 360px; margin: 0 0 var(--harmony-space-12); overflow-x: auto; scrollbar-width: none; flex-shrink: 0;
+}
+.banner-scroll::-webkit-scrollbar { display: none; }
+.banner-scroll__inner { display: flex; gap: var(--harmony-space-12); padding-inline: var(--harmony-page-padding-mobile); }
+.banner-card {
+  width: 328px; height: 140px; flex-shrink: 0; border-radius: var(--harmony-radius-16);
+  overflow: hidden; position: relative; display: flex; align-items: flex-end; padding: 16px;
+}
+.banner-card--orange { background: linear-gradient(135deg, rgba(255,140,0,0.9) 0%, rgba(255,80,0,0.95) 100%); }
+.banner-card--purple { background: linear-gradient(135deg, rgba(136,60,235,0.85) 0%, rgba(90,30,200,0.9) 100%); }
+.banner-card__info { display: flex; flex-direction: column; gap: 4px; }
+.banner-card__tag { display: inline-flex; align-items: center; background: rgba(255,255,255,0.25); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 500; color: var(--harmony-font-on-primary); width: fit-content; }
+.banner-card__title { font-size: 18px; line-height: 24px; font-weight: 700; color: var(--harmony-font-on-primary); }
+.banner-card__sub { font-size: 12px; line-height: 16px; color: rgba(255,255,255,0.75); }
+.banner-dots { display: flex; gap: 6px; justify-content: center; margin: 0 auto 8px; }
+.banner-dot { width: 6px; height: 6px; border-radius: 3px; background: rgba(0,0,0,0.2); border: 0; padding: 0; cursor: pointer; }
+.banner-dot--active { width: 16px; background: var(--fm-brand); }
+
+/* ====== CATEGORY GRID ====== */
+.cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--harmony-space-12); width: var(--harmony-page-content-width-mobile); margin: 0 auto var(--harmony-space-16); flex-shrink: 0; }
+.cat-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; border: 0; background: none; padding: 4px 0; font-family: inherit; appearance: none; -webkit-appearance: none; }
+.cat-item__icon { width: 48px; height: 48px; border-radius: var(--harmony-radius-12); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.cat-item__icon--orange { background: var(--fm-brand-light); }
+.cat-item__icon--blue { background: rgba(10,89,247,0.1); }
+.cat-item__icon--green { background: rgba(52,199,89,0.1); }
+.cat-item__icon--purple { background: rgba(136,60,235,0.1); }
+.cat-item__icon--pink { background: rgba(255,45,85,0.1); }
+.cat-item__label { font-size: 11px; line-height: 15px; font-weight: 400; color: var(--harmony-font-secondary); text-align: center; }
+
+/* ====== RESTAURANT CARD ====== */
+.restaurant-list { width: var(--harmony-page-content-width-mobile); margin: 0 auto var(--harmony-space-16); display: flex; flex-direction: column; gap: var(--harmony-space-12); }
+.restaurant-card { display: flex; gap: var(--harmony-space-12); padding: 12px; border-radius: var(--harmony-radius-16); background: var(--harmony-comp-background-primary); box-shadow: 0 1px 4px rgba(0,0,0,0.04); cursor: pointer; flex-shrink: 0; }
+.restaurant-card__cover { width: 88px; height: 88px; border-radius: var(--harmony-radius-12); flex-shrink: 0; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+.restaurant-card__cover-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+.restaurant-card__cover--orange { background: rgba(255,102,0,0.08); color: var(--fm-brand); }
+.restaurant-card__cover--red { background: rgba(255,45,85,0.08); color: rgba(255,45,85,1); }
+.restaurant-card__cover--green { background: rgba(52,199,89,0.08); color: rgba(52,199,89,1); }
+.restaurant-card__cover--yellow { background: rgba(255,179,0,0.08); color: rgba(255,179,0,1); }
+.restaurant-card__cover--purple { background: rgba(136,60,235,0.08); color: rgba(136,60,235,1); }
+.restaurant-card__info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.restaurant-card__name { font-size: 15px; line-height: 21px; font-weight: 500; color: var(--harmony-font-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.restaurant-card__meta { display: flex; align-items: center; gap: 6px; }
+.restaurant-card__star { font-size: 11px; line-height: 15px; font-weight: 500; color: var(--fm-brand); }
+.restaurant-card__sales { font-size: 11px; line-height: 15px; font-weight: 400; color: var(--harmony-font-tertiary); }
+.restaurant-card__tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.restaurant-card__tag-item { padding: 2px 6px; border-radius: 4px; font-size: 10px; line-height: 14px; font-weight: 400; white-space: nowrap; }
+.restaurant-card__tag-item--brand { background: var(--fm-brand-008); color: var(--fm-brand); }
+.restaurant-card__tag-item--gray { background: var(--harmony-interactive-hover); color: var(--harmony-font-tertiary); }
+.restaurant-card__bottom { display: flex; align-items: center; justify-content: space-between; }
+.restaurant-card__deliver { display: flex; align-items: center; gap: 4px; font-size: 11px; line-height: 15px; color: var(--harmony-font-fourth); }
+.restaurant-card__discount { font-size: 11px; line-height: 15px; font-weight: 500; color: rgba(255,45,85,1); }
+
+/* ====== PROMO STRIP ====== */
+.promo-strip { width: var(--harmony-page-content-width-mobile); margin: 0 auto var(--harmony-space-16); display: flex; gap: var(--harmony-space-12); flex-shrink: 0; }
+.promo-card { flex: 1; height: 72px; border-radius: var(--harmony-radius-12); padding: 12px; display: flex; flex-direction: column; justify-content: center; gap: 4px; position: relative; overflow: hidden; }
+.promo-card--orange { background: linear-gradient(135deg, rgba(255,140,0,0.15) 0%, rgba(255,102,0,0.08) 100%); }
+.promo-card--blue { background: linear-gradient(135deg, rgba(10,89,247,0.1) 0%, rgba(10,89,247,0.05) 100%); }
+.promo-card__title { font-size: 14px; line-height: 19px; font-weight: 600; color: var(--harmony-font-primary); }
+.promo-card__sub { font-size: 11px; line-height: 15px; font-weight: 400; color: var(--harmony-font-tertiary); }
+
+/* ====== BOTTOMTAB (浮层 / 4-tab) ====== */
+.harmony-bottomtab {
+  position: absolute; bottom: 0; left: 0; width: 360px; height: 100px; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  overflow: hidden; font-family: "HarmonyOS Sans SC","HarmonyOS Sans","HarmonyHeiTi","Noto Sans SC",sans-serif;
+  box-sizing: border-box; pointer-events: none;
+}
+.harmony-bottomtab::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(241,243,245,0) 0%, rgba(241,243,245,0.0017) 11.8%, rgba(241,243,245,0.0065) 21.4%,
+    rgba(241,243,245,0.0141) 29.1%, rgba(241,243,245,0.0241) 35.3%, rgba(241,243,245,0.0363) 40.4%,
+    rgba(241,243,245,0.0502) 44.6%, rgba(241,243,245,0.0656) 48.2%, rgba(241,243,245,0.0821) 51.8%,
+    rgba(241,243,245,0.0994) 55.4%, rgba(241,243,245,0.117) 59.6%, rgba(241,243,245,0.1348) 64.7%,
+    rgba(241,243,245,0.1523) 70.9%, rgba(241,243,245,0.1693) 78.6%, rgba(241,243,245,0.1853) 88.2%,
+    rgba(241,243,245,0.2) 100%);
+  pointer-events: none;
+}
+.harmony-bottomtab__bar {
+  height: 56px; border-radius: 100px; padding: 4px 12px;
+  display: flex; align-items: center; position: relative; z-index: 1; flex-shrink: 0;
+  background: rgba(255,255,255,0.15), rgba(255,255,255,0.4); background-blend-mode: plus-lighter;
+  box-shadow: 0 4px 48px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.25);
+  backdrop-filter: blur(80px); -webkit-backdrop-filter: blur(80px); pointer-events: auto;
+}
+.harmony-bottomtab__bar--4 { width: 328px; }
+.harmony-bottomtab__tabs { display: flex; align-items: center; justify-content: center; height: 48px; flex: 1; }
+.harmony-bottomtab__tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  height: 48px; flex: 1; cursor: pointer; border: 0; background: transparent; padding: 0;
+  color: rgba(0,0,0,0.898); font-family: inherit; transition: color 0.15s ease;
+  -webkit-tap-highlight-color: transparent; appearance: none; -webkit-appearance: none; min-width: 0;
+}
+.harmony-bottomtab__tab:focus-visible { outline: 2px solid var(--fm-brand); outline-offset: -2px; border-radius: 8px; }
+.harmony-bottomtab__tab--active { color: var(--fm-brand); }
+.harmony-bottomtab__tab:disabled, .harmony-bottomtab__tab[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+.harmony-bottomtab__tab-icon { font-family: "HM Symbol-Regular","HarmonyOS Sans SC",sans-serif; font-style: normal; font-weight: 400; font-size: 24px; line-height: 1; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: inherit; pointer-events: none; }
+.harmony-bottomtab__tab-label { font-family: "HarmonyHeiTi","HarmonyOS Sans SC",sans-serif; font-size: 10px; font-weight: 500; line-height: 14px; color: inherit; pointer-events: none; white-space: nowrap; }
+.harmony-bottomtab__indicator { width: 360px; height: 28px; display: flex; justify-content: center; align-items: center; flex-shrink: 0; position: relative; }
+.harmony-bottomtab__indicator-bar { width: 112px; height: 5px; border-radius: 2.5px; background: rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ====== TITLEBAR (浮层 / normal 变体) ====== -->
+  <div class="harmony-titlebar harmony-titlebar--normal" data-component="titlebar" data-figma-node-id="36:1715">
+    <div class="harmony-statusbar harmony-statusbar-light" data-component="statusbar" data-figma-node-id="36:3656">
+      <span class="harmony-statusbar-time">11:28</span>
+      <span class="harmony-statusbar-icons" aria-hidden="true">
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-wifi"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-single-card"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-dual-card"></i>
+        <i class="harmony-statusbar-icon harmony-statusbar-icon-battery"></i>
+      </span>
+    </div>
+    <div class="harmony-titlebar__content">
+      <h2 class="harmony-titlebar__title">美食外卖</h2>
+      <div class="harmony-titlebar__actions">
+        <!-- HMSymbol: doc_text (bell/notification not found, use doc_text for order icon) → check hmsymbol: bell not present -->
+        <!-- HMSymbol: magnifyingglass (F0029) → search action -->
+        <button class="harmony-titlebar__action-btn" type="button" aria-label="搜索">
+          <span class="hm hm-24" aria-hidden="true">&#xF0029;</span>
+        </button>
+        <!-- HMSymbol: house (F0A03) → storefront → not found; fallback: person F05E5 for profile -->
+        <button class="harmony-titlebar__action-btn" type="button" aria-label="我的">
+          <span class="hm hm-24" aria-hidden="true">&#xF05E5;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CONTENT ====== -->
+  <div class="layout-content">
+
+    <!-- Search Bar -->
+    <div class="layout-search-bar">
+      <div class="harmony-search" data-component="search" data-search="off" data-state="normal" data-figma-node-id="88:649">
+        <span class="harmony-search__overlay"></span>
+        <span class="harmony-search__icon"><span class="hm hm-18" aria-hidden="true">&#xF0029;</span></span>
+        <span class="harmony-search__text harmony-search__text--placeholder">搜索商家、美食或菜品</span>
+      </div>
+    </div>
+
+    <!-- Address Bar -->
+    <div class="address-bar">
+      <!-- HMSymbol: map (F0B07) → for location pin. hmsymbol has 'map' entry. -->
+      <span class="address-bar__icon-loc hm hm-18" aria-hidden="true">&#xF0B07;</span>
+      <div class="address-bar__info">
+        <span class="address-bar__label">送至</span>
+        <span class="address-bar__addr">北京市朝阳区望京 SOHO T1 6层</span>
+      </div>
+      <span class="address-bar__arrow hm hm-16" aria-hidden="true">&#xF0231;</span>
+    </div>
+
+    <!-- Banner Carousel -->
+    <div class="banner-scroll">
+      <div class="banner-scroll__inner">
+        <div class="banner-card banner-card--orange">
+          <div class="banner-card__info">
+            <span class="banner-card__tag">限时特惠</span>
+            <div class="banner-card__title">新人专享 · 首单立减 ¥20</div>
+            <div class="banner-card__sub">全场商家可用 · 限今日</div>
+          </div>
+        </div>
+        <div class="banner-card banner-card--purple">
+          <div class="banner-card__info">
+            <span class="banner-card__tag">品质优选</span>
+            <div class="banner-card__title">品牌馆 · 品质好店</div>
+            <div class="banner-card__sub">精选 2000+ 品质商家</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner-dots">
+      <span class="banner-dot banner-dot--active"></span>
+      <span class="banner-dot"></span>
+    </div>
+
+    <!-- Category Grid -->
+    <div class="cat-grid">
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--orange hm-emoji" aria-hidden="true">&#x1F969;</span><span class="cat-item__label">美食</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--blue hm-emoji" aria-hidden="true">&#x1F37A;</span><span class="cat-item__label">饮品</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--green hm-emoji" aria-hidden="true">&#x1F34E;</span><span class="cat-item__label">水果</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--purple hm-emoji" aria-hidden="true">&#x1F3EA;</span><span class="cat-item__label">超市</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--pink hm-emoji" aria-hidden="true">&#x1F382;</span><span class="cat-item__label">蛋糕</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--orange hm-emoji" aria-hidden="true">&#x1F35C;</span><span class="cat-item__label">日料</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--green hm-emoji" aria-hidden="true">&#x1F963;</span><span class="cat-item__label">轻食</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--blue hm-emoji" aria-hidden="true">&#x1F355;</span><span class="cat-item__label">披萨</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--purple hm-emoji" aria-hidden="true">&#x1F406;</span><span class="cat-item__label">麻辣</span></button>
+      <button class="cat-item"><span class="cat-item__icon cat-item__icon--pink hm-emoji" aria-hidden="true">&#x1F354;</span><span class="cat-item__label">汉堡</span></button>
+    </div>
+
+    <!-- Promo Strip -->
+    <div class="promo-strip">
+      <div class="promo-card promo-card--orange">
+        <div class="promo-card__title">领红包</div>
+        <div class="promo-card__sub">每日领最高 ¥15</div>
+      </div>
+      <div class="promo-card promo-card--blue">
+        <div class="promo-card__title">签到有礼</div>
+        <div class="promo-card__sub">连续签到兑好物</div>
+      </div>
+    </div>
+
+    <!-- Section: 附近商家 -->
+    <div class="section-header">
+      <span class="section-header__title">附近商家</span>
+      <button class="section-header__more" type="button">
+        查看全部
+        <span class="hm" aria-hidden="true">&#xF0231;</span>
+      </button>
+    </div>
+
+    <div class="restaurant-list">
+      <!-- Restaurant 1 -->
+      <div class="restaurant-card" role="button" tabindex="0">
+        <div class="restaurant-card__cover restaurant-card__cover--orange">
+          <span class="restaurant-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F35A;</span>
+        </div>
+        <div class="restaurant-card__info">
+          <div class="restaurant-card__name">老长沙口味馆</div>
+          <div class="restaurant-card__meta">
+            <span class="restaurant-card__star">★ 4.8</span>
+            <span class="restaurant-card__sales">月售 2886</span>
+          </div>
+          <div class="restaurant-card__tags">
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--brand">品牌</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">湘菜</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">辣</span>
+          </div>
+          <div class="restaurant-card__bottom">
+            <span class="restaurant-card__deliver">🛵 约 28 分钟 · ¥3.5 配送费</span>
+            <span class="restaurant-card__discount">满 25 减 10</span>
+          </div>
+        </div>
+      </div>
+      <!-- Restaurant 2 -->
+      <div class="restaurant-card" role="button" tabindex="0">
+        <div class="restaurant-card__cover restaurant-card__cover--red">
+          <span class="restaurant-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F356;</span>
+        </div>
+        <div class="restaurant-card__info">
+          <div class="restaurant-card__name">韩式烤肉名家</div>
+          <div class="restaurant-card__meta">
+            <span class="restaurant-card__star">★ 4.9</span>
+            <span class="restaurant-card__sales">月售 4238</span>
+          </div>
+          <div class="restaurant-card__tags">
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--brand">品牌</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">韩餐</span>
+          </div>
+          <div class="restaurant-card__bottom">
+            <span class="restaurant-card__deliver">🛵 约 35 分钟 · 免配送费</span>
+            <span class="restaurant-card__discount">满 50 减 20</span>
+          </div>
+        </div>
+      </div>
+      <!-- Restaurant 3 -->
+      <div class="restaurant-card" role="button" tabindex="0">
+        <div class="restaurant-card__cover restaurant-card__cover--green">
+          <span class="restaurant-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F35D;</span>
+        </div>
+        <div class="restaurant-card__info">
+          <div class="restaurant-card__name">意面工坊</div>
+          <div class="restaurant-card__meta">
+            <span class="restaurant-card__star">★ 4.7</span>
+            <span class="restaurant-card__sales">月售 1856</span>
+          </div>
+          <div class="restaurant-card__tags">
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">西餐</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">意大利</span>
+          </div>
+          <div class="restaurant-card__bottom">
+            <span class="restaurant-card__deliver">🛵 约 22 分钟 · ¥2.0 配送费</span>
+            <span class="restaurant-card__discount">满 30 减 8</span>
+          </div>
+        </div>
+      </div>
+      <!-- Restaurant 4 -->
+      <div class="restaurant-card" role="button" tabindex="0">
+        <div class="restaurant-card__cover restaurant-card__cover--yellow">
+          <span class="restaurant-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F36F;</span>
+        </div>
+        <div class="restaurant-card__info">
+          <div class="restaurant-card__name">蜜雪时光·港式甜品</div>
+          <div class="restaurant-card__meta">
+            <span class="restaurant-card__star">★ 4.6</span>
+            <span class="restaurant-card__sales">月售 5216</span>
+          </div>
+          <div class="restaurant-card__tags">
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--brand">品牌</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">甜品</span>
+          </div>
+          <div class="restaurant-card__bottom">
+            <span class="restaurant-card__deliver">🛵 约 18 分钟 · 免配送费</span>
+            <span class="restaurant-card__discount">满 20 减 6</span>
+          </div>
+        </div>
+      </div>
+      <!-- Restaurant 5 -->
+      <div class="restaurant-card" role="button" tabindex="0">
+        <div class="restaurant-card__cover restaurant-card__cover--purple">
+          <span class="restaurant-card__cover-placeholder hm-emoji" aria-hidden="true">&#x1F35B;</span>
+        </div>
+        <div class="restaurant-card__info">
+          <div class="restaurant-card__name">和番日式咖喱</div>
+          <div class="restaurant-card__meta">
+            <span class="restaurant-card__star">★ 4.8</span>
+            <span class="restaurant-card__sales">月售 1624</span>
+          </div>
+          <div class="restaurant-card__tags">
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--brand">品牌</span>
+            <span class="restaurant-card__tag-item restaurant-card__tag-item--gray">日料</span>
+          </div>
+          <div class="restaurant-card__bottom">
+            <span class="restaurant-card__deliver">🛵 约 25 分钟 · ¥4.0 配送费</span>
+            <span class="restaurant-card__discount">满 35 减 12</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 8px;"></div>
+
+  </div>
+
+  <!-- ====== BOTTOMTAB (浮层 / 4-tab) ====== -->
+  <nav class="harmony-bottomtab" data-component="bottomtab" data-variant="4" data-figma-node-id="52:17585" aria-label="底部导航">
+    <div class="harmony-bottomtab__bar harmony-bottomtab__bar--4">
+      <div class="harmony-bottomtab__tabs">
+        <!-- Tab 1: 首页 (Active) -->
+        <button class="harmony-bottomtab__tab harmony-bottomtab__tab--active" type="button" aria-pressed="true">
+          <!-- HMSymbol: house (not found exactly, use square_grid_2x2 F00E3) → use house F0A03 that exists -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF00E3;</span>
+          <span class="harmony-bottomtab__tab-label">首页</span>
+        </button>
+        <!-- Tab 2: 订单 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: doc_text (F03A0) — document/order list -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF000A;</span>
+          <span class="harmony-bottomtab__tab-label">订单</span>
+        </button>
+        <!-- Tab 3: 消息 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: paperplane (F0011) — message/notification -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF0011;</span>
+          <span class="harmony-bottomtab__tab-label">消息</span>
+        </button>
+        <!-- Tab 4: 我的 -->
+        <button class="harmony-bottomtab__tab" type="button" aria-pressed="false">
+          <!-- HMSymbol: person (F05E5) -->
+          <span class="harmony-bottomtab__tab-icon" aria-hidden="true">&#xF05E5;</span>
+          <span class="harmony-bottomtab__tab-label">我的</span>
+        </button>
+      </div>
+    </div>
+    <div class="harmony-bottomtab__indicator">
+      <div class="harmony-bottomtab__indicator-bar"></div>
+    </div>
+  </nav>
+
+</div>
+
+</body>
+</html>

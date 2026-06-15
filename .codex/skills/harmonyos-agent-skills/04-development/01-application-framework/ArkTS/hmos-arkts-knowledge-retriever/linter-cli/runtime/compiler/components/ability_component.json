@@ -1,0 +1,6 @@
+{
+  "name": "AbilityComponent",
+  "attrs": ["onReady", "onDestroy", "onAbilityCreated", "onAbilityMoveToFront", "onAbilityWillRemove", "onConnect", "onDisconnect"],
+  "atomic": true,
+  "systemApi": true
+}

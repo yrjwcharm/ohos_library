@@ -1,0 +1,466 @@
+[
+  {
+    "api_name": "avSession.createAVSession",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::CreateAVSession",
+    "impl_func": "AVSessionManager::GetInstance().CreateSession",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "创建媒体会话，需传入context、tag和type三个参数。内部调用AVSessionManagerImpl::CreateSession，通过IPC转发到服务端AVSessionService::CreateSession。"
+  },
+  {
+    "api_name": "avSession.getAVSession",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetAVSession",
+    "impl_func": "AVSessionManager::GetInstance().GetSession",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "根据ElementName获取已有的AVSession实例。内部调用AVSessionManagerImpl::GetSession，通过IPC到服务端查询。"
+  },
+  {
+    "api_name": "avSession.getAllSessionDescriptors",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetAllSessionDescriptors",
+    "impl_func": "AVSessionManager::GetInstance().GetAllSessionDescriptors",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "获取系统所有会话描述符列表。需要ohos.permission.MANAGE_MEDIA_RESOURCES权限。"
+  },
+  {
+    "api_name": "avSession.getSessionDescriptors",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetSessionDescriptors",
+    "impl_func": "AVSessionManager::GetInstance().GetSessionDescriptors",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "按类别获取会话描述符列表（支持CATEGORY_ACTIVE/CATEGORY_ALL过滤）。"
+  },
+  {
+    "api_name": "avSession.getHistoricalSessionDescriptors",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetHistoricalSessionDescriptors",
+    "impl_func": "AVSessionManager::GetInstance().GetHistoricalSessionDescriptors",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "获取历史会话描述符，maxSize范围为0-10或特殊值52225（媒体控制中心）。"
+  },
+  {
+    "api_name": "avSession.getHistoricalAVQueueInfos",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetHistoricalAVQueueInfos",
+    "impl_func": "AVSessionManager::GetInstance().GetHistoricalAVQueueInfos",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "获取历史媒体队列信息，需传入maxSize和maxAppSize参数。"
+  },
+  {
+    "api_name": "avSession.startAVPlayback",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StartAVPlayback",
+    "impl_func": "AVSessionManager::GetInstance().StartAVPlayback",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "启动指定应用的媒体播放，需传入bundleName、assetId和可选的moduleName。"
+  },
+  {
+    "api_name": "avSession.createController",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::CreateController",
+    "impl_func": "AVSessionManager::GetInstance().CreateController",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "根据sessionId创建会话控制器。若控制器已存在，返回已有实例(RepeatedInstance)。"
+  },
+  {
+    "api_name": "avSession.getAVCastController",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetAVCastController",
+    "impl_func": "AVSessionManager::GetInstance().GetAVCastController",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "获取投播控制器实例。需CASTPLUS_CAST_ENGINE_ENABLE编译宏开启。"
+  },
+  {
+    "api_name": "avSession.castAudio",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::CastAudio",
+    "impl_func": "AVSessionManager::GetInstance().CastAudio / CastAudioForAll",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "音频投播，支持单个会话投播(CastAudio)或全部会话投播(CastAudioForAll，第一个参数为'all'字符串时)。"
+  },
+  {
+    "api_name": "avSession.sendSystemAVKeyEvent",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::SendSystemAVKeyEvent",
+    "impl_func": "AVSessionManager::GetInstance().SendSystemAVKeyEvent",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "发送系统媒体按键事件。内部校验keyEvent有效性后通过IPC转发到服务端。"
+  },
+  {
+    "api_name": "avSession.sendSystemControlCommand",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::SendSystemControlCommand",
+    "impl_func": "AVSessionManager::GetInstance().SendSystemControlCommand",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "发送系统媒体控制命令(play/pause/stop/next/previous/seek等)。内部通过NapiControlCommand解析命令参数。"
+  },
+  {
+    "api_name": "avSession.startCastDeviceDiscovery",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StartCastDiscovery",
+    "impl_func": "AVSessionManager::GetInstance().StartCastDiscovery",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "启动投播设备发现。需CASTPLUS_CAST_ENGINE_ENABLE宏。支持传入castDeviceCapability和drmSchemes参数。"
+  },
+  {
+    "api_name": "avSession.stopCastDeviceDiscovery",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StopCastDiscovery",
+    "impl_func": "AVSessionManager::GetInstance().StopCastDiscovery",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "停止投播设备发现。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avSession.setDiscoverable",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::SetDiscoverable",
+    "impl_func": "AVSessionManager::GetInstance().SetDiscoverable",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "设置设备是否可被发现。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avSession.startCasting",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StartCast",
+    "impl_func": "AVSessionManager::GetInstance().StartCast",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "启动投播，需传入sessionToken和outputDeviceInfo。需CASTPLUS_CAST_ENGINE_ENABLE宏。包含完整的雷达信息上报逻辑。"
+  },
+  {
+    "api_name": "avSession.stopCasting",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StopCast",
+    "impl_func": "AVSessionManager::GetInstance().StopCast",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "停止投播。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avSession.startDeviceLogging",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StartDeviceLogging",
+    "impl_func": "AVSessionManager::GetInstance().StartDeviceLogging",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "启动设备日志记录，需传入fd和maxSize参数。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avSession.stopDeviceLogging",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::StopDeviceLogging",
+    "impl_func": "AVSessionManager::GetInstance().StopDeviceLogging",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "停止设备日志记录。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avSession.getDistributedSessionController",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::GetDistributedSessionControllers",
+    "impl_func": "AVSessionManager::GetInstance().GetDistributedSessionControllers",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "获取分布式会话控制器，支持按DistributedSessionType过滤(TYPE_SESSION_REMOTE/TYPE_SESSION_MIGRATE_IN)。"
+  },
+  {
+    "api_name": "avSession.isDesktopLyricSupported",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::IsDesktopLyricSupported",
+    "impl_func": "AVSessionManager::GetInstance().IsDesktopLyricSupported",
+    "impl_file": "frameworks/native/session/src/avsession_manager_impl.cpp",
+    "description": "查询设备是否支持桌面歌词功能。"
+  },
+  {
+    "api_name": "avSession.on('sessionCreate'|'sessionDestroy'|'topSessionChange'|'sessionServiceDie'|'deviceAvailable'|'deviceLogEvent'|'deviceOffline'|'deviceStateChanged')",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::OnEvent",
+    "impl_func": "NapiSessionListener::AddCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_manager.cpp",
+    "description": "注册会话管理器级别的事件监听。通过RegisterNativeSessionListener注册底层监听器，支持sessionCreate/sessionDestroy/topSessionChange/sessionServiceDie/deviceAvailable/deviceLogEvent/deviceOffline/deviceStateChanged等事件。"
+  },
+  {
+    "api_name": "avSession.off(...)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::OffEvent",
+    "impl_func": "NapiSessionListener::RemoveCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_manager.cpp",
+    "description": "取消注册会话管理器级别的事件监听。"
+  },
+  {
+    "api_name": "avSession.on('distributedSessionChange')",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::OnDistributedSessionChangeEvent",
+    "impl_func": "NapiSessionListener::AddCallback (EVENT_REMOTE_DISTRIBUTED_SESSION_CHANGED)",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_manager.cpp",
+    "description": "注册分布式会话变更事件监听，需传入sessionType参数(TYPE_SESSION_REMOTE/TYPE_SESSION_MIGRATE_IN)。"
+  },
+  {
+    "api_name": "avSession.onActiveSessionChanged",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::OnActiveSessionChanged",
+    "impl_func": "NapiSessionListener::AddCallback (EVENT_ACTIVE_SESSION_CHANGED)",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_manager.cpp",
+    "description": "注册活跃会话变更事件监听。需要ohos.permission.MANAGE_MEDIA_RESOURCES权限。"
+  },
+  {
+    "api_name": "avSession.onSessionCreate / onSessionDestroy / onTopSessionChange",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionManager::OnSessionEvent",
+    "impl_func": "NapiSessionListener::AddCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_manager.cpp",
+    "description": "注册会话创建/销毁/置顶变更事件。需要system+media_resources_public权限。"
+  },
+  {
+    "api_name": "avsession.setAVMetadata",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetAVMetaData",
+    "impl_func": "AVSession::SetAVMetaData",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "设置媒体元数据（标题、作者、专辑、时长等）。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.setAVPlaybackState",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetAVPlaybackState",
+    "impl_func": "AVSession::SetAVPlaybackState",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "设置播放状态（播放/暂停/缓冲状态、进度、速度等）。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.activate",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::Activate",
+    "impl_func": "AVSession::Activate",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "激活当前会话，激活后才能接收控制命令。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.deactivate",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::Deactivate",
+    "impl_func": "AVSession::Deactivate",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "去激活当前会话。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.destroy",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::Destroy",
+    "impl_func": "AVSession::Destroy",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "销毁当前会话并释放资源。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.getController",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::GetController",
+    "impl_func": "AVSession::GetController",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "获取当前会话的控制器。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.getOutputDevice",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::GetOutputDevice",
+    "impl_func": "AVSession::GetOutputDevice",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "获取当前音频输出设备信息。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.setLaunchAbility",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetLaunchAbility",
+    "impl_func": "AVSession::SetLaunchAbility",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "设置点击媒体通知时启动的Ability。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.setAVQueueItems / setAVQueueTitle",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetAVQueueItems / SetAVQueueTitle",
+    "impl_func": "AVSession::SetAVQueueItems / SetAVQueueTitle",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "设置媒体队列列表和队列标题。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.setExtras",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetExtras",
+    "impl_func": "AVSession::SetExtras",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "设置自定义扩展数据。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.dispatchSessionEvent",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SetSessionEvent",
+    "impl_func": "AVSession::SetSessionEvent",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "分发自定义会话事件。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.sendCustomData",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::SendCustomData",
+    "impl_func": "AVSession::SendCustomData",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "发送自定义数据。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.stopCasting (instance)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::ReleaseCast",
+    "impl_func": "AVSession::ReleaseCast",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "AVSession实例方法，停止当前会话的投播。"
+  },
+  {
+    "api_name": "avsession.getAVCastController (instance)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::GetAVCastController",
+    "impl_func": "AVSession::GetAVCastController",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "AVSession实例方法，获取投播控制器。需CASTPLUS_CAST_ENGINE_ENABLE宏。"
+  },
+  {
+    "api_name": "avsession.enableDesktopLyric",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::EnableDesktopLyric",
+    "impl_func": "AVSession::EnableDesktopLyric",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "启用桌面歌词。AVSession实例方法。"
+  },
+  {
+    "api_name": "avsession.on('play'|'pause'|'stop'|'playNext'|'playPrevious'|...)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::OnEvent",
+    "impl_func": "NapiAVSessionCallback::AddCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "AVSession实例方法，注册会话控制回调事件(play/pause/stop/playNext/playPrevious/fastForward/rewind/seek/setSpeed/setLoopMode/toggleFavorite/handleKeyEvent/outputDeviceChange/commonCommand/skipToQueueItem/answer/hangUp/toggleCallMute/playFromAssetId/castDisplayChange/customDataChange)。"
+  },
+  {
+    "api_name": "avsession.off('play'|'pause'|'stop'|...)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSession::OffEvent",
+    "impl_func": "NapiAVSessionCallback::RemoveCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession.cpp",
+    "description": "AVSession实例方法，取消注册会话控制回调事件。"
+  },
+  {
+    "api_name": "controller.getAVPlaybackState",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetAVPlaybackState",
+    "impl_func": "AVSessionController::GetAVPlaybackState",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取播放状态。"
+  },
+  {
+    "api_name": "controller.getAVMetadata",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetAVMetaData",
+    "impl_func": "AVSessionController::GetAVMetaData",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取媒体元数据。"
+  },
+  {
+    "api_name": "controller.sendControlCommand",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::SendControlCommand",
+    "impl_func": "AVSessionController::SendControlCommand",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，发送控制命令到会话被控端。"
+  },
+  {
+    "api_name": "controller.sendAVKeyEvent",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::SendAVKeyEvent",
+    "impl_func": "AVSessionController::SendAVKeyEvent",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，发送按键事件到会话被控端。"
+  },
+  {
+    "api_name": "controller.isActive",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::IsSessionActive",
+    "impl_func": "AVSessionController::IsSessionActive",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，查询会话是否激活。"
+  },
+  {
+    "api_name": "controller.getValidCommands",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetValidCommands",
+    "impl_func": "AVSessionController::GetValidCommands",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取会话支持的有效命令列表。"
+  },
+  {
+    "api_name": "controller.destroy",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::Destroy",
+    "impl_func": "AVSessionController::Destroy",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，销毁控制器。"
+  },
+  {
+    "api_name": "controller.getOutputDevice",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetOutputDevice",
+    "impl_func": "AVSessionController::GetOutputDevice",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取输出设备信息。"
+  },
+  {
+    "api_name": "controller.sendCommonCommand",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::SendCommonCommand",
+    "impl_func": "AVSessionController::SendCommonCommand",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，发送自定义控制命令。"
+  },
+  {
+    "api_name": "controller.skipToQueueItem",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::SkipToQueueItem",
+    "impl_func": "AVSessionController::SkipToQueueItem",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，跳转到指定队列项。"
+  },
+  {
+    "api_name": "controller.getAVQueueItems / getAVQueueTitle",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetAVQueueItems / GetAVQueueTitle",
+    "impl_func": "AVSessionController::GetAVQueueItems / GetAVQueueTitle",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取媒体队列列表和标题。"
+  },
+  {
+    "api_name": "controller.getExtras",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::GetExtras",
+    "impl_func": "AVSessionController::GetExtras",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，获取扩展数据。"
+  },
+  {
+    "api_name": "controller.sendCustomData",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::SendCustomData",
+    "impl_func": "AVSessionController::SendCustomData",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，发送自定义数据。"
+  },
+  {
+    "api_name": "controller.on('metadataChange'|'playbackStateChange'|'activeStateChange'|'validCommandChange'|'outputDeviceChange'|'sessionDestroy'|'sessionEvent'|'queueItemsChange'|'queueTitleChange'|'extrasChange'|'customDataChange'|...)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::OnEvent",
+    "impl_func": "NapiAVControllerCallback::AddCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，注册控制器事件监听(metadataChange/playbackStateChange/activeStateChange/validCommandChange/outputDeviceChange/sessionDestroy/sessionEvent/queueItemsChange/queueTitleChange/extrasChange/customDataChange等)。"
+  },
+  {
+    "api_name": "controller.off(...)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.avsession.d.ts",
+    "napi_func": "NapiAVSessionController::OffEvent",
+    "impl_func": "NapiAVControllerCallback::RemoveCallback",
+    "impl_file": "frameworks/js/napi/session/src/napi_avsession_controller.cpp",
+    "description": "AVSessionController实例方法，取消注册控制器事件监听。"
+  }
+]

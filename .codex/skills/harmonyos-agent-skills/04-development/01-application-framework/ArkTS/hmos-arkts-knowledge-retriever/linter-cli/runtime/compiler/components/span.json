@@ -1,0 +1,9 @@
+{
+  "name": "Span",
+  "parents": ["Text", "RichEditor", "ContainerSpan"],
+  "atomic": true,
+  "attrs": [
+    "fontColor", "fontSize", "fontStyle", "fontFamily", "fontWeight", "decoration", "letterSpacing",
+    "textCase","font", "textBackgroundStyle", "lineHeight", "textShadow", "baselineOffset"
+  ]
+}

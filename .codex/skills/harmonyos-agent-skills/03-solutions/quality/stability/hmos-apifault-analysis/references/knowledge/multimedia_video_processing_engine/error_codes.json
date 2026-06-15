@@ -1,0 +1,296 @@
+[
+  {
+    "code": "0",
+    "name": "IMAGE_PROCESSING_SUCCESS",
+    "message": "Operation is successful.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "图像处理操作成功。"
+  },
+  {
+    "code": "401",
+    "name": "IMAGE_PROCESSING_ERROR_INVALID_PARAMETER",
+    "message": "Input parameter is invalid. This error is returned for all of the following error conditions: 1 - Invalid input or output image buffer - The image buffer is null. 2 - Invalid parameter - The parameter is null. 3 - Invalid type - The type passed in the create function does not exist.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "输入参数无效。可能原因：(1) 图像缓冲区为空；(2) 参数指针为空；(3) 创建实例时传入的类型不存在。"
+  },
+  {
+    "code": "29200001",
+    "name": "IMAGE_PROCESSING_ERROR_UNKNOWN",
+    "message": "Some unknown error occurred, such as GPU calculation failure or memcpy failure.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "发生未知错误。例如 GPU 计算失败或内存拷贝失败。处理步骤：检查资源是否已初始化，检查内存是否有效。"
+  },
+  {
+    "code": "29200002",
+    "name": "IMAGE_PROCESSING_ERROR_INITIALIZE_FAILED",
+    "message": "The global environment initialization for image processing failed, such as failure to initialize the GPU environment.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "图像处理全局环境初始化失败。例如 GPU 环境初始化失败。处理步骤：查看 log 是否有 GPU 异常上报。"
+  },
+  {
+    "code": "29200003",
+    "name": "IMAGE_PROCESSING_ERROR_CREATE_FAILED",
+    "message": "Failed to create image processing instance. For example, the number of instances exceeds the upper limit.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "创建图像处理实例失败。例如实例数量超出上限。处理步骤：减少创建实例的数目。"
+  },
+  {
+    "code": "29200004",
+    "name": "IMAGE_PROCESSING_ERROR_PROCESS_FAILED",
+    "message": "Failed to process image buffer. For example, the processing times out.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "处理图像缓冲区失败。例如处理超时。处理步骤：减小负载。"
+  },
+  {
+    "code": "29200005",
+    "name": "IMAGE_PROCESSING_ERROR_UNSUPPORTED_PROCESSING",
+    "message": "The processing is not supported. You may call OH_ImageProcessing_IsXXXSupported to check whether the capability is supported.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "不支持该处理操作。建议调用 OH_ImageProcessing_IsXXXSupported 检查能力是否支持。处理步骤：检查 log 打印。"
+  },
+  {
+    "code": "29200006",
+    "name": "IMAGE_PROCESSING_ERROR_OPERATION_NOT_PERMITTED",
+    "message": "The operation is not permitted. This may be caused by incorrect status.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "操作不被允许。可能由于状态不正确。例如未调用 InitializeEnvironment 就调用 DeinitializeEnvironment，或尚有实例未销毁。处理步骤：检查 log 打印。"
+  },
+  {
+    "code": "29200007",
+    "name": "IMAGE_PROCESSING_ERROR_NO_MEMORY",
+    "message": "Out of memory.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "内存不足。处理步骤：减少内存申请。"
+  },
+  {
+    "code": "29200008",
+    "name": "IMAGE_PROCESSING_ERROR_INVALID_INSTANCE",
+    "message": "The image processing instance is invalid. This may be caused by null instance.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "图像处理实例无效。可能由于实例指针为空。处理步骤：检查实例的创建。"
+  },
+  {
+    "code": "29200009",
+    "name": "IMAGE_PROCESSING_ERROR_INVALID_VALUE",
+    "message": "Input value is invalid. This error is returned for all of the following error conditions: 1 - Invalid input or output image buffer - The image buffer width(height) is too large or colorspace is incorrect. 2 - Invalid parameter - The parameter does not contain valid information, such as detail enhancer level is incorrect.",
+    "source_file": "interfaces/kits/c/image_processing_types.h",
+    "description": "输入值无效。可能原因：(1) 图像缓冲区宽高过大或色彩空间不正确；(2) 参数不包含有效信息（如细节增强档位不正确）。处理步骤：检查输入输出的分辨率和色彩空间，检查是否配置了算法档位。"
+  },
+  {
+    "code": "0",
+    "name": "VIDEO_PROCESSING_SUCCESS",
+    "message": "Operation is successful.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "视频处理操作成功。"
+  },
+  {
+    "code": "401",
+    "name": "VIDEO_PROCESSING_ERROR_INVALID_PARAMETER",
+    "message": "Input parameter is invalid. This error is returned for all of the following error conditions: 1 - Invalid input or output video buffer - The video buffer is null. 2 - Invalid parameter - The parameter is null. 3 - Invalid type - The type passed in the create function does not exist.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "输入参数无效。可能原因：(1) 视频缓冲区为空；(2) 参数指针为空；(3) 创建实例时传入的类型不存在。"
+  },
+  {
+    "code": "29210001",
+    "name": "VIDEO_PROCESSING_ERROR_UNKNOWN",
+    "message": "Some unknown error occurred, such as GPU calculation failure or memcpy failure.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "发生未知错误。例如 GPU 计算失败或内存拷贝失败。"
+  },
+  {
+    "code": "29210002",
+    "name": "VIDEO_PROCESSING_ERROR_INITIALIZE_FAILED",
+    "message": "The global environment initialization for video processing failed, such as failure to initialize the GPU environment.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "视频处理全局环境初始化失败。例如 GPU 环境初始化失败。"
+  },
+  {
+    "code": "29210003",
+    "name": "VIDEO_PROCESSING_ERROR_CREATE_FAILED",
+    "message": "Failed to create video processing instance. For example, the number of instances exceeds the upper limit.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "创建视频处理实例失败。例如实例数量超出上限。"
+  },
+  {
+    "code": "29210004",
+    "name": "VIDEO_PROCESSING_ERROR_PROCESS_FAILED",
+    "message": "Failed to process video buffer. For example, the processing times out.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "处理视频缓冲区失败。例如处理超时。"
+  },
+  {
+    "code": "29210005",
+    "name": "VIDEO_PROCESSING_ERROR_UNSUPPORTED_PROCESSING",
+    "message": "The processing is not supported. You may call OH_VideoProcessing_IsXXXSupported to check whether the capability is supported.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "不支持该处理操作。建议调用 OH_VideoProcessing_IsXXXSupported 检查能力是否支持。"
+  },
+  {
+    "code": "29210006",
+    "name": "VIDEO_PROCESSING_ERROR_OPERATION_NOT_PERMITTED",
+    "message": "The operation is not permitted. This may be caused by incorrect status.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "操作不被允许。可能由于状态不正确。例如实例仍在运行时调用 Destroy，或未调用 InitializeEnvironment 就调用 DeinitializeEnvironment。"
+  },
+  {
+    "code": "29210007",
+    "name": "VIDEO_PROCESSING_ERROR_NO_MEMORY",
+    "message": "Out of memory.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "内存不足。"
+  },
+  {
+    "code": "29210008",
+    "name": "VIDEO_PROCESSING_ERROR_INVALID_INSTANCE",
+    "message": "The video processing instance is invalid. This may be caused by null instance.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "视频处理实例无效。可能由于实例指针为空。"
+  },
+  {
+    "code": "29210009",
+    "name": "VIDEO_PROCESSING_ERROR_INVALID_VALUE",
+    "message": "Input value is invalid. This error is returned for all of the following error conditions: 1 - Invalid input or output video buffer - The video buffer width(height) is too large or colorspace is incorrect. 2 - Invalid parameter - The parameter does not contain valid information, such as detail enhancer level is incorrect.",
+    "source_file": "interfaces/kits/c/video_processing_types.h",
+    "description": "输入值无效。可能原因：(1) 视频缓冲区宽高过大或色彩空间不正确；(2) 参数不包含有效信息（如细节增强档位不正确）。"
+  },
+  {
+    "code": "801",
+    "name": "JS_ERROR_CAPABILITY_NOT_SUPPORTED",
+    "message": "Capability not supported. Function XXX can not work correctly due to limited device capabilities.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "设备能力不支持。当设备不支持视频处理引擎功能时抛出。影响函数：create、initializeEnvironment、enhanceDetail、enhanceDetailSync。"
+  },
+  {
+    "code": "29200002",
+    "name": "JS_ERROR_INITIALIZE_FAILED",
+    "message": "The global environment initialization for image processing failed, such as failure to initialize the GPU environment.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 环境初始化失败。例如 GPU 环境初始化失败。由 initializeEnvironment() 抛出。"
+  },
+  {
+    "code": "29200003",
+    "name": "JS_ERROR_CREATE_FAILED",
+    "message": "Failed to create image processing instance. For example, the number of instances exceeds the upper limit.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 创建实例失败。例如实例数量超出上限。由 create() 抛出。"
+  },
+  {
+    "code": "29200004",
+    "name": "JS_ERROR_PROCESS_FAILED",
+    "message": "Failed to process image buffer. For example, the processing times out.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 处理失败。例如处理超时。由 enhanceDetailSync() 抛出。"
+  },
+  {
+    "code": "29200006",
+    "name": "JS_ERROR_OPERATION_NOT_PERMITTED",
+    "message": "The operation is not permitted. This may be caused by incorrect status.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 操作不被允许。可能由于状态不正确。由 initializeEnvironment() 和 deinitializeEnvironment() 抛出。"
+  },
+  {
+    "code": "29200007",
+    "name": "JS_ERROR_NO_MEMORY",
+    "message": "Out of memory.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 内存不足。由 create()、enhanceDetail()、enhanceDetailSync() 抛出。"
+  },
+  {
+    "code": "29200009",
+    "name": "JS_ERROR_INVALID_VALUE",
+    "message": "Input value is invalid. This error is returned for all of the following error conditions: 1 - Invalid input or output image buffer - The image buffer width(height) is too large or colorspace is incorrect. 2 - Invalid parameter - The parameter does not contain valid information, such as detail enhancer level is incorrect.",
+    "source_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "description": "JS API 输入值无效。可能原因：(1) 图像缓冲区宽高过大或色彩空间不正确；(2) 参数不包含有效信息（如细节增强档位不正确）。由 enhanceDetail() 和 enhanceDetailSync() 抛出。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_OK",
+    "name": "VPE_ALGO_ERR_OK",
+    "message": "Operation successful (ERR_OK).",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法操作成功。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_NO_MEMORY",
+    "name": "VPE_ALGO_ERR_NO_MEMORY",
+    "message": "No memory.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法内存不足。错误码偏移基于 ENOMEM。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_INVALID_OPERATION",
+    "name": "VPE_ALGO_ERR_INVALID_OPERATION",
+    "message": "Operation not permitted.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法操作不被允许。错误码偏移基于 ENOSYS。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_INVALID_VAL",
+    "name": "VPE_ALGO_ERR_INVALID_VAL",
+    "message": "Invalid argument.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法参数无效。错误码偏移基于 EINVAL。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_UNKNOWN",
+    "name": "VPE_ALGO_ERR_UNKNOWN",
+    "message": "Unknown error.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法未知错误。错误码偏移为 VPE_ALGO_ERR_OFFSET + 0x200。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_INIT_FAILED",
+    "name": "VPE_ALGO_ERR_INIT_FAILED",
+    "message": "Video processing engine init failed.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法初始化失败。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_EXTENSION_NOT_FOUND",
+    "name": "VPE_ALGO_ERR_EXTENSION_NOT_FOUND",
+    "message": "Extension not found.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法插件未找到。Extension Manager 无法找到所需的算法插件。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_EXTENSION_INIT_FAILED",
+    "name": "VPE_ALGO_ERR_EXTENSION_INIT_FAILED",
+    "message": "Extension init failed.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法插件初始化失败。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_EXTENSION_PROCESS_FAILED",
+    "name": "VPE_ALGO_ERR_EXTENSION_PROCESS_FAILED",
+    "message": "Extension process failed.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法插件处理失败。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_NOT_IMPLEMENTED",
+    "name": "VPE_ALGO_ERR_NOT_IMPLEMENTED",
+    "message": "Extension is not implemented.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法插件未实现。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_OPERATION_NOT_SUPPORTED",
+    "name": "VPE_ALGO_ERR_OPERATION_NOT_SUPPORTED",
+    "message": "Not supported operation.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法不支持的操作。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_INVALID_STATE",
+    "name": "VPE_ALGO_ERR_INVALID_STATE",
+    "message": "The state does not support this operation.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法状态不支持当前操作。通常因状态机不正确（如在未初始化状态调用处理接口）。"
+  },
+  {
+    "code": "VPE_ALGO_ERR_INVALID_PARAM",
+    "name": "VPE_ALGO_ERR_INVALID_PARAM",
+    "message": "Invalid parameter.",
+    "source_file": "interfaces/inner_api/algorithm_errors.h",
+    "description": "内部算法参数无效。"
+  }
+]

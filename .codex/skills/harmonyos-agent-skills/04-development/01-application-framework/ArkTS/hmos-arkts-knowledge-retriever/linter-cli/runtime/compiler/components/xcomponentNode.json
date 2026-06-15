@@ -1,0 +1,12 @@
+{
+    "name": "XComponentNode",
+    "attrs": [
+        "uiContext",
+        "options",
+        "type",
+        "libraryName",
+        "onCreate",
+        "onDestroy",
+        "changeRenderType"
+    ]
+}

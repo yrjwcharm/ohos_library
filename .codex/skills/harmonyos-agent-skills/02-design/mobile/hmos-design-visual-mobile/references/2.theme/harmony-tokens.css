@@ -1,0 +1,548 @@
+/*
+ * Harmony Theme Tokens (Generated)
+ * Source: references/2.theme/theme.md
+ * Input format in theme.md is ARGB (#AARRGGBB), converted to CSS rgba(...) here.
+ *
+ * Usage:
+ * 1) Default: system + light (no extra attributes needed)
+ * 2) System dark: <html data-harmony-token-set="system" data-theme="dark">
+ * 3) Wearable light: <html data-harmony-token-set="wearable" data-theme="light">
+ * 4) Wearable dark: <html data-harmony-token-set="wearable" data-theme="dark">
+ */
+
+:root {
+  /* Shared mobile typography scale: theme-invariant Harmony text hierarchy */
+  --harmony-font-size-display-l: 56px;
+  --harmony-font_size_display_l: var(--harmony-font-size-display-l);
+  --harmony-font-weight-display-l: 300;
+  --harmony-font_weight_display_l: var(--harmony-font-weight-display-l);
+  --harmony-font-size-display-m: 48px;
+  --harmony-font_size_display_m: var(--harmony-font-size-display-m);
+  --harmony-font-weight-display-m: 300;
+  --harmony-font_weight_display_m: var(--harmony-font-weight-display-m);
+  --harmony-font-size-display-s: 38px;
+  --harmony-font_size_display_s: var(--harmony-font-size-display-s);
+  --harmony-font-weight-display-s: 300;
+  --harmony-font_weight_display_s: var(--harmony-font-weight-display-s);
+  --harmony-font-size-title-l: 30px;
+  --harmony-font_size_title_l: var(--harmony-font-size-title-l);
+  --harmony-font-weight-title-l: 700;
+  --harmony-font_weight_title_l: var(--harmony-font-weight-title-l);
+  --harmony-font-size-title-m: 24px;
+  --harmony-font_size_title_m: var(--harmony-font-size-title-m);
+  --harmony-font-weight-title-m: 700;
+  --harmony-font_weight_title_m: var(--harmony-font-weight-title-m);
+  --harmony-font-size-title-s: 20px;
+  --harmony-font_size_title_s: var(--harmony-font-size-title-s);
+  --harmony-font-weight-title-s: 700;
+  --harmony-font_weight_title_s: var(--harmony-font-weight-title-s);
+  --harmony-font-size-subtitle-l: 18px;
+  --harmony-font_size_subtitle_l: var(--harmony-font-size-subtitle-l);
+  --harmony-font-weight-subtitle-l: 500;
+  --harmony-font_weight_subtitle_l: var(--harmony-font-weight-subtitle-l);
+  --harmony-font-size-subtitle-m: 16px;
+  --harmony-font_size_subtitle_m: var(--harmony-font-size-subtitle-m);
+  --harmony-font-weight-subtitle-m: 500;
+  --harmony-font_weight_subtitle_m: var(--harmony-font-weight-subtitle-m);
+  --harmony-font-size-subtitle-s: 14px;
+  --harmony-font_size_subtitle_s: var(--harmony-font-size-subtitle-s);
+  --harmony-font-weight-subtitle-s: 500;
+  --harmony-font_weight_subtitle_s: var(--harmony-font-weight-subtitle-s);
+  --harmony-font-size-body-l: 16px;
+  --harmony-font_size_body_l: var(--harmony-font-size-body-l);
+  --harmony-font-weight-body-l: 400;
+  --harmony-font_weight_body_l: var(--harmony-font-weight-body-l);
+  --harmony-font-size-body-m: 14px;
+  --harmony-font_size_body_m: var(--harmony-font-size-body-m);
+  --harmony-font-weight-body-m: 400;
+  --harmony-font_weight_body_m: var(--harmony-font-weight-body-m);
+  --harmony-font-size-body-s: 12px;
+  --harmony-font_size_body_s: var(--harmony-font-size-body-s);
+  --harmony-font-weight-body-s: 400;
+  --harmony-font_weight_body_s: var(--harmony-font-weight-body-s);
+  --harmony-font-size-caption-l: 12px;
+  --harmony-font_size_caption_l: var(--harmony-font-size-caption-l);
+  --harmony-font-weight-caption-l: 500;
+  --harmony-font_weight_caption_l: var(--harmony-font-weight-caption-l);
+  --harmony-font-size-caption-m: 10px;
+  --harmony-font_size_caption_m: var(--harmony-font-size-caption-m);
+  --harmony-font-weight-caption-m: 500;
+  --harmony-font_weight_caption_m: var(--harmony-font-weight-caption-m);
+  --harmony-font-size-caption-s: 8px;
+  --harmony-font_size_caption_s: var(--harmony-font-size-caption-s);
+  --harmony-font-weight-caption-s: 500;
+  --harmony-font_weight_caption_s: var(--harmony-font-weight-caption-s);
+}
+
+:root,
+:root[data-harmony-token-set="system"][data-theme="light"],
+[data-harmony-token-set="system"][data-theme="light"] {
+  --harmony-brand: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-warning: rgba(232, 64, 38, 1); /* #ffe84026 */
+  --harmony-alert: rgba(237, 111, 33, 1); /* #ffed6f21 */
+  --harmony-confirm: rgba(100, 187, 92, 1); /* #ff64bb5c */
+  --harmony-font-primary: rgba(0, 0, 0, 0.898039); /* #e5000000 */
+  --harmony-font_primary: var(--harmony-font-primary);
+  --harmony-font-secondary: rgba(0, 0, 0, 0.6); /* #99000000 */
+  --harmony-font_secondary: var(--harmony-font-secondary);
+  --harmony-font-tertiary: rgba(0, 0, 0, 0.4); /* #66000000 */
+  --harmony-font_tertiary: var(--harmony-font-tertiary);
+  --harmony-font-fourth: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-font_fourth: var(--harmony-font-fourth);
+  --harmony-font-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-font_emphasize: var(--harmony-font-emphasize);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-font_on_primary: var(--harmony-font-on-primary);
+  --harmony-font-on-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-font_on_secondary: var(--harmony-font-on-secondary);
+  --harmony-font-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_on_tertiary: var(--harmony-font-on-tertiary);
+  --harmony-font-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_on_fourth: var(--harmony-font-on-fourth);
+  --harmony-icon-primary: rgba(0, 0, 0, 0.898039); /* #e5000000 */
+  --harmony-icon_primary: var(--harmony-icon-primary);
+  --harmony-icon-secondary: rgba(0, 0, 0, 0.6); /* #99000000 */
+  --harmony-icon_secondary: var(--harmony-icon-secondary);
+  --harmony-icon-tertiary: rgba(0, 0, 0, 0.4); /* #66000000 */
+  --harmony-icon_tertiary: var(--harmony-icon-tertiary);
+  --harmony-icon-fourth: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-icon_fourth: var(--harmony-icon-fourth);
+  --harmony-icon-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-icon_emphasize: var(--harmony-icon-emphasize);
+  --harmony-icon-sub-emphasize: rgba(10, 89, 247, 0.4); /* #660a59f7 */
+  --harmony-icon_sub_emphasize: var(--harmony-icon-sub-emphasize);
+  --harmony-icon-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-icon_on_primary: var(--harmony-icon-on-primary);
+  --harmony-icon-on-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-icon_on_secondary: var(--harmony-icon-on-secondary);
+  --harmony-icon-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_on_tertiary: var(--harmony-icon-on-tertiary);
+  --harmony-icon-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_on_fourth: var(--harmony-icon-on-fourth);
+  --harmony-background-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-background_primary: var(--harmony-background-primary);
+  --harmony-background-secondary: rgba(241, 243, 245, 1); /* #fff1f3f5 */
+  --harmony-background_secondary: var(--harmony-background-secondary);
+  --harmony-background-tertiary: rgba(229, 229, 234, 1); /* #ffe5e5ea */
+  --harmony-background_tertiary: var(--harmony-background-tertiary);
+  --harmony-background-fourth: rgba(209, 209, 214, 1); /* #ffd1d1d6 */
+  --harmony-background_fourth: var(--harmony-background-fourth);
+  --harmony-background-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-background_emphasize: var(--harmony-background-emphasize);
+  --harmony-comp-foreground-primary: rgba(0, 0, 0, 1); /* #ff000000 */
+  --harmony-comp_foreground_primary: var(--harmony-comp-foreground-primary);
+  --harmony-comp-background-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-comp_background_primary: var(--harmony-comp-background-primary);
+  --harmony-comp-background-primary-contrary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-comp_background_primary_contrary: var(--harmony-comp-background-primary-contrary);
+  --harmony-comp-background-gray: rgba(241, 243, 245, 1); /* #fff1f3f5 */
+  --harmony-comp_background_gray: var(--harmony-comp-background-gray);
+  --harmony-comp-background-secondary: rgba(0, 0, 0, 0.098039); /* #19000000 */
+  --harmony-comp_background_secondary: var(--harmony-comp-background-secondary);
+  --harmony-comp-background-tertiary: rgba(0, 0, 0, 0.047059); /* #0c000000 */
+  --harmony-comp_background_tertiary: var(--harmony-comp-background-tertiary);
+  --harmony-comp-background-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-comp_background_emphasize: var(--harmony-comp-background-emphasize);
+  --harmony-comp-background-neutral: rgba(0, 0, 0, 1); /* #ff000000 */
+  --harmony-comp_background_neutral: var(--harmony-comp-background-neutral);
+  --harmony-comp-emphasize-secondary: rgba(10, 89, 247, 0.2); /* #330a59f7 */
+  --harmony-comp_emphasize_secondary: var(--harmony-comp-emphasize-secondary);
+  --harmony-comp-emphasize-tertiary: rgba(10, 89, 247, 0.098039); /* #190a59f7 */
+  --harmony-comp_emphasize_tertiary: var(--harmony-comp-emphasize-tertiary);
+  --harmony-comp-divider: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-comp_divider: var(--harmony-comp-divider);
+  --harmony-comp-common-contrary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-comp_common_contrary: var(--harmony-comp-common-contrary);
+  --harmony-comp-background-focus: rgba(241, 243, 245, 1); /* #fff1f3f5 */
+  --harmony-comp_background_focus: var(--harmony-comp-background-focus);
+  --harmony-comp-focused-primary: rgba(0, 0, 0, 0.898039); /* #e5000000 */
+  --harmony-comp_focused_primary: var(--harmony-comp-focused-primary);
+  --harmony-comp-focused-secondary: rgba(0, 0, 0, 0.6); /* #99000000 */
+  --harmony-comp_focused_secondary: var(--harmony-comp-focused-secondary);
+  --harmony-comp-focused-tertiary: rgba(0, 0, 0, 0.4); /* #66000000 */
+  --harmony-comp_focused_tertiary: var(--harmony-comp-focused-tertiary);
+  --harmony-interactive-hover: rgba(0, 0, 0, 0.047059); /* #0c000000 */
+  --harmony-interactive_hover: var(--harmony-interactive-hover);
+  --harmony-interactive-pressed: rgba(0, 0, 0, 0.098039); /* #19000000 */
+  --harmony-interactive_pressed: var(--harmony-interactive-pressed);
+  --harmony-interactive-focus: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-interactive_focus: var(--harmony-interactive-focus);
+  --harmony-interactive-active: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-interactive_active: var(--harmony-interactive-active);
+  --harmony-interactive-select: rgba(10, 89, 247, 0.2); /* #330a59f7 */
+  --harmony-interactive_select: var(--harmony-interactive-select);
+  --harmony-interactive-click: rgba(0, 0, 0, 0.098039); /* #19000000 */
+  --harmony-interactive_click: var(--harmony-interactive-click);
+
+  /* Compatibility aliases for existing templates/pages */
+  --harmony-text-primary: var(--harmony-font-primary);
+  --harmony-text-secondary: var(--harmony-font-secondary);
+  --harmony-text-tertiary: var(--harmony-font-tertiary);
+  --harmony-text-fourth: var(--harmony-font-fourth);
+  --harmony-brand-color: var(--harmony-brand);
+  --harmony-brand-text: var(--harmony-font-on-primary);
+  --harmony-bg-surface: var(--harmony-background-primary, var(--harmony-comp-background-primary));
+  --harmony-bg-elevated: var(--harmony-background-secondary, var(--harmony-comp-background-secondary));
+  --harmony-border: var(--harmony-comp-divider);
+  --harmony-divider-color: var(--harmony-comp-divider);
+  --harmony-icon-btn-bg: var(--harmony-comp-background-secondary);
+  --harmony-overlay-bg: var(--harmony-interactive-pressed, var(--harmony-comp-background-secondary));
+
+  /* Extended legacy tokens (x-legacy): values used by historical benchmarks but absent in native Harmony token set */
+  --harmony-x-legacy-page-bg: rgba(243, 245, 248, 1); /* #f3f5f8 */
+  --harmony-x-legacy-panel-border: rgba(223, 225, 230, 1); /* #dfe1e6 */
+  --harmony-x-legacy-title-text: rgba(37, 43, 58, 1); /* #252b3a */
+  --harmony-x-legacy-meta-text: rgba(87, 93, 108, 1); /* #575d6c */
+  --harmony-x-legacy-brand-old: rgba(0, 125, 255, 1);
+  --harmony-x-legacy-stroke-mid: rgba(173, 176, 184, 1); /* #adb0b8 */
+  --harmony-x-legacy-overlay-004: rgba(0, 0, 0, 0.04);
+  --harmony-x-legacy-overlay-005: rgba(0, 0, 0, 0.05);
+  --harmony-x-legacy-overlay-006: rgba(0, 0, 0, 0.06);
+  --harmony-x-legacy-overlay-008: rgba(0, 0, 0, 0.08);
+  --harmony-x-legacy-overlay-010: rgba(0, 0, 0, 0.1);
+  --harmony-x-legacy-overlay-012: rgba(0, 0, 0, 0.12);
+  --harmony-x-legacy-overlay-016: rgba(0, 0, 0, 0.16);
+  --harmony-x-legacy-overlay-020: rgba(0, 0, 0, 0.2);
+  --harmony-x-legacy-overlay-rgb: 0, 0, 0;
+  --harmony-x-legacy-brand-008: rgba(10, 89, 247, 0.08);
+  --harmony-x-legacy-brand-035: rgba(10, 89, 247, 0.35);
+  --harmony-x-legacy-brand-075: rgba(10, 89, 247, 0.75);
+  --harmony-x-legacy-orange-solid: rgba(251, 101, 34, 1);
+  --harmony-x-legacy-orange-text: rgba(245, 101, 34, 1);
+  --harmony-x-legacy-orange-bg: rgba(251, 101, 34, 0.1);
+  --harmony-x-legacy-cyan-accent: rgba(70, 177, 227, 0.4);
+  --harmony-x-legacy-white-085: rgba(255, 255, 255, 0.85);
+  --harmony-x-legacy-frosted-surface: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-harmony-token-set="system"][data-theme="dark"],
+[data-harmony-token-set="system"][data-theme="dark"] {
+  --harmony-brand: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-warning: rgba(217, 72, 56, 1); /* #ffd94838 */
+  --harmony-alert: rgba(219, 107, 66, 1); /* #ffdb6b42 */
+  --harmony-confirm: rgba(91, 168, 84, 1); /* #ff5ba854 */
+  --harmony-font-primary: rgba(255, 255, 255, 0.898039); /* #e5ffffff */
+  --harmony-font_primary: var(--harmony-font-primary);
+  --harmony-font-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-font_secondary: var(--harmony-font-secondary);
+  --harmony-font-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_tertiary: var(--harmony-font-tertiary);
+  --harmony-font-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_fourth: var(--harmony-font-fourth);
+  --harmony-font-emphasize: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-font_emphasize: var(--harmony-font-emphasize);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-font_on_primary: var(--harmony-font-on-primary);
+  --harmony-font-on-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-font_on_secondary: var(--harmony-font-on-secondary);
+  --harmony-font-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_on_tertiary: var(--harmony-font-on-tertiary);
+  --harmony-font-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_on_fourth: var(--harmony-font-on-fourth);
+  --harmony-icon-primary: rgba(255, 255, 255, 0.898039); /* #e5ffffff */
+  --harmony-icon_primary: var(--harmony-icon-primary);
+  --harmony-icon-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-icon_secondary: var(--harmony-icon-secondary);
+  --harmony-icon-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_tertiary: var(--harmony-icon-tertiary);
+  --harmony-icon-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_fourth: var(--harmony-icon-fourth);
+  --harmony-icon-emphasize: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-icon_emphasize: var(--harmony-icon-emphasize);
+  --harmony-icon-sub-emphasize: rgba(49, 122, 247, 0.4); /* #66317af7 */
+  --harmony-icon_sub_emphasize: var(--harmony-icon-sub-emphasize);
+  --harmony-icon-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-icon_on_primary: var(--harmony-icon-on-primary);
+  --harmony-icon-on-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-icon_on_secondary: var(--harmony-icon-on-secondary);
+  --harmony-icon-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_on_tertiary: var(--harmony-icon-on-tertiary);
+  --harmony-icon-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_on_fourth: var(--harmony-icon-on-fourth);
+  --harmony-background-primary: rgba(229, 229, 229, 1); /* #ffe5e5e5 */
+  --harmony-background_primary: var(--harmony-background-primary);
+  --harmony-background-secondary: rgba(25, 26, 28, 1); /* #ff191a1c */
+  --harmony-background_secondary: var(--harmony-background-secondary);
+  --harmony-background-tertiary: rgba(32, 34, 36, 1); /* #ff202224 */
+  --harmony-background_tertiary: var(--harmony-background-tertiary);
+  --harmony-background-fourth: rgba(46, 48, 51, 1); /* #ff2e3033 */
+  --harmony-background_fourth: var(--harmony-background-fourth);
+  --harmony-background-emphasize: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-background_emphasize: var(--harmony-background-emphasize);
+  --harmony-comp-foreground-primary: rgba(229, 229, 229, 1); /* #ffe5e5e5 */
+  --harmony-comp_foreground_primary: var(--harmony-comp-foreground-primary);
+  --harmony-comp-background-primary: rgba(32, 34, 36, 1); /* #ff202224 */
+  --harmony-comp_background_primary: var(--harmony-comp-background-primary);
+  --harmony-comp-background-primary-contrary: rgba(229, 229, 229, 1); /* #ffe5e5e5 */
+  --harmony-comp_background_primary_contrary: var(--harmony-comp-background-primary-contrary);
+  --harmony-comp-background-gray: rgba(229, 229, 234, 1); /* #ffe5e5ea */
+  --harmony-comp_background_gray: var(--harmony-comp-background-gray);
+  --harmony-comp-background-secondary: rgba(255, 255, 255, 0.098039); /* #19ffffff */
+  --harmony-comp_background_secondary: var(--harmony-comp-background-secondary);
+  --harmony-comp-background-tertiary: rgba(255, 255, 255, 0.047059); /* #0cffffff */
+  --harmony-comp_background_tertiary: var(--harmony-comp-background-tertiary);
+  --harmony-comp-background-emphasize: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-comp_background_emphasize: var(--harmony-comp-background-emphasize);
+  --harmony-comp-background-neutral: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-comp_background_neutral: var(--harmony-comp-background-neutral);
+  --harmony-comp-emphasize-secondary: rgba(49, 122, 247, 0.2); /* #33317af7 */
+  --harmony-comp_emphasize_secondary: var(--harmony-comp-emphasize-secondary);
+  --harmony-comp-emphasize-tertiary: rgba(49, 122, 247, 0.098039); /* #19317af7 */
+  --harmony-comp_emphasize_tertiary: var(--harmony-comp-emphasize-tertiary);
+  --harmony-comp-divider: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-comp_divider: var(--harmony-comp-divider);
+  --harmony-comp-common-contrary: rgba(0, 0, 0, 1); /* #ff000000 */
+  --harmony-comp_common_contrary: var(--harmony-comp-common-contrary);
+  --harmony-comp-background-focus: rgba(0, 0, 0, 1); /* #ff000000 */
+  --harmony-comp_background_focus: var(--harmony-comp-background-focus);
+  --harmony-comp-focused-primary: rgba(255, 255, 255, 0.898039); /* #e5ffffff */
+  --harmony-comp_focused_primary: var(--harmony-comp-focused-primary);
+  --harmony-comp-focused-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-comp_focused_secondary: var(--harmony-comp-focused-secondary);
+  --harmony-comp-focused-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-comp_focused_tertiary: var(--harmony-comp-focused-tertiary);
+  --harmony-interactive-hover: rgba(255, 255, 255, 0.047059); /* #0cffffff */
+  --harmony-interactive_hover: var(--harmony-interactive-hover);
+  --harmony-interactive-pressed: rgba(255, 255, 255, 0.098039); /* #19ffffff */
+  --harmony-interactive_pressed: var(--harmony-interactive-pressed);
+  --harmony-interactive-focus: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-interactive_focus: var(--harmony-interactive-focus);
+  --harmony-interactive-active: rgba(49, 122, 247, 1); /* #ff317af7 */
+  --harmony-interactive_active: var(--harmony-interactive-active);
+  --harmony-interactive-select: rgba(49, 122, 247, 0.2); /* #33317af7 */
+  --harmony-interactive_select: var(--harmony-interactive-select);
+  --harmony-interactive-click: rgba(255, 255, 255, 0.098039); /* #19ffffff */
+  --harmony-interactive_click: var(--harmony-interactive-click);
+
+  /* Compatibility aliases for existing templates/pages */
+  --harmony-text-primary: var(--harmony-font-primary);
+  --harmony-text-secondary: var(--harmony-font-secondary);
+  --harmony-text-tertiary: var(--harmony-font-tertiary);
+  --harmony-text-fourth: var(--harmony-font-fourth);
+  --harmony-brand-color: var(--harmony-brand);
+  --harmony-brand-text: var(--harmony-font-on-primary);
+  --harmony-bg-surface: var(--harmony-background-primary, var(--harmony-comp-background-primary));
+  --harmony-bg-elevated: var(--harmony-background-secondary, var(--harmony-comp-background-secondary));
+  --harmony-border: var(--harmony-comp-divider);
+  --harmony-divider-color: var(--harmony-comp-divider);
+  --harmony-icon-btn-bg: var(--harmony-comp-background-secondary);
+  --harmony-overlay-bg: var(--harmony-interactive-pressed, var(--harmony-comp-background-secondary));
+
+  /* Extended legacy tokens (x-legacy): values used by historical benchmarks but absent in native Harmony token set */
+  --harmony-x-legacy-page-bg: rgba(243, 245, 248, 1); /* #f3f5f8 */
+  --harmony-x-legacy-panel-border: rgba(223, 225, 230, 1); /* #dfe1e6 */
+  --harmony-x-legacy-title-text: rgba(37, 43, 58, 1); /* #252b3a */
+  --harmony-x-legacy-meta-text: rgba(87, 93, 108, 1); /* #575d6c */
+  --harmony-x-legacy-brand-old: rgba(0, 125, 255, 1);
+  --harmony-x-legacy-stroke-mid: rgba(173, 176, 184, 1); /* #adb0b8 */
+  --harmony-x-legacy-overlay-004: rgba(0, 0, 0, 0.04);
+  --harmony-x-legacy-overlay-005: rgba(0, 0, 0, 0.05);
+  --harmony-x-legacy-overlay-006: rgba(0, 0, 0, 0.06);
+  --harmony-x-legacy-overlay-008: rgba(0, 0, 0, 0.08);
+  --harmony-x-legacy-overlay-010: rgba(0, 0, 0, 0.1);
+  --harmony-x-legacy-overlay-012: rgba(0, 0, 0, 0.12);
+  --harmony-x-legacy-overlay-016: rgba(0, 0, 0, 0.16);
+  --harmony-x-legacy-overlay-020: rgba(0, 0, 0, 0.2);
+  --harmony-x-legacy-overlay-rgb: 0, 0, 0;
+  --harmony-x-legacy-brand-008: rgba(10, 89, 247, 0.08);
+  --harmony-x-legacy-brand-035: rgba(10, 89, 247, 0.35);
+  --harmony-x-legacy-brand-075: rgba(10, 89, 247, 0.75);
+  --harmony-x-legacy-orange-solid: rgba(251, 101, 34, 1);
+  --harmony-x-legacy-orange-text: rgba(245, 101, 34, 1);
+  --harmony-x-legacy-orange-bg: rgba(251, 101, 34, 0.1);
+  --harmony-x-legacy-cyan-accent: rgba(70, 177, 227, 0.4);
+  --harmony-x-legacy-white-085: rgba(255, 255, 255, 0.85);
+  --harmony-x-legacy-frosted-surface: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-harmony-token-set="wearable"][data-theme="light"],
+[data-harmony-token-set="wearable"][data-theme="light"] {
+  --harmony-brand: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-warning: rgba(232, 64, 38, 1); /* #ffe84026 */
+  --harmony-alert: rgba(237, 111, 33, 1); /* #ffed6f21 */
+  --harmony-confirm: rgba(100, 187, 92, 1); /* #ff64bb5c */
+  --harmony-font-primary: rgba(0, 0, 0, 0.898039); /* #e5000000 */
+  --harmony-font_primary: var(--harmony-font-primary);
+  --harmony-font-secondary: rgba(0, 0, 0, 0.6); /* #99000000 */
+  --harmony-font_secondary: var(--harmony-font-secondary);
+  --harmony-font-tertiary: rgba(0, 0, 0, 0.4); /* #66000000 */
+  --harmony-font_tertiary: var(--harmony-font-tertiary);
+  --harmony-font-fourth: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-font_fourth: var(--harmony-font-fourth);
+  --harmony-font-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-font_emphasize: var(--harmony-font-emphasize);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-font_on_primary: var(--harmony-font-on-primary);
+  --harmony-font-on-secondary: rgba(255, 255, 255, 0.6); /* #99ffffff */
+  --harmony-font_on_secondary: var(--harmony-font-on-secondary);
+  --harmony-font-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_on_tertiary: var(--harmony-font-on-tertiary);
+  --harmony-font-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_on_fourth: var(--harmony-font-on-fourth);
+  --harmony-icon-primary: rgba(0, 0, 0, 0.898039); /* #e5000000 */
+  --harmony-icon_primary: var(--harmony-icon-primary);
+  --harmony-icon-secondary: rgba(0, 0, 0, 0.662745); /* #a9000000 */
+  --harmony-icon_secondary: var(--harmony-icon-secondary);
+  --harmony-icon-tertiary: rgba(0, 0, 0, 0.4); /* #66000000 */
+  --harmony-icon_tertiary: var(--harmony-icon-tertiary);
+  --harmony-icon-fourth: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-icon_fourth: var(--harmony-icon-fourth);
+  --harmony-icon-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-icon_emphasize: var(--harmony-icon-emphasize);
+  --harmony-icon-sub-emphasize: rgba(10, 89, 127, 0.4); /* #660a597f */
+  --harmony-icon_sub_emphasize: var(--harmony-icon-sub-emphasize);
+  --harmony-icon-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-icon_on_primary: var(--harmony-icon-on-primary);
+  --harmony-icon-on-secondary: rgba(255, 255, 255, 0.662745); /* #a9ffffff */
+  --harmony-icon_on_secondary: var(--harmony-icon-on-secondary);
+  --harmony-icon-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_on_tertiary: var(--harmony-icon-on-tertiary);
+  --harmony-icon-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_on_fourth: var(--harmony-icon-on-fourth);
+  --harmony-background-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-background_emphasize: var(--harmony-background-emphasize);
+  --harmony-comp-background-emphasize: rgba(10, 89, 247, 1); /* #ff0a59f7 */
+  --harmony-comp_background_emphasize: var(--harmony-comp-background-emphasize);
+  --harmony-comp-emphasize-secondary: rgba(10, 89, 247, 0.2); /* #330a59f7 */
+  --harmony-comp_emphasize_secondary: var(--harmony-comp-emphasize-secondary);
+  --harmony-comp-emphasize-tertiary: rgba(10, 89, 247, 0.098039); /* #190a59f7 */
+  --harmony-comp_emphasize_tertiary: var(--harmony-comp-emphasize-tertiary);
+  --harmony-comp-divider: rgba(0, 0, 0, 0.2); /* #33000000 */
+  --harmony-comp_divider: var(--harmony-comp-divider);
+
+  /* Compatibility aliases for existing templates/pages */
+  --harmony-text-primary: var(--harmony-font-primary);
+  --harmony-text-secondary: var(--harmony-font-secondary);
+  --harmony-text-tertiary: var(--harmony-font-tertiary);
+  --harmony-text-fourth: var(--harmony-font-fourth);
+  --harmony-brand-color: var(--harmony-brand);
+  --harmony-brand-text: var(--harmony-font-on-primary);
+  --harmony-bg-surface: var(--harmony-background-primary, var(--harmony-comp-background-primary));
+  --harmony-bg-elevated: var(--harmony-background-secondary, var(--harmony-comp-background-secondary));
+  --harmony-border: var(--harmony-comp-divider);
+  --harmony-divider-color: var(--harmony-comp-divider);
+  --harmony-icon-btn-bg: var(--harmony-comp-background-secondary);
+  --harmony-overlay-bg: var(--harmony-interactive-pressed, var(--harmony-comp-background-secondary));
+
+  /* Extended legacy tokens (x-legacy): values used by historical benchmarks but absent in native Harmony token set */
+  --harmony-x-legacy-page-bg: rgba(243, 245, 248, 1); /* #f3f5f8 */
+  --harmony-x-legacy-panel-border: rgba(223, 225, 230, 1); /* #dfe1e6 */
+  --harmony-x-legacy-title-text: rgba(37, 43, 58, 1); /* #252b3a */
+  --harmony-x-legacy-meta-text: rgba(87, 93, 108, 1); /* #575d6c */
+  --harmony-x-legacy-brand-old: rgba(0, 125, 255, 1);
+  --harmony-x-legacy-stroke-mid: rgba(173, 176, 184, 1); /* #adb0b8 */
+  --harmony-x-legacy-overlay-004: rgba(0, 0, 0, 0.04);
+  --harmony-x-legacy-overlay-005: rgba(0, 0, 0, 0.05);
+  --harmony-x-legacy-overlay-006: rgba(0, 0, 0, 0.06);
+  --harmony-x-legacy-overlay-008: rgba(0, 0, 0, 0.08);
+  --harmony-x-legacy-overlay-010: rgba(0, 0, 0, 0.1);
+  --harmony-x-legacy-overlay-012: rgba(0, 0, 0, 0.12);
+  --harmony-x-legacy-overlay-016: rgba(0, 0, 0, 0.16);
+  --harmony-x-legacy-overlay-020: rgba(0, 0, 0, 0.2);
+  --harmony-x-legacy-overlay-rgb: 0, 0, 0;
+  --harmony-x-legacy-brand-008: rgba(10, 89, 247, 0.08);
+  --harmony-x-legacy-brand-035: rgba(10, 89, 247, 0.35);
+  --harmony-x-legacy-brand-075: rgba(10, 89, 247, 0.75);
+  --harmony-x-legacy-orange-solid: rgba(251, 101, 34, 1);
+  --harmony-x-legacy-orange-text: rgba(245, 101, 34, 1);
+  --harmony-x-legacy-orange-bg: rgba(251, 101, 34, 0.1);
+  --harmony-x-legacy-cyan-accent: rgba(70, 177, 227, 0.4);
+  --harmony-x-legacy-white-085: rgba(255, 255, 255, 0.85);
+  --harmony-x-legacy-frosted-surface: rgba(255, 255, 255, 0.9);
+}
+
+:root[data-harmony-token-set="wearable"][data-theme="dark"],
+[data-harmony-token-set="wearable"][data-theme="dark"] {
+  --harmony-brand: rgba(31, 113, 255, 1); /* #ff1f71ff */
+  --harmony-warning: rgba(232, 64, 38, 1); /* #ffe84026 */
+  --harmony-alert: rgba(237, 111, 33, 1); /* #ffed6f21 */
+  --harmony-confirm: rgba(100, 187, 92, 1); /* #ff64bb5c */
+  --harmony-font-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-font_primary: var(--harmony-font-primary);
+  --harmony-font-secondary: rgba(255, 255, 255, 0.662745); /* #a9ffffff */
+  --harmony-font_secondary: var(--harmony-font-secondary);
+  --harmony-font-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_tertiary: var(--harmony-font-tertiary);
+  --harmony-font-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_fourth: var(--harmony-font-fourth);
+  --harmony-font-emphasize: rgba(94, 161, 255, 1); /* #ff5ea1ff */
+  --harmony-font_emphasize: var(--harmony-font-emphasize);
+  --harmony-font-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-font_on_primary: var(--harmony-font-on-primary);
+  --harmony-font-on-secondary: rgba(255, 255, 255, 0.662745); /* #a9ffffff */
+  --harmony-font_on_secondary: var(--harmony-font-on-secondary);
+  --harmony-font-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-font_on_tertiary: var(--harmony-font-on-tertiary);
+  --harmony-font-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-font_on_fourth: var(--harmony-font-on-fourth);
+  --harmony-icon-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-icon_primary: var(--harmony-icon-primary);
+  --harmony-icon-secondary: rgba(255, 255, 255, 0.662745); /* #a9ffffff */
+  --harmony-icon_secondary: var(--harmony-icon-secondary);
+  --harmony-icon-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_tertiary: var(--harmony-icon-tertiary);
+  --harmony-icon-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_fourth: var(--harmony-icon-fourth);
+  --harmony-icon-emphasize: rgba(94, 161, 255, 1); /* #ff5ea1ff */
+  --harmony-icon_emphasize: var(--harmony-icon-emphasize);
+  --harmony-icon-sub-emphasize: rgba(94, 161, 255, 0.4); /* #665ea1ff */
+  --harmony-icon_sub_emphasize: var(--harmony-icon-sub-emphasize);
+  --harmony-icon-on-primary: rgba(255, 255, 255, 1); /* #ffffffff */
+  --harmony-icon_on_primary: var(--harmony-icon-on-primary);
+  --harmony-icon-on-secondary: rgba(255, 255, 255, 0.662745); /* #a9ffffff */
+  --harmony-icon_on_secondary: var(--harmony-icon-on-secondary);
+  --harmony-icon-on-tertiary: rgba(255, 255, 255, 0.4); /* #66ffffff */
+  --harmony-icon_on_tertiary: var(--harmony-icon-on-tertiary);
+  --harmony-icon-on-fourth: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-icon_on_fourth: var(--harmony-icon-on-fourth);
+  --harmony-background-emphasize: rgba(31, 113, 255, 1); /* #ff1f71ff */
+  --harmony-background_emphasize: var(--harmony-background-emphasize);
+  --harmony-comp-background-emphasize: rgba(31, 113, 255, 1); /* #ff1f71ff */
+  --harmony-comp_background_emphasize: var(--harmony-comp-background-emphasize);
+  --harmony-comp-emphasize-secondary: rgba(31, 113, 255, 0.2); /* #331f71ff */
+  --harmony-comp_emphasize_secondary: var(--harmony-comp-emphasize-secondary);
+  --harmony-comp-emphasize-tertiary: rgba(31, 113, 255, 0.098039); /* #191f71ff */
+  --harmony-comp_emphasize_tertiary: var(--harmony-comp-emphasize-tertiary);
+  --harmony-comp-divider: rgba(255, 255, 255, 0.2); /* #33ffffff */
+  --harmony-comp_divider: var(--harmony-comp-divider);
+
+  /* Compatibility aliases for existing templates/pages */
+  --harmony-text-primary: var(--harmony-font-primary);
+  --harmony-text-secondary: var(--harmony-font-secondary);
+  --harmony-text-tertiary: var(--harmony-font-tertiary);
+  --harmony-text-fourth: var(--harmony-font-fourth);
+  --harmony-brand-color: var(--harmony-brand);
+  --harmony-brand-text: var(--harmony-font-on-primary);
+  --harmony-bg-surface: var(--harmony-background-primary, var(--harmony-comp-background-primary));
+  --harmony-bg-elevated: var(--harmony-background-secondary, var(--harmony-comp-background-secondary));
+  --harmony-border: var(--harmony-comp-divider);
+  --harmony-divider-color: var(--harmony-comp-divider);
+  --harmony-icon-btn-bg: var(--harmony-comp-background-secondary);
+  --harmony-overlay-bg: var(--harmony-interactive-pressed, var(--harmony-comp-background-secondary));
+
+  /* Extended legacy tokens (x-legacy): values used by historical benchmarks but absent in native Harmony token set */
+  --harmony-x-legacy-page-bg: rgba(243, 245, 248, 1); /* #f3f5f8 */
+  --harmony-x-legacy-panel-border: rgba(223, 225, 230, 1); /* #dfe1e6 */
+  --harmony-x-legacy-title-text: rgba(37, 43, 58, 1); /* #252b3a */
+  --harmony-x-legacy-meta-text: rgba(87, 93, 108, 1); /* #575d6c */
+  --harmony-x-legacy-brand-old: rgba(0, 125, 255, 1);
+  --harmony-x-legacy-stroke-mid: rgba(173, 176, 184, 1); /* #adb0b8 */
+  --harmony-x-legacy-overlay-004: rgba(0, 0, 0, 0.04);
+  --harmony-x-legacy-overlay-005: rgba(0, 0, 0, 0.05);
+  --harmony-x-legacy-overlay-006: rgba(0, 0, 0, 0.06);
+  --harmony-x-legacy-overlay-008: rgba(0, 0, 0, 0.08);
+  --harmony-x-legacy-overlay-010: rgba(0, 0, 0, 0.1);
+  --harmony-x-legacy-overlay-012: rgba(0, 0, 0, 0.12);
+  --harmony-x-legacy-overlay-016: rgba(0, 0, 0, 0.16);
+  --harmony-x-legacy-overlay-020: rgba(0, 0, 0, 0.2);
+  --harmony-x-legacy-overlay-rgb: 0, 0, 0;
+  --harmony-x-legacy-brand-008: rgba(10, 89, 247, 0.08);
+  --harmony-x-legacy-brand-035: rgba(10, 89, 247, 0.35);
+  --harmony-x-legacy-brand-075: rgba(10, 89, 247, 0.75);
+  --harmony-x-legacy-orange-solid: rgba(251, 101, 34, 1);
+  --harmony-x-legacy-orange-text: rgba(245, 101, 34, 1);
+  --harmony-x-legacy-orange-bg: rgba(251, 101, 34, 0.1);
+  --harmony-x-legacy-cyan-accent: rgba(70, 177, 227, 0.4);
+  --harmony-x-legacy-white-085: rgba(255, 255, 255, 0.85);
+  --harmony-x-legacy-frosted-surface: rgba(255, 255, 255, 0.9);
+}

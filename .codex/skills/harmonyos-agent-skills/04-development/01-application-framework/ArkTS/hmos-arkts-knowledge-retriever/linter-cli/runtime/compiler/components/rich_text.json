@@ -1,0 +1,7 @@
+{
+  "name": "RichText",
+  "atomic": true,
+  "attrs": [
+    "onStart", "onComplete"
+  ]
+}

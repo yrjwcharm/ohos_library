@@ -1,0 +1,188 @@
+[
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-001",
+    "layer": "smoke",
+    "title": "总入口路由到开合连续性场景",
+    "phase": "REQ",
+    "user_prompt": "折叠屏应用展开后页面滚动位置发生偏移、视频播放进度回到开头、输入草稿丢失，需要适配开合连续性。请给出需求分析设计。",
+    "intent": "验证总入口是否把开合连续性问题路由到 SCENE-02 并命中 fold_continuity 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["fold_continuity.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-002",
+    "layer": "smoke",
+    "title": "总入口路由到折叠状态检测场景",
+    "phase": "REQ",
+    "user_prompt": "折叠屏应用首帧先渲染了错误布局再闪切到正确布局，折展过程中布局滞后，需要正确使用 foldStatus 和 foldDisplayMode 检测折叠状态。请给出需求分析设计。",
+    "intent": "验证总入口是否把折叠状态检测问题路由到 SCENE-02 并命中 fold_status_detection 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["fold_status_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-003",
+    "layer": "smoke",
+    "title": "总入口路由到悬停态交互场景",
+    "phase": "REQ",
+    "user_prompt": "折叠屏悬停态下需要实现上内容下操作的布局，使用 FolderStack 或 FoldSplitContainer 分屏，同时处理折痕避让和方向策略。请给出需求分析设计。",
+    "intent": "验证总入口是否把悬停态交互问题路由到 SCENE-02 并命中 hover_state_interaction 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["hover_state_interaction.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-004",
+    "layer": "smoke",
+    "title": "总入口路由到多段折叠形态场景",
+    "phase": "REQ",
+    "user_prompt": "应用在多段折叠设备上，不同折叠形态（如 F/M/G）间切换时布局拥挤或空白，断点命中错误，需要适配多段折叠形态状态。请给出需求分析设计。",
+    "intent": "验证总入口是否把多段折叠形态问题路由到 SCENE-02 并命中 multi_fold_states 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["multi_fold_states.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-005",
+    "layer": "smoke",
+    "title": "总入口路由到特殊比例折叠屏适配场景",
+    "phase": "REQ",
+    "user_prompt": "折叠屏设备内外屏比例差异显著，外屏内容拥挤、内屏空白，全屏分屏悬浮窗切换时布局错位裁切，需要适配特殊比例折叠屏。请给出需求分析设计。",
+    "intent": "验证总入口是否把特殊比例折叠屏适配问题路由到 SCENE-02 并命中 special_form_factor_foldable_adaptation 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["special_form_factor_foldable_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  },
+  {
+    "case_id": "SCENE-ENTRY-SMOKE-02-006",
+    "layer": "smoke",
+    "title": "总入口路由到折痕避让场景",
+    "phase": "REQ",
+    "user_prompt": "折叠屏悬停态下关键按钮和输入框落在折痕区域，用户操作困难且内容变形，需要使用 getCurrentFoldCreaseRegion 做折痕避让。请给出需求分析设计。",
+    "intent": "验证总入口是否把折痕避让问题路由到 SCENE-02 并命中 crease_avoidance 参考文档。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "SCENE-02",
+      "primary_scene_ref": "../hmos-multidevice-fold-state/SKILL.md",
+      "secondary_scenes": ["SCENE-01"],
+      "next_scene_refs": [
+        "../hmos-multidevice-fold-state/SKILL.md",
+        "../hmos-multidevice-screen-window-size/SKILL.md"
+      ],
+      "required_reference_docs": ["crease_avoidance.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_frame",
+        "device_scope_summary",
+        "routing_focus"
+      ],
+      "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+    }
+  }
+]

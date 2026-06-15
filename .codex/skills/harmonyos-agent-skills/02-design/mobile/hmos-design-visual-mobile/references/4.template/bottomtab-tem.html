@@ -1,0 +1,467 @@
+<!--
+  bottomtab Template
+
+  Variables (Template Contract):
+  - {{variant}}: '2' | '3' | '4' | '5' | '1bar' | 'multibar'
+  - {{items}}: 页签项插槽，每个子节点须使用 .harmony-bottomtab__tab 语义结构
+  - {{activeIndex}}: 当前激活 tab 索引 (0-based)，由消费端在 {{items}} 渲染时通过 .harmony-bottomtab__tab--active 和 aria-pressed 控制
+
+  Variant-specific:
+  - [1bar] {{expandAlbum}}: album 图片 <img> 元素
+  - [1bar] {{expandLabel}}: 展开栏文字标签
+  - [1bar] {{expandIcons}}: 右侧 3 个控制图标插槽 (backward_end_fill / pause_round_triangle_fill / forward_end_fill)
+  - [multibar] {{avatarImage}}: 折叠bar 内头像 <img> 元素
+-->
+
+<style>
+  @import url("../../../references/2.theme/harmony-tokens.css");
+
+  @font-face {
+    font-family: "HMSymbol";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../../assets/HMSymbolVF_1.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "HMOS Color Emoji Compat";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../../assets/HMOSColorEmojiCompat.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "HMOS Color Emoji Flags";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../../assets/HMOSColorEmojiFlags.ttf") format("truetype");
+    unicode-range: U+1F1E6-1F1FF;
+  }
+
+  /*
+    ========== Design Tokens (Pixso DSL) ==========
+    Light/Blur/Material_background_THIN (52:17846)
+    Light/Blur/Material_THIN (52:17845)
+    Light/Blur/COMPONENT_THIN (52:17836)
+    Light/comp_gradient_overlay_background (52:17850)
+  */
+  .harmony-bottomtab {
+    --bt-font-emphasize: rgba(10, 89, 247, 1);
+    --bt-font-primary: rgba(0, 0, 0, 0.898);
+    --bt-icon-emphasize: rgba(10, 89, 247, 1);
+    --bt-icon-primary: rgba(0, 0, 0, 0.898);
+    --bt-bar-fill-top: rgba(255, 255, 255, 0.15);
+    --bt-bar-fill-bottom: rgba(255, 255, 255, 0.4);
+    --bt-bar-shadow: 0 4px 48px rgba(0, 0, 0, 0.08);
+    --bt-blur: 80px;
+    --bt-glass-blur: 8px;
+    --bt-fold-fill: rgba(255, 255, 255, 0.2);
+    --bt-fold-blur: blur(10px) saturate(1.2);
+    --bt-fold-border: rgba(255, 255, 255, 0.21);
+    --bt-fold-shadow-inner-top: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    --bt-fold-shadow-inner-bottom: inset 0 -2px 5px rgba(0, 0, 0, 0.25);
+    --bt-fold-shadow-outer: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --bt-indicator-fill: rgba(0, 0, 0, 0.2);
+    --bt-expand-album-bg: rgba(255, 255, 255, 0.3);
+    --bt-container-gradient: linear-gradient(
+      to bottom,
+      rgba(241, 243, 245, 0) 0%,
+      rgba(241, 243, 245, 0.0017) 11.8%,
+      rgba(241, 243, 245, 0.0065) 21.4%,
+      rgba(241, 243, 245, 0.0141) 29.1%,
+      rgba(241, 243, 245, 0.0241) 35.3%,
+      rgba(241, 243, 245, 0.0363) 40.4%,
+      rgba(241, 243, 245, 0.0502) 44.6%,
+      rgba(241, 243, 245, 0.0656) 48.2%,
+      rgba(241, 243, 245, 0.0821) 51.8%,
+      rgba(241, 243, 245, 0.0994) 55.4%,
+      rgba(241, 243, 245, 0.117) 59.6%,
+      rgba(241, 243, 245, 0.1348) 64.7%,
+      rgba(241, 243, 245, 0.1523) 70.9%,
+      rgba(241, 243, 245, 0.1693) 78.6%,
+      rgba(241, 243, 245, 0.1853) 88.2%,
+      rgba(241, 243, 245, 0.2) 100%
+    );
+
+    width: 360px;
+    height: 100px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "HarmonyHeiTi", "Noto Sans SC", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .harmony-bottomtab::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--bt-container-gradient);
+    pointer-events: none;
+  }
+
+  .hm-emoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family:
+      "HMOS Color Emoji Flags",
+      "HMOS Color Emoji Compat",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Noto Color Emoji",
+      sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* ========== Pill Bar ========== */
+  .harmony-bottomtab__bar {
+    height: 56px;
+    border-radius: 100px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    background:
+      var(--bt-bar-fill-top),
+      var(--bt-bar-fill-bottom);
+    background-blend-mode: plus-lighter;
+    box-shadow: var(--bt-bar-shadow);
+    backdrop-filter: blur(var(--bt-blur)) blur(var(--bt-glass-blur));
+    -webkit-backdrop-filter: blur(var(--bt-blur)) blur(var(--bt-glass-blur));
+  }
+
+  .harmony-bottomtab__bar--2  { width: 160px; }
+  .harmony-bottomtab__bar--3  { width: 236px; }
+  .harmony-bottomtab__bar--4  { width: 328px; }
+  .harmony-bottomtab__bar--5  { width: 328px; }
+  .harmony-bottomtab__bar--multi { width: 264px; }
+  .harmony-bottomtab__bar--single { width: 264px; padding: 0; }
+
+  /* ========== Home Indicator ========== */
+  .harmony-bottomtab__indicator {
+    width: 360px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .harmony-bottomtab__indicator-bar {
+    width: 112px;
+    height: 5px;
+    border-radius: 2.5px;
+    background: var(--bt-indicator-fill);
+  }
+
+  /* ========== Tab Content Area ========== */
+  .harmony-bottomtab__tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    flex: 1;
+  }
+
+  /* ========== Tab Item (.Xtab_Icon_port) ========== */
+  .harmony-bottomtab__tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    height: 48px;
+    flex: 1;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: var(--bt-icon-primary);
+    font-family: inherit;
+    transition: color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 0;
+  }
+
+  .harmony-bottomtab__tab:focus-visible {
+    outline: 2px solid var(--bt-font-emphasize);
+    outline-offset: -2px;
+    border-radius: 8px;
+  }
+
+  .harmony-bottomtab__tab--active {
+    color: var(--bt-icon-emphasize);
+  }
+
+  .harmony-bottomtab__tab:disabled,
+  .harmony-bottomtab__tab[aria-disabled="true"] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .harmony-bottomtab__tab-icon {
+    font-family: "HMSymbol", "HarmonyOS Sans SC", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    pointer-events: none;
+  }
+
+  .harmony-bottomtab__tab-label {
+    font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 14px;
+    color: inherit;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* ========== 多+bar / 1+bar 特殊元素 ========== */
+
+  /* 折叠bar — 56×56 头像容器，包裹 album */
+  .harmony-bottomtab__fold {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0;
+    border: 0.5px solid var(--bt-fold-border);
+    background: var(--bt-fold-fill);
+    box-shadow:
+      var(--bt-fold-shadow-inner-top),
+      var(--bt-fold-shadow-inner-bottom),
+      var(--bt-fold-shadow-outer);
+    backdrop-filter: var(--bt-fold-blur);
+    -webkit-backdrop-filter: var(--bt-fold-blur);
+    overflow: hidden;
+  }
+
+  /* album — 56×56 圆形头像 */
+  .harmony-bottomtab__album {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .harmony-bottomtab__album-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 1+bar 左侧 symbol 圆形背板 — 56×56 white glass circle */
+  .harmony-bottomtab__tab-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    background:
+      var(--bt-bar-fill-top),
+      var(--bt-bar-fill-bottom);
+    background-blend-mode: plus-lighter;
+    box-shadow:
+      var(--bt-bar-shadow);
+    backdrop-filter: blur(var(--bt-blur)) blur(var(--bt-glass-blur));
+    -webkit-backdrop-filter: blur(var(--bt-blur)) blur(var(--bt-glass-blur));
+    color: var(--bt-icon-emphasize);
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .harmony-bottomtab__tab-circle:focus-visible {
+    outline: 2px solid var(--bt-font-emphasize);
+    outline-offset: -2px;
+  }
+
+  /* 多+bar / 1+bar 主行 */
+  .harmony-bottomtab__row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 328px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========== 1+bar 展开内容 ========== */
+  .harmony-bottomtab__expand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 6px 14px 6px 6px;
+  }
+
+  .harmony-bottomtab__expand-album {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--bt-expand-album-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .harmony-bottomtab__expand-album-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .harmony-bottomtab__expand-label {
+    width: 82px;
+    font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    color: var(--bt-font-primary);
+    white-space: nowrap;
+  }
+
+  .harmony-bottomtab__expand-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .harmony-bottomtab__expand-icon {
+    font-family: "HMSymbol", "HarmonyOS Sans SC", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bt-icon-primary);
+  }
+
+  /* ========== 防拉伸约束 ========== */
+  .harmony-bottomtab [class*="icon"],
+  .harmony-bottomtab [class*="btn"] {
+    flex: 0 0 auto;
+  }
+
+  .harmony-bottomtab [class*="label"] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
+
+<!-- ================================================================== -->
+<!--  变体 2/3/4/5: 纯 tab 模式                                         -->
+<!-- ================================================================== -->
+<nav class="harmony-bottomtab" data-component="bottomtab"
+  data-variant="{{variant}}"
+  data-figma-node-id="52:17585"
+  aria-label="Bottom Tab Navigation">
+
+  <div class="harmony-bottomtab__bar harmony-bottomtab__bar--{{variant}}">
+    <div class="harmony-bottomtab__tabs">
+      {{items}}
+    </div>
+  </div>
+
+  <div class="harmony-bottomtab__indicator">
+    <div class="harmony-bottomtab__indicator-bar"></div>
+  </div>
+</nav>
+
+<!-- ================================================================== -->
+<!--  变体 1+bar: 1 tab + 展开内容栏                                    -->
+<!-- ================================================================== -->
+<!--
+<nav class="harmony-bottomtab" data-component="bottomtab"
+  data-variant="1bar" data-figma-node-id="52:17675"
+  aria-label="Bottom Tab Navigation">
+
+  <div class="harmony-bottomtab__row">
+    <button class="harmony-bottomtab__tab-circle" type="button" aria-pressed="true">
+      <span class="harmony-bottomtab__tab-icon" aria-hidden="true">{{tabIcon}}</span>
+    </button>
+    <div class="harmony-bottomtab__bar harmony-bottomtab__bar--single">
+      <div class="harmony-bottomtab__expand">
+        <div class="harmony-bottomtab__expand-album" aria-hidden="true">
+          {{expandAlbum}}
+        </div>
+        <span class="harmony-bottomtab__expand-label">{{expandLabel}}</span>
+        <div class="harmony-bottomtab__expand-group">
+          {{expandIcons}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="harmony-bottomtab__indicator">
+    <div class="harmony-bottomtab__indicator-bar"></div>
+  </div>
+</nav>
+-->
+
+<!-- ================================================================== -->
+<!--  变体 multibar: bar (tabs 左) + 折叠bar 含头像 (右)                  -->
+<!-- ================================================================== -->
+<!--
+<nav class="harmony-bottomtab" data-component="bottomtab"
+  data-variant="multibar" data-figma-node-id="52:17688"
+  aria-label="Bottom Tab Navigation">
+
+  <div class="harmony-bottomtab__row">
+    <div class="harmony-bottomtab__bar harmony-bottomtab__bar--multi">
+      <div class="harmony-bottomtab__tabs">
+        {{items}}
+      </div>
+    </div>
+    <div class="harmony-bottomtab__fold">
+      <div class="harmony-bottomtab__album">
+        {{avatarImage}}
+      </div>
+    </div>
+  </div>
+
+  <div class="harmony-bottomtab__indicator">
+    <div class="harmony-bottomtab__indicator-bar"></div>
+  </div>
+</nav>
+-->

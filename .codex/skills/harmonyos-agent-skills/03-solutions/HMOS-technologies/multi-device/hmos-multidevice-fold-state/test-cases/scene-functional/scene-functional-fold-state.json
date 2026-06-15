@@ -1,0 +1,611 @@
+[
+  {
+    "case_id": "FOLD-FUNC-001",
+    "layer": "scene-functional",
+    "title": "会议悬浮态分屏适配",
+    "phase": "DEV",
+    "user_prompt": "请为视频会议类应用设计折叠屏悬停态分屏布局：悬停态时将投影画面和操控面板（参会者列表、工具栏）分别放置在折痕两侧的屏幕上，折痕区域保留空白不放置任何内容，控制区放在较大面板。非悬停态回退为常规全屏会议界面，控制栏支持无操作自动收起和触摸恢复。请输出可落到工程中的开发方案。",
+    "intent": "用户描述视频会议在折叠屏悬停态的分屏布局需求，期望路由至 FOLD-01（悬停态分屏）+ FOLD-02（折痕避让），输出悬停态上下分区布局和折痕区域避让的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "secondary_scenes": ["FOLD-02"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须通过 display.on('foldStatusChange') 和 display.on('foldDisplayModeChange') 监听折叠状态变化，覆盖所有半折叠状态。",
+        "必须通过 display.getCurrentFoldCreaseRegion() 获取折痕区域，并通过 convertGlobalToRelativeCoordinate 转换为页面相对坐标。",
+        "必须通过折痕宽高比 + 评分算法判断垂直/水平折痕方向。",
+        "必须通过 setPreferredOrientation 在悬停态锁定旋转方向，退出时恢复 AUTO_ROTATION。",
+        "必须将控制区放置在较大面板，投影区放置在较小面板。",
+        "折痕区域必须用透明 Blank 占位，不承载任何内容或交互。"
+      ],
+      "should_reuse_resources": [
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "./references/crease_avoidance.md",
+        "./assets/HoverStateInteractionExample.ets",
+        "./assets/HoverStateUtil.ets"
+      ],
+      "forbidden_patterns": [
+        "只按横竖屏切换，不读取 FoldStatus。",
+        "悬停态和展开态共用一套布局而不分区。",
+        "折痕区域放置交互控件或视频内容。",
+        "硬编码折痕位置而非动态获取。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "进入 HALF_FOLD 后，投影画面和操控面板分别稳定停留在折痕两侧，控制区在较大面板上。",
+        "折痕区域（Blank）不包含任何可见内容或交互控件。",
+        "退出 HALF_FOLD 后恢复到常规全屏会议布局，状态连续不丢失。",
+        "悬停态下旋转方向被锁定，退出后恢复自动旋转。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "展开态/悬停态上下分屏/悬停态左右分屏截图",
+        "FoldStatus 日志",
+        "折痕区域空白验证截图"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-002",
+    "layer": "scene-functional",
+    "title": "视频播放折痕避让",
+    "phase": "DEV",
+    "user_prompt": "请为视频播放类应用设计折叠屏悬停态折痕避让布局：悬停态时视频画面和详情面板（评论、推荐视频）分别放置在折痕两侧，折痕区域不放置任何内容。无折痕数据时使用屏幕中心线回退。非悬停态回退为常规上下布局，面板支持手势拖拽调节比例。请输出可落到工程中的开发方案。",
+    "intent": "用户描述视频播放在悬停态的折痕避让布局需求，期望路由至 FOLD-02（折痕避让）+ FOLD-01（悬停态分屏），输出视频画面和详情面板分放折痕两侧、折痕区域避让的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-02",
+      "secondary_scenes": ["FOLD-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须通过双向评分算法（水平+垂直方向的 directScore 和 swappedScore）判断折痕方向，并实现方向锁定机制避免折叠过程中方向抖动。",
+        "必须对折痕高度进行安全钳位（不超过屏幕 35%），异常时取折痕物理短边作为安全高度。",
+        "必须处理无折痕数据的场景：仍进入悬停态，使用屏幕 50% 位置作为分割线回退。",
+        "折痕区域必须用透明 Blank 占位，视频画面、弹幕、交互控件均避开折痕。"
+      ],
+      "should_reuse_resources": [
+        "./references/crease_avoidance.md",
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "./assets/HoverStateInteractionExample.ets",
+        "./assets/HoverStateUtil.ets"
+      ],
+      "forbidden_patterns": [
+        "只按横竖屏切换，不读取 FoldStatus。",
+        "悬停态和展开态共用一套布局而不分区。",
+        "折痕区域放置视频内容或交互控件。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "进入 HALF_FOLD 后，视频画面稳定在上方（或一侧），详情面板在下方（或另一侧）。",
+        "折痕区域不覆盖视频画面、弹幕、评论输入框和任何交互控件。",
+        "垂直折痕时左右分屏正确显示，水平折痕时上下分屏正确显示。",
+        "无折痕数据时仍能进入悬停态并以屏幕中心线分割。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "展开态常规布局截图",
+        "悬停态水平分屏截图（视频+面板）",
+        "悬停态垂直分屏截图（如有）",
+        "折痕区域空白验证截图",
+        "FoldStatus 日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-003",
+    "layer": "scene-functional",
+    "title": "视频折叠态播放连续性保持",
+    "phase": "DEV",
+    "user_prompt": "请为视频播放类应用实现折叠状态切换时的播放连续性保持：折叠/展开设备时播放进度和暂停/播放状态不丢失，折展完成后自动恢复到折展前的进度继续播放。连续快速折展场景下进度不能回跳。请输出可落到工程中的开发方案。",
+    "intent": "用户描述折叠切换后视频播放进度和状态丢失，期望路由至 FOLD-03（开合连续性保障），输出播放进度快照和恢复的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-03",
+      "secondary_scenes": ["FOLD-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 foldStatusChange / foldDisplayModeChange 回调中，于布局切换前快照当前播放进度（秒数）和播放/暂停状态。",
+        "快照进度必须通过时间戳差值估算，而非仅依赖 onUpdate 最后回调值。",
+        "必须通过序列号判断 Video 是否在快照之后完成了新的 prepared 周期，防止对旧 prepared 事件误响应。",
+        "恢复必须采用双通道触发：onPrepared 回调即时触发 + 定时器轮询兜底。",
+        "Video 组件的 autoPlay 必须结合恢复条件控制，避免重建后自动从头播放。"
+      ],
+      "should_reuse_resources": [
+        "./references/fold_continuity.md",
+        "./references/fold_status_detection.md",
+        "./references/hover_state_interaction.md",
+        "./assets/HoverStateUtil.ets"
+      ],
+      "forbidden_patterns": [
+        "不快照直接依赖 Video 组件内部状态恢复进度。",
+        "autoPlay 始终为 true 不加恢复条件判断。",
+        "只依赖定时器恢复而不监听 onPrepared 事件。",
+        "快照放在布局切换之后，导致记录的是切换后的状态。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "视频播放中途折叠设备，布局切换后视频自动恢复到折叠前的播放进度（偏差不超过 2 秒）。",
+        "折叠前处于播放状态，折叠后恢复播放（start）；折叠前处于暂停状态，折叠后保持暂停（pause）。",
+        "连续快速折叠/展开多次，播放进度不回跳到起点，每次均正确恢复。",
+        "aboutToDisappear 中清理恢复定时器并重置恢复标志。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "播放中折叠设备前后进度对比截图（进度偏差 <= 2s）",
+        "暂停状态折叠设备前后状态对比截图",
+        "连续折叠/展开 3 次后进度恢复验证截图",
+        "FoldStatus 变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-004",
+    "layer": "scene-functional",
+    "title": "折叠状态检测与首帧初始化模块",
+    "phase": "DEV",
+    "user_prompt": "应用要适配折叠屏，折叠、展开、悬停三种状态下界面布局差别很大，但首帧渲染时偶尔会闪一下错误的布局才切换到正确的。怎么在页面打开时就拿到正确的折叠状态，避免首帧抖动？",
+    "intent": "用户描述折叠状态检测和首帧布局抖动问题，期望路由至 FOLD-01（悬停态分屏与多形态适配），输出折叠状态检测和首帧初始化的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 aboutToAppear 中同步获取当前折叠状态，避免首帧布局抖动。",
+        "必须通过 display.on('foldStatusChange', callback) 监听折叠状态实时变化，回调使用命名引用。",
+        "必须通过 display.on('foldDisplayModeChange', callback) 监听显示模式变化。",
+        "必须在 aboutToDisappear 中取消监听，防止内存泄漏。",
+        "必须使用 display.FoldStatus 和 display.FoldDisplayMode 枚举，不使用手写常量。"
+      ],
+      "should_reuse_resources": [
+        "./references/fold_status_detection.md",
+        "./assets/FoldableStatusExample.ets",
+        "./assets/DisplayApiExample.ets"
+      ],
+      "forbidden_patterns": [
+        "只在 aboutToAppear 中读取一次 getFoldStatus() 不注册实时监听。",
+        "使用手写枚举而非 display.FoldStatus / display.FoldDisplayMode。",
+        "aboutToDisappear 中不取消监听导致内存泄漏。",
+        "不结合窗口尺寸和断点系统做综合判断。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "页面首帧渲染时布局与当前折叠状态一致，无抖动。",
+        "折叠/展开设备后状态回调触发，UI 布局同步更新。",
+        "页面退出后回调已取消（无内存泄漏警告）。",
+        "FoldDisplayMode 变化时 UI 正确区分主屏/副屏/全屏/协同模式。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "首帧折叠态截图（无布局抖动）",
+        "折叠/展开后布局截图",
+        "FoldStatus 和 FoldDisplayMode 变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-005",
+    "layer": "scene-functional",
+    "title": "拍摄应用悬停态折痕避让",
+    "phase": "DEV",
+    "user_prompt": "请为拍摄类应用实现悬停态折痕避让布局：折叠屏悬停时自动旋转为横屏并上下分屏，上方取景预览自动调节画面比例，下方放置拍照按钮和模式切换等控制面板，折痕区域不放置任何交互控件。需兼容多款折叠屏设备（折痕方向不同），无折痕数据时以屏幕中线回退分屏。展开态回退为常规相机布局。请输出可落到工程中的开发方案。",
+    "intent": "用户描述相机拍摄应用在悬停态下取景预览和操控按钮跨折痕的问题，期望路由至 FOLD-02（折痕区域避让）+ FOLD-01（悬停态分屏），输出折痕区域获取、坐标转换、方向检测和悬停态避让布局的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-02",
+      "secondary_scenes": ["FOLD-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-03", "FOLD-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须通过 display.getCurrentFoldCreaseRegion() 获取折痕矩形原始数据。",
+        "必须使用 convertGlobalToRelativeCoordinate 将全局坐标转换为页面相对坐标，统一坐标系后再计算分区边界。",
+        "必须锚定折痕上边界（上分区下边界）和折痕下边界（下分区上边界）作为分区锚点，不使用中线+固定偏移策略。",
+        "必须实现 16vp（上方内容安全间距）和 40vp（下方内容安全间距）作为分区内部内容保护间距，不作为分区锚点。",
+        "必须对折痕高度进行安全钳位：折痕区域不超过屏幕对应维度 35%，异常时取折痕物理短边作为安全高度。",
+        "必须处理无折痕数据场景：使用屏幕 50% 位置作为分割线回退。",
+        "必须在 foldStatusChange 回调中重新获取折痕区域并重算分区边界。",
+        "必须通过双向评分算法判断折痕方向（水平/垂直），并实现方向锁定机制避免折叠过程中方向抖动。",
+        "悬停态时取景预览在上分区，拍照按钮、模式切换等操控按钮在下分区，折痕区域用 Blank 占位不承载任何内容或交互控件。",
+        "展开态回退为常规相机布局，不做折痕避让。"
+      ],
+      "should_reuse_resources": [
+        "./references/crease_avoidance.md",
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "./assets/CreaseAvoidance.ets",
+        "./assets/HoverStateUtil.ets"
+      ],
+      "forbidden_patterns": [
+        "展开态也做折痕避让处理。",
+        "使用中线 + 固定偏移策略计算分区边界。",
+        "直接混用全局坐标和页面坐标不做转换。",
+        "16vp/40vp 安全间距作为分区锚点而非内容内部间距。",
+        "不处理页面根节点 globalPosition 偏移。",
+        "硬编码折痕位置而非动态获取。",
+        "只按横竖屏切换，不读取 FoldStatus。",
+        "折痕区域放置拍照按钮或其他交互控件。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "悬停态下取景预览完整显示在上分区，不跨折痕、不变形。",
+        "拍照按钮、模式切换开关等交互控件位于下分区，不落入折痕区域。",
+        "折痕区域用 Blank 占位，不包含任何可见内容或交互控件。",
+        "水平折痕时上下分屏正确（取景预览在上，操控按钮在下），垂直折痕时左右分屏正确。",
+        "折痕高度超过屏幕 35% 时安全钳位生效，分区比例合理。",
+        "无折痕数据时以屏幕中心线分割，取景预览和操控按钮各占合理空间。",
+        "展开态回退为常规相机布局，无折痕避让残留。",
+        "折叠/展开状态切换后分区边界自动重算。",
+        "页面根节点有 globalPosition 偏移时坐标转换正确。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "展开态常规相机布局截图",
+        "悬停态上下分区截图（取景预览在上，操控按钮在下）",
+        "折痕坐标日志（全局坐标 + 页面坐标）",
+        "分区边界计算日志",
+        "FoldStatus 变化日志",
+        "折痕区域空白验证截图（操控按钮不在折痕区域内）"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-006",
+    "layer": "scene-functional",
+    "title": "三折叠 F/M/G 布局适配方案验证",
+    "phase": "DEV",
+    "user_prompt": "请为新闻资讯类应用实现三折叠设备的 F/M/G 三形态布局适配：F 态（折叠态）为单栏紧凑布局、竖屏方向；M 态（半展开态）为双栏过渡布局、竖屏方向；G 态（全展开态）为三栏高信息密度布局、横屏方向。形态切换需平滑过渡、无布局抖动。请输出可落到工程中的开发方案。",
+    "intent": "用户描述新闻资讯应用在三折叠设备上按形态差异化布局和方向策略适配的需求，期望路由至 FOLD-01（悬停态分屏与多形态适配），输出基于断点的 F/M/G 多形态布局适配和方向策略切换方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须通过 display.on('foldStatusChange') 监听折叠状态变化获取当前 FoldStatus。",
+        "必须以运行时窗口宽度作为首要判断依据，结合宽高比辅助判断形态。",
+        "必须实现 F/M/G 三种形态的差异化布局：F 态单栏紧凑（核心内容优先）、M 态双栏过渡、G 态三栏高信息密度。",
+        "必须通过 setPreferredOrientation 在 G 态设置跟随桌面方向，F/M 态锁定竖屏。",
+        "形态标签（F/M/G）仅作为语义入口，实际布局空间以运行时断点和窗口尺寸判定。",
+        "必须在 aboutToDisappear 中取消监听并恢复默认方向。"
+      ],
+      "should_reuse_resources": [
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "./assets/FoldableExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码特定设备型号的布局参数。",
+        "仅依赖 F/M/G 形态标签决定布局，忽略运行时窗口尺寸。",
+        "不使用断点系统直接按设备类型判断。",
+        "G 态不提升信息密度（仍为单栏或双栏）。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "F 态下显示单栏紧凑布局，核心内容优先展示。",
+        "M 态下显示双栏布局，信息密度介于 F 和 G 之间。",
+        "G 态下显示三栏高信息密度布局，方向跟随桌面。",
+        "折叠/展开过程中形态切换平滑，无布局抖动。",
+        "G 态方向为 AUTO_ROTATION，F/M 态方向为 PORTRAIT。",
+        "页面退出后监听已取消，方向恢复默认。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "F 态单栏布局截图",
+        "M 态双栏布局截图",
+        "G 态三栏布局截图",
+        "形态切换过程日志（FoldStatus + 窗口宽度 + 断点）",
+        "方向策略切换日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-007",
+    "layer": "scene-functional",
+    "title": "特殊比例折叠屏内外屏适配方案验证",
+    "phase": "DEV",
+    "user_prompt": "请为 Purax 等特殊比例折叠屏设备实现内外屏差异化适配：外屏为 1:1 方形小屏，只展示关键信息、导航精简为底部 Tab；内屏为宽屏大屏，利用空间展示扩展内容、采用多栏布局。内外屏切换时内容需保持连续，滚动位置和输入状态不丢失。请输出可落到工程中的开发方案。",
+    "intent": "用户描述特殊比例折叠屏内外屏差异化适配需求，期望路由至 FOLD-01（悬停态分屏与多形态适配），输出内外屏差异化布局和断点驱动的适配方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 getFoldStatus() + on('windowSizeChange') 双通道判断当前使用屏幕，不依赖单一信号。",
+        "必须实现外屏策略：仅展示核心信息，裁剪或隐藏非必要内容，导航简化为底部 Tab。",
+        "必须实现内屏策略：利用宽屏空间展示扩展信息，多栏布局提升信息密度，导航使用侧边栏+内容区。",
+        "必须区分全屏/分屏/悬浮窗三种窗口模式分别适配布局。",
+        "必须通过断点系统驱动响应式布局切换，不硬编码设备比例。",
+        "内外屏切换时必须保持内容连续性，不出现滚动位置丢失或输入状态清空。"
+      ],
+      "should_reuse_resources": [
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "./assets/FoldableExample.ets",
+        "./assets/FoldableStateExample.ets"
+      ],
+      "forbidden_patterns": [
+        "硬编码特定设备比例参数。",
+        "仅依赖 getFoldStatus() 不监听窗口尺寸变化。",
+        "不区分窗口模式，全屏/分屏/悬浮窗使用同一布局。",
+        "外屏展示与内屏完全相同的内容不做裁剪。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "外屏（1:1 方形）展示核心信息，无内容溢出或布局拥挤。",
+        "内屏（16:10 宽屏）展示扩展信息，多栏布局信息密度提升。",
+        "内外屏切换时内容连续，滚动位置和输入状态不丢失。",
+        "分屏模式下布局正确适配窗口尺寸，不出现裁切或空白。",
+        "悬浮窗模式下核心内容可见，交互控件可触达。",
+        "断点切换时布局平滑过渡。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "外屏布局截图（核心信息展示）",
+        "内屏布局截图（多栏扩展）",
+        "内外屏切换前后对比截图",
+        "分屏模式截图",
+        "悬浮窗模式截图",
+        "FoldStatus + 窗口尺寸变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-008",
+    "layer": "scene-functional",
+    "title": "列表滚动与输入状态折叠开合连续性保持",
+    "phase": "DEV",
+    "user_prompt": "请为表单类应用实现折叠状态切换时的页面状态连续性保持：折叠/展开时列表页的滚动位置和选中项不能丢失，表单页输入框中的文字、光标位置及输入法面板状态需保持不变、可继续输入。连续快速折展场景下状态也不能错乱。请输出可落到工程中的开发方案。",
+    "intent": "用户描述折叠展开后列表滚动位置丢失、表单输入状态被重置的问题，期望路由至 FOLD-03（开合连续性保障），输出列表滚动位置保持和输入状态快照恢复的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-03",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "通过 onScrollIndex() 持续记录当前可见项索引。",
+        "在 foldStatusChange 回调中使用 Scroller.scrollToIndex() 恢复到记录的索引位置。",
+        "布局切换通过 windowSizeChange 监听断点驱动，而非直接用 foldStatusChange 驱动布局。",
+        "折展前快照输入框状态：文本内容、光标位置（caretOffset）、输入法面板显隐状态。",
+        "折展后根据快照恢复输入框文本、重设光标位置，确保用户可继续输入。",
+        "连续快速折展时每次从最新状态重新快照，避免状态衰减累积。",
+        "aboutToDisappear 中取消 foldStatusChange 监听避免内存泄漏。"
+      ],
+      "should_reuse_resources": [
+        "./references/fold_continuity.md",
+        "./references/fold_status_detection.md",
+        "./assets/FoldableStatusExample.ets"
+      ],
+      "forbidden_patterns": [
+        "使用固定偏移量恢复滚动位置而非锚点元素索引。",
+        "直接用 foldStatusChange 驱动布局切换（布局应由断点驱动）。",
+        "折展后不恢复输入框内容或光标位置，导致用户输入丢失。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "折叠/展开后列表滚动位置恢复到折叠前可见的同一组内容，锚点元素仍在视口内。",
+        "选中项状态在折叠/展开前后保持一致，不丢失选中。",
+        "折叠前输入框中的文字在折叠/展开后完整保留，无丢失或截断。",
+        "折叠/展开后光标位置与折展前一致，用户可直接继续输入。",
+        "输入法面板在折展前后状态一致（折叠前已拉起则展开后仍拉起）。",
+        "连续快速折叠/展开多次后列表位置和输入状态均正确恢复，不出现错乱。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "列表页折叠前后滚动位置对比截图（锚点元素索引）",
+        "表单页折叠前后输入框内容、光标位置对比截图",
+        "连续快速折展3次后滚动位置和输入状态验证截图",
+        "FoldStatus 变化日志"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-FUNC-009",
+    "layer": "scene-functional",
+    "title": "图片列表折叠开合画质保持",
+    "phase": "DEV",
+    "user_prompt": "请实现一个图片列表应用，折叠态（小屏幕）使用低分辨率图片，展开态（大屏幕）使用高分辨率图片。演示项目需生成不同分辨率的示例图片资源，以便折展时能直观看到图片清晰度的变化。",
+    "intent": "用户描述折叠展开后图片因分辨率不适配而模糊的问题，期望路由至 FOLD-03（开合连续性保障），输出图片画质保持的技术方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-03",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["FOLD-02", "FOLD-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "折展导致窗口尺寸变化时图片需重新加载适配当前尺寸的分辨率，避免拉伸模糊。"
+      ],
+      "should_reuse_resources": [
+        "./references/fold_continuity.md"
+      ],
+      "forbidden_patterns": [
+        "折展后图片保持旧尺寸拉伸显示不做重新加载。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "manual_review",
+      "runtime_assertions": [
+        "折展完成后图片清晰度与折展前一致，无明显模糊。"
+      ],
+      "pass_evidence": [
+        "折展前后图片清晰度对比截图"
+      ]
+    }
+  }
+]

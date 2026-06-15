@@ -1,0 +1,370 @@
+[
+  {
+    "api_name": "videoProcessingEngine.create()",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::Create",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "OH_ImageProcessing_Create",
+    "impl_file": "framework/capi/image_processing/image_processing_impl.cpp",
+    "chain": "JS create() -> VpeNapi::Create() -> napi_new_instance() -> VpeNapi::Constructor()",
+    "description": "创建 ImageProcessor 实例。JS 层通过 NAPI 构造 VpeNapi 对象。"
+  },
+  {
+    "api_name": "videoProcessingEngine.initializeEnvironment()",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::InitializeEnvironment",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "N/A (直接返回 true，未实际调用 CAPI)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS initializeEnvironment() -> VpeNapi::InitializeEnvironment() -> 直接返回 true",
+    "description": "初始化全局图像处理环境。注意：当前 NAPI 实现直接返回 true，未调用底层 CAPI 的 OH_ImageProcessing_InitializeEnvironment。"
+  },
+  {
+    "api_name": "videoProcessingEngine.deinitializeEnvironment()",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::DeinitializeEnvironment",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "N/A (直接返回 true，未实际调用 CAPI)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS deinitializeEnvironment() -> VpeNapi::DeinitializeEnvironment() -> 直接返回 true",
+    "description": "反初始化全局图像处理环境。注意：当前 NAPI 实现直接返回 true，未调用底层 CAPI 的 OH_ImageProcessing_DeinitializeEnvironment。"
+  },
+  {
+    "api_name": "ImageProcessor.enhanceDetail(sourceImage, width, height, level?)",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::EnhanceDetail",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "DetailEnhancerImage::Process (内部算法)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS enhanceDetail() -> VpeNapi::EnhanceDetail() -> ParseDetailEnhanceParameter() -> napi_create_async_work() -> EnhanceDetailWork() -> DetailEnhanceImpl() -> InitDetailAlgo() + SetDetailAlgoParam() + DetailEnhancerImage::Process() -> EnhanceDetailCallBackWork()",
+    "description": "异步细节增强。解析 PixelMap 参数，异步调用 DetailEnhancerImage 算法处理，通过 Promise 返回结果。"
+  },
+  {
+    "api_name": "ImageProcessor.enhanceDetail(sourceImage, scale, level?)",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::EnhanceDetail",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "DetailEnhancerImage::Process (内部算法)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS enhanceDetail() -> VpeNapi::EnhanceDetail() -> ParseDetailEnhanceParameter() -> ConfigResolutionBasedOnRatio() -> napi_create_async_work() -> EnhanceDetailWork() -> DetailEnhanceImpl() -> DetailEnhancerImage::Process() -> EnhanceDetailCallBackWork()",
+    "description": "异步细节增强（按比例缩放版本）。通过缩放比例计算目标分辨率。"
+  },
+  {
+    "api_name": "ImageProcessor.enhanceDetailSync(sourceImage, width, height, level?)",
+    "api_type": "JS API",
+    "d_ts_file": "interface_sdk-js/api/@ohos.multimedia.videoProcessingEngine.d.ts",
+    "napi_func": "VpeNapi::EnhanceDetailSync",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "DetailEnhancerImage::Process (内部算法)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS enhanceDetailSync() -> VpeNapi::EnhanceDetailSync() -> ParseDetailEnhanceParameter() -> DetailEnhanceImpl() -> InitDetailAlgo() + SetDetailAlgoParam() + DetailEnhancerImage::Process()",
+    "description": "同步细节增强。同步调用算法处理，直接返回结果 PixelMap。"
+  },
+  {
+    "api_name": "ImageProcessor.setLcdImage(lcdImage, contentId, defaultRatio)",
+    "api_type": "JS API (未在 .d.ts 中声明)",
+    "d_ts_file": "N/A",
+    "napi_func": "VpeNapi::SetLcdImage",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "ContrastEnhancerImage::GetRegionHist (内部算法)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS setLcdImage() -> VpeNapi::SetLcdImage() -> ParseLCDParameter() -> InitContrastAlgo() -> ContrastEnhancerImage::GetRegionHist()",
+    "description": "设置 LCD 图像用于对比度增强。通过异步工作线程生成区域直方图基线。"
+  },
+  {
+    "api_name": "ImageProcessor.setDetailImage(image, pixelmapId, curArea, displayArea, size, genFinalEffect, maxRatio, duration, curRatio)",
+    "api_type": "JS API (未在 .d.ts 中声明)",
+    "d_ts_file": "N/A",
+    "napi_func": "VpeNapi::SetDetailImage",
+    "napi_file": "interfaces/kits/js/detail_enhance_napi_formal.h",
+    "capi_func": "ContrastEnhancerImage::UpdateMetadataBasedOnHist (内部算法)",
+    "impl_file": "framework/capi/image_processing/detail_enhance_napi_formal.cpp",
+    "chain": "JS setDetailImage() -> VpeNapi::SetDetailImage() -> ParseDetailImageParameter() -> InitContrastAlgo() -> ContrastEnhancerImage::UpdateMetadataBasedOnHist()",
+    "description": "设置细节图像用于对比度增强。基于直方图更新元数据。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_InitializeEnvironment",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_InitializeEnvironment",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_InitializeEnvironment() -> ImageProcessingCapiCapability::OpenCLInit() + OpenGLInit() -> ImageEnvironmentNative::Initialize()",
+    "description": "初始化图像处理全局环境（OpenCL + OpenGL）。可选调用，提前初始化可减少后续 Create 的耗时。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_DeinitializeEnvironment",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_DeinitializeEnvironment",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_DeinitializeEnvironment() -> ImageEnvironmentNative::Deinitialize()",
+    "description": "反初始化图像处理全局环境。需在所有实例销毁后调用。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_Create",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_Create",
+    "impl_file": "framework/capi/image_processing/image_processing_impl.cpp",
+    "chain": "OH_ImageProcessing_Create() -> OH_ImageProcessing::Create() -> ImageProcessingFactory::IsValid() + CreateImageProcessing() -> (DetailEnhancerImageNative | ColorspaceConverterImageNative | MetadataGeneratorImageNative)",
+    "description": "创建图像处理实例。根据 type 分发到对应 Native 实现：DETAIL_ENHANCER -> DetailEnhancerImageNative, COLOR_SPACE_CONVERSION/COMPOSITION/DECOMPOSITION -> ColorspaceConverterImageNative, METADATA_GENERATION -> MetadataGeneratorImageNative。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_Destroy",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_Destroy",
+    "impl_file": "framework/capi/image_processing/image_processing_impl.cpp",
+    "chain": "OH_ImageProcessing_Destroy() -> OH_ImageProcessing::Destroy() -> IImageProcessingNative::Deinitialize() + delete",
+    "description": "销毁图像处理实例。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_SetParameter",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_SetParameter",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_SetParameter() -> CallImageProcessing() -> IImageProcessingNative::SetParameter()",
+    "description": "设置图像处理参数。通过 OH_AVFormat 传递参数，如 QualityLevel。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_GetParameter",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_GetParameter",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_GetParameter() -> CallImageProcessing() -> IImageProcessingNative::GetParameter()",
+    "description": "获取图像处理参数。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_ConvertColorSpace",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_ConvertColorSpace",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_ConvertColorSpace() -> CallImageProcessing() -> IImageProcessingNative::ConvertColorSpace() -> ColorspaceConverterImageNative -> ColorspaceConverterFwk -> Extension",
+    "description": "图像色彩空间转换。包括 HDR 到 SDR、SDR 到 HDR、SDR 到 SDR 的转换。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_Compose",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_Compose",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_Compose() -> CallImageProcessing() -> IImageProcessingNative::Compose() -> ImageProcessingNativeBase",
+    "description": "HDR 图像合成。从双层 HDR 图像合成单层 HDR 图像。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_Decompose",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_Decompose",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_Decompose() -> CallImageProcessing() -> IImageProcessingNative::Decompose() -> ImageProcessingNativeBase",
+    "description": "HDR 图像分解。从单层 HDR 图像分解为双层 HDR 图像。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_GenerateMetadata",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_GenerateMetadata",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_GenerateMetadata() -> CallImageProcessing() -> IImageProcessingNative::GenerateMetadata() -> MetadataGeneratorImageNative -> MetadataGeneratorFwk -> Extension",
+    "description": "生成图像 HDR Vivid 元数据。"
+  },
+  {
+    "api_name": "OH_ImageProcessing_EnhanceDetail",
+    "api_type": "C API (Image)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_ImageProcessing_EnhanceDetail",
+    "impl_file": "framework/capi/image_processing/image_processing.cpp",
+    "chain": "OH_ImageProcessing_EnhanceDetail() -> CallImageProcessing() -> IImageProcessingNative::Process() -> DetailEnhancerImageNative -> DetailEnhancerImageFwk -> Extension (Skia 等)",
+    "description": "图像细节增强。根据预设质量等级进行缩放或清晰度增强。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_InitializeEnvironment",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_InitializeEnvironment",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_InitializeEnvironment() -> VideoProcessingCapiCapability::Init() -> VideoEnvironmentNative::Initialize()",
+    "description": "初始化视频处理全局环境。可选调用。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_DeinitializeEnvironment",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_DeinitializeEnvironment",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_DeinitializeEnvironment() -> VideoEnvironmentNative::Deinitialize()",
+    "description": "反初始化视频处理全局环境。需在所有实例销毁后调用。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_Create",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_Create",
+    "impl_file": "framework/capi/video_processing/video_processing_impl.cpp",
+    "chain": "OH_VideoProcessing_Create() -> OH_VideoProcessing::Create() -> VideoProcessingFactory::IsValid() + CreateVideoProcessing() -> (DetailEnhancerVideoNative | ColorSpaceConverterVideoNative | MetadataGeneratorVideoNative)",
+    "description": "创建视频处理实例。根据 type 分发：DETAIL_ENHANCER -> DetailEnhancerVideoNative, COLOR_SPACE_CONVERSION -> ColorSpaceConverterVideoNative, METADATA_GENERATION -> MetadataGeneratorVideoNative。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_Destroy",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_Destroy",
+    "impl_file": "framework/capi/video_processing/video_processing_impl.cpp",
+    "chain": "OH_VideoProcessing_Destroy() -> OH_VideoProcessing::Destroy() -> IVideoProcessingNative::Deinitialize() + delete",
+    "description": "销毁视频处理实例。需先 Stop 再 Destroy。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_RegisterCallback",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_RegisterCallback",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_RegisterCallback() -> CallVideoProcessing() -> IVideoProcessingNative::RegisterCallback()",
+    "description": "注册视频处理回调对象。需在 Start 之前注册。回调包含 OnError、OnState、OnNewOutputBuffer。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_SetSurface",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_SetSurface",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_SetSurface() -> CallVideoProcessing() -> IVideoProcessingNative::SetOutputSurface()",
+    "description": "设置视频处理输出 Surface。需在 Start 之前设置。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_GetSurface",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_GetSurface",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_GetSurface() -> CallVideoProcessing() -> IVideoProcessingNative::CreateInputSurface()",
+    "description": "创建视频处理输入 Surface。需在 Start 之前创建。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_SetParameter",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_SetParameter",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_SetParameter() -> CallVideoProcessing() -> IVideoProcessingNative::SetParameter()",
+    "description": "设置视频处理参数。通过 OH_AVFormat 传递参数，如 QualityLevel、StyleControl。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_GetParameter",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_GetParameter",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_GetParameter() -> CallVideoProcessing() -> IVideoProcessingNative::GetParameter()",
+    "description": "获取视频处理参数。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_Start",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_Start",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_Start() -> CallVideoProcessing() -> IVideoProcessingNative::Start() -> VideoProcessingNativeBase -> OnState(RUNNING) callback",
+    "description": "启动视频处理。成功后通过回调报告 VIDEO_PROCESSING_STATE_RUNNING 状态。需先设置输出 Surface 和创建输入 Surface。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_Stop",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_Stop",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_Stop() -> CallVideoProcessing() -> IVideoProcessingNative::Stop() -> VideoProcessingNativeBase -> OnState(STOPPED) callback",
+    "description": "停止视频处理。处理完缓存的所有 buffer 后通过回调报告 VIDEO_PROCESSING_STATE_STOPPED 状态。"
+  },
+  {
+    "api_name": "OH_VideoProcessing_RenderOutputBuffer",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessing_RenderOutputBuffer",
+    "impl_file": "framework/capi/video_processing/video_processing.cpp",
+    "chain": "OH_VideoProcessing_RenderOutputBuffer() -> CallVideoProcessing() -> IVideoProcessingNative::RenderOutputBuffer()",
+    "description": "渲染输出缓冲区。需在 OnNewOutputBuffer 回调中获取 index 后调用。"
+  },
+  {
+    "api_name": "OH_VideoProcessingCallback_Create",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessingCallback_Create",
+    "impl_file": "framework/capi/video_processing/video_processing_callback_impl.cpp",
+    "chain": "OH_VideoProcessingCallback_Create() -> 创建 VideoProcessing_Callback 对象",
+    "description": "创建视频处理回调对象。"
+  },
+  {
+    "api_name": "OH_VideoProcessingCallback_Destroy",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessingCallback_Destroy",
+    "impl_file": "framework/capi/video_processing/video_processing_callback_impl.cpp",
+    "chain": "OH_VideoProcessingCallback_Destroy() -> 销毁 VideoProcessing_Callback 对象",
+    "description": "销毁视频处理回调对象。可在注册到实例后销毁。"
+  },
+  {
+    "api_name": "OH_VideoProcessingCallback_BindOnError",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessingCallback_BindOnError",
+    "impl_file": "framework/capi/video_processing/video_processing_callback_impl.cpp",
+    "chain": "OH_VideoProcessingCallback_BindOnError() -> 绑定 OnError 回调函数",
+    "description": "绑定错误回调函数。回调中可收到错误码如 UNSUPPORTED_PROCESSING、INVALID_VALUE、NO_MEMORY、PROCESS_FAILED。"
+  },
+  {
+    "api_name": "OH_VideoProcessingCallback_BindOnState",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessingCallback_BindOnState",
+    "impl_file": "framework/capi/video_processing/video_processing_callback_impl.cpp",
+    "chain": "OH_VideoProcessingCallback_BindOnState() -> 绑定 OnState 回调函数",
+    "description": "绑定状态回调函数。回调中可收到 RUNNING 或 STOPPED 状态。"
+  },
+  {
+    "api_name": "OH_VideoProcessingCallback_BindOnNewOutputBuffer",
+    "api_type": "C API (Video)",
+    "d_ts_file": "N/A",
+    "napi_func": "N/A",
+    "capi_func": "OH_VideoProcessingCallback_BindOnNewOutputBuffer",
+    "impl_file": "framework/capi/video_processing/video_processing_callback_impl.cpp",
+    "chain": "OH_VideoProcessingCallback_BindOnNewOutputBuffer() -> 绑定 OnNewOutputBuffer 回调函数",
+    "description": "绑定新输出缓冲区回调函数。当输出 buffer 填充完成后报告 buffer index。"
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "case_id": "SCENE-ENTRY-FUNC-001",
+  "layer": "scene-functional",
+  "title": "复合开发请求的场景分流与交接契约",
+  "phase": "DEV",
+  "user_prompt": "给一个折叠屏视频详情页做多设备适配：展开态双栏，悬停态上下分屏，评论输入框不被键盘遮挡，旋转后布局同步更新。请不要直接写代码，先给出可交给下游多设备场景处理的场景拆分与交接结果。",
+  "intent": "验证总入口是否把复合请求稳定拆成可执行的场景交接包，而不是直接给实现细节。",
+  "expected": {
+    "primary_phase": "DEV",
+    "primary_scene": "SCENE-07",
+    "secondary_scenes": ["SCENE-02", "SCENE-03", "SCENE-01"],
+    "next_scene_refs": [
+      "../hmos-multidevice-fold-state/SKILL.md",
+      "../hmos-multidevice-avoid-areas/SKILL.md",
+      "../hmos-multidevice-screen-window-size/SKILL.md"
+    ],
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "primary_scene",
+      "secondary_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "primary_code_domain",
+      "secondary_code_domains",
+      "integration_edges"
+    ],
+    "forbidden_scenes": ["SCENE-06"]
+  },
+  "solution_contract": {
+    "must_cover": [
+      "必须先产出主场景和次场景，再进入下游 skill。",
+      "必须解释为什么由折叠态场景主导，而不是直接落到窗口尺寸。",
+      "必须明确键盘避让和窗口同步属于联动域。"
+    ],
+    "should_reuse_resources": [
+      "./SKILL.md",
+      "../hmos-multidevice-fold-state/SKILL.md",
+      "../hmos-multidevice-avoid-areas/SKILL.md",
+      "../hmos-multidevice-screen-window-size/SKILL.md"
+    ],
+    "forbidden_patterns": [
+      "直接给 ArkTS 实现代码而不做场景交接。",
+      "只保留一个场景，忽略复合问题的联动关系。"
+    ]
+  },
+  "execution_contract": {
+    "execution_type": "routing_only",
+    "target_project_type": "Skill 路由验证，不直接进入 HarmonyOS 工程编译",
+    "compile_command_template": "",
+    "test_command_template": "",
+    "runtime_assertions": [
+      "Agent 输出的主场景必须是 SCENE-07。",
+      "输出必须包含 3 个下游场景文件路径。",
+      "下游开发者能够据此继续执行功能开发。"
+    ],
+    "pass_evidence": [
+      "submission JSON",
+      "场景交接清单",
+      "下游 skill 路径命中记录"
+    ]
+  }
+}

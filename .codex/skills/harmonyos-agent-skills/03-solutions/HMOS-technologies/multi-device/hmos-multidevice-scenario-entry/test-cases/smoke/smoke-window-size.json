@@ -1,0 +1,27 @@
+{
+  "case_id": "SCENE-ENTRY-SMOKE-01-001",
+  "layer": "smoke",
+  "title": "总入口路由到窗口尺寸场景",
+  "phase": "DEV",
+  "user_prompt": "一个平板详情页在旋转和拖拽窗口后布局没有刷新，需要补窗口尺寸监听和同步机制。请给出开发阶段的处理建议。",
+  "intent": "验证总入口是否把窗口尺寸类问题路由到 SCENE-01。",
+  "expected": {
+    "primary_phase": "DEV",
+    "primary_scene": "SCENE-01",
+    "primary_scene_ref": "../hmos-multidevice-screen-window-size/SKILL.md",
+    "secondary_scenes": [],
+    "next_scene_refs": ["../hmos-multidevice-screen-window-size/SKILL.md"],
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "primary_scene",
+      "secondary_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "primary_code_domain",
+      "secondary_code_domains",
+      "integration_edges"
+    ],
+    "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+  }
+}

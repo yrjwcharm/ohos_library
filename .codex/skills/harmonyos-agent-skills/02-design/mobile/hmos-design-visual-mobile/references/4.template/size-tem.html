@@ -1,0 +1,53 @@
+<!--
+  size Template
+  Variables (Template Contract):
+- `{{device}}`: `phone-portrait|phone-landscape|foldable|tablet-portrait|tablet-landscape`
+- `{{time}}`: 状态栏时间
+- `{{content}}`: 页面内容槽
+- `{{overlay}}`: 全屏覆盖层槽（如 bindsheet）
+- `{{showHomeIndicator}}`: 是否显示底部指示条
+-->
+
+<style>
+.harmony-size {
+  width: 360px;
+  height: 792px;
+  background: var(--harmony-background_secondary);
+  overflow: hidden;
+  position: relative;
+  color: var(--harmony-font_primary);
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 防拉伸约束 */
+.harmony-size [class*="icon"],
+.harmony-size [class*="arrow"],
+.harmony-size [class*="thumb"] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.harmony-size-statusbar {
+  min-height: 36px;
+}
+
+.harmony-size-content {
+  flex: 1;
+  min-height: 0;
+}
+
+.harmony-size-home-indicator {
+  min-height: 28px;
+}
+</style>
+
+<div class="harmony-size harmony-size-{{device}}" data-component="size" data-figma-node-id="">
+<div class="harmony-size-statusbar">{{time}}</div>
+<div class="harmony-size-content">{{content}}</div>
+<div class="harmony-size-home-indicator" {{showHomeIndicator}}></div>
+{{overlay}}
+</div>

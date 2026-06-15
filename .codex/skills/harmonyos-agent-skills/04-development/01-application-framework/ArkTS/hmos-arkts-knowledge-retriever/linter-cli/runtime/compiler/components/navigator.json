@@ -1,0 +1,5 @@
+{
+  "name": "Navigator",
+  "single": true,
+  "attrs": ["target", "type", "params", "active"]
+}

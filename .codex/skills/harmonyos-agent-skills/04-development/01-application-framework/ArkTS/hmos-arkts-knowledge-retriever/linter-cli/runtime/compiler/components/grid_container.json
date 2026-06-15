@@ -1,0 +1,4 @@
+{
+  "name": "GridContainer",
+  "attrs": ["columns", "sizeType", "gutter", "margin"]
+}

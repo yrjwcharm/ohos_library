@@ -1,0 +1,8 @@
+{
+  "name": "ImageAnimator",
+  "atomic": true,
+  "attrs": [
+    "images", "state", "duration", "reverse", "fixedSize", "preDecode", "fillMode", "iterations",
+    "onStart", "onPause", "onRepeat", "onCancel", "onFinish"
+  ]
+}

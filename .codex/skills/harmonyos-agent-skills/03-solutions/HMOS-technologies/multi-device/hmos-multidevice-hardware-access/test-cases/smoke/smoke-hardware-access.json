@@ -1,0 +1,173 @@
+[
+  {
+    "case_id": "HW-SMOKE-001",
+    "layer": "smoke",
+    "title": "冒烟：HW-01 DEV路由 — 能力检测与降级",
+    "phase": "DEV",
+    "user_prompt": "按照 SKILL.md HW-01 场景要求，在设备上使用 canIUse 检测 camera/vibrator/sensor 能力并做降级。",
+    "intent": "验证 HW-01 DEV 路由命中，覆盖 HW-FUNC-001 能力检测入口与降级",
+    "expected": {
+      "primary_scene": "HW-01",
+      "covered_cases": ["HW-FUNC-001"],
+      "decision_path": "关键词 'canIUse' + '能力检测' → HW-01"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-002",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-fold DEV路由 — 折叠屏相机选择与重建",
+    "phase": "DEV",
+    "user_prompt": "按照 SKILL.md HW-02-fold 场景，开发折叠屏设备上根据折叠状态选择相机并重建会话的代码。",
+    "intent": "验证 HW-02-fold DEV 路由命中，覆盖 HW-FUNC-002 折叠屏相机选择与折叠态重建",
+    "expected": {
+      "primary_scene": "HW-02-fold",
+      "covered_cases": ["HW-FUNC-002"],
+      "decision_path": "关键词 '折叠屏' + '相机' + '选择' → HW-02 → 子场景 'fold' → HW-02-fold"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-003",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-stride DEV路由 — stride 比对与无效像素去除",
+    "phase": "DEV",
+    "user_prompt": "按照 SKILL.md HW-02-stride 场景，开发 ImageReceiver 预览帧 stride 处理，去除无效填充像素防止花屏。",
+    "intent": "验证 HW-02-stride DEV 路由命中，覆盖 HW-FUNC-003 预览流 stride 比对与无效像素去除",
+    "expected": {
+      "primary_scene": "HW-02-stride",
+      "covered_cases": ["HW-FUNC-003"],
+      "decision_path": "关键词 'stride' + '花屏' + '预览帧' → HW-02 → 子场景 'stride' → HW-02-stride"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-004",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-rotation DEV路由 — 相机预览与拍照旋转角度适配",
+    "phase": "DEV",
+    "user_prompt": "按照 SKILL.md HW-02-rotation 场景，开发相机预览旋转角度的完整适配代码，包含 Surface 锁定、重力传感器拍照旋转计算、录像方向设置。",
+    "intent": "验证 HW-02-rotation DEV 路由命中，覆盖 HW-FUNC-004 相机预览与拍照旋转角度适配",
+    "expected": {
+      "primary_scene": "HW-02-rotation",
+      "covered_cases": ["HW-FUNC-004"],
+      "decision_path": "关键词 'rotation' + '预览' + '拍照' → HW-02 → 子场景 'rotation' → HW-02-rotation"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-005",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-fold FIX路由 — 折叠态切换后黑屏修复",
+    "phase": "FIX",
+    "user_prompt": "修复折叠屏设备折叠/展开后相机黑屏问题：检查 foldStatusChange 监听是否完整注册、onPageShow 是否恢复相机、折叠变化时是否完整重建会话。",
+    "intent": "验证 HW-02-fold FIX 路由命中，覆盖 HW-REAL-001 折叠态切换后黑屏",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_02", "RSC_HW_03"],
+      "co_load_match": "关键词 '折叠'+'foldStatus' → trigger 折叠态回归 → 加载 HW-02-fold",
+      "covered_cases": ["HW-REAL-001"],
+      "decision_path": "关键词 FIX + '折叠' + '黑屏' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-006",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-fold FIX路由 — 开合后相机设备未切换修复",
+    "phase": "FIX",
+    "user_prompt": "修复折叠屏折叠/展开后相机仍使用旧设备的问题：折叠变化时完整执行 releaseCamera 而非仅更新 PreviewOutput，相机选择时 findIndex 未找到回退。",
+    "intent": "验证 HW-02-fold FIX 路由命中并根因匹配加载 fold，覆盖 HW-REAL-002",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_02", "RSC_HW_03"],
+      "co_load_match": "关键词 '折叠'+'releaseCamera' → trigger 折叠态回归 → 加载 HW-02-fold",
+      "covered_cases": ["HW-REAL-002"],
+      "decision_path": "关键词 FIX + '折叠' + '设备未切换' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-007",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-rotation FIX路由 — 拍照后画面旋转修复",
+    "phase": "FIX",
+    "user_prompt": "修复拍照后照片方向与持握不一致问题：capture 前 sensor.once(GRAVITY) 获取角度，区分前后置映射，传入 PhotoCaptureSetting(rotation, mirror)。",
+    "intent": "验证 HW-02-rotation FIX 路由命中并根因匹配加载 rotation，覆盖 HW-REAL-003",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "co_load_match": "关键词 'rotation'+'拍照'+'GRAVITY' → trigger 旋转回归 → 加载 HW-02-rotation",
+      "covered_cases": ["HW-REAL-003"],
+      "decision_path": "关键词 FIX + 'rotation' + '拍照' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-008",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-rotation FIX路由 — 预览画面旋转拉伸修复",
+    "phase": "FIX",
+    "user_prompt": "修复预览画面旋转拉伸：XComponent onLoad 中 setXComponentSurfaceRotation，display.on('change') 回调重新计算 Surface 宽高比和预览旋转角度。",
+    "intent": "验证 HW-02-rotation FIX 路由命中并根因匹配加载 rotation，覆盖 HW-REAL-004",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "co_load_match": "关键词 '旋转'+'Surface 宽高比'+'预览' → trigger 旋转回归 → 加载 HW-02-rotation",
+      "covered_cases": ["HW-REAL-004"],
+      "decision_path": "关键词 FIX + 'rotation' + '预览' + '拉伸' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-009",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-rotation FIX路由 — 录像方向错误修复",
+    "phase": "FIX",
+    "user_prompt": "修复录像方向错误：startVideo 前 sensor.once(GRAVITY) 获取角度，计算映射后设置 AVMetadata.videoOrientation 为 0/90/180/270 合理值。",
+    "intent": "验证 HW-02-rotation FIX 路由命中并根因匹配加载 rotation，覆盖 HW-REAL-005",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "co_load_match": "关键词 '录像'+'方向'+'videoOrientation' → trigger 旋转回归 → 加载 HW-02-rotation",
+      "covered_cases": ["HW-REAL-005"],
+      "decision_path": "关键词 FIX + 'rotation' + '录像' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-010",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-stride FIX路由 — 预览花屏/堆叠修复",
+    "phase": "FIX",
+    "user_prompt": "修复预览花屏：运行时 component.rowStride 获取 stride 值，stride≠width 时去除无效像素（缓冲拷贝或 cropSync）后再创建 PixelMap。",
+    "intent": "验证 HW-02-stride FIX 路由命中并根因匹配加载 stride，覆盖 HW-REAL-006",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-stride"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_03", "RSC_HW_04"],
+      "co_load_match": "关键词 '花屏'+'stride'+'rowStride' → trigger stride 回归 → 加载 HW-02-stride",
+      "covered_cases": ["HW-REAL-006"],
+      "decision_path": "关键词 FIX + 'stride' + '花屏' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 stride"
+    }
+  },
+  {
+    "case_id": "HW-SMOKE-011",
+    "layer": "smoke",
+    "title": "冒烟：HW-02-fold FIX路由 — 2in1/阔折叠后置相机不可用修复",
+    "phase": "FIX",
+    "user_prompt": "修复 2in1 设备或阔折叠外屏后置相机不可用：相机选择 findIndex 查找，未找到回退 cameras[0]，前后切换时目标不存在保持当前相机。",
+    "intent": "验证 HW-02-fold FIX 路由命中并根因匹配加载 fold，覆盖 HW-REAL-007",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "resources_loaded": ["RSC_HW_02", "RSC_HW_03"],
+      "co_load_match": "关键词 '2in1'+'外屏'+'折叠' → trigger 折叠态回归 → 加载 HW-02-fold",
+      "covered_cases": ["HW-REAL-007"],
+      "decision_path": "关键词 FIX + '2in1' + '后置相机' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    }
+  }
+]

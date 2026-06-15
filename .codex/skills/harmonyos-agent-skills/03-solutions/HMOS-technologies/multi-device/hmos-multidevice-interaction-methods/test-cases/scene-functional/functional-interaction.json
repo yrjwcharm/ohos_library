@@ -1,0 +1,171 @@
+[
+  {
+    "case_id": "INPUT-FUNC-001",
+    "layer": "scene-functional",
+    "title": "鼠标功能和交互归一化",
+    "phase": "DEV",
+    "user_prompt": "为文件管理页的文件项添加鼠标悬浮效果、左键点击和右键菜单功能，同时触摸时点击和左键点击功能一致且代码实现归一，触摸长按和右键点击呼出菜单功能一致且代码实现归一。",
+    "intent": "完成要求的功能开发，且实现方案为提供方案。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-01",
+      "secondary_scenes": ["INPUT-02"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-03", "INPUT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须保证触摸功能不被PC端交互功能破坏。"
+      ],
+      "should_reuse_resources": [
+        "./references/mouse.md",
+        "./references/interaction_normalization.md",
+        "./assets/FocusNavigationExample.ets",
+        "./assets/HoverEffectExample.ets"
+      ],
+      "forbidden_patterns": [
+        "没有交互归一，鼠标和触摸功能分别实现。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 平板/PC ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "Tab 或方向键能按预期顺序切换焦点。",
+        "鼠标 hover 时展示悬浮反馈，焦点态仍保持可区分。",
+        "快捷键触发目标动作且不影响触摸点击链路。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "鼠标点击，悬浮等功能验证成功",
+        "鼠标 hover 截图"
+      ]
+    }
+  },
+  {
+    "case_id": "INPUT-FUNC-002",
+    "layer": "scene-functional",
+    "title": "键盘功能开发",
+    "phase": "DEV",
+    "user_prompt": "视频选集支持焦点导航，包括tab键和左右方向键导航，且焦点样式为边框高亮。并定义一个组合键，crtl + D 为切换到下一集播放",
+    "intent": "验证键盘焦点和快捷键功能能正常开发并通过测试验收",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-03",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-04"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须完成焦点导航的开发，包括tab切换焦点，方向键切换焦点，以及自定义焦点样式",
+        "必须完成快捷键，组合键的开发"
+      ],
+      "should_reuse_resources": [
+        "./references/keyboard.md"
+      ],
+      "forbidden_patterns": [
+        "避免与工程其它逻辑冲突，导致键盘功能或其他功能异常。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 平板/PC ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "tab键导航正常，选集按顺序导航",
+        "方向键导航正常，选集根据方向进行导航",
+        "快捷键正常触发，点击后切换下一集播放"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "焦点导航截图",
+        "快捷键截图"
+      ]
+    }
+  },
+  {
+    "case_id": "INPUT-FUNC-003",
+    "layer": "scene-functional",
+    "title": "手写笔绘图与压感功能验证",
+    "phase": "DEV",
+    "user_prompt": "区分手写笔和手指触碰画板，不同方式绘画提示在画笔上提示当前输入方式；手写笔模式下压力越大，线越宽，手指触摸使用固定线宽；",
+    "intent": "验证 INPUT-04 手写笔输入与压感的开发方案能落到工程并通过交互测试。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "INPUT-04",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["INPUT-01", "INPUT-02", "INPUT-03"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 Canvas.onTouch 中通过 event.sourceTool 区分 SourceTool.Pen 和 SourceTool.Finger。",
+        "手写笔输入必须读取 touch.pressure 压力值动态计算线宽（公式需明确）。",
+        "手指触摸必须使用固定线宽，不响应压力值。"
+      ],
+      "should_reuse_resources": [
+        "./references/stylus.md"
+      ],
+      "forbidden_patterns": [
+        "不区分 sourceTool，手写笔和手指使用同一套绘制参数。",
+        "读取压力值不做边界校验（pressure 为 undefined 时崩溃）。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 平板/三折叠 ArkTS 工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "手写笔绘制时线宽随压力变化：轻按细线、重按粗线。",
+        "手指绘制时使用固定线宽，不响应压力。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "手写笔压感绘制截图（不同压力对应不同线宽）",
+        "手指绘制截图",
+        "压力值日志"
+      ]
+    }
+  }
+]

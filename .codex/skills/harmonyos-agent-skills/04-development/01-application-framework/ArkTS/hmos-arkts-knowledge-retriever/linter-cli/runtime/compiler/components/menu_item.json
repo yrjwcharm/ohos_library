@@ -1,0 +1,16 @@
+{
+  "name": "MenuItem",
+  "parent": [
+    "Menu",
+    "MenuItemGroup"
+  ],
+  "attrs": [
+    "selectIcon",
+    "onChange",
+    "selected",
+    "contentFont",
+    "contentFontColor",
+    "labelFont",
+    "labelFontColor"
+  ]
+}

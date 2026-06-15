@@ -1,0 +1,7 @@
+{
+  "name": "DotMatrix",
+  "atomic": true,
+  "attrs": [
+    "dotSpacing", "dotMatrixEffects", "onEffectChanged"
+  ]
+}

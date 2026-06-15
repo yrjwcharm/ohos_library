@@ -1,0 +1,31 @@
+{
+  "case_id": "SCENE-ENTRY-SMOKE-07-001",
+  "layer": "smoke",
+  "title": "总入口路由复合场景",
+  "phase": "DEV",
+  "user_prompt": "给一个折叠屏视频详情页做多设备适配：展开态双栏，悬停态上下分屏，评论输入框不被键盘遮挡，旋转后布局同步更新。请给出开发阶段的方案。",
+  "intent": "验证总入口是否命中 SCENE-07，并稳定联动折叠态、避让区、屏幕窗口三个场景。",
+  "expected": {
+    "primary_phase": "DEV",
+    "primary_scene": "SCENE-07",
+    "primary_scene_ref": null,
+    "secondary_scenes": ["SCENE-02", "SCENE-03", "SCENE-01"],
+    "next_scene_refs": [
+      "../hmos-multidevice-fold-state/SKILL.md",
+      "../hmos-multidevice-avoid-areas/SKILL.md",
+      "../hmos-multidevice-screen-window-size/SKILL.md"
+    ],
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "primary_scene",
+      "secondary_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "primary_code_domain",
+      "secondary_code_domains",
+      "integration_edges"
+    ],
+    "forbidden_scenes": ["SCENE-06"]
+  }
+}

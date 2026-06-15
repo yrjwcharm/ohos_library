@@ -1,0 +1,97 @@
+<!--
+  aibottombar Template
+  Variables (Template Contract):
+- `{{theme}}`: `light|dark|transparent`
+-->
+
+<style>
+/*
+  引用语义 token：统一从 harmony-tokens.css 消费
+  模板路径 references/4.template/aibottombar-tem.html，相对路径需回退 3 级
+*/
+@import url("../../../references/2.theme/harmony-tokens.css");
+
+/*
+  DSL 提取的组件级颜色 token
+  Light (Rectangle_36_3886): rgba(0,0,0,0.2)
+  Dark (Rectangle_36_3888): rgba(255,255,255,0.5)
+  Transparent (Rectangle_36_3884): rgba(255,255,255,0.7)
+*/
+:root {
+  --aibottombar-indicator-light: rgba(0, 0, 0, 0.2);
+  --aibottombar-indicator-dark: rgba(255, 255, 255, 0.5);
+  --aibottombar-indicator-transparent: rgba(255, 255, 255, 0.7);
+}
+
+/*
+  DSL: Aibottombar instance (36:3883 Transparent / 36:3885 Light / 36:3887 Dark)
+  Size: 360×28
+  Layout: 指示条水平居中、垂直居中
+*/
+.harmony-aibottombar {
+  width: 360px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+/*
+  DSL: Light variant — background transparent, 指示条 rgba(0,0,0,0.2)
+*/
+.harmony-aibottombar-light {
+  background: transparent;
+}
+.harmony-aibottombar-light .harmony-aibottombar-indicator {
+  background: var(--aibottombar-indicator-light);
+}
+
+/*
+  DSL: Dark variant — background transparent, 指示条 rgba(255,255,255,0.5)
+*/
+.harmony-aibottombar-dark {
+  background: transparent;
+}
+.harmony-aibottombar-dark .harmony-aibottombar-indicator {
+  background: var(--aibottombar-indicator-dark);
+}
+
+/*
+  DSL: Transparent variant — background transparent, 指示条 rgba(255,255,255,0.7)
+*/
+.harmony-aibottombar-transparent {
+  background: transparent;
+}
+.harmony-aibottombar-transparent .harmony-aibottombar-indicator {
+  background: var(--aibottombar-indicator-transparent);
+}
+
+/*
+  DSL: Home Indicator (Rectangle_36_3888/36_3886/36_3884)
+  Size: 112×5, 圆角 2.5
+*/
+.harmony-aibottombar-indicator {
+  width: 112px;
+  height: 5px;
+  border-radius: 2.5px;
+}
+
+/*
+  防拉伸约束（强制）
+  指示条锁定几何，禁止拉伸变形
+*/
+.harmony-aibottombar [class*="indicator"] {
+  flex: 0 0 auto;
+}
+</style>
+
+<!--
+  Root Element
+  data-component="aibottombar" 为必需 trace 属性
+  harmony-aibottombar-{{theme}} 枚举值为 light|dark|transparent
+-->
+<div class="harmony-aibottombar harmony-aibottombar-{{theme}}" data-component="aibottombar" data-figma-node-id="36:3882">
+  <div class="harmony-aibottombar-indicator"></div>
+</div>

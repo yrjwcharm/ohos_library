@@ -1,0 +1,7 @@
+{
+  "name": "Progress",
+  "atomic": true,
+  "attrs": [
+    "value", "color", "style"
+  ]
+}

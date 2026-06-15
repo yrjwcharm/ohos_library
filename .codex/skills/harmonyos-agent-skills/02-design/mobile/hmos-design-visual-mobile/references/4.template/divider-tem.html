@@ -1,0 +1,62 @@
+<!--
+  divider Template
+  Source: benchmark + MCP
+  Variables (Template Contract):
+- `{{variant}}`: `horizontal|inset|block|vertical`
+- `{{opacity}}`: 线条透明度
+- `{{length}}`: 分隔线长度
+-->
+
+<style>
+:root {
+  --harmony-bg-surface: rgba(255, 255, 255, 1);
+  --harmony-text-primary: rgba(0, 0, 0, 0.8980392218);
+  --harmony-text-secondary: rgba(0, 0, 0, 0.6000000238);
+  --harmony-border: rgba(0, 0, 0, 0.08);
+  --harmony-brand: rgba(10, 89, 247, 1);
+  --harmony-radius-pill: 999px;
+  --harmony-checkbox-size: 16px;
+  --harmony-size-width: 360px;
+  --harmony-size-height: 792px;
+  --harmony-size-surface: rgba(241, 243, 245, 1);
+  --harmony-divider-color: rgba(0, 0, 0, 0.12);
+}
+
+.harmony-divider {
+  width: var(--harmony-divider-length, 100%);
+  height: 1px;
+  background: var(--harmony-divider-color);
+  opacity: var(--harmony-divider-opacity, 1);
+  color: var(--harmony-text-primary);
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  box-sizing: border-box;
+}
+
+.harmony-divider-inset {
+  margin-inline-start: 16px;
+  width: calc(var(--harmony-divider-length, 100%) - 16px);
+}
+
+.harmony-divider-block {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.harmony-divider-vertical {
+  width: 1px;
+  height: var(--harmony-divider-length, 100%);
+}
+
+/* 防拉伸约束 */
+.harmony-divider [class*="icon"],
+.harmony-divider [class*="arrow"],
+.harmony-divider [class*="thumb"] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+</style>
+
+<div class="harmony-divider harmony-divider-{{variant}}" data-component="divider" data-figma-node-id="" style="--harmony-divider-opacity: {{opacity}}; --harmony-divider-length: {{length}};">
+<!-- divider no inner content -->
+</div>

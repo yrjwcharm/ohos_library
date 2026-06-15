@@ -1,0 +1,5749 @@
+{
+  "version": "2.1",
+  "retrieved_at": "2026-03-23",
+  "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json",
+  "total_icons": 404,
+  "categories": [
+    "交通出行",
+    "人物",
+    "办公文件",
+    "媒体",
+    "形状",
+    "时间",
+    "相机与照片",
+    "符号标识",
+    "箭头",
+    "系统UI",
+    "编辑",
+    "连接",
+    "通信",
+    "键盘",
+    "隐私&安全"
+  ],
+  "schema": {
+    "name": "official HMSymbol semantic name",
+    "unicode": "uppercase hex codepoint without 0x prefix",
+    "char": "direct character for HTML/iconfont use",
+    "module": "official product/module context from source data",
+    "categories": "all official categories assigned to this icon",
+    "primary_categories": "top-level sections where the icon appears in source data",
+    "source_version": "official source version string",
+    "source_url": "official source JSON URL"
+  },
+  "icons": [
+    {
+      "name": "airplane_fill",
+      "unicode": "F0113",
+      "char": "󰄓",
+      "module": "状态栏",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "alarm_fill_1",
+      "unicode": "F05EF",
+      "char": "󰗯",
+      "module": "时钟",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_clockwise",
+      "unicode": "F00C7",
+      "char": "󰃇",
+      "module": "电子邮件",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_counterclockwise",
+      "unicode": "F00C8",
+      "char": "󰃈",
+      "module": "图库",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_counterclockwise_clock",
+      "unicode": "F03D5",
+      "char": "󰏕",
+      "module": "计算器",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_down_and_rectangle_on_rectangle",
+      "unicode": "F041D",
+      "char": "󰐝",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_down_circle",
+      "unicode": "F089D",
+      "char": "󰢝",
+      "module": "华为音乐",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_down_right_and_arrow_up_left",
+      "unicode": "F00C9",
+      "char": "󰃉",
+      "module": "备忘录",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_left",
+      "unicode": "F00CA",
+      "char": "󰃊",
+      "module": "邮件",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_left_circle",
+      "unicode": "F069F",
+      "char": "󰚟",
+      "module": "智慧屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_right",
+      "unicode": "F0231",
+      "char": "󰈱",
+      "module": "截录屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_right_circle",
+      "unicode": "F06A0",
+      "char": "󰚠",
+      "module": "数据克隆",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_right_folder_circle",
+      "unicode": "F00BA",
+      "char": "󰂺",
+      "module": "邮件",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_right_folder_fill",
+      "unicode": "F00BB",
+      "char": "󰂻",
+      "module": "邮件",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_right_up_and_square",
+      "unicode": "F00CB",
+      "char": "󰃋",
+      "module": "浏览器",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_and_rectangle_on_rectangle",
+      "unicode": "F0420",
+      "char": "󰐠",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_circle",
+      "unicode": "F00CC",
+      "char": "󰃌",
+      "module": "应用市场",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_circle_fill",
+      "unicode": "F0232",
+      "char": "󰈲",
+      "module": "通信社交",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_left",
+      "unicode": "F0233",
+      "char": "󰈳",
+      "module": "浏览器",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_left_and_arrow_down_right",
+      "unicode": "F00CD",
+      "char": "󰃍",
+      "module": "输入法",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrow_up_to_line",
+      "unicode": "F00CF",
+      "char": "󰃏",
+      "module": "邮件",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_3_triangle_path",
+      "unicode": "F04F5",
+      "char": "󰓵",
+      "module": "智慧助手",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_down_to_line_fill",
+      "unicode": "F00D0",
+      "char": "󰃐",
+      "module": "应用市场",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_turn_up_right_fill",
+      "unicode": "F08C2",
+      "char": "󰣂",
+      "module": "邮件",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_up",
+      "unicode": "F023D",
+      "char": "󰈽",
+      "module": "输入法",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_up_fill",
+      "unicode": "F0239",
+      "char": "󰈹",
+      "module": "输入法",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_up_frame_fill",
+      "unicode": "F023A",
+      "char": "󰈺",
+      "module": "输入法",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_up_left_and_arrowshape_down_right",
+      "unicode": "F07EE",
+      "char": "󰟮",
+      "module": "智慧多窗",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowshape_up_to_line_fill",
+      "unicode": "F0010",
+      "char": "󰀐",
+      "module": "全搜",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowtriangle_down_fill",
+      "unicode": "F023F",
+      "char": "󰈿",
+      "module": "全搜",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "arrowtriangle_up_fill",
+      "unicode": "F0240",
+      "char": "󰉀",
+      "module": "全搜",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "asterisk_rectangle_badge_handwritten",
+      "unicode": "F02EE",
+      "char": "󰋮",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "backward_end_fill",
+      "unicode": "F00A6",
+      "char": "󰂦",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "battery",
+      "unicode": "F011A",
+      "char": "󰄚",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "battery_75percent",
+      "unicode": "F0659",
+      "char": "󰙙",
+      "module": "查找设备",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "beidou_satellite_circle_fill",
+      "unicode": "F0516",
+      "char": "󰔖",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "beidou_satellite_fill",
+      "unicode": "F06AD",
+      "char": "󰚭",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bell_fill",
+      "unicode": "F01D1",
+      "char": "󰇑",
+      "module": "查找设备",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bell_slash",
+      "unicode": "F01D3",
+      "char": "󰇓",
+      "module": "智慧生活",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bell_slash_fill",
+      "unicode": "F01D2",
+      "char": "󰇒",
+      "module": "状态栏",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bluetooth",
+      "unicode": "F0254",
+      "char": "󰉔",
+      "module": "DFS",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bluetooth_slash",
+      "unicode": "F0253",
+      "char": "󰉓",
+      "module": "状态栏",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bolt",
+      "unicode": "F0262",
+      "char": "󰉢",
+      "module": "钱包",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bolt_filled_on_circle",
+      "unicode": "F025F",
+      "char": "󰉟",
+      "module": "APP",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bolt_shield_fill",
+      "unicode": "F07F1",
+      "char": "󰟱",
+      "module": "通信社交",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "book_open_fill",
+      "unicode": "F07C9",
+      "char": "󰟉",
+      "module": "华为阅读",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "book_pages_fill_1",
+      "unicode": "F08BF",
+      "char": "󰢿",
+      "module": "浏览器",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bookmark",
+      "unicode": "F000A",
+      "char": "󰀊",
+      "module": "录音机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "bookmark_filled_on_bookmark",
+      "unicode": "F065A",
+      "char": "󰙚",
+      "module": "hivison/hitouch",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "briefcase",
+      "unicode": "F065F",
+      "char": "󰙟",
+      "module": "浏览器",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "brush",
+      "unicode": "F000D",
+      "char": "󰀍",
+      "module": "输入法",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "brush_fill",
+      "unicode": "F000C",
+      "char": "󰀌",
+      "module": "主题",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "calculator_1",
+      "unicode": "F085F",
+      "char": "󰡟",
+      "module": "锁屏AOD",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "calendar",
+      "unicode": "F03DA",
+      "char": "󰏚",
+      "module": "应用市场",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "calendar_badge_clock",
+      "unicode": "F03D8",
+      "char": "󰏘",
+      "module": "应用市场",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "calendar_fill",
+      "unicode": "F03D9",
+      "char": "󰏙",
+      "module": "日历",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "camera",
+      "unicode": "F045B",
+      "char": "󰑛",
+      "module": "SDK",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "camera_fill",
+      "unicode": "F0438",
+      "char": "󰐸",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "camera_filters_fill",
+      "unicode": "F082C",
+      "char": "󰠬",
+      "module": "绘画",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "capture_smiles",
+      "unicode": "F05C8",
+      "char": "󰗈",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "case_fill",
+      "unicode": "F0660",
+      "char": "󰙠",
+      "module": "通信社交",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "celiakeyboard_elevate",
+      "unicode": "F0492",
+      "char": "󰒒",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "celiakeyboard_mechanical",
+      "unicode": "F02F2",
+      "char": "󰋲",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "celiakeyboard_menu_icon_size",
+      "unicode": "F02F3",
+      "char": "󰋳",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "character_arrow_clockwise",
+      "unicode": "F01D6",
+      "char": "󰇖",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "character_viewfinder",
+      "unicode": "F01D8",
+      "char": "󰇘",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark",
+      "unicode": "F0013",
+      "char": "󰀓",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_circle",
+      "unicode": "F000F",
+      "char": "󰀏",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_circle_fill",
+      "unicode": "F000E",
+      "char": "󰀎",
+      "module": "打印和扫描",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_clipboard_fill",
+      "unicode": "F018A",
+      "char": "󰆊",
+      "module": "应用市场",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_shield",
+      "unicode": "F045E",
+      "char": "󰑞",
+      "module": "应用市场",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_shield_fill",
+      "unicode": "F045D",
+      "char": "󰑝",
+      "module": "智慧生活",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_square",
+      "unicode": "F0012",
+      "char": "󰀒",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_square_fill",
+      "unicode": "F01DA",
+      "char": "󰇚",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_square_on_square",
+      "unicode": "F0011",
+      "char": "󰀑",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "checkmark_square_on_square_fill",
+      "unicode": "F01D9",
+      "char": "󰇙",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_down",
+      "unicode": "F00DB",
+      "char": "󰃛",
+      "module": "图库",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_down_2_circle",
+      "unicode": "F06C0",
+      "char": "󰛀",
+      "module": "预览",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_down_circle",
+      "unicode": "F06C1",
+      "char": "󰛁",
+      "module": "智慧屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_left",
+      "unicode": "F00DA",
+      "char": "󰃚",
+      "module": "图库",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_left_2",
+      "unicode": "F06C2",
+      "char": "󰛂",
+      "module": "华为阅读",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_left_circle",
+      "unicode": "F06C3",
+      "char": "󰛃",
+      "module": "智慧屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_right",
+      "unicode": "F00D9",
+      "char": "󰃙",
+      "module": "图库",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_right_circle",
+      "unicode": "F06C4",
+      "char": "󰛄",
+      "module": "智慧屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_up",
+      "unicode": "F00D8",
+      "char": "󰃘",
+      "module": "图库",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_up_2",
+      "unicode": "F06C6",
+      "char": "󰛆",
+      "module": "浏览器",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_up_2_circle",
+      "unicode": "F06C5",
+      "char": "󰛅",
+      "module": "预览",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "chevron_up_circle",
+      "unicode": "F045F",
+      "char": "󰑟",
+      "module": "智慧屏",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "children",
+      "unicode": "F0663",
+      "char": "󰙣",
+      "module": "华为视频",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "circle",
+      "unicode": "F0007",
+      "char": "󰀇",
+      "module": "锁屏AOD",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "circle_dashed",
+      "unicode": "F0134",
+      "char": "󰄴",
+      "module": "笔记",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "circle_lefthalf_inset_filled",
+      "unicode": "F005C",
+      "char": "󰁜",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "circle_righthalf_inset_filled",
+      "unicode": "F005D",
+      "char": "󰁝",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "circle_viewfinder",
+      "unicode": "F0123",
+      "char": "󰄣",
+      "module": "智慧屏",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "clean",
+      "unicode": "F0016",
+      "char": "󰀖",
+      "module": "应用市场",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "clean_fill",
+      "unicode": "F0015",
+      "char": "󰀕",
+      "module": "智慧生活",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "clock",
+      "unicode": "F03DD",
+      "char": "󰏝",
+      "module": "相机",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "clock_fill",
+      "unicode": "F03DC",
+      "char": "󰏜",
+      "module": "APP",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "close_sidebar",
+      "unicode": "F089F",
+      "char": "󰢟",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "crop_rotate",
+      "unicode": "F0161",
+      "char": "󰅡",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "cut",
+      "unicode": "F005F",
+      "char": "󰁟",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "delete_left",
+      "unicode": "F00DD",
+      "char": "󰃝",
+      "module": "通信社交",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "delete_left_fill",
+      "unicode": "F0541",
+      "char": "󰕁",
+      "module": "通信社交",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "dial",
+      "unicode": "F0081",
+      "char": "󰂁",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "discover_fill",
+      "unicode": "F01DB",
+      "char": "󰇛",
+      "module": "智慧生活",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc",
+      "unicode": "F00BD",
+      "char": "󰂽",
+      "module": "邮件",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_plaintext",
+      "unicode": "F00C1",
+      "char": "󰃁",
+      "module": "备忘录",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_plaintext_and_pencil",
+      "unicode": "F05AF",
+      "char": "󰖯",
+      "module": "教育中心",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_plaintext_and_pencil_fill",
+      "unicode": "F0669",
+      "char": "󰙩",
+      "module": "教育中心",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_plaintext_fill",
+      "unicode": "F00C2",
+      "char": "󰃂",
+      "module": "锁屏AOD",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_text",
+      "unicode": "F00BC",
+      "char": "󰂼",
+      "module": "DFS",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_text_badge_arrow_up",
+      "unicode": "F05B1",
+      "char": "󰖱",
+      "module": "钱包",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_text_badge_checkmark",
+      "unicode": "F00C4",
+      "char": "󰃄",
+      "module": "备忘录",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_text_badge_magnifyingglass",
+      "unicode": "F05B3",
+      "char": "󰖳",
+      "module": "浏览器",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "doc_text_fill",
+      "unicode": "F00BF",
+      "char": "󰂿",
+      "module": "全搜",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "dot_grid_1x2",
+      "unicode": "F0060",
+      "char": "󰁠",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "dot_grid_2x2",
+      "unicode": "F0061",
+      "char": "󰁡",
+      "module": "全搜",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "dot_radiowaves_left_and_right",
+      "unicode": "F0279",
+      "char": "󰉹",
+      "module": "全场景协同",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "dot_video_fill",
+      "unicode": "F0082",
+      "char": "󰂂",
+      "module": "控制中心",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "drop",
+      "unicode": "F0063",
+      "char": "󰁣",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "drop_bottomrighthalf_inset_filled",
+      "unicode": "F0136",
+      "char": "󰄶",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "ear",
+      "unicode": "F05C9",
+      "char": "󰗉",
+      "module": "APP",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "ellipsis_bubble",
+      "unicode": "F0473",
+      "char": "󰑳",
+      "module": "主题",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "ellipsis_message",
+      "unicode": "F0085",
+      "char": "󰂅",
+      "module": "应用市场",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "ellipsis_message_fill",
+      "unicode": "F0084",
+      "char": "󰂄",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "envelope",
+      "unicode": "F0088",
+      "char": "󰂈",
+      "module": "应用市场",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "envelope_fill",
+      "unicode": "F0089",
+      "char": "󰂉",
+      "module": "邮件",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "envelope_open_fill",
+      "unicode": "F008A",
+      "char": "󰂊",
+      "module": "邮件",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "eraser_line",
+      "unicode": "F0065",
+      "char": "󰁥",
+      "module": "笔记",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "exclamationmark",
+      "unicode": "F010B",
+      "char": "󰄋",
+      "module": "备忘录",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "exclamationmark_circle",
+      "unicode": "F0109",
+      "char": "󰄉",
+      "module": "全搜",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "exclamationmark_shield_fill",
+      "unicode": "F0477",
+      "char": "󰑷",
+      "module": "浏览器",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "exclamationmark_triangle_fill",
+      "unicode": "F06D7",
+      "char": "󰛗",
+      "module": "通信社交",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "externaldrive",
+      "unicode": "F00DF",
+      "char": "󰃟",
+      "module": "文管",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "externaldrive_fill",
+      "unicode": "F00DE",
+      "char": "󰃞",
+      "module": "文管",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "externaldrive_fill_3",
+      "unicode": "F011E",
+      "char": "󰄞",
+      "module": "应用市场",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "eye",
+      "unicode": "F0120",
+      "char": "󰄠",
+      "module": "状态栏",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "eye_slash",
+      "unicode": "F011F",
+      "char": "󰄟",
+      "module": "全搜",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "face",
+      "unicode": "F05CA",
+      "char": "󰗊",
+      "module": "身份验证",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "face_smiling",
+      "unicode": "F05D0",
+      "char": "󰗐",
+      "module": "输入法",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "fast_forward",
+      "unicode": "F066B",
+      "char": "󰙫",
+      "module": "华为视频",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "figure_arms_open",
+      "unicode": "F05D1",
+      "char": "󰗑",
+      "module": "APP",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "figure_running",
+      "unicode": "F07D5",
+      "char": "󰟕",
+      "module": "智慧助手",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "flag",
+      "unicode": "F01AC",
+      "char": "󰆬",
+      "module": "APP",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "flashlight_off_fill",
+      "unicode": "F001A",
+      "char": "󰀚",
+      "module": "锁屏AOD",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "flashlight_on_fill",
+      "unicode": "F001C",
+      "char": "󰀜",
+      "module": "锁屏AOD",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "flower",
+      "unicode": "F0284",
+      "char": "󰊄",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "folder",
+      "unicode": "F00C5",
+      "char": "󰃅",
+      "module": "应用市场",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "folder_badge_eye",
+      "unicode": "F05BD",
+      "char": "󰖽",
+      "module": "文管",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "folder_badge_plus",
+      "unicode": "F0004",
+      "char": "󰀄",
+      "module": "笔记",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "folder_fill",
+      "unicode": "F00C6",
+      "char": "󰃆",
+      "module": "应用市场",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "form",
+      "unicode": "F0194",
+      "char": "󰆔",
+      "module": "备忘录",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "forward_end_fill",
+      "unicode": "F00A7",
+      "char": "󰂧",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "full_screen_fill",
+      "unicode": "F054A",
+      "char": "󰕊",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "gearshape",
+      "unicode": "F0020",
+      "char": "󰀠",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "gobackward_15",
+      "unicode": "F03F2",
+      "char": "󰏲",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "gobackward_30",
+      "unicode": "F03F3",
+      "char": "󰏳",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "goforward_10",
+      "unicode": "F03F4",
+      "char": "󰏴",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "goforward_15",
+      "unicode": "F03F5",
+      "char": "󰏵",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "goforward_30",
+      "unicode": "F03F6",
+      "char": "󰏶",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "grid",
+      "unicode": "F0670",
+      "char": "󰙰",
+      "module": "绘画",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_draw",
+      "unicode": "F0066",
+      "char": "󰁦",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_point_up_tap_fill",
+      "unicode": "F0484",
+      "char": "󰒄",
+      "module": "智慧生活",
+      "categories": [
+        "人物",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "人物",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_point_up_tap_fill_1",
+      "unicode": "F0522",
+      "char": "󰔢",
+      "module": "截录屏",
+      "categories": [
+        "人物",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "人物",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_point_up_tap_fill_slash",
+      "unicode": "F0671",
+      "char": "󰙱",
+      "module": "截录屏",
+      "categories": [
+        "人物",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "人物",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_raised_hexagon",
+      "unicode": "F0743",
+      "char": "󰝃",
+      "module": "通信社交",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_raised_hexagon_fill",
+      "unicode": "F0487",
+      "char": "󰒇",
+      "module": "通信社交",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_tap",
+      "unicode": "F048A",
+      "char": "󰒊",
+      "module": "DFS",
+      "categories": [
+        "人物",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "人物",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hand_thumbsup_fill",
+      "unicode": "F05D7",
+      "char": "󰗗",
+      "module": "输入法",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hd_square_fill",
+      "unicode": "F028A",
+      "char": "󰊊",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "headphones_fill",
+      "unicode": "F0672",
+      "char": "󰙲",
+      "module": "状态栏",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "heart",
+      "unicode": "F0025",
+      "char": "󰀥",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "heart_fill",
+      "unicode": "F0021",
+      "char": "󰀡",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "heart_slash",
+      "unicode": "F0024",
+      "char": "󰀤",
+      "module": "华为音乐",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "heart_square_stack_fill",
+      "unicode": "F0514",
+      "char": "󰔔",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "hotspot",
+      "unicode": "F028F",
+      "char": "󰊏",
+      "module": "设置",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "house",
+      "unicode": "F0027",
+      "char": "󰀧",
+      "module": "主题",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "house_fill",
+      "unicode": "F0026",
+      "char": "󰀦",
+      "module": "华为音乐",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "icloud",
+      "unicode": "F0294",
+      "char": "󰊔",
+      "module": "图库",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "icloud_slash",
+      "unicode": "F0293",
+      "char": "󰊓",
+      "module": "图库",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "icloud_slash_fill",
+      "unicode": "F0292",
+      "char": "󰊒",
+      "module": "图库",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "identify_song",
+      "unicode": "F033B",
+      "char": "󰌻",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "indent_right",
+      "unicode": "F0163",
+      "char": "󰅣",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "indentation_left",
+      "unicode": "F0164",
+      "char": "󰅤",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "info_circle",
+      "unicode": "F0296",
+      "char": "󰊖",
+      "module": "相机",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "info_shield",
+      "unicode": "F0297",
+      "char": "󰊗",
+      "module": "图库",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "input_mode",
+      "unicode": "F0494",
+      "char": "󰒔",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "key_horizontal",
+      "unicode": "F049B",
+      "char": "󰒛",
+      "module": "钱包",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "key_shield",
+      "unicode": "F049E",
+      "char": "󰒞",
+      "module": "隐私和安全",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "key_shield_fill",
+      "unicode": "F049D",
+      "char": "󰒝",
+      "module": "超级隐私",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_bihua",
+      "unicode": "F0302",
+      "char": "󰌂",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_cangjie",
+      "unicode": "F0303",
+      "char": "󰌃",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_handwritten",
+      "unicode": "F0306",
+      "char": "󰌆",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_spell",
+      "unicode": "F0307",
+      "char": "󰌇",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_wubi",
+      "unicode": "F0308",
+      "char": "󰌈",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_badge_zhuyin",
+      "unicode": "F0309",
+      "char": "󰌉",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_circle",
+      "unicode": "F0172",
+      "char": "󰅲",
+      "module": "通信社交",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_onehanded_left",
+      "unicode": "F030C",
+      "char": "󰌌",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_onehanded_right",
+      "unicode": "F030D",
+      "char": "󰌍",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_square",
+      "unicode": "F030E",
+      "char": "󰌎",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "keyboard_thumbmode",
+      "unicode": "F030F",
+      "char": "󰌏",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "label",
+      "unicode": "F0208",
+      "char": "󰈈",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lightbulb",
+      "unicode": "F029C",
+      "char": "󰊜",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lightbulb_slash",
+      "unicode": "F029A",
+      "char": "󰊚",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "line_arrowtriangle_2_inward",
+      "unicode": "F0068",
+      "char": "󰁨",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "line_below_arrowtriangle_up_circle_fill",
+      "unicode": "F0416",
+      "char": "󰐖",
+      "module": "文管",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "line_below_arrowtriangle_up_fill",
+      "unicode": "F0417",
+      "char": "󰐗",
+      "module": "文管",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "line_viewfinder",
+      "unicode": "F0028",
+      "char": "󰀨",
+      "module": "锁屏AOD",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "link_slash",
+      "unicode": "F02A0",
+      "char": "󰊠",
+      "module": "打印和扫描",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_bullet",
+      "unicode": "F0069",
+      "char": "󰁩",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_bullet_circle",
+      "unicode": "F0166",
+      "char": "󰅦",
+      "module": "通信社交",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_bullet_square_fill",
+      "unicode": "F0167",
+      "char": "󰅧",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_checkmask",
+      "unicode": "F0142",
+      "char": "󰅂",
+      "module": "华为音乐",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_interrupt",
+      "unicode": "F033C",
+      "char": "󰌼",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_letter",
+      "unicode": "F0144",
+      "char": "󰅄",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_number",
+      "unicode": "F0143",
+      "char": "󰅃",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_square",
+      "unicode": "F0145",
+      "char": "󰅅",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "list_square_bill",
+      "unicode": "F05BF",
+      "char": "󰖿",
+      "module": "华为视频",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "livephoto",
+      "unicode": "F05F7",
+      "char": "󰗷",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "local_fill",
+      "unicode": "F01B8",
+      "char": "󰆸",
+      "module": "图库",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "location_north_up_right_circle_fill",
+      "unicode": "F080D",
+      "char": "󰠍",
+      "module": "通信社交",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lock",
+      "unicode": "F0008",
+      "char": "󰀈",
+      "module": "输入法",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lock_fill",
+      "unicode": "F04C1",
+      "char": "󰓁",
+      "module": "图库",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lock_filled_arrow_counterclockwise",
+      "unicode": "F057C",
+      "char": "󰕼",
+      "module": "控制中心",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lock_open",
+      "unicode": "F04C4",
+      "char": "󰓄",
+      "module": "输入法",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "lock_open_fill",
+      "unicode": "F04C3",
+      "char": "󰓃",
+      "module": "图库",
+      "categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "magnifyingglass",
+      "unicode": "F0029",
+      "char": "󰀩",
+      "module": "全搜",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "map",
+      "unicode": "F01C2",
+      "char": "󰇂",
+      "module": "APP",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "map_badge_local",
+      "unicode": "F01C0",
+      "char": "󰇀",
+      "module": "查找设备",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "map_slash",
+      "unicode": "F01C3",
+      "char": "󰇃",
+      "module": "APP",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "media_center",
+      "unicode": "F067C",
+      "char": "󰙼",
+      "module": "全场景协同",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "message",
+      "unicode": "F008F",
+      "char": "󰂏",
+      "module": "应用市场",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "message_badge_gearshape_1",
+      "unicode": "F0756",
+      "char": "󰝖",
+      "module": "智慧生活",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "message_on_message",
+      "unicode": "F008E",
+      "char": "󰂎",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "message_on_message_fill",
+      "unicode": "F008D",
+      "char": "󰂍",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mic",
+      "unicode": "F0006",
+      "char": "󰀆",
+      "module": "全搜",
+      "categories": [
+        "系统UI",
+        "通信"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mic_circle",
+      "unicode": "F0314",
+      "char": "󰌔",
+      "module": "智慧屏",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mic_fill",
+      "unicode": "F0315",
+      "char": "󰌕",
+      "module": "状态栏",
+      "categories": [
+        "系统UI",
+        "通信"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mic_slash",
+      "unicode": "F0758",
+      "char": "󰝘",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mic_slash_fill",
+      "unicode": "F0317",
+      "char": "󰌗",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "minus",
+      "unicode": "F002C",
+      "char": "󰀬",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "minus_circle",
+      "unicode": "F002B",
+      "char": "󰀫",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "minus_magnifyingglass",
+      "unicode": "F0680",
+      "char": "󰚀",
+      "module": "设置",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "mobiledata",
+      "unicode": "F02A9",
+      "char": "󰊩",
+      "module": "DFS",
+      "categories": [
+        "连接"
+      ],
+      "primary_categories": [
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "moon_circle_fill",
+      "unicode": "F056E",
+      "char": "󰕮",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "moon_fill",
+      "unicode": "F002D",
+      "char": "󰀭",
+      "module": "状态栏",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "moon_slash_circle",
+      "unicode": "F056F",
+      "char": "󰕯",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "more",
+      "unicode": "F0570",
+      "char": "󰕰",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "movie_fill",
+      "unicode": "F04D2",
+      "char": "󰓒",
+      "module": "智慧生活",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "music",
+      "unicode": "F00AD",
+      "char": "󰂭",
+      "module": "相机",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "music_fill",
+      "unicode": "F00AA",
+      "char": "󰂪",
+      "module": "智慧生活",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "music_note_list",
+      "unicode": "F00AC",
+      "char": "󰂬",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "navigation",
+      "unicode": "F0810",
+      "char": "󰠐",
+      "module": "查找设备",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "nearlink",
+      "unicode": "F075C",
+      "char": "󰝜",
+      "module": "隐私和安全",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "nfc",
+      "unicode": "F04D7",
+      "char": "󰓗",
+      "module": "DFS",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "nfc_fill",
+      "unicode": "F04D6",
+      "char": "󰓖",
+      "module": "状态栏",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "nosign",
+      "unicode": "F010E",
+      "char": "󰄎",
+      "module": "相机",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "onehand",
+      "unicode": "F0318",
+      "char": "󰌘",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "open_sidebar",
+      "unicode": "F08A7",
+      "char": "󰢧",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "order_play",
+      "unicode": "F00AE",
+      "char": "󰂮",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "oval",
+      "unicode": "F034B",
+      "char": "󰍋",
+      "module": "截录屏",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paintbrush",
+      "unicode": "F07DE",
+      "char": "󰟞",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paintbrush_fill",
+      "unicode": "F07DD",
+      "char": "󰟝",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paintpalette",
+      "unicode": "F0125",
+      "char": "󰄥",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paintpalette_fill",
+      "unicode": "F0124",
+      "char": "󰄤",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paperclip",
+      "unicode": "F010F",
+      "char": "󰄏",
+      "module": "备忘录",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paperplane",
+      "unicode": "F0030",
+      "char": "󰀰",
+      "module": "电子邮件",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "paperplane_right_fill",
+      "unicode": "F08A8",
+      "char": "󰢨",
+      "module": "输入法",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pause",
+      "unicode": "F00B1",
+      "char": "󰂱",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pause_round_triangle_fill",
+      "unicode": "F086B",
+      "char": "󰡫",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pencil_line_1",
+      "unicode": "F0626",
+      "char": "󰘦",
+      "module": "预览",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pencil_waveform",
+      "unicode": "F006C",
+      "char": "󰁬",
+      "module": "通信社交",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pencil_waveform_fill",
+      "unicode": "F0627",
+      "char": "󰘧",
+      "module": "通信社交",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person",
+      "unicode": "F05E5",
+      "char": "󰗥",
+      "module": "输入法",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_2",
+      "unicode": "F05DC",
+      "char": "󰗜",
+      "module": "邮件",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_2_fill",
+      "unicode": "F05DB",
+      "char": "󰗛",
+      "module": "图库",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_badge_plus",
+      "unicode": "F05DF",
+      "char": "󰗟",
+      "module": "图库",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_crop_circle_fill_1",
+      "unicode": "F05F3",
+      "char": "󰗳",
+      "module": "主题",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_filled_badge_plus",
+      "unicode": "F05E4",
+      "char": "󰗤",
+      "module": "通信社交",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_filled_viewfinder",
+      "unicode": "F0579",
+      "char": "󰕹",
+      "module": "通信社交",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_shield",
+      "unicode": "F04DE",
+      "char": "󰓞",
+      "module": "智慧助手",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_shield_fill",
+      "unicode": "F04DD",
+      "char": "󰓝",
+      "module": "隐私规范涉及",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "person_square_fill",
+      "unicode": "F057A",
+      "char": "󰕺",
+      "module": "通信社交",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "phone_down_fill",
+      "unicode": "F009F",
+      "char": "󰂟",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "phone_fill",
+      "unicode": "F009E",
+      "char": "󰂞",
+      "module": "音量条",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "picture",
+      "unicode": "F0003",
+      "char": "󰀃",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "picture_2",
+      "unicode": "F04E5",
+      "char": "󰓥",
+      "module": "备忘录",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "picture_damage",
+      "unicode": "F04E9",
+      "char": "󰓩",
+      "module": "DFS",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "picture_fill",
+      "unicode": "F04EA",
+      "char": "󰓪",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pin",
+      "unicode": "F0032",
+      "char": "󰀲",
+      "module": "小艺建议",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "pin_fill_1",
+      "unicode": "F08AB",
+      "char": "󰢫",
+      "module": "小艺建议",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_circle_fill",
+      "unicode": "F00B2",
+      "char": "󰂲",
+      "module": "图库",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_fill",
+      "unicode": "F00B4",
+      "char": "󰂴",
+      "module": "播控",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_hexagon_fill",
+      "unicode": "F0813",
+      "char": "󰠓",
+      "module": "浏览器",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_round_rectangle_fill",
+      "unicode": "F0814",
+      "char": "󰠔",
+      "module": "华为视频",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_video",
+      "unicode": "F04EE",
+      "char": "󰓮",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "play_video_fill",
+      "unicode": "F08AC",
+      "char": "󰢬",
+      "module": "输入法",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "plus",
+      "unicode": "F0035",
+      "char": "󰀵",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "plus_magnifyingglass",
+      "unicode": "F0127",
+      "char": "󰄧",
+      "module": "设置",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "plus_square",
+      "unicode": "F08C3",
+      "char": "󰣃",
+      "module": "输入法",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "plus_square_on_square_fill",
+      "unicode": "F006D",
+      "char": "󰁭",
+      "module": "打印和扫描",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "portrait",
+      "unicode": "F05C7",
+      "char": "󰗇",
+      "module": "相机",
+      "categories": [
+        "人物"
+      ],
+      "primary_categories": [
+        "人物"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "position",
+      "unicode": "F01CA",
+      "char": "󰇊",
+      "module": "隐私和安全",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "power",
+      "unicode": "F0036",
+      "char": "󰀶",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "puzzle",
+      "unicode": "F04A0",
+      "char": "󰒠",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "puzzle_fill",
+      "unicode": "F04B5",
+      "char": "󰒵",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "qrcode",
+      "unicode": "F0128",
+      "char": "󰄨",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "questionmark_circle",
+      "unicode": "F0100",
+      "char": "󰄀",
+      "module": "应用市场",
+      "categories": [
+        "符号标识"
+      ],
+      "primary_categories": [
+        "符号标识"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rays",
+      "unicode": "F0037",
+      "char": "󰀷",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "record_circle",
+      "unicode": "F00B7",
+      "char": "󰂷",
+      "module": "通信社交",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "recordingtape",
+      "unicode": "F0176",
+      "char": "󰅶",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "recordingtape_rectangle",
+      "unicode": "F0175",
+      "char": "󰅵",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "recordingtape_rectangle_fill",
+      "unicode": "F0174",
+      "char": "󰅴",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle",
+      "unicode": "F0070",
+      "char": "󰁰",
+      "module": "截录屏",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_and_arrowshape_turn_up_right",
+      "unicode": "F00D5",
+      "char": "󰃕",
+      "module": "邮件",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_and_cut",
+      "unicode": "F006F",
+      "char": "󰁯",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_on_rectangle",
+      "unicode": "F04A2",
+      "char": "󰒢",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_on_rectangle_fill",
+      "unicode": "F04A1",
+      "char": "󰒡",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_portrait_rotate",
+      "unicode": "F0038",
+      "char": "󰀸",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_rotate",
+      "unicode": "F08AD",
+      "char": "󰢭",
+      "module": "教育中心",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rectangle_split_3x1",
+      "unicode": "F0528",
+      "char": "󰔨",
+      "module": "文管",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "redo",
+      "unicode": "F01F4",
+      "char": "󰇴",
+      "module": "图库",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "remove_songlist",
+      "unicode": "F0363",
+      "char": "󰍣",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rename",
+      "unicode": "F0071",
+      "char": "󰁱",
+      "module": "通信社交",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "repeat",
+      "unicode": "F00B8",
+      "char": "󰂸",
+      "module": "图库",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "repeat_1",
+      "unicode": "F00B9",
+      "char": "󰂹",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "resolution_video",
+      "unicode": "F04A3",
+      "char": "󰒣",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "reverse_order",
+      "unicode": "F03FD",
+      "char": "󰏽",
+      "module": "智慧多窗",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "rotate_left",
+      "unicode": "F0364",
+      "char": "󰍤",
+      "module": "图库",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "route_plan",
+      "unicode": "F07E4",
+      "char": "󰟤",
+      "module": "钱包",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "satellite",
+      "unicode": "F0177",
+      "char": "󰅷",
+      "module": "通信社交",
+      "categories": [
+        "通信"
+      ],
+      "primary_categories": [
+        "通信"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "satellite_map",
+      "unicode": "F0775",
+      "char": "󰝵",
+      "module": "APP",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "satellite_map_fill",
+      "unicode": "F0774",
+      "char": "󰝴",
+      "module": "APP",
+      "categories": [
+        "交通出行"
+      ],
+      "primary_categories": [
+        "交通出行"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "save",
+      "unicode": "F003B",
+      "char": "󰀻",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "scope",
+      "unicode": "F04A6",
+      "char": "󰒦",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "scope_slash",
+      "unicode": "F04A5",
+      "char": "󰒥",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "selector",
+      "unicode": "F031B",
+      "char": "󰌛",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "service",
+      "unicode": "F0365",
+      "char": "󰍥",
+      "module": "钱包",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "share",
+      "unicode": "F003D",
+      "char": "󰀽",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "shuffle",
+      "unicode": "F00B5",
+      "char": "󰂵",
+      "module": "华为音乐",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "shutter_photo",
+      "unicode": "F04AF",
+      "char": "󰒯",
+      "module": "相机",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "skip_silence",
+      "unicode": "F03BB",
+      "char": "󰎻",
+      "module": "录音机",
+      "categories": [
+        "媒体"
+      ],
+      "primary_categories": [
+        "媒体"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "slider_horizontal_2",
+      "unicode": "F0072",
+      "char": "󰁲",
+      "module": "桌面",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "slider_vertical_3",
+      "unicode": "F012A",
+      "char": "󰄪",
+      "module": "APP",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "smallcircle_filled_circle",
+      "unicode": "F0169",
+      "char": "󰅩",
+      "module": "截录屏",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "sort",
+      "unicode": "F0581",
+      "char": "󰖁",
+      "module": "通信社交",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "space_1",
+      "unicode": "F031C",
+      "char": "󰌜",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "speaker",
+      "unicode": "F0044",
+      "char": "󰁄",
+      "module": "华为音乐",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "speaker_slash",
+      "unicode": "F0043",
+      "char": "󰁃",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "speaker_wave_3",
+      "unicode": "F004A",
+      "char": "󰁊",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "speaker_wave_3_slash",
+      "unicode": "F058F",
+      "char": "󰖏",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square",
+      "unicode": "F0075",
+      "char": "󰁵",
+      "module": "截录屏",
+      "categories": [
+        "形状"
+      ],
+      "primary_categories": [
+        "形状"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square_and_pencil",
+      "unicode": "F0073",
+      "char": "󰁳",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square_and_pencil_fill",
+      "unicode": "F0074",
+      "char": "󰁴",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square_fill_grid_2x2",
+      "unicode": "F004B",
+      "char": "󰁋",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square_grid_2x2",
+      "unicode": "F00E3",
+      "char": "󰃣",
+      "module": "DFS",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "square_slash",
+      "unicode": "F04B4",
+      "char": "󰒴",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "star",
+      "unicode": "F004E",
+      "char": "󰁎",
+      "module": "应用市场",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "star_fill",
+      "unicode": "F0009",
+      "char": "󰀉",
+      "module": "备忘录",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "staroflife_rectangle",
+      "unicode": "F04F8",
+      "char": "󰓸",
+      "module": "SDK",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "stopwatch_2",
+      "unicode": "F05F0",
+      "char": "󰗰",
+      "module": "时钟",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "sun_max",
+      "unicode": "F0050",
+      "char": "󰁐",
+      "module": "相机",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "sun_max_fill",
+      "unicode": "F004F",
+      "char": "󰁏",
+      "module": "华为阅读",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "sun_min",
+      "unicode": "F0051",
+      "char": "󰁑",
+      "module": "华为阅读",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "swap",
+      "unicode": "F02D1",
+      "char": "󰋑",
+      "module": "华为音乐",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "swipeup_input",
+      "unicode": "F031E",
+      "char": "󰌞",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "template",
+      "unicode": "F04FF",
+      "char": "󰓿",
+      "module": "华为视频",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "template_fill",
+      "unicode": "F04FE",
+      "char": "󰓾",
+      "module": "天际通",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_aligncenter",
+      "unicode": "F0076",
+      "char": "󰁶",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_alignleft",
+      "unicode": "F0077",
+      "char": "󰁷",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_alignright",
+      "unicode": "F0078",
+      "char": "󰁸",
+      "module": "备忘录",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_and_arrow_down",
+      "unicode": "F0079",
+      "char": "󰁹",
+      "module": "华为音乐",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_and_arrow_up",
+      "unicode": "F007A",
+      "char": "󰁺",
+      "module": "华为音乐",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "text_clipboard",
+      "unicode": "F019D",
+      "char": "󰆝",
+      "module": "隐私和安全",
+      "categories": [
+        "办公文件"
+      ],
+      "primary_categories": [
+        "办公文件"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "textformat_size_square",
+      "unicode": "F007C",
+      "char": "󰁼",
+      "module": "输入法",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "timer",
+      "unicode": "F0406",
+      "char": "󰐆",
+      "module": "相机",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "timer_circle_fill",
+      "unicode": "F05F6",
+      "char": "󰗶",
+      "module": "时钟",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "touchid",
+      "unicode": "F0507",
+      "char": "󰔇",
+      "module": "锁屏AOD",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "traditional_square",
+      "unicode": "F0322",
+      "char": "󰌢",
+      "module": "输入法",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "transfer_station",
+      "unicode": "F0788",
+      "char": "󰞈",
+      "module": "中转站",
+      "categories": [
+        "箭头"
+      ],
+      "primary_categories": [
+        "箭头"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "translate",
+      "unicode": "F007E",
+      "char": "󰁾",
+      "module": "hivison/hitouch",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "translate_c2e",
+      "unicode": "F0323",
+      "char": "󰌣",
+      "module": "邮件",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "translate_e2c",
+      "unicode": "F0324",
+      "char": "󰌤",
+      "module": "邮件",
+      "categories": [
+        "键盘"
+      ],
+      "primary_categories": [
+        "键盘"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "transparency_lock",
+      "unicode": "F0639",
+      "char": "󰘹",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "trapezoid_and_line_horizontal",
+      "unicode": "F016A",
+      "char": "󰅪",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "trapezoid_and_line_vertical",
+      "unicode": "F016B",
+      "char": "󰅫",
+      "module": "图库",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "trash",
+      "unicode": "F0001",
+      "char": "󰀁",
+      "module": "全搜",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "trash_fill",
+      "unicode": "F0052",
+      "char": "󰁒",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "triangleshape_fill",
+      "unicode": "F036B",
+      "char": "󰍫",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "undo",
+      "unicode": "F01F3",
+      "char": "󰇳",
+      "module": "图库",
+      "categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "primary_categories": [
+        "箭头",
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "vertical_flip",
+      "unicode": "F063B",
+      "char": "󰘻",
+      "module": "绘画",
+      "categories": [
+        "编辑"
+      ],
+      "primary_categories": [
+        "编辑"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "video_fill",
+      "unicode": "F00A3",
+      "char": "󰂣",
+      "module": "图库",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "video_slasj_fill",
+      "unicode": "F0841",
+      "char": "󰡁",
+      "module": "通信社交",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "vpn_key",
+      "unicode": "F078F",
+      "char": "󰞏",
+      "module": "状态栏",
+      "categories": [
+        "隐私&安全"
+      ],
+      "primary_categories": [
+        "隐私&安全"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "wifi",
+      "unicode": "F0000",
+      "char": "󰀀",
+      "module": "DFS",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "wifi_slash",
+      "unicode": "F0691",
+      "char": "󰚑",
+      "module": "桌面",
+      "categories": [
+        "系统UI",
+        "连接"
+      ],
+      "primary_categories": [
+        "系统UI",
+        "连接"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "worldclock",
+      "unicode": "F040A",
+      "char": "󰐊",
+      "module": "输入法",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "worldclock_fill",
+      "unicode": "F0409",
+      "char": "󰐉",
+      "module": "通信社交",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "worldclock_fill_2",
+      "unicode": "F05F1",
+      "char": "󰗱",
+      "module": "时钟",
+      "categories": [
+        "时间"
+      ],
+      "primary_categories": [
+        "时间"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "xmark",
+      "unicode": "F0056",
+      "char": "󰁖",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "xmark_circle",
+      "unicode": "F0055",
+      "char": "󰁕",
+      "module": "输入法",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "xmark_circle_fill",
+      "unicode": "F0054",
+      "char": "󰁔",
+      "module": "图库",
+      "categories": [
+        "系统UI"
+      ],
+      "primary_categories": [
+        "系统UI"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "xmark_picture",
+      "unicode": "F0842",
+      "char": "󰡂",
+      "module": "浏览器",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    },
+    {
+      "name": "xmark_picture_fill",
+      "unicode": "F0821",
+      "char": "󰠡",
+      "module": "浏览器",
+      "categories": [
+        "相机与照片"
+      ],
+      "primary_categories": [
+        "相机与照片"
+      ],
+      "source_version": "2.1",
+      "source_url": "https://developer.huawei.com/allianceCmsResource/resource/HUAWEI_Developer_VUE/template/resources/hm-symbol/name_map_new.json"
+    }
+  ]
+}

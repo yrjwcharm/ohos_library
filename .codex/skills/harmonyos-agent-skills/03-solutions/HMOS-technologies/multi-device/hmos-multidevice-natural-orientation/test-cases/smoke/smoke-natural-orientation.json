@@ -1,0 +1,280 @@
+[
+  {
+    "case_id": "SMOKE-ORIENT-01-001",
+    "layer": "smoke",
+    "title": "display.on('change') 监听屏幕方向变化",
+    "phase": "DEV",
+    "user_prompt": "应用需要实时感知屏幕旋转状态变化，在方向改变时获取当前的旋转角度和屏幕方向并更新 UI 布局。计划使用 display.on('change') 监听。请给出完整的监听注册与取消实现方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-01，覆盖 display.on('change') 监听屏幕变化的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/rotation_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-01-002",
+    "layer": "smoke",
+    "title": "windowSizeChange 横竖屏判断与180°盲区",
+    "phase": "DEV",
+    "user_prompt": "页面需要根据当前横竖屏状态切换不同布局。计划在 windowSizeChange 回调中比较宽高来判断横竖屏，但发现旋转 180° 时回调不触发，因为宽高没有变化。需要补充监听来覆盖这个盲区。请给出完整方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-01，覆盖 windowSizeChange 横竖屏判断及 180° 旋转盲区的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/rotation_detection.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-02", "ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-02-001",
+    "layer": "smoke",
+    "title": "基于窗口尺寸动态设置旋转策略",
+    "phase": "DEV",
+    "user_prompt": "一多应用需要根据窗口大小动态决定是否允许旋转：小屏设备锁定竖屏，大屏设备支持自动旋转。需要在 EntryAbility 中监听窗口尺寸变化并动态切换旋转策略。请给出开发实现方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-02，覆盖基于断点判断动态设置旋转策略的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-02-002",
+    "layer": "smoke",
+    "title": "follow_desktop 一多方向策略需求分析",
+    "phase": "REQ",
+    "user_prompt": "应用希望在 module.json5 中配置 follow_desktop 作为默认方向策略，让直板机不旋转、平板跟随桌面旋转。请给出需求分析，明确各设备形态下 follow_desktop 的预期行为和验收标准。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-02，覆盖 follow_desktop 策略的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-02-003",
+    "layer": "smoke",
+    "title": "三折叠 G 态方向特殊性",
+    "phase": "REQ",
+    "user_prompt": "三折叠设备完全展开后，方向表现和其他设备不同，需要分析其特殊性。请给出需求分析，说明三折叠展开态的方向差异、适配策略和验收标准。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-02，覆盖三折叠 G 态方向特殊性的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md", "./references/orientation_concepts.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-02-004",
+    "layer": "smoke",
+    "title": "横向纵向断点组合精细判断设备形态",
+    "phase": "DEV",
+    "user_prompt": "应用需要根据屏幕断点精细区分设备形态来决定旋转策略：手机锁定竖屏，折叠屏展开态、平板、三折叠展开态支持自动旋转。请给出使用系统断点 API 判断设备形态并动态设置旋转策略的开发方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-02，覆盖横向纵向断点组合判断的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/orientation_adaptation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-03", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-03-001",
+    "layer": "smoke",
+    "title": "视频播放横竖屏切换实现",
+    "phase": "DEV",
+    "user_prompt": "视频播放页需要点击全屏按钮切换横屏，点击返回恢复竖屏。折叠屏展开态视频全屏时不旋转，只调整播放窗口大小。请给出完整的视频播放组件横竖屏切换方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-03，覆盖视频播放横竖屏切换的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-03-002",
+    "layer": "smoke",
+    "title": "短视频自适应旋转方案",
+    "phase": "DEV",
+    "user_prompt": "短视频页面需要根据视频方向和设备类型自动选择旋转策略：竖向视频固定竖屏，横向视频全屏时旋转横屏，大屏设备自动旋转。请给出自适应旋转方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-03，覆盖短视频自适应旋转的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-03-003",
+    "layer": "smoke",
+    "title": "视频播放屏幕锁定功能",
+    "phase": "DEV",
+    "user_prompt": "视频全屏播放时需要支持屏幕方向锁定，锁定后只允许横屏旋转不可回到竖屏，解锁后恢复自动旋转。同时需要感知控制中心旋转开关的变化。请给出实现方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-03，覆盖视频播放屏幕锁定功能的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    }
+  },
+  {
+    "case_id": "SMOKE-ORIENT-03-004",
+    "layer": "smoke",
+    "title": "横竖屏切换性能优化",
+    "phase": "DEV",
+    "user_prompt": "视频页面横竖屏切换时，视频下方详情列表也跟着重新布局导致卡顿。需要优化非必要组件的更新频率，减少内存占用。请给出横竖屏切换性能优化方案。",
+    "intent": "验证 device-natural-orientation 是否稳定命中 ORIENT-03，覆盖横竖屏切换性能优化的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "ORIENT-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": ["./references/video_rotation.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": ["ORIENT-01", "ORIENT-04"]
+    }
+  }
+]

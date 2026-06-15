@@ -1,0 +1,611 @@
+[
+  {
+    "case_id": "SMOKE-SCENE-01-001",
+    "layer": "smoke",
+    "title": "foldStatusChange 监听折叠状态变化与首帧初始化",
+    "phase": "DEV",
+    "user_prompt": "折叠屏应用首帧渲染时布局抖动，且折叠/展开过程中界面未实时刷新。计划使用 foldStatusChange 监听 FoldStatus 变化（FOLDED / UNFOLDED / HALF_FOLDED），在状态变化后立即触发布局刷新。同时需要在 aboutToAppear 中获取当前折叠状态做首帧初始化。请给出完整的监听注册、首帧初始化与取消注册实现方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖 foldStatusChange 监听与首帧初始化的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/fold_status_detection.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-01-002",
+    "layer": "smoke",
+    "title": "折叠状态变化后界面未更新修复",
+    "phase": "FIX",
+    "user_prompt": "折叠屏应用从折叠态展开后，页面布局没有更新，仍然显示折叠态的单栏布局。代码中已注册 foldStatusChange 监听，但回调中只更新了 @State foldStatus 变量，没有触发页面实际刷新。请排查原因并给出修复方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖折叠状态变化后界面未更新的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/fold_status_detection.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-001",
+    "layer": "smoke",
+    "title": "视频详情页悬停态上下分屏实现",
+    "phase": "DEV",
+    "user_prompt": "视频详情页在大折叠设备悬停态下需要实现上下分屏：上半屏播放视频，下半屏显示评论列表和操作按钮。退出悬停态后恢复常规全屏布局。计划在 foldStatusChange 回调中检测 HALF_FOLDED 状态，使用 Flex 或 FolderStack 实现上下分屏。请给出完整的悬停态上下分屏开发方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖视频详情页悬停态上下分屏的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-02"
+      ],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md",
+        "./references/crease_avoidance.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-002",
+    "layer": "smoke",
+    "title": "悬停态分屏职责分配需求分析",
+    "phase": "REQ",
+    "user_prompt": "视频应用在折叠屏悬停态下需要重新设计页面布局：上半屏展示视频画面，下半屏放置控制按钮和评论区。请先给出需求分析，明确上半屏和下半屏的职责分配、方向锁定策略、退出悬停后的恢复策略和验收标准。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖悬停态上下分屏的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-02"
+      ],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md",
+        "./references/crease_avoidance.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-003",
+    "layer": "smoke",
+    "title": "悬停态与折痕避让联动需求分析",
+    "phase": "REQ",
+    "user_prompt": "折叠屏应用在悬停态下，上下两个区域的内容被折痕切开，标题文字和按钮被折痕区域遮住。需要重新设计悬停态布局，同时处理折痕避让，确保关键内容和交互不落在折痕区域。请先给出需求分析，明确折叠态布局设计和折痕避让方式。",
+    "intent": "验证 device-fold-state 是否联合命中 FOLD-01 + FOLD-02，覆盖悬停态与折痕避让联动场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-02"
+      ],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md",
+        "./references/crease_avoidance.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-02-004",
+    "layer": "smoke",
+    "title": "物理竖折痕 creaseRect 显示为横向宽条修复",
+    "phase": "FIX",
+    "user_prompt": "大折叠设备物理折痕是竖向的，但通过 getFoldCreaseRegion 获取到的 creaseRect 显示为横向宽条（如 2232x128），导致折痕避让计算方向完全错误，悬停态上下分区变成了左右分区。请排查原因并给出修复方案。",
+    "intent": "验证 device-fold-state 是否联合命中 FOLD-01 + FOLD-04，覆盖 creaseRect 方向与物理折痕不一致的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-04"
+      ],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md",
+        "./references/bug-fix-cases.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-001",
+    "layer": "smoke",
+    "title": "折痕区域检测与内容避让实现",
+    "phase": "DEV",
+    "user_prompt": "折叠屏应用在展开态下，列表中的关键按钮和文字落在折痕区域，导致点击困难和内容变形。计划使用 getFoldCreaseRegion 获取折痕矩形，将折痕映射到页面坐标后计算分区边界，确保关键内容远离折痕。请给出完整的折痕区域检测与内容避让开发方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-02，覆盖折痕区域检测与内容避让的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/crease_avoidance.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-03",
+        "FOLD-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-002",
+    "layer": "smoke",
+    "title": "折痕避让需求分析",
+    "phase": "REQ",
+    "user_prompt": "折叠屏应用在悬停态和展开态下，折痕区域会遮挡关键内容和按钮。不同设备（大折叠、小折叠、三折叠）的折痕位置不同，需要分析折痕避让需求，定义哪些内容必须远离折痕、避让边界如何确定。请给出需求分析和验收标准。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-02，覆盖折痕避让的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/crease_avoidance.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-03",
+        "FOLD-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-03-003",
+    "layer": "smoke",
+    "title": "折痕避让偏移与分界线不在中线修复",
+    "phase": "FIX",
+    "user_prompt": "折叠屏悬停态下避让区整体偏下，分界线不在折痕中线，上半屏空间过小、下半屏空间过大。代码中使用「中线 + 固定偏移」策略计算分界线，且未考虑状态栏高度导致的整体偏移。直接混用了全局坐标和页面坐标。请排查原因并给出修复方案。",
+    "intent": "验证 device-fold-state 是否联合命中 FOLD-02 + FOLD-04，覆盖折痕避让偏移与分界线错误的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-02",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-04"
+      ],
+      "next_scene_refs": [
+        "./references/crease_avoidance.md",
+        "./references/bug-fix-cases.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-001",
+    "layer": "smoke",
+    "title": "多段折叠形态 F/M/G 适配需求分析",
+    "phase": "REQ",
+    "user_prompt": "应用需要适配三段折叠设备，在不同折叠形态（F 态小可视区、M 态中间态、G 态大可视区）间切换时布局错乱。需要将不同折叠组合抽象为统一的语义标签，并定义各形态下的布局策略和信息密度。形态标签只作为语义入口，真实布局空间仍以运行时窗口尺寸和断点判定。请给出需求分析和验收标准。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖多段折叠形态 F/M/G 的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-04-002",
+    "layer": "smoke",
+    "title": "三折叠 F/M/G 态方向策略与布局适配",
+    "phase": "DEV",
+    "user_prompt": "三折叠设备应用需要根据 F/M/G 三种折叠形态动态调整布局和方向策略：F 态单栏紧凑布局锁定竖屏，M 态双栏布局，G 态三栏高信息密度布局并跟随桌面方向。需要监听折叠状态变化并根据运行时窗口尺寸和断点判断当前形态。请给出开发实现方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖三折叠 F/M/G 态方向策略与布局适配的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-05-001",
+    "layer": "smoke",
+    "title": "特殊比例折叠屏内外屏策略拆分需求分析",
+    "phase": "REQ",
+    "user_prompt": "折叠屏设备外屏为方形 1:1 比例，内屏为宽比例 16:10，内外屏切换时布局拥挤或出现空白。需要分析外屏与内屏的布局差异，决定哪些内容在外屏裁剪、隐藏或延后展示，哪些内容利用内屏宽屏空间提升信息密度。请给出需求分析和验收标准。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖特殊比例折叠屏内外屏策略拆分的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-05-002",
+    "layer": "smoke",
+    "title": "特殊比例折叠屏多窗口模式适配",
+    "phase": "DEV",
+    "user_prompt": "特殊比例折叠屏在全屏/分屏/悬浮窗切换时布局错位或裁切。外屏方形导致全屏时内容被拉伸，内屏宽屏时分屏模式导航被遮挡。需要针对不同窗口模式分别适配布局。请给出特殊比例折叠屏多窗口模式适配的开发方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-01，覆盖特殊比例折叠屏多窗口模式适配的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-01",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/hover_state_interaction.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-06-001",
+    "layer": "smoke",
+    "title": "折展问题通用修复——状态监听缺失",
+    "phase": "FIX",
+    "user_prompt": "折叠屏应用折叠后界面未更新，状态变化回调未触发或监听未正确注册。代码中在 aboutToAppear 里注册了 foldStatusChange，但在 aboutToDisappear 里忘记取消注册，导致页面切换后仍然持有旧回调。请排查原因并给出修复方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-04，覆盖折展问题中状态监听缺失的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [
+        "FOLD-01"
+      ],
+      "next_scene_refs": [
+        "./references/bug-fix-cases.md",
+        "./references/fold_status_detection.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-06-002",
+    "layer": "smoke",
+    "title": "折展后布局错乱通用修复",
+    "phase": "FIX",
+    "user_prompt": "折叠屏应用展开后布局完全错乱，组件重叠、文字截断。代码中在 foldStatusChange 回调中直接修改了业务显示状态机，导致折展逻辑和业务逻辑耦合，展开后业务状态被覆盖。请按折展问题通用修复路径排查并给出修复方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-04，覆盖折展后布局错乱中业务状态机被覆盖的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-04",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/bug-fix-cases.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-02",
+        "FOLD-03"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-07-001",
+    "layer": "smoke",
+    "title": "开合连续性需求分析",
+    "phase": "REQ",
+    "user_prompt": "折叠屏应用折叠后再展开，出现三个问题：页面滚动位置回到顶部、搜索框输入内容丢失、视频播放进度回到开头重新播放。需要分析哪些状态必须跨折展保持（滚动锚点、输入草稿、媒体时间轴），定义恢复链路触发时机和降级策略。请先给出需求分析设计。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-03，覆盖开合连续性的需求分析场景。",
+    "expected": {
+      "primary_phase": "REQ",
+      "primary_scene": "FOLD-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/fold_continuity.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "device_constraints",
+        "capability_boundary",
+        "acceptance_focus"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-02",
+        "FOLD-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-07-002",
+    "layer": "smoke",
+    "title": "开合后滚动位置与列表状态保持",
+    "phase": "DEV",
+    "user_prompt": "列表页在折叠屏展开后滚动位置丢失，总是回到顶部，且列表选中项被重置。需要在折展切换时保存和恢复滚动锚点与列表状态，确保用户看到的内容位置和选中项不变。同时禁止基于过期视口恢复。请给出完整的开合连续性保障方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-03，覆盖开合后滚动位置与列表状态保持的开发场景。",
+    "expected": {
+      "primary_phase": "DEV",
+      "primary_scene": "FOLD-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/fold_continuity.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "code_touchpoints",
+        "reuse_resources",
+        "implementation_notes",
+        "integration_risks"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-02",
+        "FOLD-04"
+      ]
+    }
+  },
+  {
+    "case_id": "SMOKE-SCENE-07-003",
+    "layer": "smoke",
+    "title": "折叠后输入内容丢失修复",
+    "phase": "FIX",
+    "user_prompt": "搜索页在折叠屏折叠后已输入的搜索文字丢失，搜索结果被清空。代码中在 foldStatusChange 回调里调用了 loadData() 重新加载页面数据，导致用户当前状态被覆盖。请排查原因并给出修复方案。",
+    "intent": "验证 device-fold-state 是否稳定命中 FOLD-03，覆盖折叠后输入内容丢失的修复场景。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-03",
+      "primary_scene_ref": "./SKILL.md",
+      "secondary_scenes": [],
+      "next_scene_refs": [
+        "./references/fold_continuity.md"
+      ],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": [
+        "FOLD-01",
+        "FOLD-02",
+        "FOLD-04"
+      ]
+    }
+  }
+]

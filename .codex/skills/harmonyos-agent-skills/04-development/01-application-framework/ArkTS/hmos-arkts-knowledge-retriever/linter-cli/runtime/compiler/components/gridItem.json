@@ -1,0 +1,6 @@
+{
+  "name": "GridItem",
+  "parents": ["Grid"],
+  "single": true,
+  "attrs": ["rowStart", "rowEnd", "columnStart", "columnEnd", "forceRebuild", "selectable", "onSelect", "selected"]
+}

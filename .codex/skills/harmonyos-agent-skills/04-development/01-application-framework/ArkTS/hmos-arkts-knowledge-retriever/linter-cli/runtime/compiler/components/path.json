@@ -1,0 +1,7 @@
+{
+  "name": "Path",
+  "atomic": true,
+  "attrs": [
+    "commands"
+  ]
+}

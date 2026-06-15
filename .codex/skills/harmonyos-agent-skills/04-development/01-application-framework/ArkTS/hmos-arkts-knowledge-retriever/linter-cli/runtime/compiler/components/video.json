@@ -1,0 +1,9 @@
+{
+  "name": "Video",
+  "atomic": true,
+  "attrs": [
+    "muted", "autoPlay", "controls", "loop", "objectFit", "enableAnalyzer", "analyzerConfig", "onSeeking",
+    "onFullscreenChange", "onStart", "onPause", "onPrepared", "onFinish", "onSeeked", "onUpdate", "onError", "onStop",
+    "start", "pause", "stop", "reset", "setCurrentTime", "requestFullscreen", "exitFullscreen"
+  ]
+}

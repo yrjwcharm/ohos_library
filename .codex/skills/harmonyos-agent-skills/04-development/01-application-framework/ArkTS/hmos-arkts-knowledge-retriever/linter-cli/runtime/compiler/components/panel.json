@@ -1,0 +1,7 @@
+{
+  "name": "Panel",
+  "attrs": [
+    "type", "mode", "dragBar", "customHeight", "fullHeight", "backgroundMask",
+    "halfHeight", "miniHeight", "show", "onChange", "onHeightChange", "showCloseIcon"
+  ]
+}

@@ -1,0 +1,347 @@
+[
+  {
+    "case_id": "HW-REAL-001",
+    "layer": "real-world",
+    "title": "折叠态切换后黑屏",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景1",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景1，排查并修复折叠屏设备在折叠/展开切换后相机预览页面出现黑屏的问题。原因是折叠前选择的相机设备在折叠后不再可用，但未监听 foldStatusChange 事件或监听后未完整重建相机会话。还需要覆盖热启动 onPageShow 恢复相机的场景。",
+    "intent": "修复 HW-02-fold 场景中折叠态切换和热启动导致的黑屏问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + '折叠' + '黑屏' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    },
+    "problem_profile": {
+      "symptom": "折叠屏设备折叠/展开切换后相机预览黑屏，热启动恢复后同样黑屏",
+      "root_cause": "未监听 foldStatusChange 或监听后未完整重建相机，缺少 onPageShow 热启动恢复",
+      "fix_strategy": "aboutToAppear 中注册 foldStatusChange 监听 + onPageShow 中判断 photoSession 存在则重新 initCamera + 折叠变化时完整执行 releaseCamera→initCamera"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "aboutToAppear 中注册 foldStatusChange 监听",
+        "onPageShow 中判断 session 存在则重新初始化相机",
+        "折叠状态变化时完整释放旧会话并重建",
+        "aboutToDisappear 中 off 监听并 releaseCamera",
+        "参照 camera-bug-fix-cases.md 场景1 正例 CameraPhoto.ets"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_02"],
+      "forbidden_patterns": [
+        "aboutToAppear 中遗漏 setupFoldStatusListener",
+        "缺少 onPageShow 热启动恢复逻辑",
+        "折叠变化时仅更新 PreviewOutput 不重建 CameraInput"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "折叠/展开切换后预览画面立即恢复，无黑屏",
+        "热启动从后台恢复后相机正常显示",
+        "折叠态变化时旧会话已释放，无泄漏"
+      ],
+      "pass_evidence": "编译通过 + 折叠切换及热启动操作录像/gif"
+    },
+    "regression_watchlist": [
+      "折叠态变化时 onPageShow 是否被重复触发导致重复初始化",
+      "半折叠↔展开切换是否会触发不必要的重建"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-002",
+    "layer": "real-world",
+    "title": "开合后相机设备未切换",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景2",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景2，排查并修复折叠屏折叠/展开后相机仍使用旧设备的问题。反例中监听了 foldStatusChange 但回调中仅更新了 PreviewOutput，未释放旧的 CameraInput 和 Session。阔折叠外屏仅前置相机时查找后置失败。请修复。",
+    "intent": "修复 HW-02-fold 场景中折叠态变化后相机设备未切换的问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + '折叠' + '设备未切换' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    },
+    "problem_profile": {
+      "symptom": "折叠/展开后相机仍使用旧设备，阔折叠外屏只有前置相机时后置查找失败",
+      "root_cause": "折叠变化时仅更新 PreviewOutput 未重建 CameraInput + 相机选择未处理目标位置不存在的情况",
+      "fix_strategy": "折叠变化时完整执行 releaseCamera→initCamera + 选择相机时 findIndex 查找，未找到回退 cameras[0]"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "折叠状态变化时完整执行 releaseCamera → initCamera",
+        "使用 findIndex 查找目标位置相机，未找到回退 cameras[0]",
+        "阔折叠外屏仅前置相机时自动回退",
+        "参照 camera-bug-fix-cases.md 场景2 正例 initCamera 完整链路"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_02"],
+      "forbidden_patterns": [
+        "折叠变化时仅更新 PreviewOutput + commitConfig 不释放 CameraInput",
+        "假设所有设备都有后置相机"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "折叠/展开后相机设备正确切换到当前可用的相机",
+        "阔折叠外屏无后置时自动回退到前置",
+        "相机重建后预览输出正常无黑屏"
+      ],
+      "pass_evidence": "编译通过 + 不同折叠态下相机设备选择正确的截图/gif"
+    },
+    "regression_watchlist": [
+      "releaseCamera 后 initCamera 前是否有空窗期导致崩溃",
+      "分支摄像头设备场景是否受影响（如三折叠 G 态的内屏前置+后置）"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-003",
+    "layer": "real-world",
+    "title": "拍照后画面旋转方向错误",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景3",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景3，排查并修复拍照后照片方向与设备持握方向不一致的问题。反例中直接调用 capture() 未传入 PhotoCaptureSetting，未通过重力传感器获取旋转角度，前后置旋转映射混淆。请修复。",
+    "intent": "修复 HW-02-rotation 场景中拍照未设置旋转角度导致照片方向错误",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + 'rotation' + '拍照' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    },
+    "problem_profile": {
+      "symptom": "拍照后照片方向与设备持握方向不一致，发生 90°/180°/270° 旋转",
+      "root_cause": "capture() 未传入 PhotoCaptureSetting.rotation + 未通过重力传感器获取设备方向 + 前后置旋转映射混淆",
+      "fix_strategy": "capture 前 sensor.once(GRAVITY) 获取重力数据 → getCalDegree 计算角度 → 区分前后置映射 → capture(setting) 传入 rotation+mirror"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "拍照前使用 sensor.once(SensorId.GRAVITY) 获取重力数据",
+        "getCalDegree 计算设备持握角度并映射到 ImageRotation 值",
+        "区分前后置相机旋转映射（前置减法，后置加法）",
+        "capture(setting) 传入 PhotoCaptureSetting 含 rotation 和 mirror",
+        "参照 camera-bug-fix-cases.md 场景3 正例 capture()"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "forbidden_patterns": [
+        "直接调用 capture() 不传入 rotation 参数",
+        "前后置旋转映射公式混淆"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "竖屏拍照方向正确（0°）",
+        "左横屏拍照方向正确（90°）",
+        "倒置拍照方向正确（180°）",
+        "右横屏拍照方向正确（270°）"
+      ],
+      "pass_evidence": "编译通过 + 四种持握方向拍照输出文件方向均正确"
+    },
+    "regression_watchlist": [
+      "前置相机 mirror 设置是否影响方向计算",
+      "特殊角度（如仰拍/俯拍）下旋转逻辑是否正常"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-004",
+    "layer": "real-world",
+    "title": "预览画面旋转拉伸变形",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景4",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景4，排查并修复相机预览画面旋转/拉伸/变形的问题。反例中 XComponent onLoad 未调用 setXComponentSurfaceRotation({lock:true}) 解锁 Surface 旋转，setupRotationListener 中仅打印日志未重新计算预览旋转和 Surface 宽高比。请修复。",
+    "intent": "修复 HW-02-rotation 场景中预览画面旋转拉伸问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + 'rotation' + '预览' + '拉伸' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    },
+    "problem_profile": {
+      "symptom": "预览画面方向错误、拉伸变形，窗口旋转后画面未跟随更新",
+      "root_cause": "XComponent onLoad 未 setXComponentSurfaceRotation({lock:true}) + 监听了 display.on('change') 但回调未重新计算 Surface 宽高比和预览旋转角度",
+      "fix_strategy": "onLoad 中 setXComponentSurfaceRotation({lock:true}) + commitConfig 后 getPreviewRotation + setPreviewRotation + 窗口变化时重新计算 Surface 尺寸"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "XComponent onLoad 中调用 setXComponentSurfaceRotation({lock:true})",
+        "setupRotationListener 中 display.on('change') 回调重新计算 Surface 尺寸和预览旋转",
+        "commitConfig 后调用 getPreviewRotation 获取旋转角度并 setPreviewRotation",
+        "Surface 宽高比根据 display.rotation 计算：0°/180° 时比例取倒数，90°/270° 时保持一致",
+        "参照 camera-bug-fix-cases.md 场景4 正例 updateSurfaceSize()"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "forbidden_patterns": [
+        "onLoad 中遗漏 setXComponentSurfaceRotation({lock:true})",
+        "setupRotationListener 回调仅打印日志不做实际更新",
+        "Surface 宽高比固定不变"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "四种持握方向预览画面方向正确无拉伸",
+        "旋转后 Surface 宽高比正确（0°和 180°取倒数）",
+        "旋转后预览画面镜像方向正确"
+      ],
+      "pass_evidence": "编译通过 + 四种方向预览截图均无拉伸变形"
+    },
+    "regression_watchlist": [
+      "onAreaChange 频繁触发时 Surface 尺寸计算是否导致闪烁",
+      "预览方向与录像方向是否会互相干扰"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-005",
+    "layer": "real-world",
+    "title": "录像画面方向错误",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景5",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景5，排查并修复录像开始后画面方向与设备持握方向不一致的问题。反例中 prepareVideo 未获取重力传感器旋转角度，AVMetadata.videoOrientation 设为 0 导致录像方向固定为竖屏。请修复。",
+    "intent": "修复 HW-02-rotation 场景中录像方向错误问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-rotation"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + 'rotation' + '录像' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 rotation"
+    },
+    "problem_profile": {
+      "symptom": "录像画面方向与设备持握方向不一致，旋转设备后录制方向未更新",
+      "root_cause": "录像开始时未通过 sensor.once(GRAVITY) 获取旋转角度 + AVMetadata.videoOrientation 未设置",
+      "fix_strategy": "startVideo 前 sensor.once(GRAVITY) 获取重力数据 → getCalDegree 计算角度 → 区分前后置映射 → AVMetadata.videoOrientation 设置为合理值（0/90/180/270）"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "录像开始前 sensor.once(SensorId.GRAVITY) 获取重力数据",
+        "getCalDegree 计算设备持握角度并映射到 ImageRotation 值",
+        "区分前后置相机旋转映射",
+        "将旋转角度传入 AVMetadata.videoOrientation（0/90/180/270）",
+        "预览流与录像输出流分辨率宽高比一致",
+        "参照 camera-bug-fix-cases.md 场景5 正例 startVideo()"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_05", "RSC_HW_06"],
+      "forbidden_patterns": [
+        "录像时不设置 videoOrientation 导致默认竖屏",
+        "预览流与录像输出流宽高比不一致"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "竖屏录像方向正确",
+        "左横屏录像方向正确（90°）",
+        "倒置录像方向正确（180°）",
+        "右横屏录像方向正确（270°）"
+      ],
+      "pass_evidence": "编译通过 + 四种方向录像输出文件播放方向均正确"
+    },
+    "regression_watchlist": [
+      "录像过程中旋转设备是否需要在 MetaData 中动态更新方向",
+      "前置相机录像 mirror 设置是否正确"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-006",
+    "layer": "real-world",
+    "title": "预览画面花屏/堆叠/行偏移",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景6",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景6，排查并修复通过 ImageReceiver 获取预览帧后送显出现花屏堆叠的问题。反例中直接用 component.byteBuffer 创建 PixelMap 未检查 rowStride 是否与 width 一致，stride ≠ width 时无效填充字节被当作有效像素。请修复。",
+    "intent": "修复 HW-02-stride 场景中 stride 未处理导致的花屏问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-stride"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + 'stride' + '花屏' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 stride"
+    },
+    "problem_profile": {
+      "symptom": "通过 ImageReceiver 获取预览帧后送显出现花屏堆叠，图像行偏移内容错位",
+      "root_cause": "stride ≠ width 时直接用 component.byteBuffer 按 width×height 创建 PixelMap，无效填充字节被当作有效像素",
+      "fix_strategy": "运行时通过 component.rowStride 获取 stride → stride===width 直接创建 → stride≠width 时逐行拷贝有效像素到新 buffer 或 cropSync 裁剪"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "通过 component.rowStride 运行时获取 stride 值",
+        "stride === width 直接使用 byteBuffer 创建 PixelMap",
+        "stride ≠ width 时去除无效像素（缓冲拷贝或 cropSync 两种方案）",
+        "参照 camera-bug-fix-cases.md 场景6 正例一和二"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_04"],
+      "forbidden_patterns": [
+        "硬编码 stride 值",
+        "stride ≠ width 时直接用 byteBuffer 创建 PixelMap"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "stride === width 时画面正常无花屏",
+        "stride ≠ width 时画面正常无花屏/行偏移/堆叠",
+        "不同平台上 stride 值正确获取"
+      ],
+      "pass_evidence": "编译通过 + stride≠width 平台预览截图无花屏"
+    },
+    "regression_watchlist": [
+      "缓冲拷贝方案在大分辨率下是否有性能瓶颈",
+      "cropSync 方案在不同平台上兼容性"
+    ]
+  },
+  {
+    "case_id": "HW-REAL-007",
+    "layer": "real-world",
+    "title": "2in1/阔折叠设备后置相机不可用",
+    "phase": "FIX",
+    "bug_id": "camera-bug-fix-cases.md#场景7",
+    "user_prompt": "根据 camera-bug-fix-cases.md 场景7，排查并修复 2in1 设备或阔折叠外屏上选择后置相机失败、相机初始化异常或预览黑屏的问题。2in1 大部分仅有前置内置相机，阔折叠外屏仅前置，相机选择逻辑未处理目标不存在的情况。请修复。",
+    "intent": "修复 HW-02-fold 场景中 2in1/阔折叠设备后置相机不可用问题",
+    "expected": {
+      "primary_scene": "HW-02-bugfix",
+      "secondary_scenes": ["HW-02-fold"],
+      "co_load_verified": true,
+      "decision_path": "关键词 FIX + '2in1' + '后置相机' → HW-02 → 子场景 'bugfix' → keyword_triggered → 加载 fold"
+    },
+    "problem_profile": {
+      "symptom": "2in1 设备或阔折叠外屏选择后置相机失败，初始化异常或预览黑屏",
+      "root_cause": "2in1 仅前置内置相机 + 阔折叠外屏仅前置相机 + 相机选择逻辑未处理目标位置不存在的情况",
+      "fix_strategy": "选择相机时 findIndex 查找目标位置 → deviceIndex===-1 回退 cameras[0] → 前后切换时目标不存在则保持当前相机"
+    },
+    "solution_contract": {
+      "must_cover": [
+        "使用 findIndex 查找目标位置相机",
+        "findIndex 返回 -1 时回退到 cameras[0]",
+        "前后切换时目标不存在则保持当前相机不变",
+        "参照 camera-bug-fix-cases.md 场景7 通用修复方案"
+      ],
+      "should_reuse_resources": ["RSC_HW_03", "RSC_HW_02"],
+      "forbidden_patterns": [
+        "假设所有设备都有后置相机",
+        "相机选择时没有回退策略"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "code_fix",
+      "compile_command_template": "hvigorw assembleHap",
+      "test_command_template": "hdc shell aa start -a EntryAbility",
+      "runtime_assertions": [
+        "2in1 设备上回退到前置相机，预览正常",
+        "阔折叠外屏无后置时自动回退到前置，无异常",
+        "前后切换时后置不可用则保持当前相机"
+      ],
+      "pass_evidence": "编译通过 + 2in1/阔折叠设备相机初始化成功截图"
+    },
+    "regression_watchlist": [
+      "分支相机设备（双前置/双后置）是否存在类似回退需求",
+      "回退后预览分辨率是否需要重新适配"
+    ]
+  }
+]

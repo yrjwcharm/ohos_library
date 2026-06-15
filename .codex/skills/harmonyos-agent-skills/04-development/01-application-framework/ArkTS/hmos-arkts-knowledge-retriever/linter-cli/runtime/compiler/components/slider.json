@@ -1,0 +1,10 @@
+{
+  "name": "Slider",
+  "atomic": true,
+  "attrs": [
+    "blockColor", "trackColor", "selectedColor", "minLabel", "maxLabel", "showSteps", "showTips", "trackThickness",
+    "onChange","blockBorderColor","blockBorderWidth","stepColor","trackBorderRadius","selectedBorderRadius",
+    "blockStyle","blockSize","sliderInteractionMode","slideRange","minResponsiveDistance", "stepSize",
+    "contentModifier", "enableHapticFeedback"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "PageTransitionExit",
+  "atomic": true,
+  "noDebugLine": true,
+  "attrs": ["onExit"]
+}

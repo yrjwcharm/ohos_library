@@ -1,0 +1,8 @@
+{
+  "name": "Marquee",
+  "atomic": true,
+  "attrs": [
+    "fontColor", "fontSize", "allowScale", "fontWeight", "fontFamily", "onStart",
+    "onBounce", "onFinish", "marqueeUpdateStrategy", "onStart", "onBounce", "onFinish"
+  ]
+}

@@ -1,0 +1,280 @@
+[
+  {
+    "case_id": "FOLD-REAL-001",
+    "layer": "real-world",
+    "title": "折叠屏视频详情页悬停态布局未生效",
+    "phase": "FIX",
+    "source_scene": "场景A：悬停态布局未生效",
+    "user_prompt": "视频详情页在大折叠设备展开态正常，但折叠到半折叠（悬停态）后仍显示单屏布局，播放器与评论区跨折痕排列，关键操作区域被折痕遮挡，可用性严重下降。请给出修复方案，并定义工程验证要求。",
+    "intent": "验证悬停态布局分支缺失的真实故障下，能正确识别缺少 foldStatus/foldDisplayMode 监听并给出分屏结构修复。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-02",
+      "secondary_scenes": ["FOLD-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["FOLD-05"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须识别 foldStatusChange / foldDisplayModeChange 监听缺失问题。",
+        "必须为悬停态单独提供分屏结构（上展示、下交互），常态保留原断点策略。",
+        "悬停态与常态复用同一业务状态机，只变更布局承载位置。",
+        "必须定义展开态、半折叠态、折叠态三态切换的回归用例。"
+      ],
+      "should_reuse_resources": [
+        "./references/hover_state_interaction.md",
+        "./assets/HoverStateInteractionExample.ets"
+      ],
+      "forbidden_patterns": [
+        "未监听折展状态变化，仅在固定布局中硬编码折痕偏移。",
+        "悬停态与共用同一布局分支，不做状态驱动的布局切换。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "折叠为 HALF_FOLD 时页面切换为上下分屏结构，播放器位于上半屏，交互区位于下半屏。",
+        "展开为 FULL_FOLD 时恢复单屏布局，折展切换无布局残留。",
+        "折叠为 CLOSE 状态时正常显示外屏布局。",
+        "折展状态变化回调正确触发且布局实时刷新。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "展开态截图",
+        "悬停态截图（确认上下分屏结构）",
+        "FoldStatus 与 foldDisplayMode 回调日志",
+        "dumpLayout 确认分屏容器节点存在"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-REAL-002",
+    "layer": "real-world",
+    "title": "折叠屏视频详情页折痕避让偏移或跨折痕",
+    "phase": "FIX",
+    "source_scene": "场景C：折痕避让偏移或跨折痕",
+    "user_prompt": "视频详情页在大折叠设备悬停态下，视频画面和下方的评论区、点赞按钮等都跨在折痕上了，内容被折痕遮挡看不清，按钮也点不到。不同设备上偏移还不一样。请帮我排查并修复折痕避让的问题。",
+    "intent": "验证折痕避让计算错误的真实故障下，能正确识别未读取真实折痕几何及坐标映射问题并给出精准避让修复。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-03",
+      "secondary_scenes": ["FOLD-02"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["FOLD-05"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须使用 getCurrentFoldCreaseRegion() 获取真实折痕几何，禁止使用经验比例切分。",
+        "必须完成全局坐标到页面坐标的映射与 root 偏移扣减。",
+        "坐标转换 API 必须配套旋转稳定性保护；必要时回退到折痕原始矩形 + root 偏移的同单位换算路径。",
+        "先按折痕上/下（或左/右）边界落分区，再在分区内部应用安全间距（如 16/40 vp）。",
+        "必须增加折痕厚度保险阈值（例如不超过可用高/宽的 35%），超阈值时回退到薄边估算。",
+        "分界线仅作为视觉辅助或中间量，禁止用中线+固定偏移直接推导容器边界。"
+      ],
+      "should_reuse_resources": [
+        "./references/crease_avoidance.md",
+        "./assets/CreaseAvoidance.ets"
+      ],
+      "forbidden_patterns": [
+        "使用固定 padding 或经验比例回避折痕而不读取真实边界。",
+        "将 16/40 vp 直接当作分区边界锚点，导致分界线整体偏移。",
+        "全局坐标与页面坐标混用未做映射。",
+        "不设折痕厚度异常值保护。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 折叠屏工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "悬停态下分界线精确对齐真实折痕边界，不偏上不偏下。",
+        "交互控件（进度条、评论按钮）不落入折痕区域。",
+        "多设备间折痕避让表现一致（基于真实折痕几何计算）。",
+        "折痕厚度异常时自动回退到薄边估算，不出现大面积内容被吞。",
+        "旋转过程中坐标转换稳定，不出现轴互换或跳变。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "悬停态截图（确认分界线对齐折痕）",
+        "折痕几何日志（getCurrentFoldCreaseRegion 返回值）",
+        "坐标转换日志（确认全局→页面坐标映射正确）",
+        "dumpLayout 确认交互控件不在折痕区域内",
+        "多设备对比截图"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-REAL-003",
+    "layer": "real-world",
+    "title": "会议应用悬停态分屏布局未生效",
+    "phase": "FIX",
+    "source_scene": "场景A：会议应用悬停态布局缺失",
+    "user_prompt": "视频会议应用线上问题：在大折叠设备展开态正常显示会议界面，但折叠到半折叠（悬停态）后仍显示全屏单页布局，投影画面和操控面板（参会者列表、工具栏）未分别放置在折痕两侧，关键操作区域被折痕遮挡，参会者画面和工具栏跨折痕排列导致交互困难。请给出修复方案，并定义工程验证要求。",
+    "intent": "验证真实视频会议场景下，FOLD-02 悬停态布局分支缺失的修复方案能转成工程可编译、可验证的契约。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-02",
+      "secondary_scenes": ["FOLD-01"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["FOLD-05"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须在 aboutToAppear 中调用 bindFoldListeners() 注册 foldStatusChange 和 foldDisplayModeChange 监听。",
+        "必须在 aboutToDisappear 中调用 unbindFoldListeners() 取消监听避免内存泄漏。",
+        "updateFoldLayoutState() 必须通过 display.isFoldable() 判断设备可折叠性，通过 display.getFoldStatus() 获取折叠状态，通过 display.getFoldDisplayMode() 获取显示模式。",
+        "必须通过 display.getCurrentFoldCreaseRegion() 获取折痕区域，结合 display.convertGlobalToRelativeCoordinate() 完成全局坐标到页面坐标的映射。",
+        "必须根据折痕方向（水平/垂直）判断 isVerticalCrease，提供 HorizontalHoverLayout（上投影+下控制或反转）和 VerticalHoverLayout（左投影+右控制或反转）两种分屏布局。",
+        "必须根据折痕两侧面积大小自动选择 hoverAnchor（投影区放较小面板、控制区放较大面板）。",
+        "非悬停态（展开/折叠/单屏模式）必须回退为常规全屏会议界面（CallScaffold）。",
+        "根因必须指出 updateFoldLayoutState() 仅调用 resetHoverLayoutState() 未执行实际折叠状态检测，且 aboutToAppear 未注册折叠监听。"
+      ],
+      "should_reuse_resources": [
+        "./references/hover_state_interaction.md",
+        "./references/fold_status_detection.md",
+        "../../code/all-cases/entry/src/main/ets/cases/device-fold-state/dd_meeting_hover_adaptation/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "updateFoldLayoutState() 始终调用 resetHoverLayoutState() 不执行折叠状态检测。",
+        "aboutToAppear 中不调用 bindFoldListeners() 注册折叠状态监听。",
+        "build() 中不根据 isHoverMode 切换布局，始终渲染 CallScaffold。",
+        "aboutToDisappear 中不调用 unbindFoldListeners() 导致监听泄漏。",
+        "不读取折痕区域，使用固定比例切分上下或左右面板。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 视频会议应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "展开态正常显示全屏会议界面（CallScaffold）。",
+        "悬停态（HALF_FOLD）切换为分屏布局，投影画面和控制面板分置折痕两侧。",
+        "折痕为水平时显示上下分屏（HorizontalHoverLayout），折痕为垂直时显示左右分屏（VerticalHoverLayout）。",
+        "控制区放置在折痕较大面板一侧，投影区放置在较小面板一侧。",
+        "折叠/展开/单屏模式回退为全屏会议界面，无布局残留。",
+        "折叠状态变化回调正确触发且布局实时刷新。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "展开态全屏会议截图",
+        "悬停态分屏截图（投影+控制分离）",
+        "FoldStatus 与 foldDisplayMode 回调日志",
+        "水平折痕和垂直折痕分屏截图"
+      ]
+    }
+  },
+  {
+    "case_id": "FOLD-REAL-004",
+    "layer": "real-world",
+    "title": "视频应用折展后内容退化与播放状态丢失修复",
+    "phase": "FIX",
+    "source_scene": "场景B：折展连续性内容退化与播放丢失",
+    "user_prompt": "视频应用在折叠屏上折叠或展开后，视频播放进度丢了（从头开始播），而且之前是暂停的折展后变成自动播放了。另外页面布局也乱了，有些内容显示不完整。怎么让视频在折展后恢复到原来的播放进度和暂停/播放状态？",
+    "intent": "验证真实视频播放场景下，FOLD-03 折展连续性保持的修复方案能转成工程可编译、可验证的契约，确保折展后视频播放状态正确恢复且内容不退化。",
+    "expected": {
+      "primary_phase": "FIX",
+      "primary_scene": "FOLD-03",
+      "secondary_scenes": ["FOLD-02"],
+      "next_scene_refs": ["./SKILL.md"],
+      "required_output_fields": [
+        "active_phases",
+        "primary_phase",
+        "primary_scene",
+        "secondary_scenes",
+        "route_reason",
+        "next_scene_refs",
+        "problem_profile",
+        "root_cause_hypothesis",
+        "fix_plan",
+        "regression_watchlist"
+      ],
+      "forbidden_scenes": ["FOLD-05"]
+    },
+    "solution_contract": {
+      "must_cover": [
+        "必须移除基于惩罚累积的内容退化机制（viewportRestoreOffsetVp、feedBudgetShrinkLevel、previewBlurRadius 及相关的 applyLegacyRestoreOnFoldChange 方法）。",
+        "必须实现视频播放状态快照恢复机制：折展前通过 captureVideoContinuitySnapshot() 保存当前播放进度（playbackAnchorSec）、播放/暂停状态（shouldKeepVideoPlaying）。",
+        "必须通过 scheduleVideoContinuityRestore() + applyVideoContinuityRestoreNow() 在折展后恢复播放进度和状态，使用 videoController.setCurrentTime() 定位到快照位置，使用 videoController.start()/pause() 恢复播放状态。",
+        "必须使用 videoPreparedSerial 序列号追踪 Video 组件的 onPrepared 回调，确保组件就绪后再执行恢复，避免恢复失败。",
+        "必须使用 playbackAnchorSec + playbackAnchorTimestampMs 锚点机制估算实际播放位置，补偿折展过渡期间的播放进度。",
+        "foldStatusChange 和 foldDisplayModeChange 回调中必须先调用 captureVideoContinuitySnapshot() 再更新折叠状态，最后调用 scheduleVideoContinuityRestore()。",
+        "根因必须指出使用惩罚累积机制（viewportRestoreOffsetVp/feedBudgetShrinkLevel/previewBlurRadius）导致内容退化，且缺少视频播放状态快照恢复机制导致播放进度丢失。"
+      ],
+      "should_reuse_resources": [
+        "./references/fold_continuity.md",
+        "./references/hover_state_interaction.md",
+        "../../code/all-cases/entry/src/main/ets/cases/device-fold-state/video_khlxx/GoodCase/Index.ets"
+      ],
+      "forbidden_patterns": [
+        "使用 viewportRestoreOffsetVp、feedBudgetShrinkLevel、previewBlurRadius 等惩罚累积变量逐步退化内容。",
+        "通过 applyLegacyRestoreOnFoldChange 在每次折展变化时增加惩罚值。",
+        "不保存视频播放进度快照，折展后播放进度丢失或跳变。",
+        "不使用 videoPreparedSerial 追踪组件就绪状态，在组件未就绪时执行恢复导致失败。",
+        "截断文本内容（通过 feedBudgetShrinkLevel 减少 maxLines 或截取字符串）代替正确的布局适配。"
+      ]
+    },
+    "execution_contract": {
+      "execution_type": "harmonyos_project",
+      "target_project_type": "HarmonyOS NEXT 视频播放应用工程",
+      "compile_command_template": "./hvigorw assembleHap",
+      "test_command_template": "./hvigorw test",
+      "runtime_assertions": [
+        "折展切换后视频播放进度恢复到快照位置，误差不超过 2 秒。",
+        "折展切换后视频播放/暂停状态正确恢复（播放中继续播放，暂停中保持暂停）。",
+        "多次连续折展后推荐视频列表数量不减少、封面图不模糊、文本不截断。",
+        "悬停态（HALF_FOLD）正确切换为分屏布局，视频画面和详情面板分置折痕两侧。",
+        "展开/折叠/单屏模式回退为常规布局，无内容退化残留。",
+        "foldStatusChange 回调日志显示快照保存和恢复时序正确。"
+      ],
+      "pass_evidence": [
+        "编译成功日志",
+        "折展前后视频进度对比截图（进度一致）",
+        "多次折展后内容完整性截图（无退化）",
+        "悬停态分屏截图",
+        "captureVideoContinuitySnapshot / applyVideoContinuityRestoreNow 回调日志",
+        "videoPreparedSerial 变化日志"
+      ]
+    }
+  }
+]

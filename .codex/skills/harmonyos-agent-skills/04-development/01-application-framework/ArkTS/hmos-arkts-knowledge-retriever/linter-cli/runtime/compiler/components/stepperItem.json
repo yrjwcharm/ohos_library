@@ -1,0 +1,6 @@
+{
+  "name": "StepperItem",
+  "parents": ["Stepper"],
+  "single": true,
+  "attrs": ["prevLabel", "nextLabel", "status"]
+}

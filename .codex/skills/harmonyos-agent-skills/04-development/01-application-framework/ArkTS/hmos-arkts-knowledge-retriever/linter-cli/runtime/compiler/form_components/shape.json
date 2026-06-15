@@ -1,0 +1,12 @@
+{
+  "name": "Shape",
+  "children": [
+    "Rect", "Path", "Circle", "Ellipse", "Shape", "Polyline", "Polygon", "Image", "Text", "Column",
+    "Row"
+  ],
+  "attrs": [
+    "viewPort", "stroke", "fill", "strokeDashOffset", "strokeDashArray", "strokeLineCap",
+    "strokeLineJoin", "strokeMiterLimit", "strokeOpacity", "fillOpacity", "strokeWidth",
+    "antiAlias", "mesh"
+  ]
+}

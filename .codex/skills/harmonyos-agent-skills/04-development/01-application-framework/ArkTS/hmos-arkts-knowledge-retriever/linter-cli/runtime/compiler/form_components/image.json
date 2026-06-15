@@ -1,0 +1,9 @@
+{
+  "name": "Image",
+  "atomic": true,
+  "attrs": [
+    "alt", "matchTextDirection", "fitOriginalSize", "fillColor", "objectFit", "objectRepeat",
+    "autoResize", "renderMode", "interpolation", "sourceSize", "onComplete", "onError", "onFinish",
+    "syncLoad", "colorFilter", "copyOption", "draggable"
+  ]
+}

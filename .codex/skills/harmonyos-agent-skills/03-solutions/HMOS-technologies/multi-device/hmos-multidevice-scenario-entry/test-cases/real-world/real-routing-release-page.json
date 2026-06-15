@@ -1,0 +1,63 @@
+{
+  "case_id": "SCENE-ENTRY-REAL-001",
+  "layer": "real-world",
+  "title": "版本发版前的折叠视频详情页综合路由",
+  "phase": "FIX",
+  "user_prompt": "发版前回归发现：折叠屏视频详情页在展开态双栏正常，但切到悬停态后评论区被压到折痕附近，弹出键盘后输入框看不见，旋转设备后播放器和评论区比例还会错位。请先给出修复分流方案，说明应该由哪些多设备场景接手。",
+  "intent": "验证真实业务描述下，总入口仍能稳定分流到复合场景并交给正确的下游 skill。",
+  "expected": {
+    "primary_phase": "FIX",
+    "primary_scene": "SCENE-07",
+    "secondary_scenes": ["SCENE-02", "SCENE-03", "SCENE-01"],
+    "next_scene_refs": [
+      "../hmos-multidevice-fold-state/SKILL.md",
+      "../hmos-multidevice-avoid-areas/SKILL.md",
+      "../hmos-multidevice-screen-window-size/SKILL.md"
+    ],
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "primary_scene",
+      "secondary_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "suspected_root_domain",
+      "linked_regression_domains",
+      "handoff_priority"
+    ],
+    "forbidden_scenes": ["SCENE-05", "SCENE-06"]
+  },
+  "solution_contract": {
+    "must_cover": [
+      "必须把折叠态、键盘避让和窗口同步拆成可追踪的修复域。",
+      "必须给出主次场景的接手顺序。",
+      "必须指出哪些场景需要联合回归。"
+    ],
+    "should_reuse_resources": [
+      "./SKILL.md",
+      "../hmos-multidevice-fold-state/SKILL.md",
+      "../hmos-multidevice-avoid-areas/SKILL.md",
+      "../hmos-multidevice-screen-window-size/SKILL.md"
+    ],
+    "forbidden_patterns": [
+      "把问题误判为单纯布局调整。",
+      "忽略键盘避让，只讨论折叠态布局。"
+    ]
+  },
+  "execution_contract": {
+    "execution_type": "routing_only",
+    "target_project_type": "Skill 路由验证，不直接进入 HarmonyOS 工程编译",
+    "compile_command_template": "",
+    "test_command_template": "",
+    "runtime_assertions": [
+      "真实业务表述下仍输出 SCENE-07 作为主场景。",
+      "必须带出 FOLD、AVOID、SIZE 三个下游场景。",
+      "输出可以直接交给后续功能测试和真实案例验证。"
+    ],
+    "pass_evidence": [
+      "submission JSON",
+      "场景交接顺序",
+      "需要联合回归的场景列表"
+    ]
+  }
+}

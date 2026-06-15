@@ -1,0 +1,324 @@
+[
+  {
+    "api_name": "media.createAVPlayer",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateAVPlayer",
+    "impl_func": "AVPlayerNapi::JsCreateAVPlayer",
+    "impl_file": "frameworks/js/avplayer/avplayer_napi.cpp"
+  },
+  {
+    "api_name": "AVPlayer.prepare",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsPrepare",
+    "impl_func": "PlayerServer::Prepare",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.play",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsPlay",
+    "impl_func": "PlayerServer::Play",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.pause",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsPause",
+    "impl_func": "PlayerServer::Pause",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.stop",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsStop",
+    "impl_func": "PlayerServer::Stop",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.reset",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsReset",
+    "impl_func": "PlayerServer::Reset",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.release",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsRelease",
+    "impl_func": "PlayerServer::Release",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.seek",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSeek",
+    "impl_func": "PlayerServer::Seek",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.setVolume",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetVolume",
+    "impl_func": "PlayerServer::SetVolume",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.setSpeed",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetSpeed",
+    "impl_func": "PlayerServer::SetPlaybackSpeed",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.url (setter)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetUrl",
+    "impl_func": "PlayerServer::SetSource",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.fdSrc (setter)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetAVFileDescriptor",
+    "impl_func": "PlayerServer::SetSource",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.dataSrc (setter)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetDataSrc",
+    "impl_func": "PlayerServer::SetSource",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.surfaceId (setter)",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetSurfaceID",
+    "impl_func": "PlayerServer::SetVideoSurface",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.selectBitrate",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSelectBitrate",
+    "impl_func": "PlayerServer::SelectBitrate",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.setLooping",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsSetLooping",
+    "impl_func": "PlayerServer::SetLooping",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.on('stateChange')",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsOn",
+    "impl_func": "EventManager::AddListener",
+    "impl_file": "frameworks/js/avplayer/avplayer_napi.cpp"
+  },
+  {
+    "api_name": "AVPlayer.on('error')",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsOn",
+    "impl_func": "EventManager::AddListener",
+    "impl_file": "frameworks/js/avplayer/avplayer_napi.cpp"
+  },
+  {
+    "api_name": "AVPlayer.addSubtitleUrl",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsAddSubtitleUrl",
+    "impl_func": "PlayerServer::AddSubtitles",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "AVPlayer.getMediaKeySystemInfo",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVPlayerNapi::JsGetMediaKeySystemInfo",
+    "impl_func": "PlayerServer::GetMediaKeySystemInfo",
+    "impl_file": "services/services/player/server/player_server.cpp"
+  },
+  {
+    "api_name": "media.createAVRecorder",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateAVRecorder",
+    "impl_func": "AVRecorderNapi::JsCreateAVRecorder",
+    "impl_file": "frameworks/js/avrecorder/avrecorder_napi.cpp"
+  },
+  {
+    "api_name": "AVRecorder.prepare",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVRecorderNapi::JsPrepare",
+    "impl_func": "RecorderServer::Prepare",
+    "impl_file": "services/services/recorder/server/recorder_server.cpp"
+  },
+  {
+    "api_name": "AVRecorder.start",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVRecorderNapi::JsStart",
+    "impl_func": "RecorderServer::Start",
+    "impl_file": "services/services/recorder/server/recorder_server.cpp"
+  },
+  {
+    "api_name": "AVRecorder.pause",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVRecorderNapi::JsPause",
+    "impl_func": "RecorderServer::Pause",
+    "impl_file": "services/services/recorder/server/recorder_server.cpp"
+  },
+  {
+    "api_name": "AVRecorder.stop",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVRecorderNapi::JsStop",
+    "impl_func": "RecorderServer::Stop",
+    "impl_file": "services/services/recorder/server/recorder_server.cpp"
+  },
+  {
+    "api_name": "AVRecorder.release",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "AVRecorderNapi::JsRelease",
+    "impl_func": "RecorderServer::Release",
+    "impl_file": "services/services/recorder/server/recorder_server.cpp"
+  },
+  {
+    "api_name": "media.createSoundPool",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateSoundPool",
+    "impl_func": "SoundPoolNapi::CreateSoundPool",
+    "impl_file": "frameworks/js/soundpool/soundpool_napi.cpp"
+  },
+  {
+    "api_name": "media.createAVScreenCaptureRecorder",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateAVScreenCaptureRecorder",
+    "impl_func": "AVScreenCaptureNapi::JsCreateAVScreenCaptureRecorder",
+    "impl_file": "frameworks/js/avscreen_capture/avscreen_capture_napi.cpp"
+  },
+  {
+    "api_name": "media.createAVTranscoder",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateAVTranscoder",
+    "impl_func": "AVTransCoderNapi::JsCreateAVTranscoder",
+    "impl_file": "frameworks/js/avtranscoder/avtranscoder_napi.cpp"
+  },
+  {
+    "api_name": "media.createMediaSourceWithUrl",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateMediaSourceWithUrl",
+    "impl_func": "MediaSourceNapi::JsCreateMediaSourceWithUrl",
+    "impl_file": "frameworks/js/mediasource/mediasource_napi.cpp"
+  },
+  {
+    "api_name": "media.createAVMetadataExtractor",
+    "d_ts_file": "api/interface_sdk-js/api/@ohos.multimedia.media.d.ts",
+    "napi_func": "MediaCreateAVMetadataExtractor",
+    "impl_func": "AVMetadataHelperNapi::JsCreateAVMetadataHelper",
+    "impl_file": "frameworks/js/metadatahelper/avmetadatahelper_napi.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Create",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Create",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetURLSource",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetURLSource",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetFDSource",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetFDSource",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Prepare",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Prepare",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Play",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Play",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Pause",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Pause",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Stop",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Stop",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Seek",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Seek",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetVolume",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetVolume",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetSpeed",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetSpeed",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetLooping",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetLooping",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SetSurfaceID",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SetSurfaceID",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_SelectBitrate",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_SelectBitrate",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Reset",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Reset",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  },
+  {
+    "api_name": "OH_AVPlayer_Release",
+    "d_ts_file": "api/interface_sdk_c/multimedia/player_framework/avplayer.h",
+    "napi_func": null,
+    "impl_func": "OH_AVPlayer_Release",
+    "impl_file": "frameworks/native/capi/player/native_avplayer.cpp"
+  }
+]

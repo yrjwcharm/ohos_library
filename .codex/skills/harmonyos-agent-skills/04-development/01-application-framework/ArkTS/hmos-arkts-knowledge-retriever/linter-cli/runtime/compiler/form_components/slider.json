@@ -1,0 +1,8 @@
+{
+  "name": "Slider",
+  "atomic": true,
+  "attrs": [
+    "blockColor", "trackColor", "selectedColor", "showSteps", "showTips", "trackThickness",
+    "onChange"
+  ]
+}

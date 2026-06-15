@@ -1,0 +1,13 @@
+{
+  "name": "Text",
+  "children": ["Span", "ImageSpan", "ContainerSpan", "SymbolSpan"],
+  "attrs": [
+    "fontColor", "fontSize", "fontStyle", "fontWeight", "textAlign", "lineHeight", "textOverflow",
+    "maxLines", "decoration", "letterSpacing", "textCase", "baselineOffset", "minFontSize",
+    "maxFontSize", "copyOption", "textIndent","font", "fontFamily", "textShadow", "heightAdaptivePolicy",
+    "wordBreak", "selection", "ellipsisMode", "enableDataDetector", "dataDetectorConfig", "bindSelectionMenu",
+    "fontFeature", "lineSpacing", "privacySensitive", "lineBreakStrategy", "textSelectable", "editMenuOptions",
+    "minFontScale", "maxFontScale", "halfLeading", "enableHapticFeedback", "caretColor", "selectedBackgroundColor",
+    "onCopy", "onTextSelectionChange", "closeSelectionMenu", "setStyledString", "getLayoutManager", "marqueeOptions"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Span",
+  "atomic": true,
+  "attrs": [
+    "fontColor", "fontSize", "fontStyle", "fontFamily", "fontWeight", "decoration", "letterSpacing",
+    "textCase"
+  ]
+}

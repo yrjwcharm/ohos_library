@@ -1,0 +1,4 @@
+{
+  "name": "NavRouter",
+  "attrs": ["onStateChange", "mode"]
+}

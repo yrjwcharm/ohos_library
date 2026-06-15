@@ -1,0 +1,7 @@
+{
+    "name": "UnionEffectContainer",
+    "attrs": [
+        "pointLight"
+    ],
+    "systemApi": true
+}

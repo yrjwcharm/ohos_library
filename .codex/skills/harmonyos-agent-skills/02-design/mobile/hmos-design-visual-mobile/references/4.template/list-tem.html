@@ -1,0 +1,259 @@
+<!--
+  list Template
+  Variables (Template Contract):
+  - {{variant}}: single | icondot | iconsingle | 2lines | icon2lines | 3lines
+  - {{left-layout}}: vertical | horizontal | horizontal-sm
+  - {{left-content}}: HTML snippet — 左内容区完整 HTML（含 title/aux/appicon/dot 叶变量组装）
+    叶变量（在 {{left-content}} 内部消费）：
+      - {{title}}: 左标题文本（16px Medium）
+      - {{aux1}}: 第一行辅助文本（14px Regular）
+      - {{aux2}}: 第二行辅助文本（14px Regular），仅 3lines variant
+      - {{appicon-src}}: AppIcon 图片路径（仅 iconsingle / icon2lines variant）
+      - {{appicon-alt}}: AppIcon 图片 alt 文本
+  - {{right-text}}: 右侧文本内容（14px Regular）
+  - {{right-clamp}}: 右侧文本行数类名 '' | ' harmony-list__right-text--clamp2'
+  - {{right-icon}}: HTML snippet — 右侧图标（chevron HMSymbol 或 arrow-down CSS triangle）
+-->
+<style>
+/* Token 引入：继承 harmony-tokens.css 的语义变量 */
+
+/* 组件级 token */
+:root {
+  --harmony-list-dot-color: #46B1E3;
+}
+
+.harmony-list {
+  width: 328px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ---- Heights (variant → 尺寸) ---- */
+.harmony-list-single    { height: 48px; }
+.harmony-list-icondot   { height: 56px; }
+.harmony-list-iconsingle { height: 64px; gap: 0; }
+.harmony-list-2lines    { height: 64px; }
+.harmony-list-icon2lines { height: 72px; gap: 0; }
+.harmony-list-3lines    { height: 96px; }
+
+/* ---- Left ---- */
+.harmony-list__left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  position: relative;
+}
+
+.harmony-list__left--vertical {
+  flex-direction: column;
+  gap: 2px;
+}
+
+.harmony-list__left--horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.harmony-list__left--horizontal-sm {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Left padding per variant */
+.harmony-list-single .harmony-list__left     { padding: 13px 0; }
+.harmony-list-icondot .harmony-list__left    { padding: 17px 0; }
+.harmony-list-iconsingle .harmony-list__left  { padding: 8px 0; }
+.harmony-list-2lines .harmony-list__left     { padding: 10px 0; }
+.harmony-list-icon2lines .harmony-list__left  { padding: 12px 0; }
+
+/* ---- Text slots ---- */
+.harmony-list__title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  color: var(--harmony-font-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.harmony-list__aux {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: var(--harmony-font-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.harmony-list__text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* ---- App Icon (48×48 r=12) ---- */
+.harmony-list__appicon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--harmony-comp-background-tertiary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.harmony-list__appicon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Right ---- */
+.harmony-list__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Right content fill-height for absolute-divider variants */
+.harmony-list-iconsingle .harmony-list__right,
+.harmony-list-icon2lines .harmony-list__right,
+.harmony-list-icondot .harmony-list__right {
+  align-self: stretch;
+  padding: 12px 0;
+}
+
+.harmony-list__right-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  color: var(--harmony-font-secondary);
+  text-align: right;
+  max-width: 96px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.harmony-list__right-text--clamp2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ---- Dividers ---- */
+.harmony-list__divider--right {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--harmony-comp-divider);
+}
+
+.harmony-list__divider--left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--harmony-comp-divider);
+}
+
+/* iconsingle: left divider skips 48px icon + 16px gap */
+.harmony-list-iconsingle .harmony-list__divider--left {
+  left: 64px;
+  width: calc(100% - 64px);
+}
+
+/* icondot: left divider skips 8px dot + 12px gap */
+.harmony-list-icondot .harmony-list__divider--left {
+  left: 20px;
+  width: calc(100% - 20px);
+}
+
+/* ---- Icons ---- */
+.hm-list-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HMSymbol", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+/* chevron_right: 12×24 */
+.hm-list-icon--chevron {
+  font-size: 24px;
+  width: 12px;
+  height: 24px;
+  color: var(--harmony-icon-tertiary);
+}
+
+/* arrow_down: CSS triangle 8×6 */
+.hm-list-icon--arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid var(--harmony-icon-tertiary);
+}
+
+/* dot: CSS circle 8×8 */
+.hm-list-icon--dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--harmony-list-dot-color, #46B1E3);
+  flex-shrink: 0;
+}
+
+/* ---- Anti-stretch ---- */
+.harmony-list [class*="icon"],
+.harmony-list [class*="arrow"],
+.harmony-list [class*="appicon"],
+.harmony-list .harmony-list__appicon img {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* ---- Interactive states ---- */
+.harmony-list:hover {
+  background: var(--harmony-interactive-hover);
+}
+
+.harmony-list:active {
+  background: var(--harmony-interactive-pressed);
+}
+</style>
+
+<div class="harmony-list harmony-list-{{variant}}" data-component="list" data-figma-node-id="102:1852">
+  <div class="harmony-list__left harmony-list__left--{{left-layout}}">
+    {{left-content}}
+    <div class="harmony-list__divider--left"></div>
+  </div>
+  <div class="harmony-list__right">
+    <span class="harmony-list__right-text{{right-clamp}}">{{right-text}}</span>
+    {{right-icon}}
+    <div class="harmony-list__divider--right"></div>
+  </div>
+</div>

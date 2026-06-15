@@ -1,0 +1,8 @@
+{
+    "name": "GridCol",
+    "parents": ["GridRow"],
+    "single": true,
+    "attrs": [
+        "span", "offset", "order"
+    ]
+}

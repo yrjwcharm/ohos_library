@@ -1,0 +1,8 @@
+{
+  "name":"Select",
+  "attrs":["selected", "value", "font", "fontColor", "selectedOptionBgColor", "selectedOptionFont",
+    "selectedOptionFontColor", "optionBgColor", "optionFont", "optionFontColor", "onSelect", "menuAlign",
+    "optionWidth", "optionHeight", "controlSize", "menuItemContentModifier", "divider", "menuBackgroundColor",
+    "menuBackgroundBlurStyle", "arrowPosition", "space", "showInSubWindow", "showDefaultSelectedIcon"
+  ]
+}

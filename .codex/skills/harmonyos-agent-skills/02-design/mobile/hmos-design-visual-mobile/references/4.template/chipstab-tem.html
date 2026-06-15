@@ -1,0 +1,280 @@
+<!--
+  chipstab Template
+
+  Variables (Template Contract):
+  - {{variant}}: tab | tab-with-icon | icontab
+  - {{chips}}：chip 列表数组，每个 chip 对象包含：
+    - {{title}}：标题文本（必填）
+    - {{isActivated}}：布尔（true → class is-activated）
+    - {{icon}}：star_fill glyph（可选，仅 icontab 变体使用）
+  - {{showIconBtn}}：布尔（true → 渲染 .more icon button）
+-->
+
+<style>
+/*
+  引用语义 token：统一从 harmony-tokens.css 消费
+  模板路径 references/4.template/chipstab-tem.html，相对路径需回退 3 级
+*/
+@import url("../../../references/2.theme/harmony-tokens.css");
+
+/* === HMSymbol font === */
+@font-face {
+  font-family: "HM Symbol-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMSymbolVF_1.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Compat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiCompat.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HMOS Color Emoji Flags";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../../assets/HMOSColorEmojiFlags.ttf") format("truetype");
+  unicode-range: U+1F1E6-1F1FF;
+}
+
+/* === 组件级 token（MCP DSL localStyleMap 归一值） === */
+:root {
+  /* 底板：activated = 70:907 Light/Floating_backgrount_emphasize；enable = 97:18248 Light/Blur/Material_background_ULTRA_THIN */
+  --chipstab-activated-bg: #0091FF;
+  --chipstab-enable-bg: rgba(255, 255, 255, 0.05);
+
+  /* 文字：activated = 36:3774 / 97:18241；enable = 36:1903 / 97:18242 */
+  --chipstab-activated-title: rgba(255, 255, 255, 1);
+  --chipstab-activated-num: rgba(255, 255, 255, 0.4);
+  --chipstab-enable-title: rgba(0, 0, 0, 0.6);
+  --chipstab-enable-num: rgba(0, 0, 0, 0.4);
+
+  /* icon-btn 的 .more (dot_grid_2x2)：36:1904 Light/icon_primary */
+  --chipstab-icon-color: rgba(0, 0, 0, 0.898);
+
+  /* star_fill（icontab chip 内）：enable = 70:890 Light/icon_secondary；activated = 36:3776 Light/icon_on_primary */
+  --chipstab-icon-secondary: rgba(0, 0, 0, 0.6);
+  --chipstab-icon-on-primary: rgba(255, 255, 255, 1);
+
+  /* 效果：97:18249 Light/Blur/Material_ULTRA_THIN */
+  --chipstab-shadow: 0 8px 48px rgba(0, 0, 0, 0.08);
+  --chipstab-glass-blur: blur(8px);
+
+  /* 几何 */
+  --chipstab-container-w: 360px;
+  --chipstab-container-h: 56px;
+  --chipstab-chip-h: 36px;
+  --chipstab-chip-r: 20px;
+  --chipstab-chip-gap: 8px;
+  --chipstab-chip-content-gap: 6px;
+  --chipstab-chip-padding: 8px 16px;
+  --chipstab-num-size: 12px;
+  --chipstab-title-size: 16px;
+  --chipstab-icon-btn-size: 40px;
+
+  /* 字体 */
+  --chipstab-font: "HarmonyHeiTi", "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+}
+
+/* === ChipStab Container === */
+/*
+  DSL: 类型=icontab 组件 97:18126 / tab 97:18108 / tab-with-icon 97:18117
+  Size: 360×56, padding: 10px 12px, gap: 8px
+*/
+.harmony-chipstab {
+  width: var(--chipstab-container-w);
+  height: var(--chipstab-container-h);
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  gap: var(--chipstab-chip-gap);
+  overflow: hidden;
+  flex-shrink: 0;
+  font-family: var(--chipstab-font);
+}
+
+/* === Chip Item === */
+/*
+  DSL: 状态=activated/状态=enable 组件 97:18204
+  Size: auto-w × 36px, radius: 20px, padding: 8px 16px, gap: 6px
+  autoLayout: HORIZONTAL, RESIZE_TO_FIT
+*/
+.harmony-chipstab__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--chipstab-chip-content-gap);
+  width: auto;
+  height: var(--chipstab-chip-h);
+  padding: var(--chipstab-chip-padding);
+  border-radius: var(--chipstab-chip-r);
+  flex-shrink: 0;
+  cursor: pointer;
+  font-family: inherit;
+  border: 0;
+  background: var(--chipstab-enable-bg);
+  box-shadow: var(--chipstab-shadow);
+  backdrop-filter: var(--chipstab-glass-blur);
+  -webkit-backdrop-filter: var(--chipstab-glass-blur);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Activated state */
+.harmony-chipstab__chip.is-activated {
+  background: var(--chipstab-activated-bg);
+}
+
+/* === Chip Text === */
+.harmony-chipstab__chip-num {
+  font-size: var(--chipstab-num-size);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.harmony-chipstab__chip-title {
+  font-size: var(--chipstab-title-size);
+  line-height: 1;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Enable text colors */
+.harmony-chipstab__chip .harmony-chipstab__chip-num { color: var(--chipstab-enable-num); }
+.harmony-chipstab__chip .harmony-chipstab__chip-title { color: var(--chipstab-enable-title); }
+
+/* Activated text colors */
+.harmony-chipstab__chip.is-activated .harmony-chipstab__chip-num { color: var(--chipstab-activated-num); }
+.harmony-chipstab__chip.is-activated .harmony-chipstab__chip-title { color: var(--chipstab-activated-title); }
+
+/* === Chip Icon (star_fill, 16×16) === */
+/*
+  DSL: .TV symbol (97:18234) — star_fill glyph F0009
+  icontab: 始终可见；tab/tab-with-icon: 隐藏
+*/
+.harmony-chipstab__chip-icon {
+  width: 16px; height: 16px;
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--chipstab-activated-title);
+}
+
+/* icontab: star 始终可见 */
+.harmony-chipstab-icontab .harmony-chipstab__chip-icon { display: flex; }
+.harmony-chipstab-icontab .harmony-chipstab__chip-icon { order: -1; } /* 视觉居左 */
+
+.harmony-chipstab-icontab .harmony-chipstab__chip:not(.is-activated) .harmony-chipstab__chip-icon {
+  color: var(--chipstab-icon-secondary);
+}
+
+.harmony-chipstab-icontab .harmony-chipstab__chip.is-activated .harmony-chipstab__chip-icon {
+  color: var(--chipstab-icon-on-primary);
+}
+
+/* tab / tab-with-icon: star 隐藏 */
+.harmony-chipstab-tab .harmony-chipstab__chip-icon,
+.harmony-chipstab-tab-with-icon .harmony-chipstab__chip-icon { display: none; }
+
+/* === Icon Button (.more / dot_grid_2x2) === */
+/*
+  DSL: 3.Icon Button 36:1798 — 40×40 circle
+  仅在 tab-with-icon 变体显示
+*/
+.harmony-chipstab__icon-btn {
+  width: var(--chipstab-icon-btn-size);
+  height: var(--chipstab-icon-btn-size);
+  border-radius: 50%;
+  background: var(--chipstab-enable-bg);
+  box-shadow: var(--chipstab-shadow);
+  backdrop-filter: var(--chipstab-glass-blur);
+  -webkit-backdrop-filter: var(--chipstab-glass-blur);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: var(--chipstab-icon-color);
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.2s ease;
+}
+
+.harmony-chipstab-tab-with-icon .harmony-chipstab__icon-btn { display: flex; }
+
+/* === HMSymbol glyph === */
+.hm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "HM Symbol-Regular", "HarmonyOS Sans SC", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  color: currentColor;
+  pointer-events: none;
+}
+
+.hm-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family:
+    "HMOS Color Emoji Flags",
+    "HMOS Color Emoji Compat",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Noto Color Emoji",
+    sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.hm-24 { font-size: 24px; width: 24px; height: 24px; }
+.hm-16 { font-size: 16px; width: 16px; height: 16px; }
+</style>
+
+<!--
+  Root Element
+  data-component="chipstab" 为必需 trace 属性
+  harmony-chipstab-{{variant}} 枚举值为 tab | tab-with-icon | icontab
+
+  Usage:
+  - {{variant}}: 变体枚举，控制 icon / icon-btn 显隐
+  - {{chips}}: 数组，每个 chip 包含 {{title}}、{{isActivated}}（布尔）、{{icon}}（可选, star_fill glyph，仅 icontab）
+  - {{showIconBtn}}: 布尔，渲染 .more icon button
+
+  Example render (tab variant, 6 chips):
+  <div class="harmony-chipstab harmony-chipstab-tab" data-component="chipstab" data-figma-node-id="97:18082">
+    <button class="harmony-chipstab__chip is-activated">
+      <span class="harmony-chipstab__chip-title">Title</span>
+    </button>
+    <!-- ... 5 more enable chips ... -->
+  </div>
+-->
+<div class="harmony-chipstab harmony-chipstab-{{variant}}" data-component="chipstab" data-figma-node-id="97:18082">
+  {{#each chips}}
+  <button class="harmony-chipstab__chip{{#if isActivated}} is-activated{{/if}}">
+    {{#if icon}}<span class="harmony-chipstab__chip-icon hm hm-16" aria-hidden="true">&#xF0009;</span>{{/if}}
+    <span class="harmony-chipstab__chip-title">{{title}}</span>
+  </button>
+  {{/each}}
+  {{#if showIconBtn}}
+  <button class="harmony-chipstab__icon-btn" aria-label="更多">
+    <span class="hm hm-24" aria-hidden="true">&#xF0061;</span>
+  </button>
+  {{/if}}
+</div>

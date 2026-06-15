@@ -1,0 +1,8 @@
+<svg viewBox="0 0 26 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26.000000" height="24.000000" fill="none" customFrame="#000000">
+	<rect id="ProgressBar-Loading-Phone" width="24.000000" height="24.000000" x="2.000000" y="0.000000" />
+	<g id="编组">
+		<path id="形状结合" d="M23.5 12C23.5 7.02944 19.4706 3 14.5 3C9.52944 3 5.5 7.02944 5.5 12C5.5 16.9706 9.52944 21 14.5 21C19.4706 21 23.5 16.9706 23.5 12ZM21.5 12C21.5 8.134 18.366 5 14.5 5C10.634 5 7.5 8.134 7.5 12C7.5 15.866 10.634 19 14.5 19C18.366 19 21.5 15.866 21.5 12Z" fill="currentColor" fill-rule="evenodd" />
+		<circle id="椭圆形" cx="2.5" cy="14.5" r="2" fill="currentColor" />
+		<circle id="椭圆形" cx="2" cy="15" r="2" fill="currentColor" />
+	</g>
+</svg>

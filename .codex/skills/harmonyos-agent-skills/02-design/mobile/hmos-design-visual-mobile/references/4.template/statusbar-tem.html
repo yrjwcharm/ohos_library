@@ -1,0 +1,181 @@
+<!--
+  statusbar Template
+  Variables (Template Contract):
+- `{{theme}}`: `light|dark`
+- `{{time}}`: 时间文本
+- `{{wifiIcon}}`: WiFi 图标资源
+- `{{singleCardIcon}}`: 单卡图标资源
+- `{{dualCardIcon}}`: 双卡图标资源
+- `{{batteryIcon}}`: 电池图标资源
+-->
+
+<style>
+/*
+  引用语义 token：统一从 harmony-tokens.css 消费
+  模板路径 references/4.template/statusbar-tem.html，相对路径需回退 3 级
+*/
+@import url("../../../references/2.theme/harmony-tokens.css");
+
+/*
+  DSL 提取的组件级颜色 token
+  Light: icon_primary (36:1904) / font_primary (36:3775) → rgba(0,0,0,0.898)
+  Dark: icon_on_primary (36:3776) / font_on_primary (36:3774) → rgba(255,255,255,1)
+*/
+:root {
+  --statusbar-color-light: rgba(0, 0, 0, 0.898);
+  --statusbar-color-dark: rgba(255, 255, 255, 1);
+}
+
+/*
+  DSL: StatusBar instance (36:3657 Light / 36:3664 Dark)
+  AutoLayout: HORIZONTAL / space-between / center / padding 8/24
+  Size: 360×36
+*/
+.harmony-statusbar {
+  width: 360px;
+  height: 36px;
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  font-family: "HarmonyOS Sans SC", "HarmonyOS Sans", "Noto Sans SC", sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/*
+  DSL: Light variant — fill transparent, 图标/文字 = Light/icon_primary (36:1904) / Light/font_primary (36:3775) rgba(0,0,0,0.898)
+*/
+.harmony-statusbar-light {
+  background: var(--harmony-comp_background_primary);
+  color: var(--statusbar-color-light);
+}
+
+/*
+  DSL: Dark variant — 深色背景, 图标/文字 = Light/icon_on_primary (36:3776) / Light/font_on_primary (36:3774) rgba(255,255,255,1)
+*/
+.harmony-statusbar-dark {
+  background: var(--harmony-comp_background_neutral);
+  color: var(--statusbar-color-dark);
+}
+
+/*
+  DSL: 时间文本 — fontSize=15, lineHeight=20, fontWeight=500, 文本框 40×18
+*/
+.harmony-statusbar-time {
+  width: 40px;
+  min-width: 40px;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/*
+  DSL: 图标组容器 — 96×13 固定槽，非 flex 平分布局
+*/
+.harmony-statusbar-icons {
+  width: 96px;
+  height: 13px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.harmony-statusbar-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+}
+
+/*
+  ========== 图标资源引用链路（Per-Theme Asset Contract）==========
+  Light 变体 → assets/statusbar-*-light.png
+  Dark 变体  → assets/statusbar-*-dark.png
+  每个变体通过 CSS 变量注入自己的 PNG 路径，页面消费端无需感知路径差异。
+*/
+.harmony-statusbar-light {
+  --statusbar-wifi-icon: url("../../../assets/statusbar-wifi-light.png");
+  --statusbar-single-card-icon: url("../../../assets/statusbar-single-card-light.png");
+  --statusbar-dual-card-icon: url("../../../assets/statusbar-dual-card-light.png");
+  --statusbar-battery-icon: url("../../../assets/statusbar-battery-light.png");
+}
+
+.harmony-statusbar-dark {
+  --statusbar-wifi-icon: url("../../../assets/statusbar-wifi-dark.png");
+  --statusbar-single-card-icon: url("../../../assets/statusbar-single-card-dark.png");
+  --statusbar-dual-card-icon: url("../../../assets/statusbar-dual-card-dark.png");
+  --statusbar-battery-icon: url("../../../assets/statusbar-battery-dark.png");
+}
+
+/*
+  DSL: WiFi (36:3711) — 15.344×12.001, left=0.401, top=0.796
+*/
+.harmony-statusbar-icon-wifi {
+  left: 0.401px;
+  top: calc(50% + 0.296px);
+  width: 15.344px;
+  height: 12.001px;
+  background-image: var(--statusbar-wifi-icon);
+}
+
+/*
+  DSL: Single Card — 21.500×12.000, left=21.398, top=0.797
+*/
+.harmony-statusbar-icon-single-card {
+  left: 21.398px;
+  top: calc(50% + 0.297px);
+  width: 21.5px;
+  height: 12px;
+  background-image: var(--statusbar-single-card-icon);
+}
+
+/*
+  DSL: Dual Card — 17.500×12.000, left=47.398, top=0.797
+*/
+.harmony-statusbar-icon-dual-card {
+  left: 47.398px;
+  top: calc(50% + 0.297px);
+  width: 17.5px;
+  height: 12px;
+  background-image: var(--statusbar-dual-card-icon);
+}
+
+/*
+  DSL: Battery/Cell (36:3698) — 25.750×13.000, left=70.250, top=0
+*/
+.harmony-statusbar-icon-battery {
+  left: 70.25px;
+  top: 50%;
+  width: 25.75px;
+  height: 13px;
+  background-image: var(--statusbar-battery-icon);
+}
+
+/*
+  防拉伸约束（强制）
+  所有图标元素锁定 background-size: contain，禁止整图拉伸
+*/
+.harmony-statusbar [class*="icon"],
+.harmony-statusbar [class*="arrow"],
+.harmony-statusbar [class*="thumb"] {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+</style>
+
+<!--
+  Root Element
+  data-component="statusbar" 为必需 trace 属性
+  harmony-statusbar-{{theme}} 枚举值为 light|dark
+-->
+<div class="harmony-statusbar harmony-statusbar-{{theme}}" data-component="statusbar" data-figma-node-id="36:3656">
+  <span class="harmony-statusbar-time">{{time}}</span>
+  <span class="harmony-statusbar-icons">
+    <i class="harmony-statusbar-icon harmony-statusbar-icon-wifi">{{wifiIcon}}</i>
+    <i class="harmony-statusbar-icon harmony-statusbar-icon-single-card">{{singleCardIcon}}</i>
+    <i class="harmony-statusbar-icon harmony-statusbar-icon-dual-card">{{dualCardIcon}}</i>
+    <i class="harmony-statusbar-icon harmony-statusbar-icon-battery">{{batteryIcon}}</i>
+  </span>
+</div>

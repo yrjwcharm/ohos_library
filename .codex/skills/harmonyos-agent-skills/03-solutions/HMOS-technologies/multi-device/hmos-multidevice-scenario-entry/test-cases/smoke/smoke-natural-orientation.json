@@ -1,0 +1,27 @@
+{
+  "case_id": "SCENE-ENTRY-SMOKE-05-001",
+  "layer": "smoke",
+  "title": "总入口路由到自然方向场景",
+  "phase": "REQ",
+  "user_prompt": "设备在横竖屏切换后方向判断不稳定，需要明确自然方向、rotation 值和 setPreferredOrientation 的语义边界。请先给出需求分析设计。",
+  "intent": "验证总入口是否把方向语义问题路由到 SCENE-05。",
+  "expected": {
+    "primary_phase": "REQ",
+    "primary_scene": "SCENE-05",
+    "primary_scene_ref": "../hmos-multidevice-natural-orientation/SKILL.md",
+    "secondary_scenes": ["SCENE-01"],
+    "next_scene_refs": ["../hmos-multidevice-natural-orientation/SKILL.md", "../hmos-multidevice-screen-window-size/SKILL.md"],
+    "required_output_fields": [
+      "active_phases",
+      "primary_phase",
+      "primary_scene",
+      "secondary_scenes",
+      "route_reason",
+      "next_scene_refs",
+      "problem_frame",
+      "device_scope_summary",
+      "routing_focus"
+    ],
+    "forbidden_scenes": ["SCENE-03", "SCENE-06"]
+  }
+}
