@@ -11,13 +11,13 @@
 ***1、添加权限在应用主模块entry/src/main/ets/module.json5下***
 ```typescript
 "requestPermissions": [
-      {
-        "name" : "ohos.permission.INTERNET"
-      },
-      {
-        "name" : "ohos.permission.GET_NETWORK_INFO"
-      },
-    ]
+{
+  "name" : "ohos.permission.INTERNET"
+},
+{
+  "name" : "ohos.permission.GET_NETWORK_INFO"
+},
+]
 ```
 ***2、在应用主模块entry入口EntryAbility onCreate生命周期里下面添加初始化数据库操作***
 
@@ -48,7 +48,7 @@
 ```typescript
 yanruifeng@bogon video % curl -I -H "Range: bytes=0-100" https://dal-video.wenzaizhibo.com/a6dac8c6371a54477a5692f46ea9698e/6825c7da/00-x-upload/video/205971345_ae77bc38ae8b689a5a534e51b3153c8b_Kg3W8sai.mp4
 
-HTTP/1.1 206 Partial Content
+  HTTP/1.1 206 Partial Content
 ```
 ## filedownload相关 API
 | 方法                                                                                         | 介绍                                     |
